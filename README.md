@@ -24,14 +24,14 @@ Pliki w `roles/` są konfigurowane wyłącznie przez użytkownika. Agenci nie ed
 
 ## Typowe zestawy ról
 
-Domeny w `roles/` są celowo drobnoziarniste, żeby dało się je swobodnie komponować. Typowe zestawy przy uruchamianiu agenta:
+Domeny w `roles/` są celowo drobnoziarniste, żeby dało się je swobodnie komponować — stąd nazwy plików w formacie `<persona(-y)>.<domena>.md`: sama nazwa pliku mówi, do której persony należy i jaka jest jej domena. Typowe zestawy przy uruchamianiu agenta (pliki do przekazania, patrz `repository-layout.md`):
 
-| Nazwa robocza | Domeny |
+| Nazwa robocza | Pliki do przekazania |
 |---|---|
-| professor | `decision-maker` (poziom hipotezy) + `researcher` |
-| laborant | `experiment-designer` + `decision-maker` (poziom eksperymentu) + `analyst` |
-| programmer | `implementer`, opcjonalnie + `operator` gdy zadanie obejmuje HPC |
-| critic | `critic` |
-| librarian | `librarian` |
+| professor | `professor-laborant.decision-maker.md` (poziom hipotezy) + `professor.researcher.md` |
+| laborant | `laborant.experiment-designer.md` + `professor-laborant.decision-maker.md` (poziom eksperymentu) + `laborant.analyst.md` |
+| programmer | `programmer.implementer.md`, opcjonalnie + `programmer.operator.md` gdy zadanie obejmuje HPC |
+| critic | `critic.md` |
+| librarian | `librarian.md` |
 
-Nie ma osobnej tożsamości „hpc-assistant" — monitorowanie kolejki i przełączanie klastra to domena `operator`, doklejana do `implementer`, gdy zadanie tego wymaga, albo zlecana samodzielnie innej instancji.
+Nie ma osobnej tożsamości „hpc-assistant" — monitorowanie kolejki i przełączanie klastra to domena `programmer.operator.md`, doklejana do `programmer.implementer.md`, gdy zadanie tego wymaga, albo zlecana samodzielnie innej instancji.

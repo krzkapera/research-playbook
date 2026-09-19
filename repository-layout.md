@@ -20,13 +20,13 @@ project/
   experiments.md
   roles/
     common.md
-    decision-maker.md
-    researcher.md
+    professor.researcher.md
+    professor-laborant.decision-maker.md
+    laborant.experiment-designer.md
+    laborant.analyst.md
+    programmer.implementer.md
+    programmer.operator.md
     critic.md
-    experiment-designer.md
-    implementer.md
-    operator.md
-    analyst.md
     librarian.md
   templates/
     hypothesis.md
