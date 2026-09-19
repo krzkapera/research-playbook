@@ -26,7 +26,7 @@ Te pliki zawierają tylko zasady potrzebne wszystkim rolom.
 | Zakres | Dodatkowe pliki |
 |---|---|
 | hipoteza i decyzja badawcza | `hypotheses.md`, `coordination-flow.md`, bieżący węzeł hipotezy |
-| projekt eksperymentu | `experiments.md`, `coordination-flow.md`, bieżący węzeł hipotezy |
+| projekt eksperymentu | `experiments.md`, `coordination-flow.md`, bieżące węzły hipotezy i eksperymentu |
 | implementacja | `worktrees.md`, bieżące węzły hipotezy i eksperymentu |
 | operator/HPC | `worktrees.md`, bieżący węzeł eksperymentu, wskazany job |
 | analiza wyników | `experiments.md`, bieżące węzły hipotezy i eksperymentu, wskazane artefakty |
