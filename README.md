@@ -18,20 +18,22 @@ Cała dokumentacja `project/*.md` oraz katalogi `common/`, `roles/` i `templates
 
 ## Źródło bieżącej roli
 
-Role w `roles/` są domenowe. Plik roli jest przekazywany agentowi przy uruchomieniu i definiuje jego aktywne obowiązki. Agent nie rozpoznaje roli samodzielnie; z dokumentów projektu ustala tylko bieżący kontekst i zadanie. Jeden agent może mieć wiele ról.
+Przy uruchomieniu przekazujesz agentowi **jeden plik persony**: `roles/professor.md`, `roles/laborant.md`, `roles/programmer.md`, `roles/critic.md` albo `roles/librarian.md`. Agent nie rozpoznaje roli samodzielnie; ustala ją wyłącznie z tego, co przekazałeś. Jeden agent może mieć wiele person naraz (patrz `model-assignment.md` — okrojony skład).
+
+Plik persony jest jednak tylko punktem wejścia. Dla professora, laboranta i programisty odsyła dalej do właściwych plików domenowych w `roles/` (bo te domeny bywają współdzielone albo opcjonalne — patrz "Domeny" niżej); critic i librarian są jednodomenowe, więc ich plik persony i plik domenowy to to samo. Agent czyta plik persony, a potem — sam, ze swoim dostępem do plików — wszystko, do czego on odsyła.
 
 Pliki w `roles/` są konfigurowane wyłącznie przez użytkownika. Agenci nie edytują ich.
 
-## Typowe zestawy ról
+## Domeny pod personami
 
-Domeny w `roles/` są celowo drobnoziarniste, żeby dało się je swobodnie komponować — stąd nazwy plików w formacie `<persona(-y)>.<domena>.md`: sama nazwa pliku mówi, do której persony należy i jaka jest jej domena. Typowe zestawy przy uruchamianiu agenta (pliki do przekazania, patrz `repository-layout.md`):
+Domeny w `roles/` są celowo drobnoziarniste, żeby dało się je swobodnie komponować — stąd nazwy plików domenowych w formacie `<persona(-y)>.<domena>.md`: sama nazwa pliku mówi, do której persony należy i jaka jest jej domena.
 
-| Nazwa robocza | Pliki do przekazania |
-|---|---|
-| professor | `professor-laborant.decision-maker.md` (poziom hipotezy) + `professor.researcher.md` |
-| laborant | `laborant.experiment-designer.md` + `professor-laborant.decision-maker.md` (poziom eksperymentu) + `laborant.analyst.md` |
-| programmer | `programmer.implementer.md`, opcjonalnie + `programmer.operator.md` gdy zadanie obejmuje HPC |
-| critic | `critic.md` |
-| librarian | `librarian.md` |
+| Persona | Plik persony | Domeny, do których odsyła |
+|---|---|---|
+| professor | `professor.md` | `professor-laborant.decision-maker.md` (poziom hipotezy) + `professor.researcher.md` |
+| laborant | `laborant.md` | `laborant.experiment-designer.md` + `professor-laborant.decision-maker.md` (poziom eksperymentu) + `laborant.analyst.md` |
+| programmer | `programmer.md` | `programmer.implementer.md`, opcjonalnie + `programmer.operator.md` gdy zadanie obejmuje HPC |
+| critic | `critic.md` | (jednodomenowa) |
+| librarian | `librarian.md` | (jednodomenowa) |
 
 Nie ma osobnej tożsamości „hpc-assistant" — monitorowanie kolejki i przełączanie klastra to domena `programmer.operator.md`, doklejana do `programmer.implementer.md`, gdy zadanie tego wymaga, albo zlecana samodzielnie innej instancji.

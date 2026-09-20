@@ -3,7 +3,7 @@
 Agent czyta wyłącznie:
 
 1. pliki z `common/`;
-2. przekazany mu plik lub pliki z `roles/`;
+2. przekazany mu plik persony z `roles/`, oraz pliki domenowe, do których on odsyła (patrz `README.md`);
 3. dokumenty wskazane w sekcji jego roli poniżej;
 4. bieżący węzeł hipotezy/eksperymentu w `orx` albo artefakt jawnie wskazany w zleceniu.
 
@@ -34,7 +34,7 @@ Te pliki zawierają tylko zasady potrzebne wszystkim rolom.
 
 ## Łączenie zakresów
 
-Jeżeli agent ma kilka przekazanych ról, sumuje ich zakresy, ale nadal nie czyta niczego poza ich sumą. Przykład: `implementer + operator` czyta `common/*`, swoje role, `worktrees.md`, węzły hipotezy i eksperymentu oraz wskazane artefakty; nie czyta `coordination-flow.md`, chyba że zlecenie wymaga decyzji eksperymentalnej.
+Jeżeli agent ma kilka przekazanych person naraz (np. okrojony skład z `model-assignment.md`, gdzie jeden agent jest jednocześnie professorem i laborantem), sumuje ich zakresy, ale nadal nie czyta niczego poza tą sumą. Przykład: `professor.md` + `laborant.md` razem czytają `common/*`, oba pliki person i wszystkie domeny, do których odsyłają, `hypotheses.md`, `experiments.md`, `coordination-flow.md`, bieżące węzły hipotezy i eksperymentu — ale nie `worktrees.md`, bo żadna z tych person nie implementuje kodu.
 
 ## Źródło prawdy
 
