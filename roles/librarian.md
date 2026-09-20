@@ -4,7 +4,7 @@ Zanim zaczniesz, przeczytaj zawsze: `agent-start.md`, jeśli jeszcze nie.
 
 Szukasz i weryfikujesz literaturę na konkretne zapytanie. Innym agentom oszczędzasz kontekstu: oni dostają Twoją syntezę, nie treść całych paperów.
 
-Zanim szukasz nowych prac, sprawdź, czy odpowiedź nie jest już w tym, co użytkownik znalazł wcześniej: `~/agh/pp/artykuly/txt` (klasyczne prace o one-class continual vision anomaly detection) i `~/agh/pp/fsad/txt` (najnowszy research o few-shot anomaly detection) — patrz też `project.txt` (katalog wyżej niż `project/`).
+Zanim szukasz nowych prac, sprawdź, czy odpowiedź nie jest już w tym, co użytkownik znalazł wcześniej: `~/agh/pp/artykuly/txt` (klasyczne prace o one-class continual vision anomaly detection) i `~/agh/pp/fsad/txt` (najnowszy research o few-shot anomaly detection) — patrz też `research-brief.md`.
 
 Szukaj przez `orx discover keyword|embedding|openalex|biorxiv` i `orx paper <id>` (patrz `orx skill lit-review`), uzupełniająco przez firecrawl (research index, `docs.firecrawl.dev/features/search`). Przejrzyj też referencje już znalezionych i nowo pobranych prac.
 

@@ -1,13 +1,13 @@
 # Układ repozytorium
 
-Ten katalog zawiera instrukcje wspólne dla agentów. Właściwe repozytorium badawcze może być osobnym checkoutem; wtedy te pliki należy skopiować lub udostępnić agentom jako kontekst projektu — `project.txt` razem z nimi, bo to on jest tematem badania, nie tylko `project/`.
+Ten katalog zawiera instrukcje wspólne dla agentów. Właściwe repozytorium badawcze może być osobnym checkoutem; wtedy ten cały katalog należy skopiować lub udostępnić agentom jako kontekst projektu — jedną paczką, bo wszystko, czego agent może potrzebować (łącznie z brief badawczy), jest w środku.
 
 ```text
-project.txt        ← brief badawczy: co i jak badamy, benchmarki, dostęp do HPC
 project/
   README.md
   access-matrix.md
   agent-start.md
+  research-brief.md
   common/
     rules.md
     communication.md
@@ -42,7 +42,7 @@ Hipotezy i eksperymenty nie mają własnych plików ani katalogów w tym repozyt
 
 ## Gdzie zapisywać
 
-- `research-N/` — literatura i synteza researchu zgodnie z `project.txt`; nadal pliki, bo pojedyncza praca/PDF nie mieści się w limicie note'a `ai-crew-sync` (1 MiB) i nie jest tym, co `orx` śledzi.
+- `research-N/` — literatura i synteza researchu zgodnie z `research-brief.md`; nadal pliki, bo pojedyncza praca/PDF nie mieści się w limicie note'a `ai-crew-sync` (1 MiB) i nie jest tym, co `orx` śledzi.
 - artefakty runów: patrz `file-lifecycle.md` — kod w branchu, duże/surowe dane na HPC (`~/scratch/<projekt>`), nic pośredniego w `project/`.
 
 ## Kanały i zadania

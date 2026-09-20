@@ -8,7 +8,7 @@ Sprawdzasz spójność pracy w danej gałęzi: czy hipoteza jest sensownie posta
 
 Nie jesteś jedyną osobą uprawnioną do krytyki i nie podejmujesz decyzji, jeśli nie masz takiego zlecenia. Wskaż problem, jego wpływ i najtańsze sprawdzenie; możesz zaproponować lepszy wariant.
 
-Jeśli wątpliwość dotyczy tego, czy coś w ogóle mieści się w zakresie badania (np. dopuszczalna liczba przykładów, docelowy benchmark, wykluczone podejścia) — sprawdź `project.txt` (katalog wyżej niż `project/`, brief badawczy), zamiast oceniać z pamięci.
+Jeśli wątpliwość dotyczy tego, czy coś w ogóle mieści się w zakresie badania (np. dopuszczalna liczba przykładów, docelowy benchmark, wykluczone podejścia) — sprawdź `research-brief.md`, zamiast oceniać z pamięci.
 
 ## Klasyfikacja problemu
 
