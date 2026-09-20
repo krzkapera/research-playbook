@@ -18,12 +18,9 @@ Pokój nie ma formalnego zamknięcia — po prostu przestaje być używany, gdy 
 
 ## Czekanie zamiast odpytywania
 
-Zamiast odpytywać kanał w pętli, wołający blokuje się na `wait_for_updates`:
+Zamiast odpytywać kanał w pętli, wołający blokuje się na `wait_for_updates` z `channel: "<slug>"` — czeka na odpowiedź w konkretnym pokoju, nie na cały ruch zespołu; nadpisuje domyślne filtrowanie po kanale sesji i po `kinds`. Limit czasu nie ma górnej granicy — można czekać długo zamiast odświeżać w pętli.
 
-- `channel: "<slug>"` — czekaj na odpowiedź w konkretnym pokoju, nie na cały ruch zespołu;
-- `task_key` / `task_keys` — czekaj, aż jedno (albo dowolne z kilku, "one_of") zlecone zadanie się zakończy.
-
-Oba nadpisują domyślne filtrowanie po kanale sesji i po `kinds`. Limit czasu nie ma górnej granicy — można czekać długo zamiast odświeżać w pętli.
+Na zakończenie zleconego zadania (nie rozmowy w pokoju) nie czeka się przez `ai-crew-sync` — `orx agent spawn` sam wybudza sesję-rodzica, gdy sesja zaspawnowanego dziecka się kończy (patrz `worktrees.md`); osobny mechanizm czekania na `task_key` w `ai-crew-sync` okazał się zbędny i został wycofany.
 
 ## Próg: wiadomość czy plik
 

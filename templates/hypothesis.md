@@ -13,7 +13,9 @@ Treść tego szablonu wpisz do `description` węzła `orx` (`orx exp desc --stdi
 
 ## Hipoteza alternatywna
 
-## Argumenty przeciw i niepewności
+## Argumenty za i przeciw, niepewności
+
+## Otwarte pytania
 
 ## Powiązane eksperymenty
 

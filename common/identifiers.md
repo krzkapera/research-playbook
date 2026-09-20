@@ -1,6 +1,6 @@
 # Wspólne identyfikatory
 
-`orx` nadaje każdemu węzłowi własny, wewnętrzny `id` — to jego, nie slug, wymagają `orx exp status/desc/run/cancel/wake/wait` i `--parent`. Slug (np. `lora-rank-vs-shots`) jest naszą czytelną nazwą: nadaje się przy tworzeniu (`orx create-experiment <project_id> --title "..."`), staje się nazwą brancha (`orx/<slug>`) i kanału `ai-crew-sync` — ale to nie jest to samo, co przyjmują komendy `orx`.
+`orx` nadaje każdemu węzłowi własny, wewnętrzny `id` — to właśnie `id`, nie slug, przyjmują `orx exp status/desc/run/cancel/wake/wait` oraz `--parent`. Slug (np. `lora-rank-vs-shots`) jest naszą czytelną nazwą: nadaje się przy tworzeniu (`orx create-experiment <project_id> --title "..."`), staje się nazwą brancha (`orx/<slug>`) i kanału `ai-crew-sync` — ale to nie jest to samo, co przyjmują komendy `orx`.
 
 Zaraz po utworzeniu węzła zapisz jego `id` (komenda go wypisuje) — np. jako pierwszą linię `description` albo w metadanych zadania, którego dotyczy. Jeśli go zabraknie, znajdź go przez `orx project view <project_id>`: lista pokazuje `id`, tytuł i branch `orx/<slug>` każdego węzła.
 

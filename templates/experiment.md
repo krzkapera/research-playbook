@@ -22,7 +22,9 @@ Co robimy i jaki wynik rozróżni rozważane wyjaśnienia?
 - liczba przykładów:
 - seed/powtórzenia:
 - metryki:
+- kryterium porównania:
 - zasoby:
+- plan analizy:
 
 ## Artefakty
 

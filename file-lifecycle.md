@@ -25,7 +25,7 @@ Hipotezy i eksperymenty to węzły drzewa `orx` (patrz `hypotheses.md`, `experim
 
 ## Kto edytuje węzeł
 
-Węzeł hipotezy edytuje agent aktualnie pełniący za niego odpowiedzialność (professor/decision-maker na poziomie hipotezy, laborant/experiment-designer na poziomie eksperymentu) — to rola, nie stała tożsamość instancji, bo laborantów i programistów może być wielu naraz. Inni agenci zgłaszają uwagi na kanale węzła; nie edytują go bez przekazania odpowiedzialności (`HANDOFF`).
+Węzeł hipotezy edytuje agent aktualnie pełniący za niego odpowiedzialność (professor/decision-maker na poziomie hipotezy, laborant/experiment-designer na poziomie eksperymentu) — to rola, nie stała tożsamość instancji, bo laborantów i programistów może być wielu naraz. Inni agenci zgłaszają uwagi na kanale węzła; nie edytują go, dopóki właściciel jawnie nie przekaże im odpowiedzialności.
 
 ## Tworzenie hipotezy
 
