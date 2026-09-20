@@ -21,13 +21,9 @@ project/
   roles/
     common.md
     professor.md
-    professor.researcher.md
-    professor-laborant.decision-maker.md
     laborant.md
-    laborant.experiment-designer.md
-    laborant.analyst.md
+    professor-laborant.decision-maker.md
     programmer.md
-    programmer.implementer.md
     programmer.operator.md
     critic.md
     librarian.md
