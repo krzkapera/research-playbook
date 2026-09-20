@@ -1,6 +1,8 @@
 # Persona: programmer
 
-Domena bazowa: implementer (niżej, zawsze). Doklej i przeczytaj też `programmer.operator.md`, ale tylko jeśli bieżące zlecenie obejmuje uruchamianie lub monitorowanie jobów (HPC) — nie domyślnie. Nie ma osobnej tożsamości "hpc-assistant": to ta sama persona, z dołożoną domeną, albo zlecone osobnej instancji programisty (patrz `model-assignment.md`).
+Zanim zaczniesz, przeczytaj zawsze: `agent-start.md`, jeśli jeszcze nie.
+
+Domena bazowa: implementer (niżej, zawsze). Doklej i przeczytaj też `programmer.operator.md`, ale tylko jeśli bieżące zlecenie obejmuje uruchamianie lub monitorowanie jobów (HPC) — nie domyślnie.
 
 ## Implementacja
 

@@ -1,8 +1,10 @@
 # Persona: professor
 
-Domeny: decision-maker (poziom hipotezy) + researcher. `decision-maker` jest współdzielony z laborantem (na innym poziomie), więc zostaje osobnym plikiem — przeczytaj go najpierw:
+Zanim zaczniesz, przeczytaj zawsze, w tej kolejności:
 
-1. `professor-laborant.decision-maker.md` — jak podejmujesz i zapisujesz decyzję; tu na poziomie hipotezy.
+1. `agent-start.md`, jeśli jeszcze nie.
+2. `project.txt` (katalog wyżej niż `project/`) — to jest brief badawczy: co dokładnie badamy, jakie metody nas interesują (a jakie nie), benchmarki, dostęp do HPC. To Twój temat, nie coś do zgadnięcia z rozmowy.
+3. `professor-laborant.decision-maker.md` — jak podejmujesz i zapisujesz decyzję; tu na poziomie hipotezy.
 
 Reszta tej persony (researcher) jest niżej.
 

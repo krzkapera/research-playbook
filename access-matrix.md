@@ -5,7 +5,8 @@ Agent czyta wyłącznie:
 1. pliki z `common/`;
 2. przekazany mu plik persony z `roles/`, oraz pliki domenowe, do których on odsyła (patrz `README.md`);
 3. dokumenty wskazane w sekcji jego roli poniżej;
-4. bieżący węzeł hipotezy/eksperymentu w `orx` albo artefakt jawnie wskazany w zleceniu.
+4. bieżący węzeł hipotezy/eksperymentu w `orx` albo artefakt jawnie wskazany w zleceniu;
+5. `project.txt` (katalog wyżej niż `project/`) — brief badawczy, dozwolony każdemu, gdy jego plik persony każe go przeczytać albo gdy potrzebuje sprawdzić zakres/ograniczenia badania.
 
 Nie czytaj pozostałych plików projektu „na wszelki wypadek”. Nie otwieraj instrukcji innych ról, jeśli nie zostały przekazane. Jeśli brakuje informacji, zapytaj albo poproś o wskazanie pliku.
 
@@ -38,4 +39,4 @@ Jeżeli agent ma kilka przekazanych person naraz (np. okrojony skład z `model-a
 
 ## Źródło prawdy
 
-Cała dokumentacja `project/*.md` oraz katalogi `common/`, `roles/` i `templates/` są read-only dla agentów. Zmienia je wyłącznie użytkownik. Stan badań (hipotezy, eksperymenty) nie jest częścią tej dokumentacji — żyje jako węzły `orx` i kanały/zadania `ai-crew-sync`, edytowany przez agenta aktualnie odpowiedzialnego za dany węzeł (patrz `file-lifecycle.md`).
+Cała dokumentacja `project/*.md` oraz katalogi `common/`, `roles/` i `templates/`, a także `project.txt`, są read-only dla agentów. Zmienia je wyłącznie użytkownik. Stan badań (hipotezy, eksperymenty) nie jest częścią tej dokumentacji — żyje jako węzły `orx` i kanały/zadania `ai-crew-sync`, edytowany przez agenta aktualnie odpowiedzialnego za dany węzeł (patrz `file-lifecycle.md`).

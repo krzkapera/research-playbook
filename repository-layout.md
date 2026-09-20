@@ -1,8 +1,9 @@
 # Układ repozytorium
 
-Ten katalog zawiera instrukcje wspólne dla agentów. Właściwe repozytorium badawcze może być osobnym checkoutem; wtedy te pliki należy skopiować lub udostępnić agentom jako kontekst projektu.
+Ten katalog zawiera instrukcje wspólne dla agentów. Właściwe repozytorium badawcze może być osobnym checkoutem; wtedy te pliki należy skopiować lub udostępnić agentom jako kontekst projektu — `project.txt` razem z nimi, bo to on jest tematem badania, nie tylko `project/`.
 
 ```text
+project.txt        ← brief badawczy: co i jak badamy, benchmarki, dostęp do HPC
 project/
   README.md
   access-matrix.md
@@ -19,7 +20,6 @@ project/
   hypotheses.md
   experiments.md
   roles/
-    common.md
     professor.md
     laborant.md
     professor-laborant.decision-maker.md
