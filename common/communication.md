@@ -24,7 +24,7 @@ Pokój nie ma formalnego zamknięcia — po prostu przestaje być używany, gdy 
 
 Zamiast odpytywać kanał w pętli, wołający blokuje się na `wait_for_updates` z `channel: "<slug>"` — czeka na odpowiedź w konkretnym pokoju, nie na cały ruch zespołu; nadpisuje domyślne filtrowanie po kanale sesji i po `kinds`. Limit czasu nie ma górnej granicy — można czekać długo zamiast odświeżać w pętli.
 
-Na zakończenie zleconego zadania (nie rozmowy w pokoju) nie czeka się przez `ai-crew-sync` — `orx agent spawn` sam wybudza sesję-rodzica, gdy sesja zaspawnowanego dziecka się kończy (patrz `worktrees.md`); osobny mechanizm czekania na `task_key` w `ai-crew-sync` okazał się zbędny i został wycofany.
+Na zakończenie zleconego zadania (nie rozmowy w pokoju) nie czeka się przez `ai-crew-sync` — `orx agent spawn` sam wybudza sesję-rodzica z odpowiedzią helpera, gdy jego sesja się kończy (chyba że użyto `--no-wake`; szczegóły w natywnym skillu `/orx-agent-delegation`, patrz niżej); osobny mechanizm czekania na `task_key` w `ai-crew-sync` okazał się zbędny i został wycofany. Ta odpowiedź jest ucięta po ok. 4000 znakach — patrz "Delegowanie do innej sesji" niżej.
 
 ## Delegowanie do innej sesji
 
@@ -42,7 +42,9 @@ Zadanie: <konkretne, samodzielne zadanie — helper nie widzi tej rozmowy>
 Oczekiwany wynik: <co i w jakiej formie oddać>
 ```
 
-Dodaj `--harness <harness> --model <model>` do `orx agent spawn`, jeśli persona docelowa ma przypisany inny model niż Twój bieżący (patrz `model-assignment.md`).
+Odpowiedź, którą wybudzona sesja-rodzic dostaje z zamknięcia helpera, jest ucięta na ok. 4000 znakach, bez ostrzeżenia i bez łatwego sposobu odzyskania reszty. Jeśli spodziewasz się dłuższej odpowiedzi (np. syntezy z szerokiego przeglądu literatury), poinstruuj helpera w briefie: zmieść syntezę w tym limicie (najważniejsze wyżej), a jeśli się nie mieści — niech pełną wersję wyśle jako wiadomość na właściwy kanał (patrz "Próg: wiadomość czy plik" niżej), a w zamkniętej odpowiedzi zostawi tylko krótkie odesłanie tam.
+
+Dodaj `--harness <harness> --model <model>` do `orx agent spawn`, jeśli persona docelowa ma przypisany inny model niż Twój bieżący (patrz `model-assignment.md`) — bez tego dziecko dziedziczy Twój własny harness/model, nie ten przypisany docelowej personie. Nazwa harnessu jest stała (np. `antigravity`), ale nazwa modelu na niektórych harnessach zmienia się w czasie i nie ma stałego aliasu — jeśli nie znasz aktualnej wartości, sprawdź ją narzędziem tego harnessu (np. `agy models` dla `antigravity`) zamiast zgadywać.
 
 ## Próg: wiadomość czy plik
 
@@ -52,7 +54,9 @@ Nie ma wymuszonego formatu wiadomości ani znaczników intencji — zwykły, swo
 
 ## Zadanie czy dyskusja
 
-Konkretna robota prowadząca do postępu węzła (implementacja, uruchomienie, analiza) to zadanie w kolejce `ai-crew-sync` — ma właściciela, może mieć `depends_on`. Krytyka, pytania i propozycje to luźna dyskusja w kanale — nikt jej nie "claimuje", nikt nie jest za nią formalnie odpowiedzialny. Jedynymi stałymi elementami są hipoteza i eksperyment same w sobie, nie role wokół nich.
+Konkretna robota prowadząca do postępu węzła (implementacja, uruchomienie, analiza) to zadanie w kolejce `ai-crew-sync` (`create_task`/`claim_task`) — ma właściciela, może mieć `depends_on`. Krytyka, pytania i propozycje to luźna dyskusja w kanale — nikt jej nie "claimuje", nikt nie jest za nią formalnie odpowiedzialny. Jedynymi stałymi elementami są hipoteza i eksperyment same w sobie, nie role wokół nich.
+
+`create_task`/`claim_task` i `orx agent spawn` to dwa niepowiązane w `orx` mechanizmy — żaden nie wie o drugim. Użyj `create_task`, gdy zadanie trafia do wspólnej puli, którą może odebrać którykolwiek z kilku już aktywnych, równoważnych agentów (patrz `list_agents`) — wtedy oni sami je `claim_task`/`claim_next_task`-ują. Gdy zamiast tego spawnujesz dedykowanego pomocnika do jednej konkretnej roboty (patrz niżej), sam brief ze spawnu wystarcza za zadanie — nie zakładaj do niego dodatkowo formalnego `create_task`.
 
 ## Kto edytuje węzeł
 
