@@ -24,14 +24,15 @@ Te pliki zawierają tylko zasady potrzebne wszystkim rolom.
 
 ## Zakresy domenowe
 
-| Zakres | Dodatkowe pliki |
+| Persona — zakres | Dodatkowe pliki |
 |---|---|
-| hipoteza i decyzja badawcza | `hypotheses.md`, `coordination-flow.md`, bieżący węzeł hipotezy |
-| projekt eksperymentu | `experiments.md`, `coordination-flow.md`, bieżące węzły hipotezy i eksperymentu |
-| implementacja | `worktrees.md`, bieżące węzły hipotezy i eksperymentu |
-| operator/HPC | `worktrees.md`, bieżący węzeł eksperymentu, wskazany job |
-| analiza wyników | `experiments.md`, bieżące węzły hipotezy i eksperymentu, wskazane artefakty |
-| zmiana dokumentacji systemowej | `file-lifecycle.md`, odpowiedni plik systemowy |
+| professor — hipoteza i decyzja badawcza | `hypotheses.md`, `coordination-flow.md`, bieżący węzeł hipotezy |
+| laborant — projekt eksperymentu | `experiments.md`, `coordination-flow.md`, bieżące węzły hipotezy i eksperymentu |
+| laborant — analiza wyników | `experiments.md`, bieżące węzły hipotezy i eksperymentu, wskazane artefakty |
+| programmer — implementacja | `worktrees.md`, bieżące węzły hipotezy i eksperymentu |
+| programmer (+ `programmer.operator.md`) — HPC | `worktrees.md`, bieżący węzeł eksperymentu, wskazany job |
+| critic — krytyka | `hypotheses.md`, `experiments.md`, `coordination-flow.md`, `worktrees.md`, bieżące węzły hipotezy i eksperymentu |
+| librarian — literatura | `literature/index.md`, `literature/artykuly/`, `literature/fsad/` |
 
 ## Łączenie zakresów
 
@@ -39,4 +40,4 @@ Jeżeli agent ma kilka przekazanych person naraz (np. okrojony skład z `model-a
 
 ## Źródło prawdy
 
-Cała dokumentacja `project/*.md` oraz katalogi `common/`, `roles/` i `templates/` są read-only dla agentów. Zmienia je wyłącznie użytkownik. Stan badań (hipotezy, eksperymenty) nie jest częścią tej dokumentacji — żyje jako węzły `orx` i kanały/zadania `ai-crew-sync`, edytowany przez agenta aktualnie odpowiedzialnego za dany węzeł (patrz `file-lifecycle.md`).
+Cała dokumentacja `project/*.md` oraz katalogi `common/`, `roles/` i `templates/` są read-only dla agentów. Zmienia je wyłącznie użytkownik. Stan badań (hipotezy, eksperymenty) nie jest częścią tej dokumentacji — żyje jako węzły `orx` i kanały/zadania `ai-crew-sync`, edytowany przez agenta aktualnie odpowiedzialnego za dany węzeł (patrz `file-lifecycle.md`). Jedyny wyjątek od read-only: `literature/index.md`, dopisywany przez `librarian` pod lockiem `ai-crew-sync` (patrz `roles/librarian.md`).

@@ -1,6 +1,6 @@
 # Eksperymenty
 
-Eksperyment to węzeł drzewa `orx`, dziecko hipotezy, którą testuje (`orx create-experiment <project_id> --parent <id-hipotezy> --title "..."` — `id` hipotezy, nie jej slug, patrz `common/identifiers.md`). Ma prawdziwy branch, `run_command` i własne runy. Nazywamy go slugiem (nie numerem E###), ale to nie jest to, co przyjmuje `orx`.
+Eksperyment to węzeł drzewa `orx`, dziecko hipotezy, którą testuje (`orx create-experiment <project_id> --parent <id-hipotezy> --title "..."` — `id` hipotezy, nie jej slug, patrz `common/identifiers.md`). Ma prawdziwy branch, `run_command` i własne runy.
 
 Treść eksperymentu — pytanie, ustalenia, krytyka, wynik — żyje w jego `description`, edytowanym przez `orx exp desc`. Surowe logi i wyniki runów zostają tam, gdzie `orx` je zapisuje (`orx logs <run-id>`); `description` je streszcza i wskazuje, nie duplikuje.
 

@@ -1,6 +1,6 @@
 # Hipotezy badawcze
 
-Hipoteza to węzeł drzewa `orx` bez własnego runu — korzeń dla eksperymentów, które ją testują. Nie ma osobnego pliku ani numeru H###. Tworzy się ją przez `orx create-experiment <project_id> --title "..."`; dostaje krótki, czytelny slug (np. `lora-rank-vs-shots`) jako naszą nazwę robocza (branch, kanał), ale komendy `orx` operują na jej wewnętrznym `id`, nie na slugu — patrz `common/identifiers.md`.
+Hipoteza to węzeł drzewa `orx` bez własnego runu — korzeń dla eksperymentów, które ją testują. Tworzy się ją przez `orx create-experiment <project_id> --title "..."`; dostaje krótki, czytelny slug (np. `lora-rank-vs-shots`) jako naszą nazwę robocza (branch, kanał), ale komendy `orx` operują na jej wewnętrznym `id`, nie na slugu — patrz `common/identifiers.md`.
 
 Treść hipotezy — samo twierdzenie, jej narracja i stan — żyje w polu `description` tego węzła, edytowanym przez `orx exp desc`. To pole jest nadpisywane w całości przy każdej zmianie: przed edycją odczytaj bieżącą treść (`orx exp status`/`orx exp desc`) i zapisz pełną, zaktualizowaną wersję, nie tylko dopisek.
 

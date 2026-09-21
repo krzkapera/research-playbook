@@ -1,20 +1,20 @@
 # Flow koordynacji badawczej
 
-Ten plik dotyczy ról `decision-maker`, `researcher`, `critic` i `experiment-designer`. Implementer, operator i analyst czytają go tylko wtedy, gdy ich zlecenie wymaga decyzji badawczej.
+Ten plik opisuje przepływ przez domeny wewnątrz person: `decision-maker` to professor na poziomie hipotezy i laborant na poziomie eksperymentu (patrz `professor-laborant.decision-maker.md`), `researcher` to professor, `experiment-designer`/`analyst` to laborant, `implementer`/`operator` to programmer, `critic` to osobna persona critic. Programmer czyta ten plik tylko wtedy, gdy jego zlecenie wymaga decyzji badawczej, nie do zwykłej implementacji.
 
 ```text
-decision-maker: propozycja hipotezy
-  <-> researcher: krytyka, podstawy i alternatywy
- decision-maker: decyzja o hipotezie
-  -> experiment-designer: propozycje eksperymentu
+professor/decision-maker: propozycja hipotezy
+  <-> professor/researcher: krytyka, podstawy i alternatywy
+ professor/decision-maker: decyzja o hipotezie
+  -> laborant/experiment-designer: propozycje eksperymentu
   <-> critic: krytyka projektu i alternatywy
- experiment-designer/decision-maker: decyzja o eksperymencie
-  -> implementer: wykonanie
+ laborant/decision-maker: decyzja o eksperymencie
+  -> programmer/implementer: wykonanie
   <-> critic: krytyka implementacji i bugi
-  -> operator: uruchomienie i joby
-  -> analyst: kontrola oraz analiza wyników
-  -> researcher: interpretacja względem hipotezy
-  -> decision-maker: kontynuacja, zmiana, zamknięcie albo eskalacja
+  -> programmer/operator: uruchomienie i joby
+  -> laborant/analyst: kontrola oraz analiza wyników
+  -> professor/researcher: interpretacja względem hipotezy
+  -> decision-maker (professor albo laborant, zależnie od poziomu): kontynuacja, zmiana, zamknięcie albo eskalacja
 ```
 
 To opis przepływu odpowiedzialności, nie sztywny automat. Każdy agent może zatrzymać krok, zgłosić błąd lub poprosić o zmianę zakresu. Decyzja o hipotezie i decyzja o eksperymencie muszą być jawne w kanale i pliku.
