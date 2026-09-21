@@ -38,4 +38,4 @@ Konkretna robota prowadząca do postępu węzła (implementacja, uruchomienie, a
 
 ## Notatki
 
-`ai-crew-sync` notes (`scope`/`key`, pełnotekstowe wyszukiwanie) są dla treści nieprzypisanej do jednego węzła — np. stały indeks literatury od librariana, przekrojowe decyzje projektu. Nie kopiuj tam treści, która już ma dom w `description` konkretnego węzła.
+`ai-crew-sync` notes (`scope`/`key`, pełnotekstowe wyszukiwanie) są dla treści nieprzypisanej do jednego węzła — np. przekrojowe decyzje projektu. Nie kopiuj tam treści, która już ma dom w `description` konkretnego węzła. Wyjątkiem jest spis literatury (`literature/index.md`) — to zwykły plik chroniony lockiem `ai-crew-sync`, nie note (patrz `roles/librarian.md`).

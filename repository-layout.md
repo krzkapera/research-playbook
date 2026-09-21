@@ -30,10 +30,10 @@ project/
   templates/
     hypothesis.md
     experiment.md
-  research-N/
-    papers/
-    notes/
-    synthesis/
+  literature/
+    index.md
+    artykuly/
+    fsad/
 ```
 
 `orx` dostarcza worktree każdej sesji automatycznie, we własnym katalogu danych — `project/` nie rezerwuje już na to osobnego miejsca (patrz `worktrees.md`).
@@ -42,7 +42,8 @@ Hipotezy i eksperymenty nie mają własnych plików ani katalogów w tym repozyt
 
 ## Gdzie zapisywać
 
-- `research-N/` — literatura i synteza researchu zgodnie z `research-brief.md`; nadal pliki, bo pojedyncza praca/PDF nie mieści się w limicie note'a `ai-crew-sync` (1 MiB) i nie jest tym, co `orx` śledzi.
+- `literature/` — korpus PDF-ów literatury (`artykuly/`, `fsad/`) i jego spis (`index.md`), utrzymywany przez `librarian` (patrz `roles/librarian.md`); to jedyne miejsce w `project/`, które agent zapisuje, nie tylko czyta.
+- synteza dotycząca konkretnej hipotezy albo eksperymentu trafia do `description` tego węzła w `orx`, nie do osobnego pliku (patrz `common/communication.md`).
 - artefakty runów: patrz `file-lifecycle.md` — kod w branchu, duże/surowe dane na HPC (`~/scratch/<projekt>`), nic pośredniego w `project/`.
 
 ## Kanały i zadania

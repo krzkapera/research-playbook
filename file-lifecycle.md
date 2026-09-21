@@ -23,6 +23,10 @@ Obejmuje to `hypotheses.md`, `experiments.md` i `coordination-flow.md`, które o
 
 Hipotezy i eksperymenty to węzły drzewa `orx` (patrz `hypotheses.md`, `experiments.md`), nie pliki w tym repozytorium. Ich treść edytuje się przez `orx exp desc`; dyskusję i zlecenia prowadzi się przez kanały i zadania `ai-crew-sync` (patrz `common/communication.md`). `project/` nie przechowuje kopii tej treści.
 
+### Korpus literatury — jedyny wyjątek od read-only
+
+`literature/` (PDF-y i ich spis `index.md`) nie jest dokumentacją konfiguracji ani stanem badań — to współdzielony korpus, który utrzymuje `librarian`, dopisując do `index.md` pod lockiem `ai-crew-sync` (patrz `roles/librarian.md`). Żadna inna rola go nie edytuje.
+
 ## Kto edytuje węzeł
 
 Węzeł hipotezy edytuje agent aktualnie pełniący za niego odpowiedzialność (professor/decision-maker na poziomie hipotezy, laborant/experiment-designer na poziomie eksperymentu) — to rola, nie stała tożsamość instancji, bo laborantów i programistów może być wielu naraz. Inni agenci zgłaszają uwagi na kanale węzła; nie edytują go, dopóki właściciel jawnie nie przekaże im odpowiedzialności.
