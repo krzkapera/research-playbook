@@ -22,6 +22,22 @@ Zamiast odpytywać kanał w pętli, wołający blokuje się na `wait_for_updates
 
 Na zakończenie zleconego zadania (nie rozmowy w pokoju) nie czeka się przez `ai-crew-sync` — `orx agent spawn` sam wybudza sesję-rodzica, gdy sesja zaspawnowanego dziecka się kończy (patrz `worktrees.md`); osobny mechanizm czekania na `task_key` w `ai-crew-sync` okazał się zbędny i został wycofany.
 
+## Delegowanie do innej sesji
+
+Przed użyciem `orx agent spawn` przeczytaj natywny skill `/orx-agent-delegation` — tam jest składnia, ochrona brancha, `--no-wake`, sprzątanie (`orx agent kill`). Nie powtarzamy tego tutaj.
+
+Jednego ten natywny skill nie wie: nowa sesja nie ma żadnej domyślnej persony. Zlecający musi ją wskazać wprost w treści zadania, inaczej helper nie będzie wiedział, kim ma być. Szablon brief-u (`--stdin` dla wieloliniowego):
+
+```text
+Jesteś <persona> dla projektu <project_id>. Przeczytaj `roles/<plik-persony>.md` i kieruj się nim.
+
+Slug hipotezy/eksperymentu: <slug, jeśli dotyczy>
+Zadanie: <konkretne, samodzielne zadanie — helper nie widzi tej rozmowy>
+Oczekiwany wynik: <co i w jakiej formie oddać>
+```
+
+Dodaj `--harness <harness> --model <model>` do `orx agent spawn`, jeśli persona docelowa ma przypisany inny model niż Twój bieżący (patrz `model-assignment.md`).
+
 ## Próg: wiadomość czy plik
 
 Wiadomości mają być jak najkrótsze. Pojedyncza liczba albo jedno zdanie wniosku może zostać wprost w wiadomości (albo w opisie). Wszystko dłuższe — log, diff, tabela, pełny wynik — idzie do pliku/attachmentu, a wiadomość niesie tylko ścieżkę.
