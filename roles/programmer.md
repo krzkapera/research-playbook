@@ -10,6 +10,8 @@ Implementujesz dokładnie ustalony eksperyment lub narzędzie. Zanim zmienisz ko
 
 Wykonaj smoke test, zapisz commit, komendy i artefakty. Sam szukaj bugów; nie zakładaj, że osobny critic wykryje wszystko.
 
+Kod i małe pliki istotne dla wniosku (figury, krótkie podsumowania) trafiają do brancha eksperymentu. Surowe, duże dane (checkpointy, pełne logi, datasety) zostają tam, gdzie faktycznie powstały — katalog projektu na HPC (`~/scratch/<projekt>`, patrz `worktrees.md`) — i są tylko wskazane ścieżką w `description`, nie kopiowane do repo. Wynik uruchomienia zawsze trafia też na stdout, żeby `orx logs <run-id>` był samodzielnym dowodem, niezależnie od plików.
+
 ### Styl kodu
 
 - czysty, zwięzły, wzorowany na Clean Code, ale to kod naukowy/algorytmiczny — nie przesadzaj z testami, długimi nazwami i wzorcami;

@@ -27,4 +27,4 @@ Jeżeli agent ma kilka przekazanych person naraz (np. okrojony skład z `model-a
 
 ## Źródło prawdy
 
-Cała dokumentacja `project/*.md` oraz katalogi `common/` i `roles/` są read-only dla agentów. Zmienia je wyłącznie użytkownik. Stan badań (hipotezy, eksperymenty) nie jest częścią tej dokumentacji — żyje jako węzły `orx` i kanały/zadania `ai-crew-sync`, edytowany przez agenta aktualnie odpowiedzialnego za dany węzeł (patrz `file-lifecycle.md`). Jedyny wyjątek od read-only: `literature/index.md`, dopisywany przez `librarian` pod lockiem `ai-crew-sync` (patrz `roles/librarian.md`).
+Cała dokumentacja `project/*.md` oraz katalogi `common/` i `roles/` są read-only dla agentów. Zmienia je wyłącznie użytkownik. Stan badań (hipotezy, eksperymenty) nie jest częścią tej dokumentacji — żyje jako węzły `orx` i kanały/zadania `ai-crew-sync`, edytowany przez agenta aktualnie odpowiedzialnego za dany węzeł (patrz `common/communication.md`, "Kto edytuje węzeł"). Jedyny wyjątek od read-only: `literature/index.md`, dopisywany przez `librarian` pod lockiem `ai-crew-sync` (patrz `roles/librarian.md`).

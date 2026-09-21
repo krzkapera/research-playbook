@@ -34,7 +34,7 @@ Konkretna robota prowadząca do postępu węzła (implementacja, uruchomienie, a
 
 ## Kto edytuje węzeł
 
-`description` węzła edytuje agent aktualnie odpowiedzialny za niego na danym poziomie (patrz `file-lifecycle.md`) — to rola, nie stała tożsamość instancji, bo laborantów i programistów może być wielu naraz. Pozostali wysyłają uwagi przez kanał; właściciel włącza je do opisu na bieżąco, w trakcie rozmowy (patrz "Opis węzła jako źródło prawdy" wyżej).
+`description` węzła edytuje agent aktualnie odpowiedzialny za niego na danym poziomie — to rola, nie stała tożsamość instancji, bo laborantów i programistów może być wielu naraz. Pozostali wysyłają uwagi przez kanał; właściciel włącza je do opisu na bieżąco, w trakcie rozmowy (patrz "Opis węzła jako źródło prawdy" wyżej).
 
 ## Notatki
 

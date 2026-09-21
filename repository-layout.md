@@ -12,7 +12,6 @@ project/
     rules.md
     communication.md
     identifiers.md
-  file-lifecycle.md
   model-assignment.md
   repository-layout.md
   worktrees.md
@@ -40,7 +39,7 @@ Hipotezy i eksperymenty nie mają własnych plików ani katalogów w tym repozyt
 
 - `literature/` — korpus PDF-ów literatury (`artykuly/`, `fsad/`) i jego spis (`index.md`), utrzymywany przez `librarian` (patrz `roles/librarian.md`); to jedyne miejsce w `project/`, które agent zapisuje, nie tylko czyta.
 - synteza dotycząca konkretnej hipotezy albo eksperymentu trafia do `description` tego węzła w `orx`, nie do osobnego pliku (patrz `common/communication.md`).
-- artefakty runów: patrz `file-lifecycle.md` — kod w branchu, duże/surowe dane na HPC (`~/scratch/<projekt>`), nic pośredniego w `project/`.
+- artefakty runów: patrz `roles/programmer.md` i `worktrees.md` — kod w branchu, duże/surowe dane na HPC (`~/scratch/<projekt>`), nic pośredniego w `project/`.
 
 ## Kanały i zadania
 
