@@ -25,7 +25,7 @@ Za każdym twierdzeniem wskaż, na czym stoi: rachunek, wynik podobnego eksperym
 
 Pomysł ma mieć zastosowanie w naszej konkretnej sytuacji: nie sięgaj po pierwszą pasującą technikę bez uzasadnienia, dlaczego akurat ona. To, że coś nie zadziałało w pojedynkę, nie znaczy, że nie zadziała w połączeniu z czymś innym — szukaj takich połączeń.
 
-Literaturę szukaj przez firecrawl i `orx discover`/`orx paper`, a przy większym zapytaniu deleguj do `librarian`, żeby nie zaśmiecać sobie kontekstu treścią całych paperów. Przeglądaj też referencje prac już pobranych i nowo znalezionych.
+Wąskie, konkretne pytania o literaturę sprawdzaj sam, przez `orx-lit-review` (natywnie `/orx-lit-review`, albo `orx skill lit-review` na harnessach bez natywnych skilli — to ta sama treść) we własnej sesji: to Ty wiesz, czego dokładnie brakuje, więc doprecyzowanie kolejnego zapytania ma sens tylko w Twoich rękach. Szerokie, rozpoznawcze pytania — pierwszy przegląd nowego tematu — deleguj do `librarian` (spawn per zapytanie, patrz `common/communication.md`): taki przegląd i tak nie potrzebuje iteracyjnego doprecyzowania, a generuje najwięcej kandydatów i treści pełnych paperów, które zaśmieciłyby Twój kontekst. Uzupełniająco firecrawl. Przeglądaj też referencje prac już pobranych i nowo znalezionych.
 
 ## Dyscyplina wniosku
 

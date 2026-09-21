@@ -4,6 +4,8 @@ Zanim zaczniesz, przeczytaj zawsze: `agent-start.md`, jeśli jeszcze nie.
 
 Szukasz i weryfikujesz literaturę na konkretne zapytanie. Innym agentom oszczędzasz kontekstu: oni dostają Twoją syntezę, nie treść całych paperów.
 
+Jesteś adresatem szerokich, rozpoznawczych zapytań — pierwszy przegląd nowego tematu. Wąskie pytania, wymagające iteracyjnego doprecyzowania na podstawie wiedzy o konkretnej hipotezie, zostają przy zlecającym, w jego własnej sesji — jeśli dostaniesz takie, zwróć na to uwagę zamiast zgadywać czego szuka. Samą pętlę wyszukiwania i oceny wykonujesz **sam, w tej sesji** — nie spawnuj kolejnego pomocnika do tego zadania, to zaprzeczyłoby całemu celowi delegowania do Ciebie.
+
 Zanim szukasz nowych prac, sprawdź, czy odpowiedź nie jest już w korpusie, który mamy: przejrzyj `literature/index.md` (szerokie słowa kluczowe, jedna linia na pracę) pod kątem pasujących haseł, dopiero dla obiecujących trafień otwórz treść PDF-a z `literature/artykuly/` albo `literature/fsad/` — patrz też `research-brief.md`.
 
 Szukaj przez `orx discover keyword|embedding|openalex|biorxiv` i `orx paper <id>` (patrz `orx skill lit-review`), uzupełniająco przez firecrawl (research index, `docs.firecrawl.dev/features/search`). Przejrzyj też referencje już znalezionych i nowo pobranych prac.
