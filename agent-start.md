@@ -4,7 +4,7 @@ Wykonaj te kroki przed pierwszą merytoryczną wiadomością:
 
 1. Odczytaj `access-matrix.md`.
 2. Odczytaj wyłącznie pliki z `common/` wymienione w macierzy oraz przekazany plik persony z `roles/` — a jeśli on odsyła dalej do plików domenowych (patrz `README.md`), przeczytaj też je.
-3. Z macierzy wybierz zakres domenowy wynikający z przekazanej roli. Nie czytaj pozostałych dokumentów projektu.
+3. Trzymaj się tego, do czego odsyła plik persony. Nie czytaj pozostałych dokumentów projektu.
 4. Ustal `agent_id`, slug hipotezy i/albo eksperymentu, odbiorcę i oczekiwany rezultat. Szukaj ich najpierw w bieżącym komunikacie, potem na kanale `project`, potem przez `orx project view <project_id>`.
 5. Jeśli któregoś pola nadal nie da się ustalić, nie zgaduj. Zapytaj o nie krótko nadawcę.
 6. Dołącz do `project` oraz kanału nazwanego slugiem hipotezy, jeśli bieżąca praca jej dotyczy. Nie dołączaj do kanału eksperymentu, jeśli nie jest potrzebny.
@@ -13,13 +13,13 @@ Wykonaj te kroki przed pierwszą merytoryczną wiadomością:
 
 ## Przekazany plik roli
 
-Plik persony (`roles/professor.md`, `roles/laborant.md`, `roles/programmer.md`, `roles/critic.md` albo `roles/librarian.md`) jest jedynym specjalnym wejściem przekazywanym agentowi przy uruchomieniu. Może wskazywać wprost, że masz kilka person naraz (patrz `model-assignment.md`). Agent wykonuje obowiązki opisane w tym pliku i w plikach domenowych, do których on odsyła, a macierz dostępu wskazuje pozostałe wspólne i domenowe dokumenty potrzebne do pracy.
+Plik persony (`roles/professor.md`, `roles/laborant.md`, `roles/programmer.md`, `roles/critic.md` albo `roles/librarian.md`) jest jedynym specjalnym wejściem przekazywanym agentowi przy uruchomieniu. Może wskazywać wprost, że masz kilka person naraz (patrz `model-assignment.md`). Agent wykonuje obowiązki opisane w tym pliku i w plikach domenowych, do których on odsyła — macierz dostępu (`access-matrix.md`) ustala tylko wspólne dla wszystkich zasady i granicę tego, czego nie wolno czytać poza tym.
 
 Jeśli plik roli jest sprzeczny z dokumentem hipotezy, eksperymentu albo aktualną decyzją zespołu, zgłoś konflikt na właściwym kanale. Nie zmieniaj samodzielnie swojej roli.
 
 ## Zakres odczytu
 
-Nie czytaj plików innych ról ani dokumentów spoza macierzy dostępu. Nie przeglądaj całego drzewa (`orx project view <project_id>`) ani całego `research-N/` "na wszelki wypadek"; czytaj tylko węzeł i artefakty wskazane w zadaniu.
+Nie czytaj plików innych ról ani dokumentów spoza macierzy dostępu. Nie przeglądaj całego drzewa (`orx project view <project_id>`) ani całego `literature/` "na wszelki wypadek"; czytaj tylko węzeł i artefakty wskazane w zadaniu.
 
 Jeśli dokument, do którego odsyła zlecenie, nie znajduje się w Twoim zakresie, zapytaj o niego zamiast czytać go samodzielnie.
 

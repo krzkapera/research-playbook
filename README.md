@@ -4,7 +4,7 @@ To jest zestaw instrukcji operacyjnych dla wieloagentowego projektu badawczego.
 
 ## Dostęp do dokumentacji
 
-Nie ma jednej listy plików dla wszystkich agentów. Agent czyta `access-matrix.md`, pliki `common/`, przekazany plik roli i tylko zakres domenowy wskazany dla tej roli. Nie czyta plików innych ról ani dokumentów spoza macierzy.
+Nie ma jednej listy plików dla wszystkich agentów. Agent czyta `access-matrix.md`, pliki `common/`, przekazany plik roli i pliki domenowe, do których on odsyła. Nie czyta plików innych ról ani dokumentów spoza macierzy.
 
 ## Kanały
 
