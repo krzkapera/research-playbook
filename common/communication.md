@@ -2,6 +2,10 @@
 
 Każdy agent dołącza do `project`. Każda aktywna hipoteza i każdy aktywny eksperyment ma kanał nazwany swoim slugiem z `orx` — to pokój do rozmowy o tym węźle, nie magazyn stanu (patrz "Pokój" niżej). P2P służy sprawom skierowanym do konkretnego agenta. `ai-crew-sync` zapewnia wiadomości, delegowanie (`ask_agent`), kanały, zadania, locki i blokujące czekanie (`wait_for_updates`).
 
+## Znalezienie i zaadresowanie konkretnego agenta
+
+Publikuj, nad czym aktualnie pracujesz, przez `heartbeat` (pole `activity`) — wymień w nim slug hipotezy/eksperymentu, żeby inni Cię znaleźli, np. "laborant, lora-rank-vs-shots". Zanim napiszesz P2P do kogoś konkretnego (np. "laborant obsługujący tę hipotezę"), sprawdź `list_agents` — pokazuje, kto jest aktywny i nad czym pracuje. Zaadresuj `ask_agent(to: "<handle>")`, albo `"<handle>/<sesja>"`, gdy chodzi o konkretny wątek pracy tej osoby, nie o nią w ogóle.
+
 ## Opis węzła jako źródło prawdy
 
 `description` węzła jest samowystarczalną dokumentacją — ma wystarczać do zrozumienia stanu i decyzji nawet komuś, kto nie widział rozmowy: nowemu uczestnikowi, ale też właścicielowi wracającemu do tematu po przerwie albo prowadzącemu wiele równoległych wątków naraz (np. professor). Aktualizuje się go na bieżąco, w trakcie rozmowy w pokoju, a nie dopiero na koniec — bo ta rozmowa istnieje właśnie po to, żeby dopracować ten opis (patrz "Kto edytuje węzeł" niżej).
@@ -23,6 +27,8 @@ Zamiast odpytywać kanał w pętli, wołający blokuje się na `wait_for_updates
 Na zakończenie zleconego zadania (nie rozmowy w pokoju) nie czeka się przez `ai-crew-sync` — `orx agent spawn` sam wybudza sesję-rodzica, gdy sesja zaspawnowanego dziecka się kończy (patrz `worktrees.md`); osobny mechanizm czekania na `task_key` w `ai-crew-sync` okazał się zbędny i został wycofany.
 
 ## Delegowanie do innej sesji
+
+Zanim zaczniesz nową sesję, sprawdź `list_agents`: jeśli persona, której potrzebujesz, już działa (np. laborant obsługujący tę hipotezę), napisz do niej P2P (`ask_agent`) zamiast spawnować kolejną. Dopiero gdy nikt taki nie jest aktywny, użyj `orx agent spawn`.
 
 Przed użyciem `orx agent spawn` przeczytaj natywny skill `/orx-agent-delegation` — tam jest składnia, ochrona brancha, `--no-wake`, sprzątanie (`orx agent kill`). Nie powtarzamy tego tutaj.
 
