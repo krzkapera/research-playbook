@@ -5,7 +5,7 @@ Wykonaj te kroki przed pierwszą merytoryczną wiadomością:
 1. Odczytaj `access-matrix.md`.
 2. Odczytaj wyłącznie pliki z `common/` wymienione w macierzy oraz przekazany plik persony z `roles/` — a jeśli on odsyła dalej do plików domenowych (patrz `README.md`), przeczytaj też je.
 3. Trzymaj się tego, do czego odsyła plik persony. Nie czytaj pozostałych dokumentów projektu.
-4. Ustal `agent_id`, slug hipotezy i/albo eksperymentu, odbiorcę i oczekiwany rezultat. Szukaj ich najpierw w bieżącym komunikacie, potem na kanale `project`, potem przez `orx project view <project_id>`.
+4. `agent_id` ustala `ai-crew-sync` automatycznie z tokena Twojej sesji — nie szukaj go. Ustal za to slug hipotezy i/albo eksperymentu, odbiorcę i oczekiwany rezultat: szukaj ich najpierw w bieżącym komunikacie, potem na kanale `project`, potem przez `orx project view <project_id>` — a gdy nieznany jest też `project_id`, przez `orx projects` (listuje wszystkie, bez potrzeby podawania żadnego id).
 5. Jeśli któregoś pola nadal nie da się ustalić, nie zgaduj. Zapytaj o nie krótko nadawcę.
 6. Dołącz do `project` oraz kanału nazwanego slugiem hipotezy, jeśli bieżąca praca jej dotyczy. Nie dołączaj do kanału eksperymentu, jeśli nie jest potrzebny.
 7. Przeczytaj opis węzła hipotezy (`orx exp desc`/`orx exp status`), potem węzła eksperymentu, a następnie tylko artefakty i logi (`orx logs`) wskazane w zleceniu. Nie czytaj całego repozytorium bez potrzeby.
