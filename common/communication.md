@@ -12,13 +12,20 @@ Publikuj, nad czym aktualnie pracujesz, przez `heartbeat` (pole `activity`) — 
 
 Skoro opis jest zawsze aktualny, wiadomość w pokoju nie powtarza tego, co w nim już jest. Wiadomość to krótka delta: co się zmieniło w opisie i o co się pyta — nie treść merytoryczna od nowa. Historia kanału jest archiwum "dlaczego tak zdecydowano", do którego sięga się na żądanie, nigdy wymaganą lekturą.
 
-## Pokój: kiedy się otwiera i jak długo trwa
+## Dołączanie do kanałów
 
-Pokój (kanał) otwiera się dopiero, gdy jest gotowy konkretny draft do recenzji — nie na starcie pracy nad czymś nowym. Właściciel etapu pracuje najpierw sam, zapisuje wynik w opisie węzła, dopiero potem zaprasza kolejnych uczestników wiadomością wskazującą kanał — `ai-crew-sync` nie ma ACL na kanały, więc "zaproszenie" to po prostu przekazanie nazwy.
+- Każdy agent zawsze dołącza do `project`.
+- Do kanału nazwanego slugiem węzła dołączasz **tylko**, gdy masz w tym węźle aktywną rolę *teraz*: jesteś właścicielem etapu, zostałeś zaproszony do recenzji, albo Twoje zlecenie wskazuje ten slug i oczekuje udziału.
+- Nie dołączaj do kanałów hipotez/eksperymentów „na zapas" ani „na wszelki wypadek".
+- Samotne draftowanie nie wymaga obecności innych na kanale. Właściciel etapu może być na kanale sam albo wejść na niego dopiero przy zaproszeniu do recenzji — obie opcje są poprawne; zabronione jest wciąganie innych zanim jest draft.
 
-Skład pokoju rośnie stopniowo, nie od razu w komplecie: każde dołączenie nowej osoby otwiera nową rundę iteracji, nie jednorazową recenzję. Runda trwa, aż nikt nie ma więcej uwag; wtedy albo dołącza kolejna osoba i iteracja zaczyna się od nowa, albo etap jest zamknięty. Właściciel etapu (professor dla hipotezy, laborant dla eksperymentu, implementer dla implementacji) ma głos decydujący, gdy uwagi nie prowadzą do zgody.
+## Pokój: recenzja, nie start pracy
 
-Pokój nie ma formalnego zamknięcia — po prostu przestaje być używany, gdy praca schodzi do fazy solo albo przechodzi do kolejnego etapu (zwykłe zadanie, patrz "Zadanie czy dyskusja" niżej). Historia zostaje jako trwały zapis.
+„Otwarcie pokoju" oznacza **zaproszenie innych do recenzji gotowego draftu**, nie rozpoczęcie pracy nad czymś nowym. Właściciel etapu najpierw pracuje sam i zapisuje wynik w `description` węzła; dopiero potem zaprasza kolejnych uczestników wiadomością z nazwą kanału — `ai-crew-sync` nie ma ACL na kanały, więc „zaproszenie" to przekazanie nazwy.
+
+Skład pokoju rośnie stopniowo, nie od razu w komplecie: każde dołączenie nowej osoby otwiera nową rundę iteracji, nie jednorazową recenzję. Runda trwa, aż nikt nie ma więcej uwag; wtedy albo dołącza kolejna osoba i iteracja zaczyna się od nowa, albo etap jest zamknięty. Właściciel etapu (professor dla hipotezy, laborant dla eksperymentu, programmer dla implementacji) ma głos decydujący, gdy uwagi nie prowadzą do zgody.
+
+Pokój nie ma formalnego zamknięcia — po prostu przestaje być używany, gdy praca schodzi do fazy solo albo przechodzi do kolejnego etapu (zwykłe zadanie, patrz „Zadanie czy dyskusja" niżej). Historia zostaje jako trwały zapis.
 
 ## Czekanie zamiast odpytywania
 

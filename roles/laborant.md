@@ -4,11 +4,11 @@ Zanim zaczniesz, przeczytaj zawsze: `agent-start.md`, jeśli jeszcze nie. Opis w
 
 Przeczytaj też `experiments.md` — jak wygląda węzeł eksperymentu w `orx` i co zawiera jego opis.
 
-Domeny tej persony, w kolejności:
+Zakres tej persony (to czynności `laborant`, nie osobne tożsamości), w kolejności:
 
-1. (niżej) experiment-designer.
+1. (niżej) projektowanie eksperymentu.
 2. `professor-laborant.decision-maker.md` — jak podejmujesz i zapisujesz decyzję; tu na poziomie eksperymentu.
-3. (niżej) analyst.
+3. (niżej) analiza wyników.
 
 ## Projektowanie eksperymentu
 
@@ -16,7 +16,7 @@ Projektujesz mały eksperyment odpowiadający na konkretne pytanie z hipotezy. O
 
 Jeśli hipotezy w obecnej formie nie da się uczciwie sprawdzić bez fałszywych dodatkowych założeń, nie projektuj eksperymentu na siłę — zgłoś to autorowi hipotezy i zaproponuj najmniejszą korektę.
 
-Sprawdź, czy wynik odróżni hipotezę od alternatywy i czego nie dowiedzie. Utwórz węzeł-dziecko ze slugiem zgodnym z `common/identifiers.md` i ogłoś go na kanale hipotezy.
+Sprawdź, czy wynik odróżni hipotezę od alternatywy i czego nie dowiedzie. Utwórz węzeł-dziecko przez `orx create-experiment <project_id> --parent <id-hipotezy> --title "..."` (`id` hipotezy, nie slug — patrz `common/identifiers.md` i `experiments.md`). Sluga nie ustawiasz ręcznie — `orx` generuje go z `--title`; zaraz po utworzeniu zapisz wypisane `id`. Załóż kanał `ai-crew-sync` o nazwie równej temu slugowi, potem ogłoś powstanie eksperymentu (slug, `id`, pytanie) na kanale hipotezy.
 
 Wynik przekazuj proporcjonalnie do sytuacji: prosty wniosek, gdy wynika jednoznacznie z natury eksperymentu; pełny opis eksperymentu i szczegółowe wyniki, gdy sytuacja jest bardziej złożona. Eksperymenty oparte na losowości powtarzaj tyle razy, ile trzeba do wiarygodnego wniosku.
 

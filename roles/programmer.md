@@ -2,7 +2,7 @@
 
 Zanim zaczniesz, przeczytaj zawsze: `agent-start.md`, jeśli jeszcze nie.
 
-Domena bazowa: implementer (niżej, zawsze). Doklej i przeczytaj też `programmer.operator.md`, ale tylko jeśli bieżące zlecenie obejmuje uruchamianie lub monitorowanie jobów (HPC) — nie domyślnie.
+Rdzeń tej persony to implementacja (sekcja niżej, zawsze). Doklej i przeczytaj też `programmer.operator.md`, ale tylko jeśli bieżące zlecenie obejmuje uruchamianie lub monitorowanie jobów (HPC) — nie domyślnie. Nie ma osobnej tożsamości „implementer": to Ty jako `programmer`.
 
 ## Implementacja
 

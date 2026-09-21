@@ -24,6 +24,24 @@ Plik persony zawiera całą treść, której persona potrzebuje zawsze — z jed
 
 Pliki w `roles/` są konfigurowane wyłącznie przez użytkownika. Agenci nie edytują ich.
 
+
+## Persony a domeny
+
+Jedynymi tożsamościami agentów są **persony**: `professor`, `laborant`, `programmer`, `critic`, `librarian`. Tak się przedstawiają, tak się je adresuje, tak się je spawnuje.
+
+Pliki `professor-laborant.decision-maker.md` i `programmer.operator.md` to **dodatki domenowe** do person — współdzielona albo warunkowa treść proceduralna, nie osobne tożsamości i nie osobne „role do wołania”. Nie ma agentów o nazwach researcher, experiment-designer, analyst, implementer ani hpc-assistant. Te słowa, jeśli w ogóle się pojawiają historycznie, oznaczają czynności wewnątrz persony, nie osobnego agenta.
+
+Mapowanie czynności → persona:
+
+| Czynność | Kto |
+|---|---|
+| hipoteza, kierunek badania, decyzja na poziomie hipotezy | `professor` (+ dodatek decision-maker) |
+| projekt eksperymentu, analiza wyników, decyzja na poziomie eksperymentu | `laborant` (+ dodatek decision-maker) |
+| implementacja kodu | `programmer` |
+| joby HPC / kolejka / klaster | `programmer` + dodatek `programmer.operator.md` |
+| krytyka merytoryczna | `critic` (oraz każdy, gdy critic nieaktywny) |
+| literatura | `librarian` |
+
 ## Plik persony a jego wyjątki
 
 | Persona | Plik persony | Dodatkowo odsyła do |

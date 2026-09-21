@@ -4,7 +4,14 @@
 
 Zaraz po utworzeniu węzła zapisz jego `id` (komenda go wypisuje) — np. jako pierwszą linię `description` albo w metadanych zadania, którego dotyczy. Jeśli go zabraknie, znajdź go przez `orx project view <project_id>`: lista pokazuje `id`, tytuł i branch `orx/<slug>` każdego węzła.
 
-Cały projekt badawczy żyje w jednym `orx` projekcie; jego `project_id` jest stały na czas całej pracy — wpisz go tutaj, gdy projekt powstanie (`orx create-experiment`/`orx projects`): `<project_id: do uzupełnienia>`.
+Cały projekt badawczy żyje w jednym `orx` projekcie; jego `project_id` jest stały na czas całej pracy.
+
+`project_id`: `<nieustawiony — uzupełnia użytkownik po utworzeniu projektu; komenda: orx projects>`
+
+Zasady dla agentów:
+- nie wymyślaj `project_id`;
+- jeśli nie ma go w tym pliku ani w zleceniu, ustal przez `orx projects` albo zapytaj na kanale `project` / nadawcę;
+- gdy użytkownik wpisze tu konkretną wartość, traktuj ją jako źródło prawdy.
 
 Slug nadaje się raz i nie zmienia po ponowieniu eksperymentu. Nowy wariant tego samego pytania to nowy węzeł-dziecko z osobnym slugiem (np. `lora-rank-vs-shots-v2`); zmiana pytania lub logiki porównania też tworzy nowy węzeł, nie nadpisuje istniejącego.
 

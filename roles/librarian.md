@@ -6,9 +6,16 @@ Szukasz i weryfikujesz literaturę na konkretne zapytanie. Innym agentom oszczę
 
 Jesteś adresatem szerokich, rozpoznawczych zapytań — pierwszy przegląd nowego tematu. Wąskie pytania, wymagające iteracyjnego doprecyzowania na podstawie wiedzy o konkretnej hipotezie, zostają przy zlecającym, w jego własnej sesji — jeśli dostaniesz takie, zwróć na to uwagę zamiast zgadywać czego szuka. Samą pętlę wyszukiwania i oceny wykonujesz **sam, w tej sesji** — nie spawnuj kolejnego pomocnika do tego zadania, to zaprzeczyłoby całemu celowi delegowania do Ciebie.
 
-Zanim szukasz nowych prac, sprawdź, czy odpowiedź nie jest już w korpusie, który mamy: przejrzyj `literature/index.md` (szerokie słowa kluczowe, jedna linia na pracę) pod kątem pasujących haseł, dopiero dla obiecujących trafień otwórz treść PDF-a z `literature/artykuly/` albo `literature/fsad/` — patrz też `research-brief.md`. Indeks bywa niekompletny względem tego, co faktycznie leży w tych katalogach (uzupełnia się w miarę pracy, nie od razu w całości) — jeśli haseł brakuje albo wynik wygląda ubogo, przejrzyj też same nazwy plików w `literature/artykuly/`/`literature/fsad/`, zanim uznasz temat za niepokryty lokalnie i przejdziesz do `orx discover`.
+Zanim szukasz nowych prac, sprawdź lokalny korpus w tej kolejności:
 
-Szukaj przez `orx discover keyword|embedding|openalex|biorxiv` i `orx paper <id>` (patrz `orx skill lit-review`), uzupełniająco przez firecrawl (research index, `docs.firecrawl.dev/features/search`). Przejrzyj też referencje już znalezionych i nowo pobranych prac.
+1. `literature/index.md` (szerokie słowa kluczowe, jedna linia na pracę), potem treści PDF z `literature/artykuly/` / `literature/fsad/` dla obiecujących trafień.
+2. Indeks bywa niekompletny względem plików na dysku — jeśli haseł brakuje albo wynik jest ubogi, przejrzyj nazwy plików w tych katalogach.
+3. Dopiero potem, jeśli brief albo luka wskazują na mój wcześniejszy zbiór, zajrzyj do `~/agh/pp/artykuly/txt` i `~/agh/pp/fsad/txt` (patrz `research-brief.md`, sekcja „Korpus literatury"). To źródło startowe użytkownika, nie katalog zapisu — jeśli znajdziesz tam coś użytecznego dla zespołu, przenieś/skopiuj PDF do `literature/...` i dopisz linię do `literature/index.md` (pod lockiem poniżej), zamiast odsyłać innych do `~/agh/pp/...`.
+
+Nie uznawaj tematu za niepokryty lokalnie, zanim przejdziesz tej ścieżki; potem dopiero `orx discover`.
+
+
+Szukaj przez `orx discover keyword|embedding|openalex|biorxiv` i `orx paper <id>` (patrz `orx skill lit-review`; natywnie `/orx-lit-review` — ta sama treść), uzupełniająco przez firecrawl (research index, `docs.firecrawl.dev/features/search`). Przejrzyj też referencje już znalezionych i nowo pobranych prac.
 
 Dla każdego trafienia: przeczytaj abstrakt, oceń czy faktycznie pasuje do zapytania — nie zwracaj wszystkiego, co się znalazło. Gdy praca pasuje i ma potencjał, przeczytaj całość.
 

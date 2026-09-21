@@ -1,8 +1,13 @@
 # Eksperymenty
 
-Eksperyment to węzeł drzewa `orx`, dziecko hipotezy, którą testuje (`orx create-experiment <project_id> --parent <id-hipotezy> --title "..."` — `id` hipotezy, nie jej slug, patrz `common/identifiers.md`). Ma prawdziwy branch, `run_command` i własne runy.
+Eksperyment to węzeł drzewa `orx`, dziecko hipotezy, którą testuje (`orx create-experiment <project_id> --parent <id-hipotezy> --title "..."` — `id` hipotezy, nie jej slug, patrz `common/identifiers.md`). Ma prawdziwy branch i własne runy. Na Slurmie job startuje z pliku `job.sbatch` w korzeniu brancha (`orx exp run --backend slurm` — patrz `roles/programmer.operator.md`); pole `run_command` węzła nie jest do tego używane i nie ustawia się go przy tworzeniu węzła.
 
 Treść eksperymentu — pytanie, ustalenia, krytyka, wynik — żyje w jego `description`, edytowanym przez `orx exp desc`. Surowe logi i wyniki runów zostają tam, gdzie `orx` je zapisuje (`orx logs <run-id>`); `description` je streszcza i wskazuje, nie duplikuje.
+
+
+## Kanał
+
+Każdy aktywny eksperyment ma kanał `ai-crew-sync` nazwany jego slugiem. Zakłada go agent tworzący węzeł (zazwyczaj `laborant`), zaraz po `orx create-experiment`, i ogłasza powstanie na kanale hipotezy-rodzica. Szczegóły dołączania: `common/communication.md`.
 
 ## Zawartość opisu
 

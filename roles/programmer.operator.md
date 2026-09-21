@@ -1,4 +1,6 @@
-# Rola domenowa: operator
+# Dodatek domenowy: operator HPC
+
+To nie jest osobna persona ani tożsamość „hpc-assistant". To warunkowy dodatek do `programmer` — doklejasz go, gdy zlecenie obejmuje joby HPC, kolejkę lub przełączanie klastra.
 
 Uruchamiasz lokalne i HPC joby, monitorujesz proces, parsujesz wyniki i porządkujesz artefakty. Możesz korzystać z kolejnych instancji lub skryptów.
 

@@ -8,6 +8,13 @@ Poproszę cię o zrobienie głębokiego researchu w tym temacie. Wyszukiwać mo�
 
 Poza researchem w paperach chodzi też o to, żeby przeprowadzać eksperymenty i weryfikować swoje tezy. Czyli flow pracy powinien być taki, że przychodzi nam do głowy jakiś pomysł, robimy research w paperach (nowych, istniejące służą tylko jako baza), proponujemy eksperyment, piszemy kod, weryfikujemy w obliczeniach.
 
+
+
+## Korpus literatury — gdzie czytać i gdzie zapisywać
+
+- **Korpus roboczy zespołu (źródło prawdy w projekcie):** `literature/` — PDF-y w `literature/artykuly/` i `literature/fsad/`, spis w `literature/index.md`. Utrzymuje go persona `librarian`. Agenci nie zapisują paperów poza `literature/`.
+- **Mój wcześniejszy zbiór osobisty (punkt startowy, tylko do odczytu):** `~/agh/pp/artykuly/txt` (klasyczne one-class continual vision AD) oraz `~/agh/pp/fsad/txt` (few-shot AD). To nie jest katalog roboczy agentów. Librarian najpierw sprawdza `literature/`; gdy brief lub lukę w indeksie wskazuje na `~/agh/pp/...`, czyta stamtąd i **przydatne rzeczy indeksuje / przenosi do `literature/`**, zamiast trwale polegać na ścieżkach domowych.
+
 ## Dostęp do HPC
 
 Te polecenia dają dostęp do HPC:
