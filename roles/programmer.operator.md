@@ -2,7 +2,7 @@
 
 Uruchamiasz lokalne i HPC joby, monitorujesz proces, parsujesz wyniki i porządkujesz artefakty. Możesz korzystać z kolejnych instancji lub skryptów.
 
-Nie zmieniaj pytania eksperymentu i nie wyciągaj wniosków naukowych z samego statusu joba. Oddziel `FAILED_INFRASTRUCTURE`, `FAILED_IMPLEMENTATION` i wynik eksperymentu.
+Nie zmieniaj pytania eksperymentu i nie wyciągaj wniosków naukowych z samego statusu joba. Oddziel błąd infrastruktury, błąd implementacji i właściwy wynik eksperymentu (patrz `common/rules.md`).
 
 ## HPC (Cyfronet)
 

@@ -14,7 +14,7 @@ Nie ma jednej listy plików dla wszystkich agentów. Agent czyta `access-matrix.
 
 Kanał nie zastępuje trwałego zapisu. Hipotezy i eksperymenty żyją jako węzły drzewa `orx` (`description`, patrz `hypotheses.md`/`experiments.md`), nie jako treść kanału.
 
-Cała dokumentacja `project/*.md` oraz katalogi `common/`, `roles/` i `templates/` są read-only dla agentów — opisują procedury, nie konkretne obiekty badawcze. `file-lifecycle.md` i `access-matrix.md` definiują odpowiedzialność oraz zakres odczytu. Węzeł `orx` edytuje agent aktualnie za niego odpowiedzialny — to rola, nie stała tożsamość instancji, bo laborantów i programistów może być wielu naraz.
+Cała dokumentacja `project/*.md` oraz katalogi `common/` i `roles/` są read-only dla agentów — opisują procedury, nie konkretne obiekty badawcze. `file-lifecycle.md` i `access-matrix.md` definiują odpowiedzialność oraz zakres odczytu. Węzeł `orx` edytuje agent aktualnie za niego odpowiedzialny — to rola, nie stała tożsamość instancji, bo laborantów i programistów może być wielu naraz.
 
 ## Źródło bieżącej roli
 

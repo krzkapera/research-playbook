@@ -3,10 +3,9 @@
 Agent czyta wyłącznie:
 
 1. pliki z `common/`;
-2. przekazany mu plik persony z `roles/`, oraz pliki domenowe, do których on odsyła (patrz `README.md`);
-3. dokumenty wskazane w sekcji jego roli poniżej;
-4. bieżący węzeł hipotezy/eksperymentu w `orx` albo artefakt jawnie wskazany w zleceniu;
-5. `research-brief.md` — brief badawczy, dozwolony każdemu, gdy jego plik persony każe go przeczytać albo gdy potrzebuje sprawdzić zakres/ograniczenia badania.
+2. przekazany mu plik persony z `roles/`, oraz pliki domenowe, do których on odsyła — to on sam mówi, czego jeszcze potrzebuje, nie osobna tabela (patrz `README.md`);
+3. bieżący węzeł hipotezy/eksperymentu w `orx` albo artefakt jawnie wskazany w zleceniu;
+4. `research-brief.md` — brief badawczy, dozwolony każdemu, gdy jego plik persony każe go przeczytać albo gdy potrzebuje sprawdzić zakres/ograniczenia badania.
 
 Nie czytaj pozostałych plików projektu „na wszelki wypadek”. Nie otwieraj instrukcji innych ról, jeśli nie zostały przekazane. Jeśli brakuje informacji, zapytaj albo poproś o wskazanie pliku.
 
@@ -22,22 +21,10 @@ Każdy agent czyta:
 
 Te pliki zawierają tylko zasady potrzebne wszystkim rolom.
 
-## Zakresy domenowe
-
-| Persona — zakres | Dodatkowe pliki |
-|---|---|
-| professor — hipoteza i decyzja badawcza | `hypotheses.md`, `coordination-flow.md`, bieżący węzeł hipotezy |
-| laborant — projekt eksperymentu | `experiments.md`, `coordination-flow.md`, bieżące węzły hipotezy i eksperymentu |
-| laborant — analiza wyników | `experiments.md`, bieżące węzły hipotezy i eksperymentu, wskazane artefakty |
-| programmer — implementacja | `worktrees.md`, bieżące węzły hipotezy i eksperymentu |
-| programmer (+ `programmer.operator.md`) — HPC | `worktrees.md`, bieżący węzeł eksperymentu, wskazany job |
-| critic — krytyka | `hypotheses.md`, `experiments.md`, `coordination-flow.md`, `worktrees.md`, bieżące węzły hipotezy i eksperymentu |
-| librarian — literatura | `literature/index.md`, `literature/artykuly/`, `literature/fsad/` |
-
 ## Łączenie zakresów
 
-Jeżeli agent ma kilka przekazanych person naraz (np. okrojony skład z `model-assignment.md`, gdzie jeden agent jest jednocześnie professorem i laborantem), sumuje ich zakresy, ale nadal nie czyta niczego poza tą sumą. Przykład: `professor.md` + `laborant.md` razem czytają `common/*`, oba pliki person i wszystkie domeny, do których odsyłają, `hypotheses.md`, `experiments.md`, `coordination-flow.md`, bieżące węzły hipotezy i eksperymentu — ale nie `worktrees.md`, bo żadna z tych person nie implementuje kodu.
+Jeżeli agent ma kilka przekazanych person naraz (np. okrojony skład z `model-assignment.md`, gdzie jeden agent jest jednocześnie professorem i laborantem), sumuje to, do czego odsyłają wszystkie przekazane pliki person, ale nadal nie czyta niczego poza tą sumą. Przykład: `professor.md` + `laborant.md` razem czytają `common/*`, oba pliki person i wszystkie domeny, do których odsyłają (`research-brief.md`, `hypotheses.md`, `experiments.md`, `professor-laborant.decision-maker.md`) — ale nie `worktrees.md`, bo żadna z tych person nie implementuje kodu.
 
 ## Źródło prawdy
 
-Cała dokumentacja `project/*.md` oraz katalogi `common/`, `roles/` i `templates/` są read-only dla agentów. Zmienia je wyłącznie użytkownik. Stan badań (hipotezy, eksperymenty) nie jest częścią tej dokumentacji — żyje jako węzły `orx` i kanały/zadania `ai-crew-sync`, edytowany przez agenta aktualnie odpowiedzialnego za dany węzeł (patrz `file-lifecycle.md`). Jedyny wyjątek od read-only: `literature/index.md`, dopisywany przez `librarian` pod lockiem `ai-crew-sync` (patrz `roles/librarian.md`).
+Cała dokumentacja `project/*.md` oraz katalogi `common/` i `roles/` są read-only dla agentów. Zmienia je wyłącznie użytkownik. Stan badań (hipotezy, eksperymenty) nie jest częścią tej dokumentacji — żyje jako węzły `orx` i kanały/zadania `ai-crew-sync`, edytowany przez agenta aktualnie odpowiedzialnego za dany węzeł (patrz `file-lifecycle.md`). Jedyny wyjątek od read-only: `literature/index.md`, dopisywany przez `librarian` pod lockiem `ai-crew-sync` (patrz `roles/librarian.md`).

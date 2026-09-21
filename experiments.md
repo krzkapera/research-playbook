@@ -4,32 +4,17 @@ Eksperyment to węzeł drzewa `orx`, dziecko hipotezy, którą testuje (`orx cre
 
 Treść eksperymentu — pytanie, ustalenia, krytyka, wynik — żyje w jego `description`, edytowanym przez `orx exp desc`. Surowe logi i wyniki runów zostają tam, gdzie `orx` je zapisuje (`orx logs <run-id>`); `description` je streszcza i wskazuje, nie duplikuje.
 
-## Minimalna zawartość opisu
+## Zawartość opisu
 
-- pytanie, na które eksperyment ma odpowiedzieć;
-- aktualny status (patrz niżej);
-- właściciel bieżącego kroku;
-- odniesienie do runów (`orx runs`) i artefaktów.
+Nie ma ustalonej listy pól — dobierz treść (pytanie, status, baseline, metryki, zasoby, cokolwiek akurat istotne) tak, żeby opis był samowystarczalny (patrz `common/communication.md`). Brak jakiegoś elementu oznacza „nieustalone albo niepotrzebne w tym przypadku", nie brakujący wymóg.
 
-## Gdy potrzebne
+## Stan eksperymentu
 
-Dodajemy: baseline, zmienną, stałe, dataset, split, liczbę przykładów, seed, powtórzenia, metryki, kryterium porównania, zasoby HPC i plan analizy. Brak pola oznacza „nieustalone albo niepotrzebne", a nie domyślną wartość.
-
-## Stany eksperymentu
-
-```text
-PROPOSED -> DISCUSSING -> READY -> IMPLEMENTING -> RUNNING
-RUNNING -> ANALYZING -> COMPLETED
-IMPLEMENTING -> BLOCKED | INVALID
-RUNNING -> FAILED_INFRASTRUCTURE | FAILED_IMPLEMENTATION | BLOCKED
-ANALYZING -> REPEAT | INVALID | COMPLETED
-```
-
-To nasza warstwa nad surowym statusem runu z `orx` (`Starting/Running/Done/Failed/Cancelled`): `orx` mówi, czy run się wykonał, nie czy wynik jest naukowo sensowny. Rozróżnienie infrastruktura/implementacja/wynik naukowy zapisujemy sami w `description`. `FAILED_INFRASTRUCTURE` i `FAILED_IMPLEMENTATION` nie są wynikami wspierającymi ani obalającymi hipotezę.
+Nie ma ustalonej listy nazw stanów ani wymuszonych przejść między nimi — opisz bieżący stan swobodnym tekstem w `description`. Jedyna stała zasada (patrz `common/rules.md`): `orx` mówi tylko, czy run się wykonał (`Starting/Running/Done/Failed/Cancelled`), nie czy wynik jest naukowo sensowny — rozróżnienie błędu infrastruktury, błędu implementacji i właściwego wyniku naukowego zapisujemy sami, i błąd infrastruktury/implementacji nigdy nie liczy się jako wynik wspierający ani obalający hipotezę.
 
 ## Krytyka
 
-Przed, w trakcie i po eksperymencie każdy agent może zgłosić problem — w kanale, nie jako zadanie z właścicielem (patrz `coordination-flow.md`). Krytyka dotyczy także eksperymentów już zakończonych. Wynik może zostać uznany za nieinterpretowalny, jeśli błąd uniemożliwia odpowiedź na pytanie.
+Przed, w trakcie i po eksperymencie każdy agent może zgłosić problem — w kanale, nie jako zadanie z właścicielem (patrz `common/communication.md`, "Zadanie czy dyskusja"). Krytyka dotyczy także eksperymentów już zakończonych. Wynik może zostać uznany za nieinterpretowalny, jeśli błąd uniemożliwia odpowiedź na pytanie.
 
 ## Równoległe warianty
 

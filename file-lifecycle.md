@@ -14,10 +14,9 @@ To są wszystkie dokumenty opisujące role, dostęp, komunikację, procedury i s
 project/*.md
 common/
 roles/
-templates/
 ```
 
-Obejmuje to `hypotheses.md`, `experiments.md` i `coordination-flow.md`, które opisują procedury, a nie konkretne obiekty badawcze. Agent ich nie edytuje. Są dostarczonym kontekstem pracy — zmienia je wyłącznie użytkownik.
+Obejmuje to `hypotheses.md` i `experiments.md`, które opisują procedury, a nie konkretne obiekty badawcze. Agent ich nie edytuje. Są dostarczonym kontekstem pracy — zmienia je wyłącznie użytkownik.
 
 ### Stan badań — w orx i ai-crew-sync, nie w plikach `project/`
 
@@ -34,30 +33,22 @@ Węzeł hipotezy edytuje agent aktualnie pełniący za niego odpowiedzialność 
 ## Tworzenie hipotezy
 
 1. Agent proponujący hipotezę tworzy węzeł-korzeń: `orx create-experiment <project_id> --title "..."` (bez `--parent`).
-2. Zapisuje wstępną treść przez `orx exp desc --stdin`, wg minimalnej zawartości z `hypotheses.md`.
+2. Zapisuje wstępną treść przez `orx exp desc --stdin` (patrz `hypotheses.md`).
 3. Tworzy kanał `ai-crew-sync` o nazwie równej slugowi węzła.
 4. Ogłasza powstanie na kanale `project`.
 
-Utworzenie węzła nie oznacza przyjęcia hipotezy. Stan początkowy to `PROPOSED`, zapisany w opisie.
+Utworzenie węzła nie oznacza przyjęcia hipotezy — opis od razu mówi wprost, że to dopiero propozycja.
 
 ## Tworzenie eksperymentu
 
 1. Po decyzji o hipotezie, agent w roli experiment-designer/laborant tworzy węzeł-dziecko: `orx create-experiment <project_id> --parent <id-hipotezy> --title "..."` (`id` hipotezy, nie jej slug — patrz `common/identifiers.md`).
-2. Zapisuje treść przez `orx exp desc --stdin`, wg minimalnej zawartości z `experiments.md`.
+2. Zapisuje treść przez `orx exp desc --stdin` (patrz `experiments.md`).
 3. Ogłasza na kanale hipotezy.
 
 ## Propozycje i krytyka
 
-Krytyka i propozycje zmian zostają w kanale, jeśli nie zmieniają stanu wiedzy (patrz `coordination-flow.md`). Gdy mają znaczenie dla dalszej interpretacji, właściciel węzła włącza je do jego `description` przy najbliższej aktualizacji. Nie ma osobnego katalogu na propozycje — historia kanału w `ai-crew-sync` jest wystarczającym trwałym zapisem.
+Krytyka i propozycje zmian zostają w kanale, jeśli nie zmieniają stanu wiedzy (patrz `common/communication.md`, "Zadanie czy dyskusja"). Gdy mają znaczenie dla dalszej interpretacji, właściciel węzła włącza je do jego `description` przy najbliższej aktualizacji. Nie ma osobnego katalogu na propozycje — historia kanału w `ai-crew-sync` jest wystarczającym trwałym zapisem.
 
 ## Artefakty
 
 Kod i małe pliki istotne dla wniosku (figury, krótkie podsumowania) trafiają do brancha eksperymentu. Surowe, duże dane (checkpointy, pełne logi, datasety) zostają tam, gdzie faktycznie powstały — katalog projektu na HPC (`~/scratch/<projekt>`, patrz `worktrees.md`) — i są tylko wskazane ścieżką w `description`, nie kopiowane do repo. Wynik uruchomienia zawsze trafia też na stdout, żeby `orx logs <run-id>` był samodzielnym dowodem, niezależnie od plików.
-
-## Kod i worktrees
-
-- `implementer` pracuje w swoim sesyjnym worktree (`orx` dostarcza go automatycznie, patrz `worktrees.md`), przełączając się na branch eksperymentu, gdy zmieniany jest kod, skrypt lub konfiguracja wykonywalna;
-- `critic` może czytać i testować worktree, ale nie zmienia go bez handoffu;
-- `operator` używa zaakceptowanego brancha do uruchomienia przez `orx exp run`;
-- `analyst` nie zmienia kodu tylko dlatego, że wynik jest ciekawy; proponuje nowy węzeł-dziecko;
-- scalenie albo odrzucenie brancha jest decyzją zespołu.

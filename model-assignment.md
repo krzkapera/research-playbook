@@ -6,7 +6,7 @@ To ustalenia operacyjne, nie treść ról — opisują, które subskrypcje/model
 |---|---|---|---|
 | professor | zawsze najmocniejszy dostępny model (obecnie Codex; docelowo możliwe przejście na Opusa) | 1× | czekasz na odnowienie; nigdy nie podstawiasz słabszego modelu |
 | laborant | Opus (Claude Code) | N× równolegle, jedna instancja na hipotezę | czekasz na odnowienie |
-| critic | Grok (Cursor) | N× równolegle, jedna instancja na wątek (hipoteza/eksperyment) | czekasz na odnowienie; do tego czasu praca idzie dalej bez tej perspektywy — patrz `coordination-flow.md` |
+| critic | Grok (Cursor) | N× równolegle, jedna instancja na wątek (hipoteza/eksperyment) | czekasz na odnowienie; do tego czasu praca idzie dalej bez tej perspektywy |
 | programmer | Gemini (Antigravity) | N× równolegle, każdy jako osobna sesja `orx up`/`orx agent spawn` — **nie** natywny subagent narzędzia w jednej sesji, bo dzieliłby worktree (patrz `worktrees.md`) | czekasz na odnowienie |
 | librarian | Google AI Studio free tier, dopóki starcza limitu; potem Gemini (Antigravity) | spawn na pojedyncze zapytanie, kończony po odpowiedzi | agent sam przełącza źródło wyszukiwania w obrębie sesji — patrz `roles/librarian.md` |
 

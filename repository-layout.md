@@ -12,7 +12,6 @@ project/
     rules.md
     communication.md
     identifiers.md
-  coordination-flow.md
   file-lifecycle.md
   model-assignment.md
   repository-layout.md
@@ -27,9 +26,6 @@ project/
     programmer.operator.md
     critic.md
     librarian.md
-  templates/
-    hypothesis.md
-    experiment.md
   literature/
     index.md
     artykuly/
@@ -38,7 +34,7 @@ project/
 
 `orx` dostarcza worktree każdej sesji automatycznie, we własnym katalogu danych — `project/` nie rezerwuje już na to osobnego miejsca (patrz `worktrees.md`).
 
-Hipotezy i eksperymenty nie mają własnych plików ani katalogów w tym repozytorium — żyją jako węzły drzewa `orx` (patrz `hypotheses.md`, `experiments.md`). `templates/` opisuje treść, jaką wpisujesz do `description` takiego węzła, nie plik do utworzenia.
+Hipotezy i eksperymenty nie mają własnych plików ani katalogów w tym repozytorium — żyją jako węzły drzewa `orx` (patrz `hypotheses.md`, `experiments.md`).
 
 ## Gdzie zapisywać
 

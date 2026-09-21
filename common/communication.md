@@ -30,7 +30,7 @@ Nie ma wymuszonego formatu wiadomości ani znaczników intencji — zwykły, swo
 
 ## Zadanie czy dyskusja
 
-Konkretna robota prowadząca do postępu węzła (implementacja, uruchomienie, analiza) to zadanie w kolejce `ai-crew-sync` — ma właściciela, może mieć `depends_on`. Krytyka, pytania i propozycje to luźna dyskusja w kanale — nikt jej nie "claimuje", nikt nie jest za nią formalnie odpowiedzialny (patrz `coordination-flow.md`). Jedynymi stałymi elementami są hipoteza i eksperyment same w sobie, nie role wokół nich.
+Konkretna robota prowadząca do postępu węzła (implementacja, uruchomienie, analiza) to zadanie w kolejce `ai-crew-sync` — ma właściciela, może mieć `depends_on`. Krytyka, pytania i propozycje to luźna dyskusja w kanale — nikt jej nie "claimuje", nikt nie jest za nią formalnie odpowiedzialny. Jedynymi stałymi elementami są hipoteza i eksperyment same w sobie, nie role wokół nich.
 
 ## Kto edytuje węzeł
 

@@ -4,28 +4,13 @@ Hipoteza to węzeł drzewa `orx` bez własnego runu — korzeń dla eksperyment�
 
 Treść hipotezy — samo twierdzenie, jej narracja i stan — żyje w polu `description` tego węzła, edytowanym przez `orx exp desc`. To pole jest nadpisywane w całości przy każdej zmianie: przed edycją odczytaj bieżącą treść (`orx exp status`/`orx exp desc`) i zapisz pełną, zaktualizowaną wersję, nie tylko dopisek.
 
-## Minimalna zawartość opisu
+## Zawartość opisu
 
-- jednoznaczne twierdzenie;
-- motywacja i podstawy teoretyczne;
-- hipoteza alternatywna;
-- aktualne argumenty za i przeciw;
-- otwarte pytania;
-- bieżący stan i uzasadnienie;
-- ostatnie decyzje oraz następny mały krok.
+Nie ma ustalonej listy pól — dobierz treść tak, żeby opis był samowystarczalny (patrz `common/communication.md`). Hipoteza może być szkicem, który rozmowa dopiero doprecyzuje.
 
-Nie każdy wpis musi od razu zawierać pełny plan. Hipoteza może być szkicem, który rozmowa dopiero doprecyzuje.
+## Stan hipotezy
 
-## Stany hipotezy
-
-```text
-PROPOSED -> DISCUSSING -> REFINED -> TESTING
-TESTING -> SUPPORTED | WEAKENED | REJECTED | INCONCLUSIVE
-SUPPORTED -> REFINED | MERGED | ABANDONED
-WEAKENED -> REFINED | REJECTED | ABANDONED
-```
-
-Stan to linia w `description`, nie osobne pole w `orx`. Opisuje aktualny poziom uzasadnienia, nie prawdę absolutną. Zmiana stanu wymaga krótkiego uzasadnienia i wskazania dowodów — dopisz je do opisu.
+Nie ma ustalonej listy nazw stanów ani wymuszonych przejść między nimi — opisz bieżący stan i uzasadnienie swobodnym tekstem w `description`, tak jak akurat pasuje do sytuacji. Zmiana stanu wymaga krótkiego uzasadnienia i wskazania dowodów — dopisz je do opisu.
 
 ## Równoległość
 

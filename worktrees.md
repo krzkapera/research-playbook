@@ -46,8 +46,6 @@ Agent przekazuje:
 - artefakty oraz logi;
 - problemy i nieweryfikowane założenia.
 
-Scalenie brancha jest decyzją zespołu, nie automatycznym skutkiem zakończenia agenta.
-
 ## HPC
 
 Kod i skrypty HPC powstają w Twoim sesyjnym worktree, ale job zapisuje logi i wyniki w jawnej lokalizacji opisanej w eksperymencie (patrz `file-lifecycle.md`). Job musi być wznawialny. Monitorowanie joba idzie przez `orx exp wait`/`orx exp wake`, a nie przez własną pętlę bash — chyba że chodzi o coś, czego `orx` nie pokrywa, jak przełączanie klastra przy zapchanej kolejce (patrz `programmer.operator.md`).
