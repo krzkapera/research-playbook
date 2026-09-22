@@ -9,6 +9,7 @@ Cały projekt badawczy żyje w jednym `orx` projekcie; jego `project_id` jest st
 `project_id`: `<nieustawiony — uzupełnia użytkownik po utworzeniu projektu; komenda: orx projects>`
 
 Zasady dla agentów:
+- projekt `orx` zakłada użytkownik — agenci go nie tworzą;
 - nie wymyślaj `project_id`;
 - jeśli nie ma go w tym pliku ani w zleceniu, ustal przez `orx projects` albo zapytaj na kanale `project` / nadawcę;
 - gdy użytkownik wpisze tu konkretną wartość, traktuj ją jako źródło prawdy.
@@ -18,5 +19,3 @@ Slug nadaje się raz i nie zmienia po ponowieniu eksperymentu. Nowy wariant tego
 `orx` sam pilnuje unikalności slugu i brancha w obrębie projektu — nie potrzeba osobnego locka na przydział numeru.
 
 Pojedyncze uruchomienie identyfikujemy runem `orx` (`orx runs <project_id> [--experiment <id>]`, `orx logs <run_id>`), nie osobnym schematem numeracji jobów.
-
-Projekt `orx` zakłada **użytkownik** (poza playbookiem agentów). Agenci nie tworzą projektu `orx` sami. Gdy `project_id` poniżej jest nieustawiony, użyj `orx projects` albo zapytaj na kanale `project` / nadawcę — nigdy nie zgaduj.

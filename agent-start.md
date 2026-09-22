@@ -12,7 +12,7 @@ Wykonaj te kroki przed pierwszą merytoryczną wiadomością:
    - do kanału sluga hipotezy/eksperymentu tylko wtedy, gdy masz w tym węźle aktywną rolę teraz (jesteś właścicielem etapu, zostałeś zaproszony do recenzji, albo zlecenie wskazuje ten slug i oczekuje Twojego udziału);
    - nie dołączaj do kanałów „na zapas";
    - samotne draftowanie u właściciela etapu nie wymaga zapraszania innych — zaproszenie = otwarcie rundy recenzji, nie start pracy solo.
-7. Przeczytaj opis węzła hipotezy (`orx exp desc`/`orx exp status`), potem węzła eksperymentu, a następnie tylko artefakty i logi (`orx logs`) wskazane w zleceniu. Nie czytaj całego repozytorium bez potrzeby. **Wyjątek:** gdy brief spawnu nie wskazuje sluga/id węzła, pomiń odczyt węzłów `orx` i nie zgaduj slugów — dołącz tylko do `project` oraz kanałów z briefu.
+7. Przeczytaj opis węzła na poziomie zlecenia: przy znanym slug/id hipotezy — węzeł hipotezy (`orx exp desc`/`orx exp status`); przy znanym slug/id eksperymentu — dopiero wtedy węzeł eksperymentu. Potem tylko artefakty i logi (`orx logs`) wskazane w zleceniu. Nie czytaj całego repozytorium bez potrzeby. **Wyjątki:** (a) brief bez żadnego sluga/id — pomiń odczyt węzłów `orx`, nie zgaduj slugów, dołącz tylko do `project` i kanałów z briefu; (b) jest tylko hipoteza, bez eksperymentu — nie szukaj i nie czytaj węzła eksperymentu.
 8. Gdy potrzebujesz znaleźć innych agentów, wołaj `list_agents` (heartbeat nie jest wymagany). Potwierdź krótko, że jesteś gotowy: rola, cel, co i gdzie oddasz w wyniku. Swobodny, krótki tekst — bez wymuszonego formatu (patrz `common/communication.md`).
 
 ## Przekazany plik roli

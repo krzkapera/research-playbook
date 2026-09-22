@@ -25,12 +25,12 @@ Wpisz pełny design do `description` eksperymentu (`orx exp desc`). To pole jest
 
 ## Handoff do implementacji
 
-Gdy design w `description` jest gotowy (go/no-go z decision-maker), **Ty** uruchamiasz implementację: sprawdź `list_agents`, a jeśli nie ma wolnego programisty — `orx agent spawn` ze szablonem „laborant → programmer” z `common/communication.md`.
+Gdy design w `description` jest gotowy (go/no-go z decision-maker), **Ty** uruchamiasz implementację: sprawdź `list_agents`. Jeśli wolny programista już działa — zleć mu robotę przez `ask_agent` (P2P) i **czekaj na wynik przez `wait_for_updates` na kanale eksperymentu** (przy P2P nie ma wake ze spawnu). Jeśli nie ma wolnego programisty — `orx agent spawn` ze szablonem „laborant → programmer” z `common/communication.md`.
 
-- Jeśli run ma iść na Slurm/HPC/kolejkę: w briefie **doklej** `roles/programmer.operator.md` do tej samej sesji (jeden agent = programmer + operator). To nie jest osobna persona.
-- W briefie podaj kanał eksperymentu do natychmiastowego dołączenia, `id`/slug węzła i oczekiwany wynik (commit, komendy, ścieżki artefaktów na kanale — **bez** edycji `description` przez programmera).
+- Jeśli run ma iść na Slurm/HPC/kolejkę: w briefie / P2P **doklej** `roles/programmer.operator.md` do tej samej sesji (jeden agent = programmer + operator). To nie jest osobna persona.
+- W briefie / P2P podaj kanał eksperymentu do natychmiastowego dołączenia, `id`/slug węzła i oczekiwany wynik (commit, komendy, ścieżki artefaktów na kanale — **bez** edycji `description` przez programmera).
 
-Po zakończeniu sesji programisty dostajesz wake z `orx agent spawn` (chyba że `--no-wake`) oraz krótką wiadomość na kanale eksperymentu. **Ty** wciągasz ścieżki, run id i status do `description` eksperymentu.
+Po `orx agent spawn` dostajesz wake przy zamknięciu dziecka (chyba że `--no-wake`) oraz krótką wiadomość na kanale eksperymentu. Wake = wybudzenie Twojej sesji-rodzica z odpowiedzią helpera; dotyczy tylko spawnu, nie `ask_agent`. **Ty** wciągasz ścieżki, run id i status do `description` eksperymentu.
 
 ## Analiza wyników
 
