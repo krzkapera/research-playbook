@@ -20,7 +20,7 @@ Skoro opis jest zawsze aktualny, wiadomość w pokoju nie powtarza tego, co w ni
 
 ## Pokój: recenzja, nie start pracy
 
-„Otwarcie pokoju" oznacza **zaproszenie innych do recenzji gotowego draftu**, nie rozpoczęcie pracy nad czymś nowym. Właściciel etapu najpierw pracuje sam i zapisuje wynik w `description` węzła; dopiero potem zaprasza kolejnych uczestników wiadomością z nazwą kanału — `ai-crew-sync` nie ma ACL na kanały, więc „zaproszenie" to przekazanie nazwy. Recenzję designu eksperymentu prowadzi `laborant` z `critic` (zwykle spawn critica na kanał eksperymentu); dopytania do `professor` o szczegóły hipotezy idą na **kanał hipotezy**.
+„Otwarcie pokoju" oznacza **zaproszenie innych do recenzji gotowego draftu**, nie rozpoczęcie pracy nad czymś nowym. Właściciel etapu najpierw pracuje sam i zapisuje wynik w `description` węzła; dopiero potem zaprasza kolejnych uczestników wiadomością z nazwą kanału — `ai-crew-sync` nie ma ACL na kanały, więc „zaproszenie" to przekazanie nazwy. Fazę hipotezy prowadzą `professor`, `laborant` i `critic` na kanale hipotezy. Fazę eksperymentów prowadzi `laborant` z osobnym `critic` na kanale eksperymentu (spawn critica); dopytania do `professor` o treść hipotezy idą na **kanał hipotezy**.
 
 Skład pokoju rośnie stopniowo, nie od razu w komplecie: każde dołączenie nowej osoby otwiera nową rundę iteracji, nie jednorazową recenzję. Runda trwa, aż nikt nie ma więcej uwag; wtedy albo dołącza kolejna osoba i iteracja zaczyna się od nowa, albo etap jest zamknięty. Właściciel etapu (professor dla hipotezy, laborant dla eksperymentu, programmer dla implementacji) ma głos decydujący, gdy uwagi nie prowadzą do zgody.
 
@@ -94,7 +94,33 @@ Ten protokół dotyczy zwłaszcza programmer ← laborant przy niejasnym designi
 
 Brief spawnu (`orx agent spawn`, zwykle `--stdin`) **jest zaproszeniem**: wymień w nim kanały do natychmiastowego dołączenia. Helper czyta wskazany plik persony; przy HPC doklej operatora do tej samej sesji.
 
-### Professor → laborant (design eksperymentu)
+### Professor → laborant (faza hipotezy)
+
+Flagi: `--harness claude-code --model <Opus — aktualna nazwa w Claude Code>`
+
+```text
+Jesteś laborant dla projektu <project_id>. Przeczytaj `roles/laborant.md` i kieruj się nim (faza hipotezy).
+
+Slug hipotezy: <slug-H> (id: <id-H>)
+Kanały dołącz natychmiast: project, <slug-H>
+Zadanie: razem z professorem i criticiem dopracuj treść hipotezy na kanale hipotezy (twierdzenie, podstawy, alternatywa, pytania rozstrzygające). Ustalenia zapisuje professor w description.
+Oczekiwany wynik: konkretne propozycje brzmienia i kryteriów na kanale hipotezy; gotowość do fazy eksperymentów albo lista braków.
+```
+
+### Professor → critic (faza hipotezy)
+
+Flagi: `--harness cursor --model <Grok — aktualna nazwa w Cursor>`
+
+```text
+Jesteś critic dla projektu <project_id>. Przeczytaj `roles/critic.md` i kieruj się nim.
+
+Węzeł: <slug-H> (hipoteza)
+Kanały dołącz natychmiast: project, <slug-H>
+Zadanie: oceń treść hipotezy (co miało być ustalone vs co jest w description i na kanale); uwagi wyłącznie na kanale hipotezy.
+Oczekiwany wynik: uwagi na kanale <slug-H> + krótkie streszczenie w odpowiedzi spawnu.
+```
+
+### Professor → laborant (faza eksperymentów)
 
 Flagi: `--harness claude-code --model <Opus — aktualna nazwa w Claude Code>`
 
