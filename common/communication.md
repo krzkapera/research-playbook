@@ -76,6 +76,20 @@ Konkretna robota prowadząca do postępu węzła (implementacja, uruchomienie, a
 
 `ai-crew-sync` nie ma osobnego ACL „create channel”: kanał o nazwie sluga powstaje, gdy twórca węzła **dołączy i napisze pierwszą wiadomość** pod tą nazwą. Zaproszenie innych = podanie nazwy kanału w briefie spawnu albo P2P.
 
+
+## Roundtrip: dziecko pyta śpiącego rodzica
+
+Gdy sesja powstała przez `orx agent spawn`, rodzic zwykle czeka na wake i **nie odbiera** na żywo `ask_agent`. Dziecko z niejasnym briefem **nie może** skutecznie dopytać P2P i nie wolno mu zgadywać ani wisieć bez końca.
+
+Protokół:
+
+1. Dziecko pisze pytania na uzgodnionym kanale (krótko).
+2. Dziecko **kończy sesję** z odpowiedzią spawnu: `BLOCKED: potrzebuję wyjaśnienia` + pytania (to jest wake rodzica).
+3. Rodzic po wake uzupełnia `description` / brief i robi re-spawn albo `ask_agent` z odpowiedziami.
+4. Dziecko w nowej sesji kontynuuje — bez domysłów z poprzedniej blokady.
+
+Ten protokół dotyczy zwłaszcza programmer ← laborant przy niejasnym designie; ten sam wzorzec wolno użyć przy innych spawnach.
+
 ## Szablony spawnu
 
 Brief spawnu (`orx agent spawn`, zwykle `--stdin`) **jest zaproszeniem**: wymień w nim kanały do natychmiastowego dołączenia. Helper czyta wskazany plik persony; przy HPC doklej operatora do tej samej sesji.
@@ -99,7 +113,7 @@ Jesteś programmer dla projektu <project_id>. Przeczytaj `roles/programmer.md` i
 Slug eksperymentu: <slug-E> (id: <id-E>)
 Kanały dołącz natychmiast: project, <slug-E>
 Zadanie: zaimplementuj eksperyment wg description węzła; smoke test; commit na branchu eksperymentu.
-Oczekiwany wynik: commit, komendy, ścieżki artefaktów — na kanale <slug-E> i w krótkim podsumowaniu spawnu. Nie edytuj description.
+Oczekiwany wynik: commit, komendy, ścieżki artefaktów — na kanale <slug-E> i w krótkim podsumowaniu spawnu; albo `BLOCKED: potrzebuję wyjaśnienia` + pytania (roundtrip). Nie edytuj description.
 Doklej operatora HPC: nie
 ```
 
@@ -111,7 +125,7 @@ Jesteś programmer dla projektu <project_id>. Przeczytaj `roles/programmer.md` o
 Slug eksperymentu: <slug-E> (id: <id-E>)
 Kanały dołącz natychmiast: project, <slug-E>
 Zadanie: zaimplementuj wg description, napisz/utrzymaj job.sbatch, uruchom i monitoruj job, zgłoś status.
-Oczekiwany wynik: commit, run id, ścieżki logów, status Done/Failed — na kanale <slug-E> i w podsumowaniu spawnu. Nie edytuj description.
+Oczekiwany wynik: commit, run id, ścieżki logów, status Done/Failed — na kanale <slug-E> i w podsumowaniu spawnu; albo `BLOCKED: potrzebuję wyjaśnienia` + pytania (roundtrip). Nie edytuj description.
 Doklej operatora HPC: tak
 ```
 
