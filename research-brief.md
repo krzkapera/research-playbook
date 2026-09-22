@@ -49,16 +49,6 @@ Eksperymenty mają być powtarzalne, wykonywane wiele razy, gdy zachodzi taka po
 
 Vision few-shot self-supervised; vision few-shot anomaly detection; vision few-shot continual learning; vision backbones foundation models, vit, cnn; vision continual learning; vision fine tuning; vision augmentation; tego typu regularyzacje na zmniejszanie liczby zdjęć, czyli kilka przykładów naszej klasy, a reszta to inne zdjęcia do regularyzacji, rodzaje metod lora; moja teza — uczenie parametrów pozwala uzyskać lepsze wyniki niż metody beztreningowe, zweryfikuj ją z najnowszymi paperami.
 
-## Eksperymenty proponowane na start
-
-- odtworzyć foundAD wszystkie raportowane wyniki z paperu, mamy otrzymać takie same wyniki lub chociaż w przedziale szumu
-- uruchomić foundAD w symulacji continual, czyli trenujemy na całym zbiorze tyle razy ile jest klas, ale ewaluujemy tylko jedną klasę; oczekujemy, że średnio i tak dostaniemy takie same wyniki, jak w treningu łącznym
-- jak poprzednio, ale podmieniamy zdjęcia innych klas na inny zbiór, jakiś znany wizyjny, który będzie pasował
-- jakieś próby pozbycia się zdjęć innych klas, zmniejszanie liczby zdjęć, inne metody regularyzacji w tym auxiliary anchor
-- zmniejszenie głowy, uczenie tylko jej części, później uczenie tylko małego adaptera, natomiast prawdopodobnie architekturę modelu trzeba będzie nieco zmienić, może jakiś pre-trening dodać, choć oczywiście najlepiej by było go uniknąć
-- chcemy pokazać, że badania w temacie w ogóle mają sens
-- może jakiś teacher-student, np. dwa modele DINO z różnymi głowami, O-LoRA, DoRA, PEFT
-- augmentacja i CutPaste wygląda, że dużo pomaga
 
 ## Zasady pisania kodu
 

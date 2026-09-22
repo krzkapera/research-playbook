@@ -18,4 +18,5 @@ Hipotezy tworzą drzewo: `orx project view <project_id>` pokazuje wszystkie nara
 
 ## Kanał
 
-Każda aktywna hipoteza dostaje kanał w `ai-crew-sync` nazwany jej slugiem, do rozmowy i krytyki — patrz `common/communication.md`. Kanał nie zastępuje `description`: ustalenia trwałe wracają do węzła, kanał jest historią dyskusji.
+Każda aktywna hipoteza ma kanał `ai-crew-sync` nazwany jej slugiem. **Zakłada go agent tworzący węzeł (zazwyczaj `professor`)**, zaraz po `orx create-experiment`, i ogłasza powstanie na kanale `project`. Kanał nie zastępuje `description`: ustalenia trwałe wracają do węzła, kanał jest historią dyskusji. Szczegóły dołączania: `common/communication.md`.
+

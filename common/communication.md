@@ -4,8 +4,7 @@ Każdy agent dołącza do `project`. Każda aktywna hipoteza i każdy aktywny ek
 
 ## Znalezienie i zaadresowanie konkretnego agenta
 
-Publikuj, nad czym aktualnie pracujesz, przez `heartbeat` (pole `activity`) — wymień w nim slug hipotezy/eksperymentu, żeby inni Cię znaleźli, np. "laborant, lora-rank-vs-shots". Zanim napiszesz P2P do kogoś konkretnego (np. "laborant obsługujący tę hipotezę"), sprawdź `list_agents` — pokazuje, kto jest aktywny i nad czym pracuje. Zaadresuj `ask_agent(to: "<handle>")`, albo `"<handle>/<sesja>"`, gdy chodzi o konkretny wątek pracy tej osoby, nie o nią w ogóle.
-
+**Nie ma obowiązkowego heartbeat.** Agenci nie muszą publikować activity. Gdy potrzebujesz kogoś znaleźć, wołaj `list_agents` — pokazuje, kto jest aktywny i nad czym pracuje. 
 ## Opis węzła jako źródło prawdy
 
 `description` węzła jest samowystarczalną dokumentacją — ma wystarczać do zrozumienia stanu i decyzji nawet komuś, kto nie widział rozmowy: nowemu uczestnikowi, ale też właścicielowi wracającemu do tematu po przerwie albo prowadzącemu wiele równoległych wątków naraz (np. professor). Aktualizuje się go na bieżąco, w trakcie rozmowy w pokoju, a nie dopiero na koniec — bo ta rozmowa istnieje właśnie po to, żeby dopracować ten opis (patrz "Kto edytuje węzeł" niżej).
@@ -67,8 +66,77 @@ Konkretna robota prowadząca do postępu węzła (implementacja, uruchomienie, a
 
 ## Kto edytuje węzeł
 
-`description` węzła edytuje agent aktualnie odpowiedzialny za niego na danym poziomie — to rola, nie stała tożsamość instancji, bo laborantów i programistów może być wielu naraz. Pozostali wysyłają uwagi przez kanał; właściciel włącza je do opisu na bieżąco, w trakcie rozmowy (patrz "Opis węzła jako źródło prawdy" wyżej).
+`description` edytuje wyłącznie aktualny właściciel etapu: `professor` na poziomie hipotezy, `laborant` na poziomie eksperymentu. Programmer, operator, critic i librarian **nie edytują** `description` — oddają materiał na kanale albo w odpowiedzi spawnu; właściciel wciąga go do opisu. To rola, nie stała tożsamość instancji, bo laborantów i programistów może być wielu naraz.
 
 ## Notatki
 
 `ai-crew-sync` notes (`scope`/`key`, pełnotekstowe wyszukiwanie) są dla treści nieprzypisanej do jednego węzła — np. przekrojowe decyzje projektu. Nie kopiuj tam treści, która już ma dom w `description` konkretnego węzła. Wyjątkiem jest spis literatury (`literature/index.md`) — to zwykły plik chroniony lockiem `ai-crew-sync`, nie note (patrz `roles/librarian.md`).
+
+## Jak powstaje kanał
+
+`ai-crew-sync` nie ma osobnego ACL „create channel”: kanał o nazwie sluga powstaje, gdy twórca węzła **dołączy i napisze pierwszą wiadomość** pod tą nazwą. Zaproszenie innych = podanie nazwy kanału w briefie spawnu albo P2P.
+
+## Szablony spawnu
+
+Brief spawnu (`orx agent spawn`, zwykle `--stdin`) **jest zaproszeniem**: wymień w nim kanały do natychmiastowego dołączenia. Helper czyta wskazany plik persony; przy HPC doklej operatora do tej samej sesji.
+
+### Professor → laborant (design eksperymentu)
+
+```text
+Jesteś laborant dla projektu <project_id>. Przeczytaj `roles/laborant.md` i `roles/professor-laborant.decision-maker.md` i kieruj się nimi.
+
+Slug hipotezy: <slug-H> (id: <id-H>)
+Kanały dołącz natychmiast: project, <slug-H>
+Zadanie: zaprojektuj mały eksperyment rozstrzygający <pytanie>; utwórz węzeł-dziecko, kanał eksperymentu, wpisz design do description.
+Oczekiwany wynik: id/slug eksperymentu, krótki opis designu na kanale hipotezy; description eksperymentu kompletne.
+```
+
+### Laborant → programmer (implementacja; bez HPC)
+
+```text
+Jesteś programmer dla projektu <project_id>. Przeczytaj `roles/programmer.md` i kieruj się nim.
+
+Slug eksperymentu: <slug-E> (id: <id-E>)
+Kanały dołącz natychmiast: project, <slug-E>
+Zadanie: zaimplementuj eksperyment wg description węzła; smoke test; commit na branchu eksperymentu.
+Oczekiwany wynik: commit, komendy, ścieżki artefaktów — na kanale <slug-E> i w krótkim podsumowaniu spawnu. Nie edytuj description.
+Doklej operatora HPC: nie
+```
+
+### Laborant → programmer+operator (implementacja + Slurm/HPC)
+
+```text
+Jesteś programmer dla projektu <project_id>. Przeczytaj `roles/programmer.md` oraz `roles/programmer.operator.md` (ta sama sesja — programmer i operator naraz).
+
+Slug eksperymentu: <slug-E> (id: <id-E>)
+Kanały dołącz natychmiast: project, <slug-E>
+Zadanie: zaimplementuj wg description, napisz/utrzymaj job.sbatch, uruchom i monitoruj job, zgłoś status.
+Oczekiwany wynik: commit, run id, ścieżki logów, status Done/Failed — na kanale <slug-E> i w podsumowaniu spawnu. Nie edytuj description.
+Doklej operatora HPC: tak
+```
+
+### Ktokolwiek → critic
+
+```text
+Jesteś critic dla projektu <project_id>. Przeczytaj `roles/critic.md` i kieruj się nim.
+
+Węzeł: <slug-N> (hipoteza|eksperyment)
+Kanały dołącz natychmiast: project, <slug-N>
+Zadanie: zrecenzuj węzeł na kanale <slug-N>; wolno czytać/testować worktree, bez zmian kodu i description.
+Oczekiwany wynik: uwagi na kanale <slug-N> + krótkie streszczenie w odpowiedzi spawnu.
+```
+
+### Professor/laborant → librarian
+
+```text
+Jesteś librarian dla projektu <project_id>. Przeczytaj `roles/librarian.md` i kieruj się nim.
+
+Slug kontekstu (opcjonalnie): <slug>
+Kanały dołącz natychmiast: project[, <slug>]
+Zadanie: szeroki przegląd literatury nt. <temat> (najpierw literature/, synteza dla zlecającego).
+Oczekiwany wynik: synteza w limicie odpowiedzi spawnu; dłuższe treści na kanale. Nie edytuj description węzłów.
+```
+
+### Zwrot wyniku (wake + kanał)
+
+Sesja-dziecko kończąc pracę: (1) krótka odpowiedź spawnu dla rodzica (≤ ~4000 znaków), (2) jeśli są ścieżki/logi/tabele — wiadomość na uzgodnionym kanale z ścieżkami. Rodzic-właściciel etapu wciąga to do `description`.

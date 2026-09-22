@@ -4,10 +4,13 @@ Eksperyment to węzeł drzewa `orx`, dziecko hipotezy, którą testuje (`orx cre
 
 Treść eksperymentu — pytanie, ustalenia, krytyka, wynik — żyje w jego `description`, edytowanym przez `orx exp desc`. Surowe logi i wyniki runów zostają tam, gdzie `orx` je zapisuje (`orx logs <run-id>`); `description` je streszcza i wskazuje, nie duplikuje.
 
+Pole `description` jest nadpisywane w całości przy każdej zmianie: przed edycją odczytaj bieżącą treść (`orx exp status`/`orx exp desc`) i zapisz pełną, zaktualizowaną wersję, nie tylko dopisek. Edytuje je wyłącznie aktualny właściciel etapu (`laborant`); programmer i operator przekazują ścieżki i status na kanale.
+
 
 ## Kanał
 
 Każdy aktywny eksperyment ma kanał `ai-crew-sync` nazwany jego slugiem. Zakłada go agent tworzący węzeł (zazwyczaj `laborant`), zaraz po `orx create-experiment`, i ogłasza powstanie na kanale hipotezy-rodzica. Szczegóły dołączania: `common/communication.md`.
+
 
 ## Zawartość opisu
 

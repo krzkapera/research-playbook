@@ -21,6 +21,8 @@ Każdy agent czyta:
 
 Te pliki zawierają tylko zasady potrzebne wszystkim rolom.
 
+Dodatkowo wolno czytać `README.md` (mapa person) oraz `model-assignment.md` (gdy spawnujesz albo dobierasz harness/model).
+
 ## Łączenie zakresów
 
 Jeżeli agent ma kilka przekazanych person naraz (np. okrojony skład z `model-assignment.md`, gdzie jeden agent jest jednocześnie professorem i laborantem), sumuje to, do czego odsyłają wszystkie przekazane pliki person, ale nadal nie czyta niczego poza tą sumą. Przykład: `professor.md` + `laborant.md` razem czytają `common/*`, oba pliki person i wszystkie domeny, do których odsyłają (`research-brief.md`, `hypotheses.md`, `experiments.md`, `professor-laborant.decision-maker.md`) — ale nie `worktrees.md`, bo żadna z tych person nie implementuje kodu.

@@ -20,3 +20,7 @@ Dostęp: `ssh helios`, `ssh athena`, `ssh ares` — dokumentacja pod `docs.hpc.c
 - **Smoke test**: przed większą zmianą (zwłaszcza na początku) zrób smoke test lokalnie albo na HPC. Nie trzeba go powtarzać przy zmianie jednego parametru w kodzie, który wcześniej działał.
 - **Lokalnie zamiast HPC**: coś na danych few-shot, co policzy się w kilka minut na lokalnym GPU i nie jest częścią większego batch experimentu — licz lokalnie, nie czekaj w kolejce.
 - **Równoległość**: uruchamiaj eksperymenty możliwie równolegle; nie czekaj z kolejnym etapem, jeśli nie zależy od wyników poprzedniego.
+
+## Po zakończeniu joba
+
+Gdy run jest Done/Failed/Cancelled: napisz krótki status na **kanale eksperymentu** (run id, ścieżki logów, exit). W odpowiedzi spawnu (wake rodzica) streszcz to samo. **Nie edytuj `description`** — to zrobi laborant na podstawie Twojego raportu.
