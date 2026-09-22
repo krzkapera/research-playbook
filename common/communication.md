@@ -20,7 +20,7 @@ Skoro opis jest zawsze aktualny, wiadomość w pokoju nie powtarza tego, co w ni
 
 ## Pokój: recenzja, nie start pracy
 
-„Otwarcie pokoju" oznacza **zaproszenie innych do recenzji gotowego draftu**, nie rozpoczęcie pracy nad czymś nowym. Właściciel etapu najpierw pracuje sam i zapisuje wynik w `description` węzła; dopiero potem zaprasza kolejnych uczestników wiadomością z nazwą kanału — `ai-crew-sync` nie ma ACL na kanały, więc „zaproszenie" to przekazanie nazwy.
+„Otwarcie pokoju" oznacza **zaproszenie innych do recenzji gotowego draftu**, nie rozpoczęcie pracy nad czymś nowym. Właściciel etapu najpierw pracuje sam i zapisuje wynik w `description` węzła; dopiero potem zaprasza kolejnych uczestników wiadomością z nazwą kanału — `ai-crew-sync` nie ma ACL na kanały, więc „zaproszenie" to przekazanie nazwy. Recenzję designu eksperymentu prowadzi `laborant` z `critic` (zwykle spawn critica na kanał eksperymentu); dopytania do `professor` o szczegóły hipotezy idą na **kanał hipotezy**, nie P2P.
 
 Skład pokoju rośnie stopniowo, nie od razu w komplecie: każde dołączenie nowej osoby otwiera nową rundę iteracji, nie jednorazową recenzję. Runda trwa, aż nikt nie ma więcej uwag; wtedy albo dołącza kolejna osoba i iteracja zaczyna się od nowa, albo etap jest zamknięty. Właściciel etapu (professor dla hipotezy, laborant dla eksperymentu, programmer dla implementacji) ma głos decydujący, gdy uwagi nie prowadzą do zgody.
 
