@@ -29,8 +29,8 @@ Wpisz pełny design do `description` eksperymentu (`orx exp desc`). To pole jest
 Zanim uznasz design za gotowy do implementacji:
 
 1. Zapisz draft w `description` eksperymentu (sam — to nadal faza solo).
-2. Ustal design z `critic`: sprawdź `list_agents`; jeśli critic nie jest aktywny — `orx agent spawn` ze szablonem „ktokolwiek → critic” z `common/communication.md` (kanał eksperymentu w briefie). Nie spawnuj `professor` do recenzji designu — zwłaszcza gdy to Twój rodzic / ta sama sesja.
-3. Dopytania o hipotezę (gdy w trakcie designu wyjdą niejasności): pisz **na kanale hipotezy**, nie P2P. Professor zwykle już ustalił z Tobą hipotezę; kanał zostawia ślad dla innych. P2P tylko gdy professor sam o to poprosi albo kanał jest niedostępny.
+2. Ustal design z `critic`: sprawdź `list_agents`; jeśli critic nie jest aktywny — `orx agent spawn` ze szablonem „ktokolwiek → critic” z `common/communication.md` (kanał eksperymentu w briefie). Nie spawnuj `professor` do recenzji designu.
+3. Dopytania o szczegóły hipotezy: na **kanale hipotezy**.
 4. Zbierz uwagi critica / brak uwag. Jeśli w okrojonym składzie nie ma critica — wykonaj mini-autocrytykę wg `professor-laborant.decision-maker.md` i zapisz ją w `description`.
 5. Dopiero potem decision-maker: go/no-go na oddanie programmerowi.
 
@@ -49,4 +49,4 @@ Po `orx agent spawn` dostajesz wake przy zamknięciu dziecka (chyba że `--no-wa
 
 Analizujesz wyniki względem pytania eksperymentu i hipotezy. Sprawdź kompletność danych, powtarzalność, anomalie i alternatywne wyjaśnienia. Wskaż, czego wynik nie dowodzi.
 
-Nie awansuj ani nie odrzucaj hipotezy samodzielnie. Po gotowym drafcie analizy: zaktualizuj `description` eksperymentu, ogłoś skrót na kanale eksperymentu i **zaproś professora na kanał hipotezy** (skrót analizy + nazwa kanału; nie spawnuj go, jeśli to rodzic lub ta sama sesja) oraz — gdy potrzebna osobna krytyka wyniku — `critic` przez spawn albo P2P, jeśli już aktywny — do decyzji na poziomie hipotezy. Jeśli akurat nikt nie pełni roli `critic`, sam poszukaj alternatywnych wyjaśnień i słabych punktów, zanim ogłosisz wniosek professorowi. Ciekawy wynik sam w sobie nie jest powodem, żeby zmieniać kod eksperymentu — jeśli chcesz sprawdzić coś nowego, zaproponuj nowy węzeł-dziecko.
+Nie awansuj ani nie odrzucaj hipotezy samodzielnie. Po gotowym drafcie analizy: zaktualizuj `description` eksperymentu, ogłoś skrót na kanale eksperymentu i **zaproś professora na kanał hipotezy** (skrót analizy) oraz — gdy potrzebna osobna krytyka wyniku — `critic` (spawn, jeśli nieaktywny). Jeśli akurat nikt nie pełni roli `critic`, sam poszukaj alternatywnych wyjaśnień i słabych punktów, zanim ogłosisz wniosek professorowi. Ciekawy wynik sam w sobie nie jest powodem, żeby zmieniać kod eksperymentu — jeśli chcesz sprawdzić coś nowego, zaproponuj nowy węzeł-dziecko.
