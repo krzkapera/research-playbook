@@ -5,7 +5,7 @@ Zanim zaczniesz, przeczytaj zawsze: `agent-start.md`, jeśli jeszcze nie. Opis w
 Masz dwie fazy, zawsze w tej kolejności:
 
 1. **Faza hipotezy** — razem z professorem i criticiem dopracowujesz treść hipotezy na kanale hipotezy.
-2. **Faza eksperymentów** — projektujesz i prowadzisz wiele eksperymentów rozstrzygających tę hipotezę. Na każdy węzeł eksperymentu spawnuje `critic` do recenzji tego eksperymentu (design, potem wyniki). Równoległe eksperymenty mają osobne sesje critica. Critic od fazy hipotezy to osobna sesja.
+2. **Faza eksperymentów** — w **tej samej sesji** projektujesz i prowadzisz wiele eksperymentów rozstrzygających tę hipotezę. Na każdy węzeł eksperymentu spawnuje `critic` do recenzji tego eksperymentu (design, potem wyniki). Równoległe eksperymenty mają osobne sesje critica. Critic od fazy hipotezy to osobna sesja i kończy się wraz z fazą treści (albo gdy professor go zamknie); do eksperymentów bierzesz osobnych criticów.
 
 Hipoteza to twierdzenie i jego uzasadnienie; eksperyment to konkretny test z własnym węzłem, kanałem i `description`. Trzymaj te dwa poziomy osobno.
 
@@ -17,7 +17,7 @@ Gdy do designu eksperymentu potrzebujesz szerokiego przeglądu literatury, spawn
 
 Dołączasz do kanału hipotezy (brief spawnu podaje slug). Wspólnie z professorem i criticiem dopracowujesz treść: twierdzenie, podstawy, alternatywę, zakres, pytania rozstrzygające. Professor jest właścicielem `description` hipotezy — Ty proponujesz brzmienie i kryteria na kanale; on wciąga ustalenia do opisu.
 
-W tej fazie przygotowujesz grunt pod późniejsze eksperymenty: jakie pytania trzeba rozstrzygnąć i czym wynik ma odróżnić hipotezę od alternatywy. Węzły eksperymentu tworzysz dopiero gdy professor uzna hipotezę za gotową do weryfikacji albo gdy brief spawnu każe przejść do fazy eksperymentów.
+W tej fazie przygotowujesz grunt pod późniejsze eksperymenty: jakie pytania trzeba rozstrzygnąć i czym wynik ma odróżnić hipotezę od alternatywy. Twoja sesja trwa od spawnu przy starcie hipotezy do zamknięcia hipotezy. Węzły eksperymentu tworzysz w tej samej sesji dopiero gdy professor na kanale hipotezy uzna hipotezę za gotową do weryfikacji (albo gdy startowy brief od razu każe fazę eksperymentów).
 
 ## Faza eksperymentów — projektowanie
 

@@ -120,18 +120,10 @@ Zadanie: oceń treść hipotezy (co miało być ustalone vs co jest w descriptio
 Oczekiwany wynik: uwagi na kanale <slug-H> + krótkie streszczenie w odpowiedzi spawnu.
 ```
 
-### Professor → laborant (start weryfikacji hipotezy)
+### Przejście do weryfikacji (bez nowego spawnu laboranta)
 
-Flagi: `--harness claude-code --model <Opus — aktualna nazwa w Claude Code>`
+Laborant spawnowany na start hipotezy zostaje do jej zamknięcia. Gdy professor uzna hipotezę za gotową do weryfikacji, zapisuje decyzję na kanale hipotezy i w `description`, a laborant w **tej samej sesji** przechodzi do fazy eksperymentów (tworzy węzły-dzieci, spawnuje criticów eksperymentów i programmera). Nowego laboranta do tej hipotezy nie spawnujesz.
 
-```text
-Jesteś laborant dla projektu <project_id>. Przeczytaj `roles/laborant.md` i `roles/professor-laborant.decision-maker.md` i kieruj się nimi.
-
-Slug hipotezy: <slug-H> (id: <id-H>)
-Kanały dołącz natychmiast: project, <slug-H>
-Zadanie: zaprojektuj mały eksperyment rozstrzygający <pytanie>; utwórz węzeł-dziecko, kanał eksperymentu, wpisz design do description.
-Oczekiwany wynik: id/slug eksperymentu, krótki opis designu na kanale hipotezy; description eksperymentu kompletne.
-```
 
 ### Laborant → programmer (implementacja; bez HPC)
 
