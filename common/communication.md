@@ -50,7 +50,7 @@ Oczekiwany wynik: <co i w jakiej formie oddać>
 
 Odpowiedź, którą wybudzona sesja-rodzic dostaje z zamknięcia helpera, jest ucięta na ok. 4000 znakach, bez ostrzeżenia i bez łatwego sposobu odzyskania reszty. Jeśli spodziewasz się dłuższej odpowiedzi (np. syntezy z szerokiego przeglądu literatury), poinstruuj helpera w briefie: zmieść syntezę w tym limicie (najważniejsze wyżej), a jeśli się nie mieści — niech pełną wersję wyśle jako wiadomość na właściwy kanał (patrz "Próg: wiadomość czy plik" niżej), a w zamkniętej odpowiedzi zostawi tylko krótkie odesłanie tam.
 
-Dodaj `--harness <harness> --model <model>` do `orx agent spawn`, jeśli persona docelowa ma przypisany inny model niż Twój bieżący (patrz `model-assignment.md`) — bez tego dziecko dziedziczy Twój własny harness/model, nie ten przypisany docelowej personie. Nazwa harnessu jest stała (np. `antigravity`), ale nazwa modelu na niektórych harnessach zmienia się w czasie i nie ma stałego aliasu — jeśli nie znasz aktualnej wartości, sprawdź ją narzędziem tego harnessu (np. `agy models` dla `antigravity`) zamiast zgadywać.
+Przy każdym `orx agent spawn` podaj `--harness` i `--model` z szablonu poniżej (źródło: `model-assignment.md`). Bez flag dziecko dziedziczy Twój harness/model — najczęstszy błąd: laborant (Claude Code / Opus) spawnuje critica bez `--harness cursor`. Nazwa harnessu jest stała; nazwa modelu na części harnessów zmienia się w czasie — gdy w szablonie jest placeholder, sprawdź aktualną wartość narzędziem harnessu (np. `agy models`, `opencode models`) zamiast zgadywać.
 
 ## Próg: wiadomość czy plik
 
@@ -96,6 +96,8 @@ Brief spawnu (`orx agent spawn`, zwykle `--stdin`) **jest zaproszeniem**: wymie�
 
 ### Professor → laborant (design eksperymentu)
 
+Flagi: `--harness claude-code --model <Opus — aktualna nazwa w Claude Code>`
+
 ```text
 Jesteś laborant dla projektu <project_id>. Przeczytaj `roles/laborant.md` i `roles/professor-laborant.decision-maker.md` i kieruj się nimi.
 
@@ -106,6 +108,8 @@ Oczekiwany wynik: id/slug eksperymentu, krótki opis designu na kanale hipotezy;
 ```
 
 ### Laborant → programmer (implementacja; bez HPC)
+
+Flagi: `--harness antigravity --model <Gemini — wynik agy models>`
 
 ```text
 Jesteś programmer dla projektu <project_id>. Przeczytaj `roles/programmer.md` i kieruj się nim.
@@ -119,6 +123,8 @@ Doklej operatora HPC: nie
 
 ### Laborant → programmer+operator (implementacja + Slurm/HPC)
 
+Flagi: `--harness antigravity --model <Gemini — wynik agy models>`
+
 ```text
 Jesteś programmer dla projektu <project_id>. Przeczytaj `roles/programmer.md` oraz `roles/programmer.operator.md` (ta sama sesja — programmer i operator naraz).
 
@@ -131,6 +137,8 @@ Doklej operatora HPC: tak
 
 ### Ktokolwiek → critic
 
+Flagi: `--harness cursor --model <Grok — aktualna nazwa w Cursor>`
+
 ```text
 Jesteś critic dla projektu <project_id>. Przeczytaj `roles/critic.md` i kieruj się nim.
 
@@ -141,6 +149,8 @@ Oczekiwany wynik: uwagi na kanale <slug-N> + krótkie streszczenie w odpowiedzi 
 ```
 
 ### Professor/laborant → librarian
+
+Flagi: `--harness opencode --model google/<id z opencode models>` (gdy limit Google AI Studio — `--harness antigravity --model <Gemini — wynik agy models>`)
 
 ```text
 Jesteś librarian dla projektu <project_id>. Przeczytaj `roles/librarian.md` i kieruj się nim.
