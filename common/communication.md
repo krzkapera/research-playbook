@@ -34,7 +34,9 @@ Na zakończenie zleconego zadania (nie rozmowy w pokoju) nie czeka się przez `a
 
 ## Delegowanie do innej sesji
 
-Zanim zaczniesz nową sesję, sprawdź `list_agents`: jeśli persona, której potrzebujesz, już działa (np. laborant obsługujący tę hipotezę), napisz do niej P2P (`ask_agent`) zamiast spawnować kolejną. Dopiero gdy nikt taki nie jest aktywny, użyj `orx agent spawn`.
+Zanim zaczniesz nową sesję, sprawdź `list_agents`: jeśli persona, której potrzebujesz, już działa (np. laborant obsługujący tę hipotezę, critic już przypisany do kanału tego węzła), napisz do niej P2P (`ask_agent`) zamiast spawnować kolejną. Dopiero gdy nikt taki nie jest aktywny, użyj `orx agent spawn`.
+
+**Wyjątek — programmer:** laborant na każdy nowy eksperyment zawsze spawnuje **nowego** programistę (szablon „laborant → programmer”). Nie listujesz wolnych programistów i nie doklejasz implementacji do istniejącej sesji programisty. Roundtrip po `BLOCKED` to re-spawn z uzupełnionym briefem.
 
 Przed użyciem `orx agent spawn` przeczytaj natywny skill `/orx-agent-delegation` — tam jest składnia, ochrona brancha, `--no-wake`, sprzątanie (`orx agent kill`). Tutaj zostają reguły zespołu i szablony briefów.
 
@@ -85,7 +87,7 @@ Protokół:
 
 1. Dziecko pisze pytania na uzgodnionym kanale (krótko).
 2. Dziecko **kończy sesję** z odpowiedzią spawnu: `BLOCKED: potrzebuję wyjaśnienia` + pytania (to jest wake rodzica).
-3. Rodzic po wake uzupełnia `description` / brief i robi re-spawn albo `ask_agent` z odpowiedziami.
+3. Rodzic po wake uzupełnia `description` / brief i robi re-spawn z odpowiedziami (dla programisty zawsze re-spawn; dla innych person wolno też `ask_agent`, gdy sesja-dziecko nadal żyje).
 4. Dziecko w nowej sesji kontynuuje — bez domysłów z poprzedniej blokady.
 
 Ten protokół dotyczy zwłaszcza programmer ← laborant przy niejasnym designie; ten sam wzorzec wolno użyć przy innych spawnach.

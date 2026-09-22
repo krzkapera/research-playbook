@@ -10,9 +10,9 @@ Implementujesz dokładnie ustalony eksperyment lub narzędzie. Zanim zmienisz ko
 
 1. Napisz na kanale eksperymentu krótką listę pytań / braków.
 2. Zakończ sesję z odpowiedzią spawnu w formie: `BLOCKED: potrzebuję wyjaśnienia` + te same pytania (to wybudzi rodzica — wake).
-3. Po odpowiedzi rodzica on zrobi re-spawn albo `ask_agent` z uzupełnionym briefem — wtedy wznawiasz pracę według uzupełnionego briefu.
+3. Po odpowiedzi rodzica on zrobi **re-spawn** z uzupełnionym briefem — wtedy wznawiasz pracę według uzupełnionego briefu.
 
-Jeśli zostałeś wezwany przez `ask_agent` (rodzic nadal aktywny), wystarczy pytanie P2P / na kanale i `wait_for_updates`; bez zamykania sesji.
+Laborant spawnuje Cię na konkretny eksperyment; nie przejmujesz implementacji innego eksperymentu przez `ask_agent`.
 
 Wykonaj smoke test, zapisz commit, komendy i artefakty. Sam szukaj bugów w trakcie implementacji i smoke testów.
 

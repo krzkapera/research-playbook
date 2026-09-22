@@ -41,11 +41,11 @@ Do handoffu implementacji przechodzisz po krokach 2–5 (przy braku critica: 4�
 
 ## Handoff do implementacji
 
-Gdy decision-maker dał go na implementację, Ty uruchamiasz implementację. Sprawdzasz `list_agents`. Gdy wolny programista już działa, zlecasz mu robotę przez `ask_agent` (P2P) i czekasz na wynik przez `wait_for_updates` na kanale eksperymentu (przy P2P nie ma wake ze spawnu). Gdy nie ma wolnego programisty, robisz `orx agent spawn` ze szablonem „laborant → programmer” z `common/communication.md`.
+Gdy decision-maker dał go na implementację, spawnuje **nowego** programistę do **tego** eksperymentu: `orx agent spawn` ze szablonem „laborant → programmer” z `common/communication.md` (z `--harness`/`--model`). Nie szukasz wolnego programisty przez `list_agents` i nie zlecasz implementacji istniejącej sesji przez `ask_agent` — każdy nowy eksperyment dostaje własnego programistę.
 
 Gdy run ma iść na Slurm/HPC/kolejkę, w briefie doklejasz `roles/programmer.operator.md` do tej samej sesji (jeden agent = programmer + operator). W briefie podajesz kanał eksperymentu do natychmiastowego dołączenia, `id`/slug węzła i oczekiwany wynik: commit, komendy, ścieżki artefaktów na kanale. Programmer zapisuje raport na kanale; Ty jesteś właścicielem `description` i to Ty wciągasz do niego ścieżki, run id i status.
 
-Po spawnie dostajesz wake przy zamknięciu dziecka (chyba że `--no-wake`) oraz krótką wiadomość na kanale. Gdy odpowiedź to `BLOCKED: potrzebuję wyjaśnienia`, uzupełniasz `description`/brief, odpowiadasz na pytania i robisz re-spawn albo `ask_agent` (patrz `common/communication.md`, „Roundtrip”). Przy zwykłym sukcesie wciągasz ścieżki, run id i status do `description` eksperymentu.
+Po spawnie dostajesz wake przy zamknięciu dziecka (chyba że `--no-wake`) oraz krótką wiadomość na kanale. Gdy odpowiedź to `BLOCKED: potrzebuję wyjaśnienia`, uzupełniasz `description`/brief, odpowiadasz na pytania i robisz **re-spawn** tego programisty z uzupełnionym briefem (patrz `common/communication.md`, „Roundtrip”). Przy zwykłym sukcesie wciągasz ścieżki, run id i status do `description` eksperymentu.
 
 ## Analiza wyników
 
