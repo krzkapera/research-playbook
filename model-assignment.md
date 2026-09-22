@@ -6,7 +6,7 @@ To ustalenia operacyjne, nie treść ról — opisują, które subskrypcje/model
 
 | Rola | Model / harness | Krotność | Gdy subskrypcja trafi na limit |
 |---|---|---|---|
-| professor | zawsze najmocniejszy dostępny model (obecnie Codex; docelowo możliwe przejście na Opusa) | 1× | czekasz na odnowienie; nigdy nie podstawiasz słabszego modelu |
+| professor | zawsze najmocniejszy dostępny model (obecnie Codex; docelowo możliwe przejście na Opusa) | 1× | czekasz na odnowienie; professor zawsze na najmocniejszym dostępnym modelu |
 | laborant | Opus (Claude Code) | N× równolegle, jedna instancja na hipotezę | czekasz na odnowienie |
 | critic | Grok (Cursor) | N× równolegle, jedna instancja na wątek (hipoteza/eksperyment) | czekasz na odnowienie; do tego czasu praca idzie dalej bez tej perspektywy |
 | programmer | Gemini (Antigravity) | N× równolegle, każdy jako osobna sesja `orx up`/`orx agent spawn` — **nie** natywny subagent narzędzia w jednej sesji, bo dzieliłby worktree (patrz `worktrees.md`) | czekasz na odnowienie |
@@ -20,6 +20,6 @@ Gdy Codex i/lub Cursor są niedostępne, projekt działa w okrojonym składzie: 
 
 Gdy jedna sesja ma przekazane kilka person naraz (np. `professor.md` + `laborant.md` w okrojonym składzie):
 
-- wykonuj kolejne etapy **w tej samej sesji**, w kolejności wynikającej z person — nie spawnuj drugiego agenta „jako siebie” do roli, którą już masz;
+- wykonuj kolejne etapy **w tej samej sesji**, w kolejności wynikającej z person — gdy łączysz persony, kontynuuj w bieżącej sesji;
 - szablony spawnu professor→laborant stosuj tylko gdy laborant ma być **osobną** sesją; przy połączonych personach pomiń ten spawn i przejdź od razu do czynności laboranta;
 - nadal wolno spawnować **inne** role, których nie masz (programmer, librarian, critic).

@@ -2,7 +2,7 @@
 
 ## orx już to robi automatycznie
 
-Każda sesja `orx up` dostaje własny, prywatny worktree automatycznie — `orx` tworzy go przy pierwszym kroku sesji, w stałej, samonaprawiającej się lokalizacji, wypisany na baseline w stanie `detached`. **Nie uruchamiaj `git worktree add`** wewnątrz takiej sesji — worktree już istnieje, zanim napiszesz pierwszą wiadomość. Jedyne, co robisz sam, to `git checkout orx/<slug>`, żeby przejść na branch eksperymentu, nad którym pracujesz.
+Każda sesja `orx up` dostaje własny, prywatny worktree automatycznie — `orx` tworzy go przy pierwszym kroku sesji, w stałej, samonaprawiającej się lokalizacji, wypisany na baseline w stanie `detached`. Worktree jest gotowy przed pierwszą wiadomością. Ty robisz `git checkout orx/<slug>`, żeby przejść na branch eksperymentu, nad którym pracujesz.
 
 To dotyczy też sesji spawnowanych przez `orx agent spawn` — delegowany pomocnik dostaje swój własny worktree tym samym mechanizmem, nie branch bieżącej sesji.
 
@@ -17,7 +17,7 @@ Jeżeli programistów ma być wielu, każdy edytujący inny kod naraz, **każdy 
 
 ## Jeden worktree na sesję, nie jeden na branch
 
-Worktree jest przypisany do sesji (rozmowy), nie do konkretnego węzła. Jeśli w ramach jednej sesji przechodzisz do pracy nad innym eksperymentem, robisz kolejny `git checkout orx/<inny-slug>` w tym samym worktree — nie tworzysz nowego.
+Worktree jest przypisany do sesji (rozmowy). Gdy w tej samej sesji przechodzisz do innego eksperymentu, robisz kolejny `git checkout orx/<inny-slug>` w tym samym worktree.
 
 ## Konflikt dwóch sesji na tym samym branchu
 

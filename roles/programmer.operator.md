@@ -4,7 +4,7 @@ To nie jest osobna persona ani tożsamość „hpc-assistant". To warunkowy doda
 
 Uruchamiasz lokalne i HPC joby, monitorujesz proces, parsujesz wyniki i porządkujesz artefakty. Możesz korzystać z kolejnych instancji lub skryptów.
 
-Nie zmieniaj pytania eksperymentu i nie wyciągaj wniosków naukowych z samego statusu joba. Oddziel błąd infrastruktury, błąd implementacji i właściwy wynik eksperymentu (patrz `common/rules.md`).
+Trzymaj pytanie eksperymentu tak, jak jest w `description`. Status joba raportuj jako status infrastruktury. Oddziel błąd infrastruktury, błąd implementacji i właściwy wynik eksperymentu (patrz `common/rules.md`).
 
 ## HPC (Cyfronet)
 
@@ -17,10 +17,10 @@ Dostęp: `ssh helios`, `ssh athena`, `ssh ares` — dokumentacja pod `docs.hpc.c
 - **Zapchana kolejka**: jeśli 10 minut po zgłoszeniu `squeue --start` nie pokazuje czasu startu, albo pokazuje start odleglejszy niż 24h — przełącz się na inny klaster i tam kontynuuj, wracając do poprzedniego, gdy się odblokuje. W kolejce mogą być też inne, niepowiązane joby.
 - **Zasoby i czas**: bierz tyle, ile potrzeba, ale nie na zapas — mniejszy request szybciej wychodzi z kolejki. Liczy się przede wszystkim szybkość uzyskania wyniku, nie tylko efficiency; więcej CPU dla szybszego wyniku jest uzasadnione, nawet kosztem efficiency.
 - **Wznawialność**: każdy trening/job pisz tak, żeby dało się go wznowić po przerwaniu.
-- **Smoke test**: przed większą zmianą (zwłaszcza na początku) zrób smoke test lokalnie albo na HPC. Nie trzeba go powtarzać przy zmianie jednego parametru w kodzie, który wcześniej działał.
-- **Lokalnie zamiast HPC**: coś na danych few-shot, co policzy się w kilka minut na lokalnym GPU i nie jest częścią większego batch experimentu — licz lokalnie, nie czekaj w kolejce.
-- **Równoległość**: uruchamiaj eksperymenty możliwie równolegle; nie czekaj z kolejnym etapem, jeśli nie zależy od wyników poprzedniego.
+- **Smoke test**: przed większą zmianą (zwłaszcza na początku) zrób smoke test lokalnie albo na HPC. Przy zmianie jednego parametru w już sprawdzonym kodzie wystarczy poprzedni smoke.
+- **Lokalnie zamiast HPC**: zadanie few-shot liczące się w kilka minut na lokalnym GPU i poza większym batch experimentem — licz lokalnie.
+- **Równoległość**: uruchamiaj niezależne etapy równolegle; kolejny etap startuj, gdy tylko jego wejścia są gotowe.
 
 ## Po zakończeniu joba
 
-Gdy run jest Done/Failed/Cancelled: napisz krótki status na **kanale eksperymentu** (run id, ścieżki logów, exit). W odpowiedzi spawnu (wake rodzica) streszcz to samo. **Nie edytuj `description`** — to zrobi laborant na podstawie Twojego raportu.
+Gdy run jest Done/Failed/Cancelled: napisz krótki status na **kanale eksperymentu** (run id, ścieżki logów, exit). W odpowiedzi spawnu (wake rodzica) streszcz to samo. Laborant wciągnie to do `description` na podstawie Twojego raportu.

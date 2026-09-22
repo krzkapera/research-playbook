@@ -9,12 +9,12 @@ Cały projekt badawczy żyje w jednym `orx` projekcie; jego `project_id` jest st
 `project_id`: `<nieustawiony — uzupełnia użytkownik po utworzeniu projektu; komenda: orx projects>`
 
 Zasady dla agentów:
-- projekt `orx` zakłada użytkownik — agenci go nie tworzą;
+- projekt `orx` zakłada użytkownik;
 - nie wymyślaj `project_id`;
 - jeśli nie ma go w tym pliku ani w zleceniu, ustal przez `orx projects` albo zapytaj na kanale `project` / nadawcę;
 - gdy użytkownik wpisze tu konkretną wartość, traktuj ją jako źródło prawdy.
 
-Slug nadaje się raz i nie zmienia po ponowieniu eksperymentu. Nowy wariant tego samego pytania to nowy węzeł-dziecko z osobnym slugiem (np. `lora-rank-vs-shots-v2`); zmiana pytania lub logiki porównania też tworzy nowy węzeł, nie nadpisuje istniejącego.
+Slug nadaje się raz i zostaje przy węźle na stałe. Nowy wariant tego samego pytania to nowy węzeł-dziecko z osobnym slugiem (np. `lora-rank-vs-shots-v2`); zmiana pytania lub logiki porównania też tworzy nowy węzeł.
 
 `orx` sam pilnuje unikalności slugu i brancha w obrębie projektu — nie potrzeba osobnego locka na przydział numeru.
 

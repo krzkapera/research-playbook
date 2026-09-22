@@ -36,7 +36,7 @@ Na zakończenie zleconego zadania (nie rozmowy w pokoju) nie czeka się przez `a
 
 Zanim zaczniesz nową sesję, sprawdź `list_agents`: jeśli persona, której potrzebujesz, już działa (np. laborant obsługujący tę hipotezę), napisz do niej P2P (`ask_agent`) zamiast spawnować kolejną. Dopiero gdy nikt taki nie jest aktywny, użyj `orx agent spawn`.
 
-Przed użyciem `orx agent spawn` przeczytaj natywny skill `/orx-agent-delegation` — tam jest składnia, ochrona brancha, `--no-wake`, sprzątanie (`orx agent kill`). Nie powtarzamy tego tutaj.
+Przed użyciem `orx agent spawn` przeczytaj natywny skill `/orx-agent-delegation` — tam jest składnia, ochrona brancha, `--no-wake`, sprzątanie (`orx agent kill`). Tutaj zostają reguły zespołu i szablony briefów.
 
 Jednego ten natywny skill nie wie: nowa sesja nie ma żadnej domyślnej persony. Zlecający musi ją wskazać wprost w treści zadania, inaczej helper nie będzie wiedział, kim ma być. Szablon brief-u (`--stdin` dla wieloliniowego):
 
@@ -56,13 +56,13 @@ Przy każdym `orx agent spawn` podaj `--harness` i `--model` z szablonu poniżej
 
 Wiadomości mają być jak najkrótsze. Pojedyncza liczba albo jedno zdanie wniosku może zostać wprost w wiadomości (albo w opisie). Wszystko dłuższe — log, diff, tabela, pełny wynik — idzie do pliku/attachmentu, a wiadomość niesie tylko ścieżkę.
 
-Nie ma wymuszonego formatu wiadomości ani znaczników intencji — zwykły, swobodny, krótki tekst.
+Wiadomości pisz zwykłym, swobodnym, krótkim tekstem.
 
 ## Zadanie czy dyskusja
 
 Konkretna robota prowadząca do postępu węzła (implementacja, uruchomienie, analiza) to zadanie w kolejce `ai-crew-sync` (`create_task`/`claim_task`) — ma właściciela, może mieć `depends_on`. Krytyka, pytania i propozycje to luźna dyskusja w kanale — nikt jej nie "claimuje", nikt nie jest za nią formalnie odpowiedzialny. Jedynymi stałymi elementami są hipoteza i eksperyment same w sobie, nie role wokół nich.
 
-`create_task`/`claim_task` i `orx agent spawn` to dwa niepowiązane w `orx` mechanizmy — żaden nie wie o drugim. Użyj `create_task`, gdy zadanie trafia do wspólnej puli, którą może odebrać którykolwiek z kilku już aktywnych, równoważnych agentów (patrz `list_agents`) — wtedy oni sami je `claim_task`/`claim_next_task`-ują. Gdy zamiast tego spawnujesz dedykowanego pomocnika do jednej konkretnej roboty (patrz niżej), sam brief ze spawnu wystarcza za zadanie — nie zakładaj do niego dodatkowo formalnego `create_task`.
+`create_task`/`claim_task` i `orx agent spawn` to dwa niezależne w `orx` mechanizmy. Użyj `create_task`, gdy zadanie trafia do wspólnej puli, którą może odebrać którykolwiek z kilku już aktywnych, równoważnych agentów (patrz `list_agents`) — wtedy oni sami je `claim_task`/`claim_next_task`-ują. Gdy zamiast tego spawnujesz dedykowanego pomocnika do jednej konkretnej roboty (patrz niżej), sam brief ze spawnu wystarcza za zadanie.
 
 ## Kto edytuje węzeł
 
@@ -70,7 +70,7 @@ Konkretna robota prowadząca do postępu węzła (implementacja, uruchomienie, a
 
 ## Notatki
 
-`ai-crew-sync` notes (`scope`/`key`, pełnotekstowe wyszukiwanie) są dla treści nieprzypisanej do jednego węzła — np. przekrojowe decyzje projektu. Nie kopiuj tam treści, która już ma dom w `description` konkretnego węzła. Wyjątkiem jest spis literatury (`literature/index.md`) — to zwykły plik chroniony lockiem `ai-crew-sync`, nie note (patrz `roles/librarian.md`).
+`ai-crew-sync` notes (`scope`/`key`, pełnotekstowe wyszukiwanie) są dla treści nieprzypisanej do jednego węzła — np. przekrojowe decyzje projektu. Treść należącą do konkretnego węzła trzymaj w jego `description`. Spis literatury (`literature/index.md`) to zwykły plik chroniony lockiem `ai-crew-sync` (patrz `roles/librarian.md`).
 
 ## Jak powstaje kanał
 

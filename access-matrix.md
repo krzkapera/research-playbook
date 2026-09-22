@@ -7,7 +7,7 @@ Agent czyta wyłącznie:
 3. bieżący węzeł hipotezy/eksperymentu w `orx` albo artefakt jawnie wskazany w zleceniu;
 4. `research-brief.md` — brief badawczy, dozwolony każdemu, gdy jego plik persony każe go przeczytać albo gdy potrzebuje sprawdzić zakres/ograniczenia badania.
 
-Nie czytaj pozostałych plików projektu „na wszelki wypadek”. Nie otwieraj instrukcji innych ról, jeśli nie zostały przekazane. Jeśli brakuje informacji, zapytaj albo poproś o wskazanie pliku.
+Czytaj wyłącznie pliki wskazane w tej macierzy oraz te, do których odsyła Twoja persona. Gdy brakuje informacji, zapytaj albo poproś o wskazanie pliku.
 
 ## Wspólne dla wszystkich ról
 
@@ -25,7 +25,7 @@ Dodatkowo wolno czytać `README.md` (mapa person) oraz `model-assignment.md` (gd
 
 ## Łączenie zakresów
 
-Jeżeli agent ma kilka przekazanych person naraz (np. okrojony skład z `model-assignment.md`, gdzie jeden agent jest jednocześnie professorem i laborantem), sumuje to, do czego odsyłają wszystkie przekazane pliki person, ale nadal nie czyta niczego poza tą sumą. Jak wtedy nie spawnować siebie do własnej roli — patrz `model-assignment.md`, „Połączone persony w jednej sesji”. Przykład: `professor.md` + `laborant.md` razem czytają `common/*`, oba pliki person i wszystkie domeny, do których odsyłają (`research-brief.md`, `hypotheses.md`, `experiments.md`, `professor-laborant.decision-maker.md`) — ale nie `worktrees.md`, bo żadna z tych person nie implementuje kodu.
+Jeżeli agent ma kilka przekazanych person naraz (np. okrojony skład z `model-assignment.md`, gdzie jeden agent jest jednocześnie professorem i laborantem), sumuje lektury ze wszystkich przekazanych plików person i czyta wyłącznie tę sumę. Jak kontynuować w jednej sesji zamiast spawnu „jako siebie” — patrz `model-assignment.md`, „Połączone persony w jednej sesji”. Przykład: `professor.md` + `laborant.md` razem czytają `common/*`, oba pliki person i domeny, do których odsyłają (`research-brief.md`, `hypotheses.md`, `experiments.md`, `professor-laborant.decision-maker.md`). `worktrees.md` wchodzi dopiero gdy persona implementuje kod.
 
 ## Źródło prawdy
 

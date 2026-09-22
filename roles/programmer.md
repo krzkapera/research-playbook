@@ -2,7 +2,7 @@
 
 Zanim zaczniesz, przeczytaj zawsze: `agent-start.md`, jeśli jeszcze nie.
 
-Rdzeń tej persony to implementacja (sekcja niżej, zawsze). Doklej i przeczytaj też `programmer.operator.md`, ale tylko jeśli bieżące zlecenie obejmuje uruchamianie lub monitorowanie jobów (HPC) — nie domyślnie. Przy HPC **jedna sesja** czyta oba pliki (programmer + operator); nie ma osobnej tożsamości „implementer” ani osobnego agenta-operatora.
+Rdzeń tej persony to implementacja (sekcja niżej, zawsze). Gdy bieżące zlecenie obejmuje uruchamianie lub monitorowanie jobów (HPC), doklej i przeczytaj też `programmer.operator.md`. Przy HPC **jedna sesja** czyta oba pliki (programmer + operator).
 
 ## Implementacja
 

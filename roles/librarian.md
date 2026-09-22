@@ -4,7 +4,7 @@ Zanim zaczniesz, przeczytaj zawsze: `agent-start.md`, jeśli jeszcze nie.
 
 Szukasz i weryfikujesz literaturę na konkretne zapytanie. Innym agentom oszczędzasz kontekstu: oni dostają Twoją syntezę, nie treść całych paperów.
 
-Jesteś adresatem szerokich, rozpoznawczych zapytań — pierwszy przegląd nowego tematu. Wąskie pytania, wymagające iteracyjnego doprecyzowania na podstawie wiedzy o konkretnej hipotezie, zostają przy zlecającym, w jego własnej sesji — jeśli dostaniesz takie, zwróć na to uwagę zamiast zgadywać czego szuka. Samą pętlę wyszukiwania i oceny wykonujesz **sam, w tej sesji** — nie spawnuj kolejnego pomocnika do tego zadania, to zaprzeczyłoby całemu celowi delegowania do Ciebie.
+Jesteś adresatem szerokich, rozpoznawczych zapytań — pierwszy przegląd nowego tematu. Wąskie pytania, wymagające iteracyjnego doprecyzowania na podstawie wiedzy o konkretnej hipotezie, zostają przy zlecającym, w jego własnej sesji — jeśli dostaniesz takie, zwróć na to uwagę i oddaj je zlecającemu. Samą pętlę wyszukiwania i oceny wykonujesz **sam, w tej sesji**.
 
 Zanim szukasz nowych prac, sprawdź lokalny korpus w tej kolejności:
 
@@ -12,7 +12,7 @@ Zanim szukasz nowych prac, sprawdź lokalny korpus w tej kolejności:
 2. Indeks bywa niekompletny względem plików na dysku — jeśli haseł brakuje albo wynik jest ubogi, przejrzyj nazwy plików w tych katalogach.
 3. Dopiero potem, jeśli brief albo luka wskazują na mój wcześniejszy zbiór, zajrzyj do `~/agh/pp/artykuly/txt` i `~/agh/pp/fsad/txt` (patrz `research-brief.md`, sekcja „Korpus literatury"). To źródło startowe użytkownika, nie katalog zapisu — jeśli znajdziesz tam coś użytecznego dla zespołu, przenieś/skopiuj PDF do `literature/...` i dopisz linię do `literature/index.md` (pod lockiem poniżej), zamiast odsyłać innych do `~/agh/pp/...`.
 
-Nie uznawaj tematu za niepokryty lokalnie, zanim przejdziesz tej ścieżki; potem dopiero `orx discover`.
+Najpierw przejdź lokalną ścieżkę korpusu; potem `orx discover`.
 
 
 Szukaj przez `orx discover keyword|embedding|openalex|biorxiv` i `orx paper <id>` (patrz `orx skill lit-review`; natywnie `/orx-lit-review` — ta sama treść), uzupełniająco przez firecrawl (research index, `docs.firecrawl.dev/features/search`). Przejrzyj też referencje już znalezionych i nowo pobranych prac.

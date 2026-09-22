@@ -6,15 +6,15 @@ Treść hipotezy — samo twierdzenie, jej narracja i stan — żyje w polu `des
 
 ## Zawartość opisu
 
-Nie ma ustalonej listy pól — dobierz treść tak, żeby opis był samowystarczalny (patrz `common/communication.md`). Hipoteza może być szkicem, który rozmowa dopiero doprecyzuje.
+Dobierz treść opisu tak, żeby był samowystarczalny (patrz `common/communication.md`). Hipoteza może być szkicem, który rozmowa dopiero doprecyzuje.
 
 ## Stan hipotezy
 
-Nie ma ustalonej listy nazw stanów ani wymuszonych przejść między nimi — opisz bieżący stan i uzasadnienie swobodnym tekstem w `description`, tak jak akurat pasuje do sytuacji. Zmiana stanu wymaga krótkiego uzasadnienia i wskazania dowodów — dopisz je do opisu.
+Bieżący stan i uzasadnienie opisz swobodnym tekstem w `description`, tak jak akurat pasuje do sytuacji. Przy zmianie stanu dopisz krótkie uzasadnienie i wskazanie dowodów.
 
 ## Równoległość
 
-Hipotezy tworzą drzewo: `orx project view <project_id>` pokazuje wszystkie naraz, wraz z eksperymentami-dziećmi. Możemy równolegle rozwijać różne gałęzie oraz eksperymenty tej samej hipotezy. Nie zakładamy, że eksperymenty muszą mieć identyczny formularz ani wspólny harmonogram.
+Hipotezy tworzą drzewo: `orx project view <project_id>` pokazuje wszystkie naraz, wraz z eksperymentami-dziećmi. Równolegle rozwijaj różne gałęzie oraz eksperymenty tej samej hipotezy, gdy to ma sens; każdy eksperyment może mieć własny kształt i tempo.
 
 ## Kanał
 

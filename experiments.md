@@ -14,11 +14,11 @@ Każdy aktywny eksperyment ma kanał `ai-crew-sync` nazwany jego slugiem. Zakła
 
 ## Zawartość opisu
 
-Nie ma ustalonej listy pól — dobierz treść (pytanie, status, baseline, metryki, zasoby, cokolwiek akurat istotne) tak, żeby opis był samowystarczalny (patrz `common/communication.md`). Brak jakiegoś elementu oznacza „nieustalone albo niepotrzebne w tym przypadku", nie brakujący wymóg.
+Dobierz treść opisu (pytanie, status, baseline, metryki, zasoby, cokolwiek akurat istotne) tak, żeby był samowystarczalny (patrz `common/communication.md`). Wpisuj elementy potrzebne w tej chwili; pominięcie elementu oznacza, że jest nieustalony albo zbędny w tym przypadku.
 
 ## Stan eksperymentu
 
-Nie ma ustalonej listy nazw stanów ani wymuszonych przejść między nimi — opisz bieżący stan swobodnym tekstem w `description`. Jedyna stała zasada (patrz `common/rules.md`): `orx` mówi tylko, czy run się wykonał (`Starting/Running/Done/Failed/Cancelled`), nie czy wynik jest naukowo sensowny — rozróżnienie błędu infrastruktury, błędu implementacji i właściwego wyniku naukowego zapisujemy sami, i błąd infrastruktury/implementacji nigdy nie liczy się jako wynik wspierający ani obalający hipotezę.
+Bieżący stan opisz swobodnym tekstem w `description`. Stała zasada (patrz `common/rules.md`): `orx` raportuje wykonanie runu (`Starting/Running/Done/Failed/Cancelled`); sens naukowy wyniku zapisujesz Ty w `description`, z jawnym rozróżnieniem błędu infrastruktury, błędu implementacji i właściwego wyniku naukowego. Tylko wynik naukowy liczy się jako wsparcie albo obalenie hipotezy.
 
 ## Krytyka
 
@@ -26,4 +26,4 @@ Przed, w trakcie i po eksperymencie każdy agent może zgłosić problem — w k
 
 ## Równoległe warianty
 
-Warianty to rodzeństwo w drzewie — wspólny `parent_experiment_id`, osobne slugi. Mogą być uruchamiane równolegle, jeśli różnice są jawne i nie powodują pomieszania artefaktów. Nie zakładamy, że wszystkie eksperymenty w hipotezie tworzą macierz parametrów.
+Warianty to rodzeństwo w drzewie — wspólny `parent_experiment_id`, osobne slugi. Uruchamiaj je równolegle, gdy różnice są jawne i artefakty mają osobne ścieżki. Każdy eksperyment w hipotezie może mieć własny kształt — macierz parametrów jest opcją, nie domyślnym wzorcem.
