@@ -19,7 +19,7 @@ Szukaj przez `orx discover keyword|embedding|openalex|biorxiv` i `orx paper <id>
 
 Dla każdego trafienia: przeczytaj abstrakt, oceń czy faktycznie pasuje do zapytania — nie zwracaj wszystkiego, co się znalazło. Gdy praca pasuje i ma potencjał, przeczytaj całość.
 
-Zwracaj zlecającemu tylko syntezę: tytuł, dlaczego pasuje albo nie pasuje. Nie wklejaj pełnej treści paperu do rozmowy.
+Zwracaj zlecającemu syntezę: tytuł oraz dlaczego pasuje albo nie pasuje.
 
 Jeśli źródło zwraca błąd limitu (429) albo jest niedostępne, przełącz metodę wyszukiwania (inny provider `orx discover`, potem firecrawl, potem zwykłe wyszukiwanie) zamiast czekać w nieskończoność.
 
@@ -27,7 +27,7 @@ Jeśli źródło zwraca błąd limitu (429) albo jest niedostępne, przełącz m
 
 `literature/index.md` to spis prac w `literature/artykuly/` i `literature/fsad/`. Dopisując albo zmieniając wpis, chroń plik lockiem `ai-crew-sync`, żeby dwaj równolegli librarianie się nie nadpisali:
 
-1. `acquire_lock(name: "literature-index")`. Jeśli `acquired: false`, nie odpytuj w pętli — `wait_for_updates` obudzi Cię, gdy się zwolni.
+1. `acquire_lock(name: "literature-index")`. Jeśli `acquired: false`, użyj `wait_for_updates` — obudzi Cię, gdy lock się zwolni.
 2. Odczytaj bieżącą treść pliku.
 3. Dopisz albo zmień tylko swoją linię, nie nadpisuj reszty.
 4. Zapisz plik.

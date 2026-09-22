@@ -4,12 +4,12 @@ Każdy agent dołącza do `project`. Każda aktywna hipoteza i każdy aktywny ek
 
 ## Znalezienie i zaadresowanie konkretnego agenta
 
-**Nie ma obowiązkowego heartbeat.** Agenci nie muszą publikować activity. Gdy potrzebujesz kogoś znaleźć, wołaj `list_agents` — pokazuje, kto jest aktywny i nad czym pracuje. 
+Gdy potrzebujesz kogoś znaleźć, wołaj `list_agents` — pokazuje, kto jest aktywny i nad czym pracuje. 
 ## Opis węzła jako źródło prawdy
 
 `description` węzła jest samowystarczalną dokumentacją — ma wystarczać do zrozumienia stanu i decyzji nawet komuś, kto nie widział rozmowy: nowemu uczestnikowi, ale też właścicielowi wracającemu do tematu po przerwie albo prowadzącemu wiele równoległych wątków naraz (np. professor). Aktualizuje się go na bieżąco, w trakcie rozmowy w pokoju, a nie dopiero na koniec — bo ta rozmowa istnieje właśnie po to, żeby dopracować ten opis (patrz "Kto edytuje węzeł" niżej).
 
-Skoro opis jest zawsze aktualny, wiadomość w pokoju nie powtarza tego, co w nim już jest. Wiadomość to krótka delta: co się zmieniło w opisie i o co się pyta — nie treść merytoryczna od nowa. Historia kanału jest archiwum "dlaczego tak zdecydowano", do którego sięga się na żądanie, nigdy wymaganą lekturą.
+Skoro opis jest zawsze aktualny, wiadomość w pokoju to krótka delta: co się zmieniło w opisie i o co się pyta. Historia kanału jest archiwum „dlaczego tak zdecydowano”; sięgasz do niej, gdy potrzebujesz kontekstu decyzji.
 
 ## Dołączanie do kanałów
 
@@ -20,9 +20,9 @@ Skoro opis jest zawsze aktualny, wiadomość w pokoju nie powtarza tego, co w ni
 
 ## Pokój: recenzja, nie start pracy
 
-„Otwarcie pokoju" oznacza **zaproszenie innych do recenzji gotowego draftu**, nie rozpoczęcie pracy nad czymś nowym. Właściciel etapu najpierw pracuje sam i zapisuje wynik w `description` węzła; dopiero potem zaprasza kolejnych uczestników wiadomością z nazwą kanału — `ai-crew-sync` nie ma ACL na kanały, więc „zaproszenie" to przekazanie nazwy. Fazę hipotezy prowadzą `professor`, `laborant` i `critic` na kanale hipotezy. Fazę eksperymentów prowadzi `laborant` z osobnym `critic` na kanale eksperymentu (spawn critica); dopytania do `professor` o treść hipotezy idą na **kanał hipotezy**.
+„Otwarcie pokoju" oznacza **zaproszenie innych do recenzji gotowego draftu** — draft powstaje wcześniej w pracy solo właściciela etapu. Właściciel etapu najpierw pracuje sam i zapisuje wynik w `description` węzła; dopiero potem zaprasza kolejnych uczestników wiadomością z nazwą kanału — `ai-crew-sync` nie ma ACL na kanały, więc „zaproszenie" to przekazanie nazwy. Fazę hipotezy prowadzą `professor`, `laborant` i `critic` na kanale hipotezy. Fazę eksperymentów prowadzi `laborant` z `critic` przypisanym do węzła eksperymentu (osobna sesja na węzeł; ta sama sesja może ocenić design i wyniki tego węzła).
 
-Skład pokoju rośnie stopniowo, nie od razu w komplecie: każde dołączenie nowej osoby otwiera nową rundę iteracji, nie jednorazową recenzję. Runda trwa, aż nikt nie ma więcej uwag; wtedy albo dołącza kolejna osoba i iteracja zaczyna się od nowa, albo etap jest zamknięty. Właściciel etapu (professor dla hipotezy, laborant dla eksperymentu, programmer dla implementacji) ma głos decydujący, gdy uwagi nie prowadzą do zgody.
+Skład pokoju rośnie stopniowo: każde dołączenie nowej osoby otwiera nową rundę iteracji, aż do wyczerpania uwag albo zamknięcia etapu. Runda trwa, aż nikt nie ma więcej uwag; wtedy albo dołącza kolejna osoba i iteracja zaczyna się od nowa, albo etap jest zamknięty. Właściciel etapu (professor dla hipotezy, laborant dla eksperymentu, programmer dla implementacji) ma głos decydujący, gdy uwagi nie prowadzą do zgody.
 
 Pokój nie ma formalnego zamknięcia — po prostu przestaje być używany, gdy praca schodzi do fazy solo albo przechodzi do kolejnego etapu (zwykłe zadanie, patrz „Zadanie czy dyskusja" niżej). Historia zostaje jako trwały zapis.
 
@@ -66,7 +66,7 @@ Konkretna robota prowadząca do postępu węzła (implementacja, uruchomienie, a
 
 ## Kto edytuje węzeł
 
-`description` edytuje wyłącznie aktualny właściciel etapu: `professor` na poziomie hipotezy, `laborant` na poziomie eksperymentu. Programmer, operator, critic i librarian **nie edytują** `description` — oddają materiał na kanale albo w odpowiedzi spawnu; właściciel wciąga go do opisu. To rola, nie stała tożsamość instancji, bo laborantów i programistów może być wielu naraz.
+`description` edytuje wyłącznie aktualny właściciel etapu: `professor` na poziomie hipotezy, `laborant` na poziomie eksperymentu. Programmer, operator, critic i librarian oddają materiał na kanale albo w odpowiedzi spawnu; właściciel etapu wciąga go do `description`. To rola, nie stała tożsamość instancji, bo laborantów i programistów może być wielu naraz.
 
 ## Notatki
 
@@ -79,7 +79,7 @@ Konkretna robota prowadząca do postępu węzła (implementacja, uruchomienie, a
 
 ## Roundtrip: dziecko pyta śpiącego rodzica
 
-Gdy sesja powstała przez `orx agent spawn`, rodzic zwykle czeka na wake i **nie odbiera** na żywo `ask_agent`. Dziecko z niejasnym briefem **nie może** skutecznie dopytać P2P i nie wolno mu zgadywać ani wisieć bez końca.
+Gdy sesja powstała przez `orx agent spawn`, rodzic zwykle czeka na wake. Dziecko z niejasnym briefem dopytuje przez roundtrip: pytania na kanale, potem `BLOCKED: potrzebuję wyjaśnienia` w odpowiedzi spawnu (wake rodzica).
 
 Protokół:
 
@@ -120,7 +120,7 @@ Zadanie: oceń treść hipotezy (co miało być ustalone vs co jest w descriptio
 Oczekiwany wynik: uwagi na kanale <slug-H> + krótkie streszczenie w odpowiedzi spawnu.
 ```
 
-### Professor → laborant (faza eksperymentów)
+### Professor → laborant (start weryfikacji hipotezy)
 
 Flagi: `--harness claude-code --model <Opus — aktualna nazwa w Claude Code>`
 
@@ -143,7 +143,7 @@ Jesteś programmer dla projektu <project_id>. Przeczytaj `roles/programmer.md` i
 Slug eksperymentu: <slug-E> (id: <id-E>)
 Kanały dołącz natychmiast: project, <slug-E>
 Zadanie: zaimplementuj eksperyment wg description węzła; smoke test; commit na branchu eksperymentu.
-Oczekiwany wynik: commit, komendy, ścieżki artefaktów — na kanale <slug-E> i w krótkim podsumowaniu spawnu; albo `BLOCKED: potrzebuję wyjaśnienia` + pytania (roundtrip). Nie edytuj description.
+Oczekiwany wynik: commit, komendy, ścieżki artefaktów — na kanale <slug-E> i w krótkim podsumowaniu spawnu; albo `BLOCKED: potrzebuję wyjaśnienia` + pytania (roundtrip). Raportujesz na kanale; `description` aktualizuje laborant.
 Doklej operatora HPC: nie
 ```
 
@@ -157,7 +157,7 @@ Jesteś programmer dla projektu <project_id>. Przeczytaj `roles/programmer.md` o
 Slug eksperymentu: <slug-E> (id: <id-E>)
 Kanały dołącz natychmiast: project, <slug-E>
 Zadanie: zaimplementuj wg description, napisz/utrzymaj job.sbatch, uruchom i monitoruj job, zgłoś status.
-Oczekiwany wynik: commit, run id, ścieżki logów, status Done/Failed — na kanale <slug-E> i w podsumowaniu spawnu; albo `BLOCKED: potrzebuję wyjaśnienia` + pytania (roundtrip). Nie edytuj description.
+Oczekiwany wynik: commit, run id, ścieżki logów, status Done/Failed — na kanale <slug-E> i w podsumowaniu spawnu; albo `BLOCKED: potrzebuję wyjaśnienia` + pytania (roundtrip). Raportujesz na kanale; `description` aktualizuje laborant.
 Doklej operatora HPC: tak
 ```
 
@@ -170,7 +170,7 @@ Jesteś critic dla projektu <project_id>. Przeczytaj `roles/critic.md` i kieruj 
 
 Węzeł: <slug-N> (hipoteza|eksperyment)
 Kanały dołącz natychmiast: project, <slug-N>
-Zadanie: zrecenzuj węzeł na kanale <slug-N>; wolno czytać/testować worktree, bez zmian kodu i description.
+Zadanie: zrecenzuj węzeł na kanale <slug-N>; porównaj zlecenie z wykonaniem na podstawie description, kanału i wskazanych artefaktów (odczyt); uwagi wyłącznie na kanale <slug-N>.
 Oczekiwany wynik: uwagi na kanale <slug-N> + krótkie streszczenie w odpowiedzi spawnu.
 ```
 
@@ -184,7 +184,7 @@ Jesteś librarian dla projektu <project_id>. Przeczytaj `roles/librarian.md` i k
 Slug kontekstu (opcjonalnie): <slug>
 Kanały dołącz natychmiast: project[, <slug>]
 Zadanie: szeroki przegląd literatury nt. <temat> (najpierw literature/, synteza dla zlecającego).
-Oczekiwany wynik: synteza w limicie odpowiedzi spawnu; dłuższe treści na kanale. Nie edytuj description węzłów.
+Oczekiwany wynik: synteza w limicie odpowiedzi spawnu; dłuższe treści na kanale. Materiał oddajesz zlecającemu; `description` węzłów aktualizuje ich właściciel.
 ```
 
 ### Zwrot wyniku (wake + kanał)

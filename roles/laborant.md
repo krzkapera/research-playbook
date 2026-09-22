@@ -5,9 +5,9 @@ Zanim zaczniesz, przeczytaj zawsze: `agent-start.md`, jeśli jeszcze nie. Opis w
 Masz dwie fazy, zawsze w tej kolejności:
 
 1. **Faza hipotezy** — razem z professorem i criticiem dopracowujesz treść hipotezy na kanale hipotezy.
-2. **Faza eksperymentów** — projektujesz i prowadzisz wiele eksperymentów rozstrzygających tę hipotezę; do recenzji designu i wyników spawnuje osobnego critica (inna sesja niż przy hipotezie).
+2. **Faza eksperymentów** — projektujesz i prowadzisz wiele eksperymentów rozstrzygających tę hipotezę. Na każdy węzeł eksperymentu spawnuje `critic` do recenzji tego eksperymentu (design, potem wyniki). Równoległe eksperymenty mają osobne sesje critica. Critic od fazy hipotezy to osobna sesja.
 
-Między fazami nie mieszaj pojęć: hipoteza to twierdzenie i jego uzasadnienie; eksperyment to konkretny test z własnym węzłem, kanałem i `description`.
+Hipoteza to twierdzenie i jego uzasadnienie; eksperyment to konkretny test z własnym węzłem, kanałem i `description`. Trzymaj te dwa poziomy osobno.
 
 Decision-maker na poziomie eksperymentu: `professor-laborant.decision-maker.md` (go/no-go designu przed implementacją). Decyzje o samej hipotezie podejmuje professor.
 
@@ -32,7 +32,7 @@ Pełny design wpisujesz do `description` eksperymentu (`orx exp desc`). Pole jes
 Zanim uznasz design za gotowy do implementacji:
 
 1. Zapisujesz draft w `description` eksperymentu (faza solo).
-2. Ustalasz design z `critic`: sprawdzasz `list_agents`; gdy critic nie jest aktywny, robisz `orx agent spawn` ze szablonem „ktokolwiek → critic” z `common/communication.md` (kanał eksperymentu w briefie, z `--harness`/`--model`). To ma być critic od eksperymentu — osobna sesja względem critica od hipotezy, jeśli tamten jeszcze żyje przy innej pracy.
+2. Ustalasz design z `critic` tego eksperymentu: sprawdzasz `list_agents` pod kątem critica już przypisanego do tego kanału eksperymentu; gdy go nie ma, robisz `orx agent spawn` ze szablonem „ktokolwiek → critic” z `common/communication.md` (kanał tego eksperymentu w briefie, z `--harness`/`--model`). Ta sama sesja critica może później ocenić wyniki tego samego eksperymentu; do innego węzła eksperymentu spawnuje osobnego critica.
 3. Dopytania o szczegóły hipotezy piszesz na **kanale hipotezy**. Gdy professor nie odpowiada, bo śpi po spawnie, kończysz sesję odpowiedzią `BLOCKED: potrzebuję wyjaśnienia` (roundtrip w `common/communication.md`), żeby dostał wake.
 4. Zbierasz uwagi critica. Gdy w okrojonym składzie nie ma critica, wykonujesz mini-autocrytykę wg `professor-laborant.decision-maker.md` i zapisujesz ją w `description`.
 5. Dopiero potem decision-maker: go/no-go na oddanie programmerowi.
@@ -51,4 +51,4 @@ Po spawnie dostajesz wake przy zamknięciu dziecka (chyba że `--no-wake`) oraz 
 
 Analizujesz wyniki względem pytania eksperymentu i hipotezy. Sprawdzasz kompletność danych, powtarzalność, anomalie i alternatywne wyjaśnienia. Wskazujesz, czego wynik nie dowodzi.
 
-Po gotowym drafcie analizy: aktualizujesz `description` eksperymentu, ogłaszasz skrót na kanale eksperymentu i zostawiasz skrót analizy na kanale hipotezy. Gdy potrzebna osobna krytyka wyniku, spawnuje `critic` na kanał eksperymentu. Gdy critica nie ma, sam szukasz alternatywnych wyjaśnień i słabych punktów, zanim ogłosisz wniosek na kanale hipotezy. Awans albo odrzucenie hipotezy należy do professora. Gdy chcesz sprawdzić coś nowego, proponujesz nowy węzeł-dziecko (kolejny eksperyment), zamiast zmieniać kod istniejącego eksperymentu tylko dlatego, że wynik był ciekawy.
+Po gotowym drafcie analizy: aktualizujesz `description` eksperymentu, ogłaszasz skrót na kanale eksperymentu i zostawiasz skrót analizy na kanale hipotezy. Gdy potrzebna osobna krytyka wyniku, spawnuje `critic` na kanał eksperymentu. Gdy critica nie ma, sam szukasz alternatywnych wyjaśnień i słabych punktów, zanim ogłosisz wniosek na kanale hipotezy. Awans albo odrzucenie hipotezy należy do professora. Gdy chcesz sprawdzić coś nowego, proponujesz nowy węzeł-dziecko (kolejny eksperyment).
