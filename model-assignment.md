@@ -1,18 +1,13 @@
-# Przydział modeli i krotność
+# Przydział modeli
 
-Przy `orx agent spawn` podaj `--harness` i `--model` z tabeli (lub z szablonu w pliku roli). Nazwy modeli bywają zmienne — gdy w szablonie jest placeholder, sprawdź aktualną listę narzędziem harnessu (np. `agy models`, `opencode models`).
+Przy `orx agent spawn` ustaw `--harness` i `--model` wyłącznie według tabeli poniżej. Nie bierz ich z pliku roli.
 
-| Rola | Harness / model | Krotność |
-|---|---|---|
-| professor | najmocniejszy dostępny (obecnie Codex) | 1× |
-| laborant | Claude Code / Opus | N× równolegle, jedna sesja na hipotezę |
-| critic | Cursor / Grok | N× równolegle, jedna sesja na wątek (hipoteza albo eksperyment) |
-| programmer | Antigravity / Gemini | N× równolegle, każda jako osobna sesja `orx` (nie natywny subagent — `worktrees.md`) |
-| librarian | najpierw `opencode` + `google/<model-id>` (`GEMINI_API_KEY`); potem Antigravity / Gemini | spawn na jedno zapytanie; przełączanie źródła w sesji: `roles/librarian.md` |
-
-## Okrojony skład
-
-Gdy Codex i/lub Cursor są niedostępne: Opus = professor + laborant w jednej sesji, Gemini = programmer. Bez critica — praca idzie dalej bez tej perspektywy.
+| Rola | Harness / model |
+|---|---|
+| laborant | Claude Code / Opus |
+| critic | Cursor / Grok |
+| programmer | Antigravity / Gemini |
+| librarian | OpenCode / Gemini |
 
 ## Połączone role w jednej sesji
 

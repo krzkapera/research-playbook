@@ -32,7 +32,7 @@ Handoff dopiero po 2–5 (bez critica: 4–5).
 
 ## Handoff implementacji
 
-Po „go”: zawsze **nowy** programmer dla **tego** eksperymentu (szablon poniżej; `--harness`/`--model`). Bez `list_agents` / `ask_agent` do istniejącego programisty. HPC/Slurm → w briefie doklej `roles/programmer.operator.md` (jedna sesja).
+Po „go”: zawsze **nowy** programmer dla **tego** eksperymentu (szablon poniżej; `--harness`/`--model` z `model-assignment.md`). Bez `list_agents` / `ask_agent` do istniejącego programisty. HPC/Slurm → w briefie doklej `roles/programmer.operator.md` (jedna sesja).
 
 Programmer raportuje na kanale; Ty wciągasz ścieżki, run id, status do `description`. Po `BLOCKED`: uzupełnij brief/`description` i **re-spawn** (nie `ask_agent`).
 
@@ -48,11 +48,10 @@ Uwzględnij krytykę i alternatywy, jeśli są. Brak critica lub uwag → sam wy
 
 ## Szablony spawnu
 
-Brief = zaproszenie na kanały. Zawsze `--harness` / `--model` (`model-assignment.md`). Nowy eksperyment → nowy programmer; `BLOCKED` → re-spawn.
+Brief = zaproszenie na kanały. `--harness` i `--model` bierz wyłącznie z `model-assignment.md` — nie powtarzaj flag tutaj. Nowy eksperyment → nowy programmer; `BLOCKED` → re-spawn.
 
 ### → programmer (bez HPC)
 
-Flagi: `--harness antigravity --model <Gemini — wynik agy models>`
 
 ```text
 Jesteś programmer dla projektu <project_id>. Przeczytaj `roles/programmer.md` i kieruj się nim.
@@ -66,7 +65,6 @@ Doklej operatora HPC: nie
 
 ### → programmer+operator (Slurm/HPC)
 
-Flagi: `--harness antigravity --model <Gemini — wynik agy models>`
 
 ```text
 Jesteś programmer dla projektu <project_id>. Przeczytaj `roles/programmer.md` oraz `roles/programmer.operator.md` (ta sama sesja — programmer i operator naraz).
@@ -80,7 +78,6 @@ Doklej operatora HPC: tak
 
 ### → critic (węzeł eksperymentu)
 
-Flagi: `--harness cursor --model <Grok — aktualna nazwa w Cursor>`
 
 ```text
 Jesteś critic dla projektu <project_id>. Przeczytaj `roles/critic.md` i kieruj się nim.
@@ -93,7 +90,6 @@ Oczekiwany wynik: uwagi na kanale <slug-E> + krótkie streszczenie w odpowiedzi 
 
 ### → librarian
 
-Flagi: `--harness opencode --model google/<id z opencode models>` (gdy limit Google AI Studio — `--harness antigravity --model <Gemini — wynik agy models>`)
 
 ```text
 Jesteś librarian dla projektu <project_id>. Przeczytaj `roles/librarian.md` i kieruj się nim.

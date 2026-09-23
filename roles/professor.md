@@ -26,7 +26,7 @@ Jeden ciąg od startu do zamknięcia hipotezy:
 1. **Lektura startowa** (sekcja niżej).
 2. **Utwórz węzeł hipotezy** wg `hypotheses.md` (pierwsza vs kolejna z `--baseline`). Zapisz wypisane `id`.
 3. **Draft solo w `description`**: twierdzenie, podstawy, alternatywa, zakres, najbliższe pytanie rozstrzygające. Załóż kanał = slug, ogłoś slug/`id` na `project`.
-4. **Spawn `laborant`** na kanał hipotezy (szablon na końcu; zawsze `--harness` / `--model`). W tym kroku spawnuje wyłącznie laboranta.
+4. **Spawn `laborant`** na kanał hipotezy (szablon na końcu; `--harness`/`--model` z `model-assignment.md`). W tym kroku spawnuje wyłącznie laboranta.
 5. **Dopracowanie z laborantem**: doprecyzujcie szczegóły tak, żeby laborant wiedział dokładnie, nad czym będzie pracował w weryfikacji. Ustalenia → `description`.
 6. Gdy laborant zgłosi **domknięcie uwag** → **spawn `critic` hipotezy**.
 7. **Pętla z criticiem:**
@@ -109,11 +109,10 @@ Wniosek w `description` opieraj na rachunku, literaturze albo skrócie od labora
 
 ## Szablony spawnu
 
-Brief = zaproszenie: kanały do natychmiastowego dołączenia. Zawsze `--harness` / `--model` (`model-assignment.md`).
+Brief = zaproszenie: kanały do natychmiastowego dołączenia. `--harness` i `--model` bierz wyłącznie z `model-assignment.md` — nie powtarzaj flag tutaj.
 
 ### → laborant (po Twoim drafcie; przed criticiem)
 
-Flagi: `--harness claude-code --model <Opus — aktualna nazwa w Claude Code>`
 
 ```text
 Jesteś laborant dla projektu <project_id>. Przeczytaj `roles/laborant.md` i kieruj się nim (faza hipotezy).
@@ -126,7 +125,6 @@ Oczekiwany wynik: konkretne uwagi i propozycje na kanale hipotezy; sygnał „do
 
 ### → critic (faza hipotezy; po domknięciu uwag laboranta)
 
-Flagi: `--harness cursor --model <Grok — aktualna nazwa w Cursor>`
 
 ```text
 Jesteś critic dla projektu <project_id>. Przeczytaj `roles/critic.md` i kieruj się nim.
@@ -143,7 +141,6 @@ Decyzja na kanale hipotezy i w `description`; ten sam laborant wchodzi w fazę e
 
 ### → librarian
 
-Flagi: `--harness opencode --model google/<id z opencode models>` (gdy limit Google AI Studio — `--harness antigravity --model <Gemini — wynik agy models>`)
 
 ```text
 Jesteś librarian dla projektu <project_id>. Przeczytaj `roles/librarian.md` i kieruj się nim.
