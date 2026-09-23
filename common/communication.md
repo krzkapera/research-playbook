@@ -1,13 +1,13 @@
 # Wspólna komunikacja
 
-Narzędzie: `ai-crew-sync` — wiadomości, P2P (`ask_agent`), kanały, zadania, locki, `wait_for_updates`. Stan węzła żyje w `description` (`orx`), nie na kanale.
+Narzędzie: `ai-crew-sync` — wiadomości, P2P (`ask_agent`), kanały, zadania, locki, `wait_for_updates`. Stan węzła żyje w `description` (`orx`).
 
 ## Kanały
 
 - Zawsze dołączaj do `project`.
 - Do kanału sluga węzła dołączaj tylko przy aktywnej roli *teraz* (właściciel etapu, zaproszenie do recenzji, albo zlecenie wskazuje ten slug).
 - Bez dołączania na zapas.
-- Draft solo nie wymaga innych na kanale. Wciąganie ludzi = start recenzji, nie start pisania draftu.
+- Draft solo nie wymaga innych na kanale. Wciąganie ludzi na kanał = start rundy recenzji.
 
 Kanał o nazwie sluga powstaje, gdy twórca węzła dołączy i napisze pierwszą wiadomość. Zaproszenie = podanie nazwy kanału w briefie albo P2P.
 
@@ -19,11 +19,11 @@ Kanał o nazwie sluga powstaje, gdy twórca węzła dołączy i napisze pierwsz�
 
 ## Pokój (recenzja)
 
-Pokój = recenzja **gotowego** draftu z `description`. Skład rośnie stopniowo (kolejna osoba → kolejna runda). Właściciel etapu ma głos rozstrzygający przy braku zgody. Brak formalnego zamknięcia — pokój przestaje być używany, gdy wracasz do solo albo zmieniasz etap.
+Pokój = recenzja **gotowego** draftu z `description`. Skład rośnie stopniowo (kolejna osoba → kolejna runda). Właściciel etapu ma głos rozstrzygający przy braku zgody. Pokój kończy się, gdy wracasz do solo albo zmieniasz etap.
 
 ## Czekanie
 
-Zamiast pollingu: `wait_for_updates` z `channel: "<slug>"`. Po `orx agent spawn` rodzic dostaje wake przy zamknięciu dziecka (chyba że `--no-wake`; skill `/orx-agent-delegation`).
+Czekaj przez `wait_for_updates` z `channel: "<slug>"`. Po `orx agent spawn` rodzic dostaje wake przy zamknięciu dziecka (chyba że `--no-wake`; skill `/orx-agent-delegation`).
 
 ## Zadanie vs dyskusja
 
@@ -35,8 +35,8 @@ Zamiast pollingu: `wait_for_updates` z `channel: "<slug>"`. Po `orx agent spawn`
 ## Spawn
 
 1. Sprawdź `list_agents` — gdy potrzebna rola już działa w tym kontekście, użyj `ask_agent`. Wyjątki: plik roli, która spawnuje.
-2. Brief jest zaproszeniem: kanały do natychmiastowego dołączenia, rola wprost, zadanie, oczekiwany wynik. Zawsze `--harness` i `--model` (`model-assignment.md` / szablon w pliku roli). Szablony briefów są w `roles/`, nie tutaj.
-3. Odpowiedź spawnu do rodzica ≤ ~4000 znaków. Dłuższy materiał → kanał ze ścieżkami; w odpowiedzi spawnu skrót + odesłanie.
+2. Brief: kanały do natychmiastowego dołączenia, rola wprost, zadanie, oczekiwany wynik. Zawsze `--harness` i `--model` wg `model-assignment.md`. Szablony briefów są w `roles/`.
+3. Kończąc: odpowiedź spawnu do rodzica ≤ ~4000 znaków; dłuższy materiał (ścieżki, logi, tabele) na uzgodnionym kanale, w odpowiedzi spawnu skrót + odesłanie.
 
 Szablon briefu:
 
@@ -49,14 +49,13 @@ Zadanie: <konkretne, samodzielne>
 Oczekiwany wynik: <co i w jakiej formie>
 ```
 
-Dziecko kończąc: (1) krótka odpowiedź spawnu, (2) ścieżki/logi/tabele na uzgodnionym kanale. Właściciel etapu wciąga to do `description`.
+## Roundtrip (niejasny brief)
 
-## Roundtrip (niejasny brief, rodzic śpi)
-
-1. Pytania na uzgodnionym kanale.
-2. Koniec sesji z `BLOCKED: potrzebuję wyjaśnienia` + pytania (wake rodzica).
-3. Rodzic uzupełnia brief/`description` i robi re-spawn (albo `ask_agent`, gdy dziecko żyje i plik roli rodzica na to pozwala).
-4. Dziecko w nowej sesji kontynuuje bez domysłów.
+1. Gdy brief/`description` jest zbyt niejasny, by kontynuować — nie zgaduj.
+2. Dziecko publikuje pytania na uzgodnionym kanale.
+3. Dziecko kończy sesję z `BLOCKED: potrzebuję wyjaśnienia` + pytania (wake rodzica).
+4. Rodzic doprecyzowuje na kanale i/lub w `description`, potem robi re-spawn (albo `ask_agent`, gdy dziecko żyje i plik roli rodzica na to pozwala).
+5. Nowa sesja dziecka kontynuuje z wyjaśnionego briefu — bez domysłów.
 
 ## Wiadomość vs plik
 
