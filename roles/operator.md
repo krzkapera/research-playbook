@@ -14,8 +14,8 @@ Zanim przejdziesz do flow, te słowa oznaczają w playbooku konkretne rzeczy:
 - **Laborant** — zlecający; oddaje brief i `description`, odpowiada na dopytania, wciąga Twoje run id / logi / status do `description`.
 - **Programmer** — osobna sesja; oddaje kod i commit na branchu eksperymentu. Ty bierzesz ten branch do smoke i jobów.
 - **`job.sbatch`** — skrypt submitu w korzeniu brancha eksperymentu. `orx exp run --backend slurm` submituje właśnie ten plik (nie używa `run_command` węzła).
-- **Klastry** — Helios, Athena, Ares (Cyfronet; dostęp: `ssh helios`, `ssh athena`, `ssh ares`). Helios = ARM (specjalna konfiguracja; wzoruj się na projektach w `~/scratch/`).
-- **`~/scratch/<katalog-projektu>/`** — artefakty jobów (kod, cache, venv, logi) w porządku.
+- **Klastry** — Helios, Athena, Ares (Cyfronet; dostęp: `ssh helios`, `ssh athena`, `ssh ares`). Helios = ARM (specjalna konfiguracja; wzoruj się na innych projektach na klastrze).
+- **`remoteRoot`** — katalog remote ORX z `slurm.json` (domyślnie `~/scratch/.orx`): `source/` (snapshoty), `runs/<runId>/` (`repo/`, `log`, `exit_code`).
 - **Kolejka** — obciążenie klastra; przy martwej kolejce przenosisz pracę na inny klaster.
 - **Smoke** — krótki przebieg **zdalnie na HPC** (kolejka) przed większą zmianą / pierwszym pełnym jobem; nigdy lokalnie.
 - **Monitoring** — `orx exp wait` / `orx exp wake` (bez własnej pętli), poza przypadkami z briefu (np. przełączenie klastra).
@@ -30,7 +30,7 @@ Jeden ciąg od spawnu do oddania raportu joba:
 2. **Dołącz** do kanałów z briefu: `project` oraz kanał eksperymentu (slug).
 3. **Odczytaj zlecenie:** `description` eksperymentu, ustalenia na kanale, branch/commit programisty.
 4. Gdy brief/`description`/branch jest niejasne lub kod niegotowy → **roundtrip**, potem wróć do kroku 3.
-5. **Wybór klastra** i katalogu w `~/scratch/` (sekcja Klastry).
+5. **Wybór klastra** i remoteRoot (`~/scratch/.orx`) (sekcja Klastry).
 6. **Smoke zdalny na HPC**, gdy wymagany (sekcja Smoke).
 7. **Napisz / zaktualizuj `job.sbatch`** w korzeniu brancha (sekcja job.sbatch).
 8. **Submit** przez `orx exp run --backend slurm`.
@@ -54,10 +54,10 @@ Przeczytaj w tej kolejności, jeśli jeszcze nie:
 2. Czekaj przez `wait_for_updates` na tym kanale.
 3. Po odpowiedzi laboranta na kanale i/lub uzupełnieniu `description` / commicie programisty — kontynuuj.
 
-## Klastry i scratch (szczegóły kroków 5, 9)
+## Klastry i remoteRoot (szczegóły kroków 5, 9)
 
-- Artefakty jobów: `~/scratch/<katalog-projektu>/` (kod, cache, venv, logi — porządek).
-- Helios: najmocniejszy (pełne datasety); ARM — specjalna konfiguracja; wzoruj się na innych projektach w `~/scratch/`.
+- Pliki eksperymentów ORX: `remoteRoot` z `slurm.json` (domyślnie `~/scratch/.orx`): `source/` (snapshoty), `runs/<runId>/` (`repo/`, `log`, `exit_code`). Override: "remoteRoot" w `slurm.json`.
+- Helios: najmocniejszy (pełne datasety); ARM — specjalna konfiguracja; wzoruj się na innych projektach na klastrze.
 - Ares: małe few-shot.
 - Athena: środek.
 - Bez GPU, gdy wystarczy CPU (Ares).
@@ -70,7 +70,7 @@ Przeczytaj w tej kolejności, jeśli jeszcze nie:
 
 ## Smoke (szczegóły kroku 6)
 
-- Przed większą zmianą / pierwszym pełnym jobem: krótki smoke **zdalnie na HPC** (submit przez kolejkę; venv i artefakty w `~/scratch/`). Nigdy lokalnie.
+- Przed większą zmianą / pierwszym pełnym jobem: krótki smoke **zdalnie na HPC** (submit przez kolejkę; artefakty runu w `remoteRoot/runs/<runId>/`). Nigdy lokalnie.
 - Przy zmianie jednego sprawdzonego parametru wystarczy poprzedni smoke zdalny.
 - Few-shot i krótkie przebiegi też idą przez kolejkę (np. Ares), nie przez lokalne GPU.
 - Monitorowanie smoke i pełnych jobów: `orx exp wait` / `orx exp wake`.
@@ -81,8 +81,7 @@ Przeczytaj w tej kolejności, jeśli jeszcze nie:
 
 W `job.sbatch` muszą być m.in.:
 
-- `#SBATCH --output=...`
-- `#SBATCH --error=...`
+- `#SBATCH --output=log` i `#SBATCH --error=log` (względem katalogu runu)
 - zapis `exit_code` w katalogu runu po zakończeniu (np. `echo "$code" > exit_code`) — bez tego `orx` nie odczyta wyniku
 
 Przy tworzeniu węzła nie ustawia się `--run-command`. Job ma być wznawialny.
