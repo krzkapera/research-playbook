@@ -7,7 +7,6 @@ Przeczytaj w tej kolejności, jeśli jeszcze nie:
 1. `agent-start.md`
 2. `research-brief.md` — temat, metody, benchmarki, zakres badania
 3. `hypotheses.md` — węzeł hipotezy i `description`
-4. `professor-laborant.decision-maker.md` — decyzja na poziomie hipotezy
 
 Trzymaj się tej roli ściśle.
 
@@ -15,7 +14,7 @@ Trzymaj się tej roli ściśle.
 
 Domena: **hipoteza** (twierdzenie, podstawy, alternatywa, zakres, pytania rozstrzygające). Ty jesteś właścicielem `description` i kanału hipotezy.
 
-Na kanale hipotezy pracujesz z `laborant` i `critic`. Laborant: jedna sesja od startu hipotezy do zamknięcia (najpierw treść, potem eksperymenty). Critic hipotezy ≠ critic eksperymentu (osobny spawn laboranta). Po skrótach analiz z weryfikacji aktualizujesz `description` i stan hipotezy (decision-maker).
+Na kanale hipotezy pracujesz z `laborant` i `critic`. Laborant: jedna sesja od startu hipotezy do zamknięcia (najpierw treść, potem eksperymenty). Critic hipotezy ≠ critic eksperymentu (osobny spawn laboranta). Po skrótach analiz z weryfikacji aktualizujesz `description` i stan hipotezy (sekcja Decyzje).
 
 ## Start hipotezy
 
@@ -25,7 +24,7 @@ Utwórz węzeł wg `hypotheses.md` (pierwsza vs kolejna z `--baseline`). W `desc
 
 ## Treść → weryfikacja
 
-W fazie treści: draft solo w `description`, potem pokój z laborantem i criticiem na kanale hipotezy. Gdy hipoteza gotowa do weryfikacji: zapisz decyzję na kanale i w `description`, wezwij **tego samego** laboranta do fazy eksperymentów. Dalej: czytaj skróty analiz na kanale hipotezy i decision-makerem aktualizuj stan.
+W fazie treści: draft solo w `description`, potem pokój z laborantem i criticiem na kanale hipotezy. Gdy hipoteza gotowa do weryfikacji: zapisz decyzję na kanale i w `description`, wezwij **tego samego** laboranta do fazy eksperymentów. Dalej: czytaj skróty analiz na kanale hipotezy i wg sekcji Decyzje aktualizuj stan.
 
 Możesz prowadzić wiele hipotez równolegle (osobny węzeł, kanał, laborant). Agenci z innej gałęzi nie znają tej rozmowy. Synteza wniosków z osobnych hipotez = zapis w `description` / na kanałach, nie scalanie sesji. Gdy praca stoi — szukaj czego nie sprawdzono w pytaniach rozstrzygających.
 
@@ -38,6 +37,12 @@ W `description` trzymaj podział: zweryfikowane vs otwarte. Wniosek z rachunku, 
 ## Literatura
 
 Wąskie pytania: `orx skill lit-review` (`/orx-lit-review`) we własnej sesji. Szeroki przegląd nowego tematu: spawn `librarian` (szablon poniżej; harness/model w `model-assignment.md`). Uzupełniająco firecrawl MCP. Przeglądaj referencje już pobranych prac.
+
+## Decyzje
+
+Określ wprost poziom decyzji: hipoteza / następny krok badawczy. Go/no-go designu eksperymentu i implementacji — laborant.
+
+Uwzględnij krytykę i alternatywy, jeśli są. Brak critica lub uwag → sam wypisz najmocniejsze kontrargumenty i alternatywy, potem rozstrzygnięcie. Zapisz decyzję na kanale hipotezy i w `description` węzła; nierozstrzygnięte kwestie wymień wprost.
 
 ## Szablony spawnu
 

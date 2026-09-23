@@ -2,7 +2,7 @@
 
 ## Start
 
-Przeczytaj: `agent-start.md` (jeśli jeszcze nie), `experiments.md`, oraz `description` hipotezy (zakres, limity). Braki zakresu → `research-brief.md`. Decision-maker eksperymentu: `professor-laborant.decision-maker.md` (go/no-go designu). Decyzje o hipotezie = professor.
+Przeczytaj: `agent-start.md` (jeśli jeszcze nie), `experiments.md`, oraz `description` hipotezy (zakres, limity). Braki zakresu → `research-brief.md`. Decyzje o hipotezie = professor.
 
 Dwie fazy **w tej samej sesji**, w kolejności: (1) treść hipotezy, (2) eksperymenty. Critic fazy hipotezy ≠ critic eksperymentu (osobne sesje; równoległe eksperymenty → osobni criticcy). Hipoteza i eksperyment to osobne poziomy — trzymaj je osobno.
 
@@ -23,7 +23,7 @@ Utwórz dziecko i kanał wg `experiments.md` (`--parent <id-hipotezy>`). Zapisz 
 1. Draft w `description` (solo).
 2. Critic **tego** eksperymentu: `list_agents`; brak → spawn ze szablonu poniżej (ta sama sesja może później ocenić wyniki tego węzła).
 3. Dopytania o hipotezę → **kanał hipotezy**. Professor śpi → koniec sesji z `BLOCKED: potrzebuję wyjaśnienia` (roundtrip: `common/communication.md`).
-4. Uwagi critica; bez critica (okrojony skład) → mini-autocrytyka wg decision-makera, zapis w `description`.
+4. Uwagi critica; bez critica (okrojony skład) → mini-autocrytyka wg sekcji Decyzje, zapis w `description`.
 5. Decision-maker: go/no-go na oddanie programmerowi.
 
 Handoff dopiero po 2–5 (bez critica: 4–5).
@@ -37,6 +37,12 @@ Programmer raportuje na kanale; Ty wciągasz ścieżki, run id, status do `descr
 ## Analiza wyników
 
 Względem pytania eksperymentu i hipotezy: kompletność, powtarzalność, anomalie, alternatywy; czego wynik nie dowodzi. Zaktualizuj `description` eksperymentu; skrót na kanale eksperymentu **i** na kanale hipotezy. Krytyka wyniku → critic tego węzła (lub własna autocrytyka). Awans/odrzucenie hipotezy = professor. Kolejny test = nowe dziecko.
+
+## Decyzje
+
+Określ wprost poziom decyzji: eksperyment / **go/no-go designu przed implementacją** / następny krok eksperymentalny. „Decyzja o implementacji” = wyłącznie to go/no-go, nie sposób pisania kodu. Decyzje o hipotezie = professor.
+
+Uwzględnij krytykę i alternatywy, jeśli są. Brak critica lub uwag → sam wypisz najmocniejsze kontrargumenty i alternatywy, potem go/no-go. Zapisz decyzję na kanale eksperymentu i w `description` węzła; nierozstrzygnięte kwestie wymień wprost.
 
 ## Szablony spawnu
 

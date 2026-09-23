@@ -22,7 +22,7 @@ Cała dokumentacja `project/*.md` oraz katalogi `common/` i `roles/` są read-on
 
 Przy uruchomieniu przekazujesz agentowi **jeden plik roli**: `roles/professor.md`, `roles/laborant.md`, `roles/programmer.md`, `roles/critic.md` albo `roles/librarian.md`. Agent nie rozpoznaje roli samodzielnie; ustala ją wyłącznie z tego, co przekazałeś. Jeden agent może mieć wiele ról naraz (patrz `model-assignment.md` — okrojony skład).
 
-Plik roli zawiera całą treść, której rola potrzebuje zawsze — z jednym wyjątkiem: domenę `decision-maker`, bo tę samą treść współdzieli professor (poziom hipotezy) i laborant (poziom eksperymentu), więc żeby jej nie duplikować, została osobnym plikiem, do którego oba pliki ról odsyłają. Podobnie `programmer.operator.md` został osobnym plikiem, bo jest doklejany do programisty tylko warunkowo (gdy zadanie obejmuje HPC), nie zawsze. Poza tymi dwoma wyjątkami nie ma dalszego rozbicia na pliki domenowe — nie ma po co, skoro reszta domen i tak należy zawsze do dokładnie jednej roli.
+Plik roli zawiera całą treść, której rola potrzebuje zawsze — z jednym wyjątkiem: `programmer.operator.md`, bo jest doklejany do programisty tylko warunkowo (gdy zadanie obejmuje HPC), nie zawsze. Poza tym nie ma rozbicia na pliki domenowe — reszta domen należy zawsze do dokładnie jednej roli.
 
 Pliki w `roles/` konfiguruje wyłącznie użytkownik. Agenci traktują je jako tylko do odczytu.
 
@@ -31,14 +31,14 @@ Pliki w `roles/` konfiguruje wyłącznie użytkownik. Agenci traktują je jako t
 
 Jedynymi tożsamościami agentów są **role**: `professor`, `laborant`, `programmer`, `critic`, `librarian`. Tak się przedstawiają, tak się je adresuje, tak się je spawnuje.
 
-Pliki `professor-laborant.decision-maker.md` i `programmer.operator.md` to **dodatki domenowe** do ról: współdzielona albo warunkowa treść proceduralna doklejana do istniejącej roli. Jedyne role do wołania to: professor, laborant, programmer, critic, librarian. Słowa w rodzaju researcher, experiment-designer, analyst, implementer, hpc-assistant oznaczają czynności wewnątrz roli.
+Plik `programmer.operator.md` to **dodatek domenowy** do roli programmer: warunkowa treść proceduralna doklejana gdy zadanie obejmuje HPC. Jedyne role do wołania to: professor, laborant, programmer, critic, librarian. Słowa w rodzaju researcher, experiment-designer, analyst, implementer, hpc-assistant oznaczają czynności wewnątrz roli.
 
 Mapowanie czynności → rola:
 
 | Czynność | Kto |
 |---|---|
-| hipoteza, kierunek badania, decyzja na poziomie hipotezy | `professor` (+ dodatek decision-maker) |
-| projekt eksperymentu, analiza wyników, decyzja na poziomie eksperymentu | `laborant` (+ dodatek decision-maker) |
+| hipoteza, kierunek badania, decyzja na poziomie hipotezy | `professor` |
+| projekt eksperymentu, analiza wyników, decyzja na poziomie eksperymentu | `laborant` |
 | implementacja kodu | `programmer` |
 | joby HPC / kolejka / klaster | `programmer` + dodatek `programmer.operator.md` |
 | krytyka merytoryczna | `critic` (oraz każdy, gdy critic nieaktywny) |
@@ -48,8 +48,8 @@ Mapowanie czynności → rola:
 
 | Rola | Plik roli | Dodatkowo odsyła do |
 |---|---|---|
-| professor | `professor.md` | `professor-laborant.decision-maker.md` (poziom hipotezy) |
-| laborant | `laborant.md` | `professor-laborant.decision-maker.md` (poziom eksperymentu) |
+| professor | `professor.md` | — |
+| laborant | `laborant.md` | — |
 | programmer | `programmer.md` | `programmer.operator.md`, tylko gdy zadanie obejmuje HPC |
 | critic | `critic.md` | — |
 | librarian | `librarian.md` | — |

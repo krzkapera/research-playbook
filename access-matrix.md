@@ -22,7 +22,6 @@ Jedynymi tożsamościami do adresowania i spawnu są role: `professor`, `laboran
 
 Dodatki domenowe (nie są osobnymi rolami):
 
-- `roles/professor-laborant.decision-maker.md` — doklejany do professora (poziom hipotezy) albo laboranta (poziom eksperymentu)
 - `roles/programmer.operator.md` — doklejany do programisty tylko gdy zadanie obejmuje HPC
 
 Szablony briefów spawnu są w pliku roli, która spawnuje (nie w `common/`).
