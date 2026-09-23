@@ -25,9 +25,9 @@ Jeden ciąg od startu do zamknięcia hipotezy:
 1. **Lektura startowa** (sekcja niżej).
 2. **Utwórz węzeł hipotezy** wg `hypotheses.md` (pierwsza vs kolejna z `--baseline`). Zapisz wypisane `id`.
 3. **Draft solo w `description`**: twierdzenie, podstawy, alternatywa, zakres, najbliższe pytanie rozstrzygające. Załóż kanał = slug, ogłoś slug/`id` na `project`.
-4. **Spawn `laborant`** na kanał hipotezy (szablon na końcu; zawsze `--no-wake`; `--harness`/`--model` z `model-assignment.md`). W tym kroku spawnuje wyłącznie laboranta.
+4. **Spawn `laborant`** na kanał hipotezy (szablon na końcu; zawsze `--no-wake`; `--harness`/`--model` z `model-assignment.md`). W tym kroku spawnuje wyłącznie laboranta. Po spawnie czekaj przez `wait_for_updates` na kanale hipotezy.
 5. **Dopracowanie z laborantem**: ustalcie szczegóły pracy laboranta w weryfikacji. Ustalenia → `description`.
-6. Gdy laborant zgłosi **domknięcie uwag do draftu** → **spawn `critic` hipotezy**.
+6. Gdy laborant zgłosi **domknięcie uwag do draftu** → **spawn `critic` hipotezy**; po spawnie czekaj przez `wait_for_updates` na kanale hipotezy.
 7. **Pętla z criticiem:**
    - critic oddaje uwagi na kanale hipotezy;
    - Ty się odnosisz i w razie potrzeby zmieniasz `description`;

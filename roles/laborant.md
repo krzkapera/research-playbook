@@ -36,7 +36,7 @@ Jeden ciąg od spawnu do zamknięcia hipotezy:
 7. **Utwórz węzeł** i kanał wg `experiments.md` (`--parent <id-hipotezy>`). Zapisz `id`; ogłoś slug/`id`/pytanie na kanale hipotezy; pełny design → `description`.
 8. **Recenzja designu:** **spawn `critic`** tego węzła → pętla (uwagi → Twoje odniesienie) → **go/no-go**. Gdy critic zakończył sesję, a znów jest potrzebny → nowy spawn.
 9. Po **go:** **spawn nowego programisty** dla tego eksperymentu (szablon; zawsze `--no-wake`; `--harness`/`--model` z `model-assignment.md`). HPC/Slurm → w briefie doklej `roles/programmer.operator.md`.
-10. **Śledzenie implementacji:** raporty na kanale eksperymentu → wciągasz ścieżki, run id, status do `description`. Dopytania = roundtrip.
+10. **Śledzenie implementacji:** po spawnie czekaj przez `wait_for_updates` na kanale eksperymentu; raporty → wciągasz ścieżki, run id, status do `description`. Dopytania = roundtrip.
 11. **Analiza wyników:** `description` + skrót na kanale eksperymentu **i** hipotezy (bez critica).
 12. **Kolejny eksperyment** = nowe dziecko (od kroku 6) albo koniec, gdy professor zamknie hipotezę.
 
@@ -78,7 +78,7 @@ Wiele pytań = wiele dzieci. Warianty równoległe: rodzeństwo o wspólnym rodz
 ## Recenzja designu → go/no-go (szczegóły kroku 8)
 
 1. Draft w `description` eksperymentu.
-2. **Spawn `critic`** tego węzła (szablon). Gdy critic zakończył sesję, a znów jest potrzebny → nowy spawn.
+2. **Spawn `critic`** tego węzła (szablon). Po spawnie czekaj przez `wait_for_updates` na kanale eksperymentu. Gdy critic zakończył sesję, a znów jest potrzebny → nowy spawn.
 3. Pętla: uwagi critica → Twoje odniesienie / zmiany w `description`; dopytania o hipotezę → kanał hipotezy + `wait_for_updates`.
 4. **Go/no-go** na oddanie programmerowi; zapisz na kanale eksperymentu i w `description`.
 
@@ -90,7 +90,7 @@ Po **go**: zawsze **nowy** programmer dla **tego** eksperymentu.
 
 Brief: kanały do natychmiastowego dołączenia, rola, zadanie, oczekiwany wynik. Flagi spawnu i model: jak w sekcji Szablony. HPC → doklej `roles/programmer.operator.md`.
 
-Programmer raportuje na kanale eksperymentu; Ty utrzymujesz `description` (ścieżki, run id, status). Doprecyzowania = odpowiedź na kanale i/lub `description`; sesja programisty kontynuuje po `wait_for_updates`.
+Po spawnie programisty czekaj przez `wait_for_updates` na kanale eksperymentu. Programmer raportuje na kanale; Ty utrzymujesz `description` (ścieżki, run id, status). Doprecyzowania = odpowiedź na kanale i/lub `description`; sesja programisty kontynuuje po `wait_for_updates`.
 
 ## Analiza wyników (szczegóły kroku 11)
 
@@ -120,7 +120,7 @@ Jesteś programmer dla projektu <project_id>. Przeczytaj `roles/programmer.md` i
 
 Slug eksperymentu: <slug-E> (id: <id-E>)
 Kanały dołącz natychmiast: project, <slug-E>
-Zadanie: zaimplementuj eksperyment wg description węzła; smoke test; commit na branchu eksperymentu.
+Zadanie: zaimplementuj eksperyment wg description węzła; smoke test zdalnie na HPC; commit na branchu eksperymentu.
 Oczekiwany wynik: commit, komendy, ścieżki artefaktów — na kanale <slug-E> i w krótkim podsumowaniu spawnu. Raportujesz na kanale; `description` aktualizuje laborant.
 Operator HPC: brak
 ```

@@ -25,6 +25,8 @@ Pokój = recenzja **gotowego** draftu z `description`. Synonim w `roles/`: **pę
 
 Czekaj przez `wait_for_updates` z `channel: "<slug>"`. Spawn zawsze z `--no-wake`.
 
+Po spawnie z `--no-wake` rodzic **nie** dostaje budzenia z odpowiedzi spawnu. Oddanie dziecka (uwagi, raport, synteza) idzie na uzgodniony kanał; rodzic odbiera je przez `wait_for_updates` na tym kanale.
+
 ## Zadanie vs dyskusja
 
 - Robota z postępem węzła → zadanie `ai-crew-sync` (`create_task` / `claim_task`), może mieć właściciela i zależności.
@@ -41,7 +43,7 @@ Czekaj przez `wait_for_updates` z `channel: "<slug>"`. Spawn zawsze z `--no-wake
 2. Przy każdym `orx agent spawn` zawsze podaj `--no-wake`. Szczegóły flagi: skill `/orx-agent-delegation`.
 3. Brief: kanały do natychmiastowego dołączenia, rola wprost, zadanie, oczekiwany wynik. `--harness` i `--model` wyłącznie wg `model-assignment.md`. Szablony briefów są w `roles/`.
 4. Koordynacja równoległych dzieci = kanały (hipoteza / eksperyment). Kanał jest źródłem prawdy o trwającej pracy.
-5. Kończąc: opcjonalna krótka odpowiedź spawnu do rodzica ≤ ~4000 znaków (status, skrót + odesłanie). Dłuższy materiał (ścieżki, logi, tabele) na uzgodnionym kanale. Bieżący stan: kanał i `description`.
+5. Kończąc: materiał oddaj na uzgodnionym kanale (to budzi rodzica siedzącego na `wait_for_updates`). Opcjonalna krótka odpowiedź spawnu ≤ ~4000 znaków jest skrótem pomocniczym — przy `--no-wake` sama nie budzi rodzica. Bieżący stan: kanał i `description`.
 
 Szablon briefu:
 

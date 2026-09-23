@@ -18,7 +18,7 @@ Ręczny `git worktree add` tylko poza `orx up` (np. narzędzie na hoście). Naze
 
 ## Przed / po pracy z kodem
 
-Przed: `git checkout orx/<slug>`, sprawdź bazowy commit i czystość worktree, zrób najtańszy smoke test przed większą zmianą. Nie ruszaj brancha, który inna sesja już ma wybrany.
+Przed: `git checkout orx/<slug>`, sprawdź bazowy commit i czystość worktree; przed większą zmianą najtańszy smoke **zdalnie na HPC** (`roles/programmer.operator.md`). Nie ruszaj brancha, który inna sesja już ma wybrany.
 
 Gdy edytujesz tylko `description` (`orx exp desc`) — checkout nie jest potrzebny.
 

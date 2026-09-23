@@ -28,9 +28,9 @@ Jeden ciąg od spawnu do oddania implementacji:
 3. **Odczytaj zlecenie:** `description` eksperymentu (`orx exp desc`), kryterium pytania, ustalenia na kanale; przygotuj worktree wg `worktrees.md`.
 4. Gdy brief/`description` jest niejasne lub niepełne → **roundtrip** (sekcja niżej), potem wróć do kroku 3.
 5. **Zaimplementuj** dokładnie ustalony eksperyment / narzędzie (zasady kodu niżej).
-6. **Smoke test** lokalnie (albo wg briefu / operatora przy HPC).
+6. **Smoke test** zawsze **zdalnie na HPC** (krótki job w kolejce) — nigdy lokalnie. Gdy brief dokleja operatora → sekcja Smoke w `roles/programmer.operator.md`.
 7. **Commit** na branchu eksperymentu: kod i małe pliki wniosku. Duże surowe dane zostają tam, gdzie powstały — w raporcie tylko ścieżki.
-8. Gdy brief obejmuje HPC → wykonaj kroki z `roles/programmer.operator.md` (job.sbatch, submit, monitoring).
+8. Gdy brief obejmuje HPC → pełny run wg `roles/programmer.operator.md` (job.sbatch, submit, monitoring).
 9. **Raport** na kanale eksperymentu i w krótkim podsumowaniu spawnu: branch/commit, pliki, komendy, ścieżki artefaktów, run id / status (gdy dotyczy).
 10. **Zakończ sesję** po oddaniu raportu. Ten spawn dotyczy tylko tego eksperymentu — nie przejmujesz innego przez `ask_agent`.
 

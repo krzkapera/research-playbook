@@ -15,7 +15,7 @@ Zanim przejdziesz do flow, te słowa oznaczają w playbooku konkretne rzeczy:
 - **Klastry** — Helios, Athena, Ares (Cyfronet; dostęp: `ssh helios`, `ssh athena`, `ssh ares`). Helios = ARM (specjalna konfiguracja; wzoruj się na projektach w `~/scratch/`).
 - **`~/scratch/<katalog-projektu>/`** — artefakty jobów (kod, cache, venv, logi) w porządku.
 - **Kolejka** — obciążenie klastra; przy martwej kolejce przenosisz pracę na inny klaster.
-- **Smoke** — lokalny przebieg przed większą zmianą / pierwszym jobem.
+- **Smoke** — krótki przebieg **zdalnie na HPC** (kolejka) przed większą zmianą / pierwszym pełnym jobem; nigdy lokalnie.
 - **Monitoring** — `orx exp wait` / `orx exp wake` (bez własnej pętli), poza przypadkami z briefu (np. przełączenie klastra).
 
 ## Pełny flow pracy
@@ -24,7 +24,7 @@ Jeden ciąg od momentu, gdy brief obejmuje HPC:
 
 1. **Lektura** tego dodatku + bieżące `description` eksperymentu (pytanie, limity).
 2. **Wybór klastra** i katalogu w `~/scratch/` (sekcja Klastry).
-3. **Smoke lokalny**, gdy wymagany (sekcja Smoke).
+3. **Smoke zdalny na HPC**, gdy wymagany (sekcja Smoke).
 4. **Napisz / zaktualizuj `job.sbatch`** w korzeniu brancha (sekcja job.sbatch).
 5. **Submit** przez `orx exp run --backend slurm`.
 6. **Monitoruj** job (`orx exp wait` / `orx exp wake`); przy martwej kolejce przełącz klaster (sekcja Kolejka).
@@ -54,10 +54,10 @@ Jeden ciąg od momentu, gdy brief obejmuje HPC:
 
 ## Smoke (szczegóły kroku 3)
 
-- Przed większą zmianą / pierwszym jobem: lokalny smoke.
-- Przy zmianie jednego sprawdzonego parametru wystarczy poprzedni smoke.
-- Few-shot liczące się w kilka minut na lokalnym GPU → lokalnie (venv w katalogu projektu), nie kolejka.
-- Czekanie na koniec runów lokalnych: skrypty bash. Monitorowanie jobów klastra: przez `orx` / ten dodatek.
+- Przed większą zmianą / pierwszym pełnym jobem: krótki smoke **zdalnie na HPC** (submit przez kolejkę; venv i artefakty w `~/scratch/`). Nigdy lokalnie.
+- Przy zmianie jednego sprawdzonego parametru wystarczy poprzedni smoke zdalny.
+- Few-shot i krótkie przebiegi też idą przez kolejkę (np. Ares), nie przez lokalne GPU.
+- Monitorowanie smoke i pełnych jobów: `orx exp wait` / `orx exp wake` (ten dodatek).
 
 ## job.sbatch (szczegóły kroków 4–5)
 
