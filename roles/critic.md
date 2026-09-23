@@ -20,6 +20,7 @@ Zanim przejdziesz do flow, te słowa oznaczają w playbooku konkretne rzeczy:
 - **Professor** — właściciel hipotezy; odbiera Twoje uwagi do treści i decyduje o stanie hipotezy / starcie weryfikacji.
 - **Laborant** — właściciel eksperymentu; odbiera Twoje uwagi do designu lub wyniku i decyduje o go/no-go oraz kolejnych krokach eksperymentalnych.
 - **Runda recenzji** — jedna pełna ocena na kanale; kolejna runda = kolejny spawn albo kontynuacja, gdy brief / właściciel o to prosi.
+- **Roundtrip** — dopytanie na uzgodnionym kanale + `wait_for_updates` w tej samej sesji (`common/communication.md`).
 
 ## Pełny flow pracy
 

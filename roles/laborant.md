@@ -47,7 +47,8 @@ Wiele eksperymentów naraz = wiele dzieci (osobny kanał i programmer na każdy)
 Przeczytaj w tej kolejności, jeśli jeszcze nie:
 
 1. `agent-start.md`
-2. `research-brief.md` — cel, literatura, benchmarki, flow badania (HPC jest u operatora programisty)
+2. `research-brief.md` — cel, literatura, benchmarki, flow badania
+   - HPC → `roles/programmer.operator.md`
 3. `experiments.md` — tworzenie węzła eksperymentu, reguły `description` i kanału
 4. `description` i status hipotezy (`orx exp desc` / `orx exp status`) — zakres i limity z briefu / węzła
 

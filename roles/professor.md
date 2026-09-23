@@ -16,7 +16,7 @@ Zanim przejdziesz do flow, te słowa oznaczają w playbooku konkretne rzeczy:
 - **Critic hipotezy** — dostarcza uwagi do treści hipotezy na kanale hipotezy.
 - **Librarian** — dostarcza szeroki przegląd literatury.
 - **Faza treści** — dopracowanie twierdzenia, podstaw, alternatywy, zakresu i pytań rozstrzygających przed eksperymentami.
-- **Faza weryfikacji** — czytasz skróty analiz od laboranta na kanale hipotezy i aktualizujesz `description` oraz stan.
+- **Faza weryfikacji** — czytasz skróty analiz od laboranta na kanale hipotezy i aktualizujesz `description` oraz stan. Dla laboranta ten sam okres to **faza eksperymentów**.
 
 ## Pełny flow pracy
 
@@ -27,14 +27,14 @@ Jeden ciąg od startu do zamknięcia hipotezy:
 3. **Draft solo w `description`**: twierdzenie, podstawy, alternatywa, zakres, najbliższe pytanie rozstrzygające. Załóż kanał = slug, ogłoś slug/`id` na `project`.
 4. **Spawn `laborant`** na kanał hipotezy (szablon na końcu; zawsze `--no-wake`; `--harness`/`--model` z `model-assignment.md`). W tym kroku spawnuje wyłącznie laboranta.
 5. **Dopracowanie z laborantem**: ustalcie szczegóły pracy laboranta w weryfikacji. Ustalenia → `description`.
-6. Gdy laborant zgłosi **domknięcie uwag** → **spawn `critic` hipotezy**.
+6. Gdy laborant zgłosi **domknięcie uwag do draftu** → **spawn `critic` hipotezy**.
 7. **Pętla z criticiem:**
    - critic oddaje uwagi na kanale hipotezy;
    - Ty się odnosisz i w razie potrzeby zmieniasz `description`;
    - laborant się odnosi; w razie potrzeby z laborantem poprawiacie szczegóły zakresu pracy;
    - wracacie do uwag critica (kolejna runda).
-8. **Decyzja „gotowa do weryfikacji”:** Ty ją podejmujesz. Z reguły wtedy, gdy laborant i critic zatwierdzają hipotezę i zgłaszają domknięcie uwag. Zapisz decyzję na kanale i w `description`; wezwij **tego samego** laboranta do fazy eksperymentów.
-9. **Faza weryfikacji:** laborant prowadzi weryfikację i dostarcza skróty analiz; Ty czytasz je na kanale hipotezy i aktualizujesz stan.
+8. **Decyzja „gotowa do weryfikacji”:** Ty ją podejmujesz. Z reguły wtedy, gdy laborant wcześniej zgłosił **domknięcie uwag do draftu**, a critic sygnalizuje **gotowe do decyzji** (lub **gotowe do decyzji po Twojej stronie**). Zapisz decyzję na kanale i w `description`; wezwij **tego samego** laboranta do fazy eksperymentów.
+9. **Faza weryfikacji:** laborant prowadzi **fazę eksperymentów** i dostarcza skróty analiz; Ty czytasz je na kanale hipotezy i aktualizujesz stan.
 10. **Zamknięcie hipotezy:** jawny stan w `description` i na kanale.
 
 Szeroki przegląd literatury w dowolnym momencie → spawn `librarian`. Gdy critic lub librarian zakończył sesję, a znów jest potrzebny → nowy spawn. Wąskie pytanie literaturowe możesz załatwić sam (`orx skill lit-review` / `/orx-lit-review`).
@@ -46,7 +46,8 @@ Możesz prowadzić wiele hipotez równolegle — każda ma własny węzeł, kana
 Przeczytaj w tej kolejności, jeśli jeszcze nie:
 
 1. `agent-start.md`
-2. `research-brief.md` — cel, literatura, benchmarki, flow badania, tematy (HPC jest u operatora programisty)
+2. `research-brief.md` — cel, literatura, benchmarki, flow badania, tematy
+   - HPC → `roles/programmer.operator.md`
 3. `hypotheses.md` — tworzenie węzła i reguły `description`
 4. bieżący węzeł: `description` i status (`orx exp desc` / `orx exp status`), gdy slug/`id` są znane
 
@@ -67,9 +68,9 @@ Kolejność jest sztywna:
 
 1. Draft solo (Ty).
 2. Runda z laborantem — dopracowanie zakresu pracy laboranta.
-3. Spawn critica po sygnale laboranta o domknięciu uwag.
+3. Spawn critica po sygnale laboranta **domknięcie uwag do draftu**.
 4. Pętla: uwagi critica → Twoja reakcja / zmiany → reakcja laboranta (ew. doprecyzowanie z Tobą) → znowu critic.
-5. Ty decydujesz o starcie weryfikacji; typowy sygnał: laborant i critic zatwierdzają i zgłaszają domknięcie uwag. Przy braku zgody masz głos rozstrzygający — uzasadnij na kanale i w `description`.
+5. Ty decydujesz o starcie weryfikacji; typowy sygnał: laborant wcześniej zgłosił **domknięcie uwag do draftu**, a critic sygnalizuje **gotowe do decyzji**. Przy braku zgody masz głos rozstrzygający — uzasadnij na kanale i w `description`.
 
 Gdy laborant zgłosi potrzebę korekty, dopracuj z nim treść do weryfikacji.
 
@@ -114,15 +115,15 @@ Brief spawnu zawiera kanały do natychmiastowego dołączenia. Przy każdym `orx
 
 
 ```text
-Jesteś laborant dla projektu <project_id>. Przeczytaj `roles/laborant.md` i kieruj się nim (faza hipotezy).
+Jesteś laborant dla projektu <project_id>. Przeczytaj `roles/laborant.md` i kieruj się nim (faza treści).
 
 Slug hipotezy: <slug-H> (id: <id-H>)
 Kanały dołącz natychmiast: project, <slug-H>
 Zadanie: z professorem dopracuj treść hipotezy na kanale hipotezy. Zakres pracy w weryfikacji: twierdzenie, podstawy, alternatywa, pytania rozstrzygające, zakres. Ustalenia zapisuje professor w description.
-Oczekiwany wynik: konkretne uwagi i propozycje na kanale hipotezy; sygnał „domknięte uwagi do draftu” albo lista braków do domknięcia.
+Oczekiwany wynik: konkretne uwagi i propozycje na kanale hipotezy; sygnał „domknięcie uwag do draftu” albo lista braków do domknięcia.
 ```
 
-### → critic (faza hipotezy; po domknięciu uwag laboranta)
+### → critic (faza treści; po domknięciu uwag do draftu laboranta)
 
 
 ```text

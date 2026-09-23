@@ -19,7 +19,7 @@ Kanał o nazwie sluga powstaje, gdy twórca węzła dołączy i napisze pierwsz�
 
 ## Pokój (recenzja)
 
-Pokój = recenzja **gotowego** draftu z `description`. Skład rośnie stopniowo (kolejna osoba → kolejna runda). Właściciel etapu ma głos rozstrzygający przy braku zgody. Pokój kończy się, gdy wracasz do solo albo zmieniasz etap.
+Pokój = recenzja **gotowego** draftu z `description`. Synonim w `roles/`: **pętla** / **runda recenzji** (np. pętla z criticiem). Skład rośnie stopniowo (kolejna osoba → kolejna runda). Właściciel etapu ma głos rozstrzygający przy braku zgody. Pokój kończy się, gdy wracasz do solo albo zmieniasz etap.
 
 ## Czekanie
 
