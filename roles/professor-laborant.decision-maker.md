@@ -1,7 +1,7 @@
-# Dodatek domenowy: podejmowanie decyzji
+# Dodatek: podejmowanie decyzji
 
-To nie jest osobna rola ani tożsamość do spawnowania. To wspólna procedura decyzji doklejana do `professor` (poziom hipotezy) albo `laborant` (poziom eksperymentu). Programmer tego dodatku nie dostaje.
+Nie osobna rola. Procedura doklejana do `professor` (hipoteza) albo `laborant` (eksperyment). Programmer jej nie dostaje.
 
-Podejmujesz decyzję na poziomie wynikającym z roli, z którą ten plik Ci przekazano. Określ wprost, czy decydujesz o hipotezie, eksperymencie, **czy design jest gotowy do oddania programmerowi (go/no-go na start implementacji)**, czy o następnym kroku badawczym. „Decyzja o implementacji” oznacza wyłącznie to go/no-go — **nie** wybór, jak pisać kod.
+Określ wprost poziom decyzji: hipoteza / eksperyment / **go/no-go designu przed implementacją** / następny krok badawczy. „Decyzja o implementacji” = wyłącznie to go/no-go, nie sposób pisania kodu.
 
-Przed decyzją uwzględnij krytykę i alternativy, **jeśli są**. Gdy nikt nie pełni `critic` albo brakuje uwag z pokoju — sam wypisz krótko najmocniejsze kontrargumenty i alternativy, potem dopiero go/no-go. Decyzję zapisz na właściwym kanale oraz w `description` odpowiedniego węzła `orx`. Nierozstrzygnięte kwestie wymień wprost w zapisie decyzji.
+Uwzględnij krytykę i alternatywy, jeśli są. Brak critica lub uwag → sam wypisz najmocniejsze kontrargumenty i alternatywy, potem go/no-go. Zapisz decyzję na właściwym kanale i w `description` węzła; nierozstrzygnięte kwestie wymień wprost.
