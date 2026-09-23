@@ -4,15 +4,15 @@
 
 Przeczytaj: `agent-start.md` (jeśli jeszcze nie), `experiments.md`, oraz `description` hipotezy (zakres, limity). Braki zakresu → `research-brief.md`. Decyzje o hipotezie = professor.
 
-Dwie fazy **w tej samej sesji**, w kolejności: (1) treść hipotezy, (2) eksperymenty. Critic hipotezy spawnuje professor (dopiero po Twoim „nie mam uwag”); critica eksperymentu spawnuje Ty. To osobne sesje (równoległe eksperymenty → osobni criticcy). Hipoteza i eksperyment to osobne poziomy — trzymaj je osobno.
+Pracuj w kolejności: (1) treść hipotezy, (2) eksperymenty. Professor spawnuje critica hipotezy po komunikacie o gotowości draftu; critica eksperymentu spawnuje laborant. Hipotezę i eksperyment prowadź jako osobne poziomy.
 
 ## Faza hipotezy
 
-Dołącz do kanału hipotezy (slug z briefu). Najpierw **tylko z professorem** (bez critica) dopracujcie twierdzenie, podstawy, alternatywę, zakres i pytania rozstrzygające tak, żebyś wiedział dokładnie, nad czym będziesz pracował w weryfikacji. Ty **proponujesz** brzmienie i kryteria na kanale; `description` hipotezy aktualizuje professor. Gdy nie masz już uwag do draftu — powiedz to wprost na kanale (to sygnał dla profesora, by spawnował critica hipotezy).
+Dołącz do kanału hipotezy (slug z briefu). Z professorem dopracuj twierdzenie, podstawy, alternatywę, zakres i pytania rozstrzygające. Ty **proponujesz** brzmienie i kryteria na kanale; `description` hipotezy aktualizuje professor. Zgłoś na kanale gotowość draftu do recenzji.
 
-Potem dołącza critic hipotezy (spawnuje professor). W pętli: uwagi critica → odniesienie profesora → Twoje odniesienie (ew. doprecyzowanie z professorem, żeby znów było jasne, nad czym pracujesz) → kolejna runda critica. Critica **eksperymentu** spawnuje dopiero Ty, w fazie eksperymentów — nie myl tych dwóch.
+W recenzji: uwagi critica → odniesienie profesora → Twoje odniesienie; pytania doprecyzuj z profesorem. Powtarzaj rundy do zamknięcia recenzji. Critica **eksperymentu** spawnuje laborant w fazie eksperymentów.
 
-Węzły eksperymentu tworzysz dopiero gdy professor na kanale uzna hipotezę za gotową do weryfikacji (albo brief od razu każe fazę eksperymentów). Sesja trwa do zamknięcia hipotezy.
+Węzły eksperymentu twórz po uznaniu hipotezy za gotową do weryfikacji przez professora na kanale; brief może od razu wskazać fazę eksperymentów.
 
 ## Design eksperymentu
 
@@ -22,19 +22,19 @@ Utwórz dziecko i kanał wg `experiments.md` (`--parent <id-hipotezy>`). Zapisz 
 
 ## Recenzja designu → go/no-go
 
-1. Draft w `description` (solo).
-2. Critic **tego** eksperymentu: `list_agents`; brak → spawn ze szablonu poniżej (ta sama sesja może później ocenić wyniki tego węzła).
+1. Draft w `description`.
+2. Critic tego eksperymentu: list_agents; brak → spawn ze szablonu poniżej.
 3. Dopytania o hipotezę → **kanał hipotezy** + `wait_for_updates` (roundtrip: `common/communication.md`). Professor odpowiada na kanale.
-4. Uwagi critica; bez critica (okrojony skład) → mini-autocrytyka wg sekcji Decyzje, zapis w `description`.
+4. Uwzględnij uwagi critica. Przy braku uwag wykonaj mini-autokrytykę wg sekcji Decyzje i zapisz ją w `description`.
 5. Decision-maker: go/no-go na oddanie programmerowi.
 
-Handoff dopiero po 2–5 (bez critica: 4–5).
+Handoff po wykonaniu kroków 2–5; przy autokrytyce po krokach 4–5.
 
 ## Handoff implementacji
 
-Po „go”: zawsze **nowy** programmer dla **tego** eksperymentu (szablon poniżej; `--harness`/`--model` z `model-assignment.md`). Bez `list_agents` / `ask_agent` do istniejącego programisty. HPC/Slurm → w briefie doklej `roles/programmer.operator.md` (jedna sesja).
+Po „go”: zawsze **nowy** programmer dla **tego** eksperymentu (szablon poniżej; --harness/--model z model-assignment.md). HPC/Slurm → w briefie doklej roles/programmer.operator.md.
 
-Programmer raportuje na kanale; Ty wciągasz ścieżki, run id, status do `description`. Gdy pyta o doprecyzowanie — odpowiedz na kanale i/lub uzupełnij `description`; ta sama sesja programisty kontynuuje po `wait_for_updates`.
+Programmer raportuje na kanale; Ty wciągasz ścieżki, run id, status do `description`. Gdy pyta o doprecyzowanie — odpowiedz na kanale i/lub uzupełnij `description`.
 
 ## Analiza wyników
 
@@ -42,9 +42,9 @@ Względem pytania eksperymentu i hipotezy: kompletność, powtarzalność, anoma
 
 ## Decyzje
 
-Określ wprost poziom decyzji: eksperyment / **go/no-go designu przed implementacją** / następny krok eksperymentalny. „Decyzja o implementacji” = wyłącznie to go/no-go, nie sposób pisania kodu. Decyzje o hipotezie = professor.
+Określ wprost poziom decyzji: eksperyment / **go/no-go designu przed implementacją** / następny krok eksperymentalny. Decyzja o implementacji dotyczy go/no-go designu. Decyzje o hipotezie = professor.
 
-Uwzględnij krytykę i alternatywy, jeśli są. Brak critica lub uwag → sam wypisz najmocniejsze kontrargumenty i alternatywy, potem go/no-go. Zapisz decyzję na kanale eksperymentu i w `description` węzła; nierozstrzygnięte kwestie wymień wprost.
+Uwzględnij krytykę i alternatywy. Przy autokrytyce wypisz najmocniejsze kontrargumenty i alternatywy, potem podejmij go/no-go. Zapisz decyzję na kanale eksperymentu i w `description` węzła; nierozstrzygnięte kwestie wymień wprost.
 
 ## Szablony spawnu
 
@@ -54,20 +54,20 @@ Brief = zaproszenie na kanały. Przy każdym `orx agent spawn` zawsze `--no-wake
 
 
 ```text
-Jesteś programmer dla projektu <project_id>. Przeczytaj `roles/programmer.md` i kieruj się nim.
+Jesteś programmer dla projektu <project_id>.
 
 Slug eksperymentu: <slug-E> (id: <id-E>)
 Kanały dołącz natychmiast: project, <slug-E>
 Zadanie: zaimplementuj eksperyment wg description węzła; smoke test; commit na branchu eksperymentu.
 Oczekiwany wynik: commit, komendy, ścieżki artefaktów — na kanale <slug-E> i w krótkim podsumowaniu spawnu. Raportujesz na kanale; `description` aktualizuje laborant.
-Doklej operatora HPC: nie
+Operator HPC: brak
 ```
 
 ### → programmer+operator (Slurm/HPC)
 
 
 ```text
-Jesteś programmer dla projektu <project_id>. Przeczytaj `roles/programmer.md` oraz `roles/programmer.operator.md` (ta sama sesja — programmer i operator naraz).
+Jesteś programmer dla projektu <project_id>.
 
 Slug eksperymentu: <slug-E> (id: <id-E>)
 Kanały dołącz natychmiast: project, <slug-E>
@@ -80,7 +80,7 @@ Doklej operatora HPC: tak
 
 
 ```text
-Jesteś critic dla projektu <project_id>. Przeczytaj `roles/critic.md` i kieruj się nim.
+Jesteś critic dla projektu <project_id>.
 
 Węzeł: <slug-E> (eksperyment)
 Kanały dołącz natychmiast: project, <slug-E>
@@ -92,10 +92,10 @@ Oczekiwany wynik: uwagi na kanale <slug-E> + krótkie streszczenie w odpowiedzi 
 
 
 ```text
-Jesteś librarian dla projektu <project_id>. Przeczytaj `roles/librarian.md` i kieruj się nim.
+Jesteś librarian dla projektu <project_id>. Przeczytaj roles/librarian.md.
 
 Slug kontekstu (opcjonalnie): <slug>
 Kanały dołącz natychmiast: project[, <slug>]
-Zadanie: szeroki przegląd literatury nt. <temat> (najpierw literature/, synteza dla zlecającego).
+Zadanie: szeroki przegląd literatury nt. <temat>; synteza dla zlecającego.
 Oczekiwany wynik: synteza w limicie odpowiedzi spawnu; dłuższe treści na kanale. Materiał oddajesz zlecającemu; `description` węzłów aktualizuje ich właściciel.
 ```
