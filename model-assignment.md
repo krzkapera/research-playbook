@@ -1,6 +1,6 @@
 # Przydział modeli
 
-Przy `orx agent spawn` ustaw `--harness` i `--model` wyłącznie według tabeli poniżej. Nie bierz ich z pliku roli.
+Przy `orx agent spawn` ustaw `--harness` i `--model` wyłącznie według tabeli poniżej.
 
 | Rola | Harness / model |
 |---|---|

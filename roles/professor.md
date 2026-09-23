@@ -109,7 +109,7 @@ Wniosek w `description` opieraj na rachunku, literaturze albo skrócie od labora
 
 ## Szablony spawnu
 
-Brief = zaproszenie: kanały do natychmiastowego dołączenia. `--harness` i `--model` bierz wyłącznie z `model-assignment.md` — nie powtarzaj flag tutaj.
+Brief = zaproszenie: kanały do natychmiastowego dołączenia. `--harness` i `--model` bierz wyłącznie z `model-assignment.md`.
 
 ### → laborant (po Twoim drafcie; przed criticiem)
 

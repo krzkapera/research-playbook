@@ -48,7 +48,7 @@ Uwzględnij krytykę i alternatywy, jeśli są. Brak critica lub uwag → sam wy
 
 ## Szablony spawnu
 
-Brief = zaproszenie na kanały. `--harness` i `--model` bierz wyłącznie z `model-assignment.md` — nie powtarzaj flag tutaj. Nowy eksperyment → nowy programmer; `BLOCKED` → re-spawn.
+Brief = zaproszenie na kanały. `--harness` i `--model` bierz wyłącznie z `model-assignment.md`. Nowy eksperyment → nowy programmer; `BLOCKED` → re-spawn.
 
 ### → programmer (bez HPC)
 
