@@ -16,7 +16,6 @@ Na start: nacisk na **teorię / design metody**; implementacja będzie, ale szcz
 ## Literatura
 
 - **Źródło prawdy w projekcie:** `literature/` — PDF-y i spis `literature/index.md` w jednym katalogu (bez podkatalogów). Utrzymuje `librarian`. Agenci nie zapisują paperów poza `literature/`.
-- **Zbiór startowy użytkownika (tylko odczyt):** `~/agh/pp/artykuly/txt` (klasyczne one-class continual vision AD) oraz `~/agh/pp/fsad/txt` (few-shot AD). Librarian najpierw sprawdza `literature/`; gdy brief lub luka wskazuje na `~/agh/pp/...`, czyta stamtąd i **przydatne rzeczy indeksuje / przenosi do `literature/`**.
 
 Przepływ: najpierw papery już zebrane, potem szerokie wyszukiwanie (własne narzędzia + firecrawl CLI — tylko research index: `docs.firecrawl.dev/sdks/cli`, `docs.firecrawl.dev/features/search`). Czytaj abstrakty; przy dopasowaniu — całość i zapis do korpusu. Pliki tymczasowe i wyniki w katalogu projektu.
 

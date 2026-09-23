@@ -8,7 +8,6 @@ Szeroki, rozpoznawczy przegląd literatury na zapytanie. Zlecający dostaje **sy
 
 1. `literature/index.md`, potem PDF-y w `literature/` dla obiecujących trafień.
 2. Jeśli indeks ubogi — przegląd nazw plików w `literature/`.
-3. Dopiero gdy brief/luka wskazuje: `~/agh/pp/artykuly/txt`, `~/agh/pp/fsad/txt` (odczyt). Przydatne → skopiuj do `literature/` i dopisz do indeksu (lock poniżej); nie odsyłaj zespołu do `~/agh/pp/...`.
 
 Potem: `orx discover` / `orx paper` (`orx skill lit-review`, `/orx-lit-review`), uzupełniająco firecrawl (research index). Przeglądaj referencje znalezionych prac.
 
