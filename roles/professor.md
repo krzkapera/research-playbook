@@ -47,7 +47,7 @@ Przeczytaj w tej kolejności, jeśli jeszcze nie:
 
 1. `agent-start.md`
 2. `research-brief.md` — cel, literatura, benchmarki, flow badania, tematy
-   - HPC → `roles/programmer.operator.md`
+   - HPC → `roles/operator.md`
 3. `hypotheses.md` — tworzenie węzła i reguły `description`
 4. bieżący węzeł: `description` i status (`orx exp desc` / `orx exp status`), gdy slug/`id` są znane
 
