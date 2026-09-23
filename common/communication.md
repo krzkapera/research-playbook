@@ -23,7 +23,7 @@ Pokój = recenzja **gotowego** draftu z `description`. Skład rośnie stopniowo 
 
 ## Czekanie
 
-Czekaj przez `wait_for_updates` z `channel: "<slug>"`. Spawn w tym playbooku zawsze idzie z `--no-wake`, więc rodzic pozostaje aktywny i odpowiada na kanale, gdy dziecko czeka.
+Czekaj przez `wait_for_updates` z `channel: "<slug>"`. Spawn zawsze z `--no-wake`.
 
 ## Zadanie vs dyskusja
 
@@ -34,13 +34,14 @@ Czekaj przez `wait_for_updates` z `channel: "<slug>"`. Spawn w tym playbooku zaw
 
 ## Spawn
 
-Spawn jest zawsze nieblokujący: rodzic może odpalić wielu helperów naraz i koordynować ich pracę przez kanały.
+- Przy każdym `orx agent spawn` zawsze `--no-wake`.
+- Równoległe spawny OK; koordynacja na kanałach.
 
 1. Sprawdź `list_agents` — gdy potrzebna rola już działa w tym kontekście, użyj `ask_agent`. Wyjątki: plik roli, która spawnuje.
-2. Przy każdym `orx agent spawn` zawsze podaj `--no-wake`. Rodzic od razu wraca do własnej pracy (kolejne spawny, odpowiedzi na kanałach); zamykająca odpowiedź dziecka nie wznawia jego sesji. Szczegóły flagi: skill `/orx-agent-delegation`.
+2. Przy każdym `orx agent spawn` zawsze podaj `--no-wake`. Szczegóły flagi: skill `/orx-agent-delegation`.
 3. Brief: kanały do natychmiastowego dołączenia, rola wprost, zadanie, oczekiwany wynik. `--harness` i `--model` wyłącznie wg `model-assignment.md`. Szablony briefów są w `roles/`.
 4. Koordynacja równoległych dzieci = kanały (hipoteza / eksperyment). Kanał jest źródłem prawdy o trwającej pracy.
-5. Kończąc: opcjonalna krótka odpowiedź spawnu do rodzica ≤ ~4000 znaków (status, skrót + odesłanie). Dłuższy materiał (ścieżki, logi, tabele) na uzgodnionym kanale. Rodzic nie opiera się na blokującym resume — bieżący stan bierze z kanału i `description`.
+5. Kończąc: opcjonalna krótka odpowiedź spawnu do rodzica ≤ ~4000 znaków (status, skrót + odesłanie). Dłuższy materiał (ścieżki, logi, tabele) na uzgodnionym kanale. Bieżący stan: kanał i `description`.
 
 Szablon briefu:
 
@@ -59,7 +60,7 @@ Gdy brief/`description` jest zbyt niejasny, by kontynuować — nie zgaduj. Dopr
 
 1. Dziecko publikuje pytania na uzgodnionym kanale (slug hipotezy albo eksperymentu).
 2. Dziecko czeka przez `wait_for_updates` na tym kanale.
-3. Rodzic — nadal aktywny, bo spawn poszedł z `--no-wake` — odpowiada na kanale i/lub aktualizuje `description`.
+3. Rodzic odpowiada na kanale i/lub aktualizuje `description`.
 4. Dziecko kontynuuje w tej samej sesji z wyjaśnionego kanału/`description`.
 
 ## Wiadomość vs plik

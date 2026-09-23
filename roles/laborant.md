@@ -24,7 +24,7 @@ Utwórz dziecko i kanał wg `experiments.md` (`--parent <id-hipotezy>`). Zapisz 
 
 1. Draft w `description` (solo).
 2. Critic **tego** eksperymentu: `list_agents`; brak → spawn ze szablonu poniżej (ta sama sesja może później ocenić wyniki tego węzła).
-3. Dopytania o hipotezę → **kanał hipotezy** + `wait_for_updates` (roundtrip: `common/communication.md`). Professor odpowiada na kanale (spawn z `--no-wake` zostawia go aktywnym).
+3. Dopytania o hipotezę → **kanał hipotezy** + `wait_for_updates` (roundtrip: `common/communication.md`). Professor odpowiada na kanale.
 4. Uwagi critica; bez critica (okrojony skład) → mini-autocrytyka wg sekcji Decyzje, zapis w `description`.
 5. Decision-maker: go/no-go na oddanie programmerowi.
 
