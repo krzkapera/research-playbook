@@ -10,7 +10,7 @@ Treść (pytanie, ustalenia, krytyka, wynik) żyje w `description` (`orx exp des
 
 `description` jest nadpisywane w całości: przed zapisem odczytaj bieżącą treść (`orx exp status` / `orx exp desc`) i zapisz pełną zaktualizowaną wersję. Edytuje wyłącznie aktualny właściciel etapu (`laborant`); programmer i operator oddają ścieżki oraz status na kanale.
 
-Rozróżniaj w `description`: błąd infrastruktury, błąd implementacji, wynik naukowy. `orx` raportuje tylko przebieg runu (`Starting` / `Running` / `Done` / `Failed` / `Cancelled`). Tylko wynik naukowy wspiera albo obala hipotezę. Gdy błąd uniemożliwia odpowiedź na pytanie, wynik jest nieinterpretowalny.
+W `description` zapisuj tylko to, co jest istotne z punktu widzenia eksperymentu i hipotezy (pytanie, ustalenia, wynik względem hipotezy). Przebieg runu (`Starting` / `Running` / `Done` / `Failed` / `Cancelled`) zostaje w raporcie `orx`.
 
 ## Kanał
 

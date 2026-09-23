@@ -4,10 +4,9 @@
 
 Każda sesja `orx up` (także po `orx agent spawn`) dostaje własny, prywatny worktree — `orx` tworzy go na starcie, na baseline w stanie `detached`. Przed pracą nad kodem: `git checkout orx/<slug>`.
 
-## Spawn vs natywny subagent
+## Równoległa praca
 
-- `orx agent spawn` = nowy proces, nowy `session_id`, **osobny** worktree. Tak uruchamiaj równoległych programistów przy różnym kodzie.
-- Natywny subagent modelu (Task w Claude Code, odpowiedniki w Cursor/Antigravity) zostaje w procesie rodzica — **ten sam** worktree i branch. Nie używaj go do równoległej edycji kodu obok rodzica; nadaje się do krótkich zapytań / analizy tekstu.
+Równolegli programiści przy różnym kodzie: `orx agent spawn` (osobna sesja, osobny worktree). Natywny subagent modelu: krótkie zapytania i analiza tekstu.
 
 ## Jeden worktree na sesję
 
@@ -15,7 +14,7 @@ Worktree należy do sesji, nie do brancha. Inny eksperyment w tej samej sesji = 
 
 Konflikt: dwie sesje na tym samym `orx/<slug>` — Git odmówi drugiego checkoutu. Zanim wejdziesz na branch, sprawdź `git branch -a`.
 
-Ręczny `git worktree add` tylko poza `orx up` (np. narzędzie na hoście). Trzymaj nazewnictwo `orx/<slug>`, żeby `orx` nadal widział worktree w drzewie.
+Ręczny `git worktree add` tylko poza `orx up` (np. narzędzie na hoście). Nazewnictwo worktree: `orx/<slug>`.
 
 ## Przed / po pracy z kodem
 
