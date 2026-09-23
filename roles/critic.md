@@ -16,7 +16,7 @@ Zanim przejdziesz do flow, te słowa oznaczają w playbooku konkretne rzeczy:
 - **Zlecenie** — brief spawnu plus kryteria na kanale / w `description` (co miało być ustalone lub wykonane).
 - **Wykonanie** — aktualny `description`, historia kanału i wskazane artefakty (odczyt).
 - **Critic hipotezy** — ta sama rola przy węźle hipotezy; spawnuje professor po domknięciu uwag laboranta do draftu.
-- **Critic eksperymentu** — ta sama rola przy węźle eksperymentu; spawnuje laborant (design przed implementacją albo ocena wyniku).
+- **Critic eksperymentu** — ta sama rola przy węźle eksperymentu; zawsze spawnuje laborant (recenzja designu i ocena wyniku).
 - **Professor** — właściciel hipotezy; odbiera Twoje uwagi do treści i decyduje o stanie hipotezy / starcie weryfikacji.
 - **Laborant** — właściciel eksperymentu; odbiera Twoje uwagi do designu lub wyniku i decyduje o go/no-go oraz kolejnych krokach eksperymentalnych.
 - **Runda recenzji** — jedna pełna ocena na kanale; kolejna runda = kolejny spawn albo kontynuacja, gdy brief / właściciel o to prosi.
