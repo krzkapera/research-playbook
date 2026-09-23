@@ -4,13 +4,15 @@
 
 Przeczytaj: `agent-start.md` (jeśli jeszcze nie), `experiments.md`, oraz `description` hipotezy (zakres, limity). Braki zakresu → `research-brief.md`. Decyzje o hipotezie = professor.
 
-Dwie fazy **w tej samej sesji**, w kolejności: (1) treść hipotezy, (2) eksperymenty. Critic fazy hipotezy ≠ critic eksperymentu (osobne sesje; równoległe eksperymenty → osobni criticcy). Hipoteza i eksperyment to osobne poziomy — trzymaj je osobno.
+Dwie fazy **w tej samej sesji**, w kolejności: (1) treść hipotezy, (2) eksperymenty. Critic hipotezy spawnuje professor (dopiero po Twoim „nie mam uwag”); critica eksperymentu spawnuje Ty. To osobne sesje (równoległe eksperymenty → osobni criticcy). Hipoteza i eksperyment to osobne poziomy — trzymaj je osobno.
 
 ## Faza hipotezy
 
-Dołącz do kanału hipotezy (slug z briefu). Z professorem i criticiem dopracujcie twierdzenie, podstawy, alternatywę, zakres, pytania rozstrzygające. Ty **proponujesz** brzmienie i kryteria na kanale; `description` hipotezy aktualizuje professor.
+Dołącz do kanału hipotezy (slug z briefu). Najpierw **tylko z professorem** (bez critica) dopracujcie twierdzenie, podstawy, alternatywę, zakres i pytania rozstrzygające tak, żebyś wiedział dokładnie, nad czym będziesz pracował w weryfikacji. Ty **proponujesz** brzmienie i kryteria na kanale; `description` hipotezy aktualizuje professor. Gdy nie masz już uwag do draftu — powiedz to wprost na kanale (to sygnał dla profesora, by spawnował critica hipotezy).
 
-Przygotuj grunt pod eksperymenty: jakie pytania rozstrzygnąć i czym wynik odróżni hipotezę od alternatywy. Węzły eksperymentu tworzysz dopiero gdy professor na kanale uzna hipotezę za gotową do weryfikacji (albo brief od razu każe fazę eksperymentów). Sesja trwa do zamknięcia hipotezy.
+Potem dołącza critic hipotezy (spawnuje professor). W pętli: uwagi critica → odniesienie profesora → Twoje odniesienie (ew. doprecyzowanie z professorem, żeby znów było jasne, nad czym pracujesz) → kolejna runda critica. Critica **eksperymentu** spawnuje dopiero Ty, w fazie eksperymentów — nie myl tych dwóch.
+
+Węzły eksperymentu tworzysz dopiero gdy professor na kanale uzna hipotezę za gotową do weryfikacji (albo brief od razu każe fazę eksperymentów). Sesja trwa do zamknięcia hipotezy.
 
 ## Design eksperymentu
 
