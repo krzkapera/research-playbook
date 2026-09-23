@@ -74,11 +74,13 @@ Gdy brief lub `description` nie wystarcza do implementacji:
 
 ## Zasady kodu
 
-- Czysty, zwięzły; pakiety / krótkie pliki / małe funkcje o jednej odpowiedzialności.
-- Kod naukowy / algorytmiczny — zwięzły, z testami i wzorcami tylko gdy wynik tego wymaga.
+- Wzoruj się na zasadach z książki Wujka Boba *Clean Code*.
+- Kod naukowy / algorytmiczny / modelu wygląda inaczej niż typowa aplikacja komercyjna: zwięzły podział na pakiety, krótkie pliki, małe funkcje o jednej odpowiedzialności; testy, długie nazwy i wzorce tylko gdy wynik tego wymaga.
 - Komentarze i docstringi: gdy użytkownik poprosi o oznaczenie uwagi.
-- Warstwy abstrakcji osobno; w danym miejscu tylko to, czego czytelnik się tam spodziewa.
-- Typy ustalone raz i trzymane; konwersje i try/except tylko gdy wynik tego wymaga.
+- Mała entropia: warstwy abstrakcji osobno; w danym miejscu tylko funkcjonalność, której czytelnik się tam spodziewa.
+- Typy ustalone raz i trzymane w projekcie; konwersje i try/except tylko gdy wynik tego wymaga.
+- Trening i każdy skrypt joba pisz tak, żeby **przerwany run dało się wznowić kolejnym jobem** (checkpoint / resume w kodzie; operator spina to z job.sbatch i ścieżkami w 
+emoteRoot).
 
 ## Gotowość i pętla z operatorem (szczegóły kroków 7–9)
 
