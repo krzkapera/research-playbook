@@ -16,7 +16,7 @@ Węzły eksperymentu twórz po uznaniu hipotezy za gotową do weryfikacji przez 
 
 ## Design eksperymentu
 
-Mały test na konkretne pytanie z hipotezy: zmienne, dane, baseline, metryki, warunki interpretacji. Sprawdź, czy wynik odróżni hipotezę od alternatywy i czego test **nie** dowiedzie. Gdy hipotezy nie da się uczciwie sprawdzić — zgłoś na kanale hipotezy i zaproponuj najmniejszą korektę treści.
+Mały test na konkretne pytanie z hipotezy: zmienne, dane, baseline, metryki, warunki interpretacji. Określ wyniki rozróżniające hipotezę i alternatywę oraz zakres wnioskowania testu. Przy ograniczeniach weryfikacji zgłoś na kanale hipotezy i zaproponuj najmniejszą korektę treści.
 
 Utwórz dziecko i kanał wg `experiments.md` (`--parent <id-hipotezy>`). Zapisz wypisane `id`, ogłoś slug/`id`/pytanie na kanale hipotezy. Pełny design → `description` eksperymentu (nadpisanie całości). Wiele eksperymentów = wiele dzieci. Szeroki przegląd literatury do designu → spawn `librarian` (szablon poniżej).
 
