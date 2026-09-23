@@ -15,7 +15,7 @@ Zanim przejdziesz do flow, te słowa oznaczają w playbooku konkretne rzeczy:
 - **Kanał eksperymentu** — kanał `ai-crew-sync` nazwany slugiem eksperymentu. Zakładasz go zaraz po utworzeniu węzła i ogłaszasz na kanale hipotezy.
 - **Professor** — oddaje draft/`description` hipotezy, decyzje o treści i o starcie weryfikacji, odpowiedzi na dopytania.
 - **Critic hipotezy** — uwagi do treści hipotezy na kanale hipotezy (spawnuje professor).
-- **Critic eksperymentu** — uwagi do designu lub wyniku na kanale eksperymentu; zawsze spawnuje Ty (recenzja designu i ocena wyniku).
+- **Critic eksperymentu** — uwagi do designu na kanale eksperymentu; zawsze spawnuje Ty (recenzja designu przed go/no-go).
 - **Programmer** — implementacja, ścieżki artefaktów, run id i status na kanale eksperymentu. Na HPC w tej samej sesji działa też jako operator (`roles/programmer.operator.md`).
 - **Librarian** — szeroki przegląd literatury na zlecenie.
 - **Faza treści** — twierdzenie, podstawy, alternatywa, zakres i pytania rozstrzygające (oraz pętla z criticiem hipotezy).
@@ -37,7 +37,7 @@ Jeden ciąg od spawnu do zamknięcia hipotezy:
 8. **Recenzja designu:** **spawn `critic`** tego węzła → pętla (uwagi → Twoje odniesienie) → **go/no-go**. Gdy critic zakończył sesję, a znów jest potrzebny → nowy spawn.
 9. Po **go:** **spawn nowego programisty** dla tego eksperymentu (szablon; zawsze `--no-wake`; `--harness`/`--model` z `model-assignment.md`). HPC/Slurm → w briefie doklej `roles/programmer.operator.md`.
 10. **Śledzenie implementacji:** raporty na kanale eksperymentu → wciągasz ścieżki, run id, status do `description`. Dopytania = roundtrip.
-11. **Analiza wyników:** `description` + skrót na kanale eksperymentu **i** hipotezy; **spawn `critic`** tego węzła (gdy sesja wygasła → nowy spawn) i uwzględnij uwagi.
+11. **Analiza wyników:** `description` + skrót na kanale eksperymentu **i** hipotezy (bez critica).
 12. **Kolejny eksperyment** = nowe dziecko (od kroku 6) albo koniec, gdy professor zamknie hipotezę.
 
 Wiele eksperymentów naraz = wiele dzieci (osobny kanał, programmer i critic na każdy). Hipotezę i eksperyment prowadź jako osobne poziomy.
@@ -98,7 +98,6 @@ Względem pytania eksperymentu i hipotezy: kompletność, powtarzalność, anoma
 
 - Zaktualizuj `description` eksperymentu.
 - Skrót: kanał eksperymentu **i** kanał hipotezy.
-- **Spawn `critic`** tego węzła (gdy sesja wygasła → nowy spawn); uwzględnij uwagi w `description` i skrócie.
 - Awans / odrzucenie / kolejne pytanie hipotezy = professor.
 - Kolejny test = nowe dziecko (wróć do designu).
 
@@ -112,7 +111,7 @@ Zapisz na kanale eksperymentu **i** w `description`. Nierozstrzygnięte kwestie 
 
 ## Szablony spawnu
 
-Przy każdym `orx agent spawn`: zawsze `--no-wake`; `--harness` i `--model` wyłącznie z `model-assignment.md`. Nowy eksperyment → nowy programmer. Critic węzła: zawsze przy recenzji designu i przy krytyce wyniku.
+Przy każdym `orx agent spawn`: zawsze `--no-wake`; `--harness` i `--model` wyłącznie z `model-assignment.md`. Nowy eksperyment → nowy programmer. Critic węzła: zawsze przy recenzji designu.
 
 ### → programmer (bez HPC)
 
