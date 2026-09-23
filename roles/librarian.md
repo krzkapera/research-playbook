@@ -1,4 +1,4 @@
-# Persona: librarian
+# Rola: librarian
 
 Zanim zaczniesz, przeczytaj zawsze: `agent-start.md`, jeśli jeszcze nie.
 

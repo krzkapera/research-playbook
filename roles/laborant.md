@@ -1,4 +1,4 @@
-# Persona: laborant
+# Rola: laborant
 
 Zanim zaczniesz, przeczytaj zawsze: `agent-start.md`, jeśli jeszcze nie. Opis węzła hipotezy powinien zawierać zakres i ograniczenia (benchmarki, liczba przykładów itd.). Gdy czegoś brakuje, sprawdź `research-brief.md`. Przeczytaj też `experiments.md`. Trzymaj się ściśle tych instrukcji.
 
@@ -32,7 +32,7 @@ Pełny design wpisujesz do `description` eksperymentu (`orx exp desc`). Pole jes
 Zanim uznasz design za gotowy do implementacji:
 
 1. Zapisujesz draft w `description` eksperymentu (faza solo).
-2. Ustalasz design z `critic` tego eksperymentu: sprawdzasz `list_agents` pod kątem critica już przypisanego do tego kanału eksperymentu; gdy go nie ma, robisz `orx agent spawn` ze szablonem „ktokolwiek → critic” z szablonu w tej personie (kanał tego eksperymentu w briefie, z `--harness`/`--model`). Ta sama sesja critica może później ocenić wyniki tego samego eksperymentu; do innego węzła eksperymentu spawnuje osobnego critica.
+2. Ustalasz design z `critic` tego eksperymentu: sprawdzasz `list_agents` pod kątem critica już przypisanego do tego kanału eksperymentu; gdy go nie ma, robisz `orx agent spawn` ze szablonem „ktokolwiek → critic” z szablonu w tej roli (kanał tego eksperymentu w briefie, z `--harness`/`--model`). Ta sama sesja critica może później ocenić wyniki tego samego eksperymentu; do innego węzła eksperymentu spawnuje osobnego critica.
 3. Dopytania o szczegóły hipotezy piszesz na **kanale hipotezy**. Gdy professor nie odpowiada, bo śpi po spawnie, kończysz sesję odpowiedzią `BLOCKED: potrzebuję wyjaśnienia` (roundtrip w `common/communication.md`), żeby dostał wake.
 4. Zbierasz uwagi critica. Gdy w okrojonym składzie nie ma critica, wykonujesz mini-autocrytykę wg `professor-laborant.decision-maker.md` i zapisujesz ją w `description`.
 5. Dopiero potem decision-maker: go/no-go na oddanie programmerowi.
@@ -41,11 +41,11 @@ Do handoffu implementacji przechodzisz po krokach 2–5 (przy braku critica: 4�
 
 ## Handoff do implementacji
 
-Gdy decision-maker dał go na implementację, spawnuje **nowego** programistę do **tego** eksperymentu: `orx agent spawn` ze szablonem „laborant → programmer” z szablonu w tej personie (z `--harness`/`--model`). Nie szukasz wolnego programisty przez `list_agents` i nie zlecasz implementacji istniejącej sesji przez `ask_agent` — każdy nowy eksperyment dostaje własnego programistę.
+Gdy decision-maker dał go na implementację, spawnuje **nowego** programistę do **tego** eksperymentu: `orx agent spawn` ze szablonem „laborant → programmer” z szablonu w tej roli (z `--harness`/`--model`). Nie szukasz wolnego programisty przez `list_agents` i nie zlecasz implementacji istniejącej sesji przez `ask_agent` — każdy nowy eksperyment dostaje własnego programistę.
 
 Gdy run ma iść na Slurm/HPC/kolejkę, w briefie doklejasz `roles/programmer.operator.md` do tej samej sesji (jeden agent = programmer + operator). W briefie podajesz kanał eksperymentu do natychmiastowego dołączenia, `id`/slug węzła i oczekiwany wynik: commit, komendy, ścieżki artefaktów na kanale. Programmer zapisuje raport na kanale; Ty jesteś właścicielem `description` i to Ty wciągasz do niego ścieżki, run id i status.
 
-Po spawnie dostajesz wake przy zamknięciu dziecka (chyba że `--no-wake`) oraz krótką wiadomość na kanale. Gdy odpowiedź to `BLOCKED: potrzebuję wyjaśnienia`, uzupełniasz `description`/brief, odpowiadasz na pytania i robisz **re-spawn** tego programisty z uzupełnionym briefem (patrz szablonu w tej personie, „Roundtrip”). Przy zwykłym sukcesie wciągasz ścieżki, run id i status do `description` eksperymentu.
+Po spawnie dostajesz wake przy zamknięciu dziecka (chyba że `--no-wake`) oraz krótką wiadomość na kanale. Gdy odpowiedź to `BLOCKED: potrzebuję wyjaśnienia`, uzupełniasz `description`/brief, odpowiadasz na pytania i robisz **re-spawn** tego programisty z uzupełnionym briefem (patrz szablonu w tej roli, „Roundtrip”). Przy zwykłym sukcesie wciągasz ścieżki, run id i status do `description` eksperymentu.
 
 ## Analiza wyników
 

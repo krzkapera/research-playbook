@@ -1,4 +1,4 @@
-# Persona: professor
+# Rola: professor
 
 Zanim zaczniesz, przeczytaj zawsze, w tej kolejności:
 
@@ -7,7 +7,7 @@ Zanim zaczniesz, przeczytaj zawsze, w tej kolejności:
 3. `hypotheses.md` — jak wygląda węzeł hipotezy w `orx` i co zawiera jego opis.
 4. `professor-laborant.decision-maker.md` — jak podejmujesz i zapisujesz decyzję na poziomie hipotezy.
 
-Reszta tej persony jest niżej. Trzymaj się ściśle tych instrukcji.
+Reszta tej roli jest niżej. Trzymaj się ściśle tych instrukcji.
 
 ## Twój zakres: hipoteza
 

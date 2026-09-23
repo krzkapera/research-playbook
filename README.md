@@ -1,6 +1,6 @@
 # Projekt
 
-> Dla użytkownika (mapa playbooka). **Agenci nie czytają tego pliku** — ich lektury ustala `access-matrix.md` i przekazana persona.
+> Dla użytkownika (mapa playbooka). **Agenci nie czytają tego pliku** — ich lektury ustala `access-matrix.md` i przekazana rola.
 
 To jest zestaw instrukcji operacyjnych dla wieloagentowego projektu badawczego.
 
@@ -20,20 +20,20 @@ Cała dokumentacja `project/*.md` oraz katalogi `common/` i `roles/` są read-on
 
 ## Źródło bieżącej roli
 
-Przy uruchomieniu przekazujesz agentowi **jeden plik persony**: `roles/professor.md`, `roles/laborant.md`, `roles/programmer.md`, `roles/critic.md` albo `roles/librarian.md`. Agent nie rozpoznaje roli samodzielnie; ustala ją wyłącznie z tego, co przekazałeś. Jeden agent może mieć wiele person naraz (patrz `model-assignment.md` — okrojony skład).
+Przy uruchomieniu przekazujesz agentowi **jeden plik roli**: `roles/professor.md`, `roles/laborant.md`, `roles/programmer.md`, `roles/critic.md` albo `roles/librarian.md`. Agent nie rozpoznaje roli samodzielnie; ustala ją wyłącznie z tego, co przekazałeś. Jeden agent może mieć wiele ról naraz (patrz `model-assignment.md` — okrojony skład).
 
-Plik persony zawiera całą treść, której persona potrzebuje zawsze — z jednym wyjątkiem: domenę `decision-maker`, bo tę samą treść współdzieli professor (poziom hipotezy) i laborant (poziom eksperymentu), więc żeby jej nie duplikować, została osobnym plikiem, do którego oba pliki person odsyłają. Podobnie `programmer.operator.md` został osobnym plikiem, bo jest doklejany do programisty tylko warunkowo (gdy zadanie obejmuje HPC), nie zawsze. Poza tymi dwoma wyjątkami nie ma dalszego rozbicia na pliki domenowe — nie ma po co, skoro reszta domen i tak należy zawsze do dokładnie jednej persony.
+Plik role zawiera całą treść, której rola potrzebuje zawsze — z jednym wyjątkiem: domenę `decision-maker`, bo tę samą treść współdzieli professor (poziom hipotezy) i laborant (poziom eksperymentu), więc żeby jej nie duplikować, została osobnym plikiem, do którego oba pliki ról odsyłają. Podobnie `programmer.operator.md` został osobnym plikiem, bo jest doklejany do programisty tylko warunkowo (gdy zadanie obejmuje HPC), nie zawsze. Poza tymi dwoma wyjątkami nie ma dalszego rozbicia na pliki domenowe — nie ma po co, skoro reszta domen i tak należy zawsze do dokładnie jednej roli.
 
 Pliki w `roles/` konfiguruje wyłącznie użytkownik. Agenci traktują je jako tylko do odczytu.
 
 
-## Persony a domeny
+## Role a domeny
 
-Jedynymi tożsamościami agentów są **persony**: `professor`, `laborant`, `programmer`, `critic`, `librarian`. Tak się przedstawiają, tak się je adresuje, tak się je spawnuje.
+Jedynymi tożsamościami agentów są **role**: `professor`, `laborant`, `programmer`, `critic`, `librarian`. Tak się przedstawiają, tak się je adresuje, tak się je spawnuje.
 
-Pliki `professor-laborant.decision-maker.md` i `programmer.operator.md` to **dodatki domenowe** do person: współdzielona albo warunkowa treść proceduralna doklejana do istniejącej persony. Jedyne persony do wołania to: professor, laborant, programmer, critic, librarian. Słowa w rodzaju researcher, experiment-designer, analyst, implementer, hpc-assistant oznaczają czynności wewnątrz persony.
+Pliki `professor-laborant.decision-maker.md` i `programmer.operator.md` to **dodatki domenowe** do ról: współdzielona albo warunkowa treść proceduralna doklejana do istniejącej roli. Jedyne role do wołania to: professor, laborant, programmer, critic, librarian. Słowa w rodzaju researcher, experiment-designer, analyst, implementer, hpc-assistant oznaczają czynności wewnątrz roli.
 
-Mapowanie czynności → persona:
+Mapowanie czynności → rola:
 
 | Czynność | Kto |
 |---|---|
@@ -44,9 +44,9 @@ Mapowanie czynności → persona:
 | krytyka merytoryczna | `critic` (oraz każdy, gdy critic nieaktywny) |
 | literatura | `librarian` |
 
-## Plik persony a jego wyjątki
+## Plik roli a jego wyjątki
 
-| Persona | Plik persony | Dodatkowo odsyła do |
+| Rola | Plik roli | Dodatkowo odsyła do |
 |---|---|---|
 | professor | `professor.md` | `professor-laborant.decision-maker.md` (poziom hipotezy) |
 | laborant | `laborant.md` | `professor-laborant.decision-maker.md` (poziom eksperymentu) |

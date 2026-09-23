@@ -1,8 +1,8 @@
-# Persona: programmer
+# Rola: programmer
 
 Zanim zaczniesz, przeczytaj zawsze: `agent-start.md`, jeśli jeszcze nie.
 
-Rdzeń tej persony to implementacja (sekcja niżej, zawsze). Gdy bieżące zlecenie obejmuje uruchamianie lub monitorowanie jobów (HPC), doklej i przeczytaj też `programmer.operator.md`. Przy HPC **jedna sesja** czyta oba pliki (programmer + operator).
+Rdzeń tej roli to implementacja (sekcja niżej, zawsze). Gdy bieżące zlecenie obejmuje uruchamianie lub monitorowanie jobów (HPC), doklej i przeczytaj też `programmer.operator.md`. Przy HPC **jedna sesja** czyta oba pliki (programmer + operator).
 
 ## Implementacja
 

@@ -16,10 +16,10 @@ To ustalenia operacyjne, nie treść ról — opisują, które subskrypcje/model
 
 Gdy Codex i/lub Cursor są niedostępne, projekt działa w okrojonym składzie: Opus pełni jednocześnie professor i laborant, Gemini pełni programmer. W tym składzie nie ma critica — praca idzie do przodu bez tej perspektywy.
 
-### Połączone persony w jednej sesji
+### Połączone role w jednej sesji
 
-Gdy jedna sesja ma przekazane kilka person naraz (np. `professor.md` + `laborant.md` w okrojonym składzie):
+Gdy jedna sesja ma przekazane kilka ról naraz (np. `professor.md` + `laborant.md` w okrojonym składzie):
 
-- wykonuj kolejne etapy **w tej samej sesji**, w kolejności wynikającej z person — gdy łączysz persony, kontynuuj w bieżącej sesji;
-- szablony spawnu professor→laborant stosuj tylko gdy laborant ma być **osobną** sesją; przy połączonych personach pomiń ten spawn i przejdź od razu do czynności laboranta;
+- wykonuj kolejne etapy **w tej samej sesji**, w kolejności wynikającej z ról — gdy łączysz roli, kontynuuj w bieżącej sesji;
+- szablony spawnu professor→laborant stosuj tylko gdy laborant ma być **osobną** sesją; przy połączonych rolach pomiń ten spawn i przejdź od razu do czynności laboranta;
 - nadal wolno spawnować **inne** role, których nie masz (programmer, librarian, critic).

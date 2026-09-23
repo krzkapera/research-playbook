@@ -12,7 +12,7 @@ Poza researchem w paperach chodzi też o to, żeby przeprowadzać eksperymenty i
 
 ## Korpus literatury — gdzie czytać i gdzie zapisywać
 
-- **Korpus roboczy zespołu (źródło prawdy w projekcie):** `literature/` — PDF-y w `literature/artykuly/` i `literature/fsad/`, spis w `literature/index.md`. Utrzymuje go persona `librarian`. Agenci nie zapisują paperów poza `literature/`.
+- **Korpus roboczy zespołu (źródło prawdy w projekcie):** `literature/` — PDF-y w `literature/artykuly/` i `literature/fsad/`, spis w `literature/index.md`. Utrzymuje go rola `librarian`. Agenci nie zapisują paperów poza `literature/`.
 - **Mój wcześniejszy zbiór osobisty (punkt startowy, tylko do odczytu):** `~/agh/pp/artykuly/txt` (klasyczne one-class continual vision AD) oraz `~/agh/pp/fsad/txt` (few-shot AD). To nie jest katalog roboczy agentów. Librarian najpierw sprawdza `literature/`; gdy brief lub lukę w indeksie wskazuje na `~/agh/pp/...`, czyta stamtąd i **przydatne rzeczy indeksuje / przenosi do `literature/`**, zamiast trwale polegać na ścieżkach domowych.
 
 ## Dostęp do HPC

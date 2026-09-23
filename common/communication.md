@@ -34,14 +34,14 @@ Na zakończenie zleconego zadania (nie rozmowy w pokoju) nie czeka się przez `a
 
 ## Delegowanie do innej sesji
 
-Zanim zaczniesz nową sesję, sprawdź `list_agents`: jeśli potrzebna persona już działa w tym kontekście, napisz do niej P2P (`ask_agent`) zamiast spawnować kolejną. Dopiero gdy nikt taki nie jest aktywny, użyj `orx agent spawn`. Wyjątki od ponownego użycia sesji opisuje plik persony, która spawnuje.
+Zanim zaczniesz nową sesję, sprawdź `list_agents`: jeśli potrzebna rola już działa w tym kontekście, napisz do niej P2P (`ask_agent`) zamiast spawnować kolejną. Dopiero gdy nikt taki nie jest aktywny, użyj `orx agent spawn`. Wyjątki od ponownego użycia sesji opisuje plik roli, która spawnuje.
 
 Przed użyciem `orx agent spawn` przeczytaj natywny skill `/orx-agent-delegation` — tam jest składnia, ochrona brancha, `--no-wake`, sprzątanie (`orx agent kill`). Tutaj zostają reguły zespołu i szablony briefów.
 
-Jednego ten natywny skill nie wie: nowa sesja nie ma żadnej domyślnej persony. Zlecający musi ją wskazać wprost w treści zadania, inaczej helper nie będzie wiedział, kim ma być. Szablon brief-u (`--stdin` dla wieloliniowego):
+Jednego ten natywny skill nie wie: nowa sesja nie ma żadnej domyślnej roli. Zlecający musi ją wskazać wprost w treści zadania, inaczej helper nie będzie wiedział, kim ma być. Szablon brief-u (`--stdin` dla wieloliniowego):
 
 ```text
-Jesteś <persona> dla projektu <project_id>. Przeczytaj `roles/<plik-persony>.md` i kieruj się nim.
+Jesteś <rola> dla projektu <project_id>. Przeczytaj `roles/<plik-roli>.md` i kieruj się nim.
 
 Slug hipotezy/eksperymentu: <slug, jeśli dotyczy>
 Zadanie: <konkretne, samodzielne zadanie — helper nie widzi tej rozmowy>
@@ -85,14 +85,14 @@ Protokół:
 
 1. Dziecko pisze pytania na uzgodnionym kanale (krótko).
 2. Dziecko **kończy sesję** z odpowiedzią spawnu: `BLOCKED: potrzebuję wyjaśnienia` + pytania (to jest wake rodzica).
-3. Rodzic po wake uzupełnia `description` / brief i robi re-spawn z odpowiedziami (albo `ask_agent`, gdy persona-dziecko nadal żyje i plik persony rodzica na to pozwala).
+3. Rodzic po wake uzupełnia `description` / brief i robi re-spawn z odpowiedziami (albo `ask_agent`, gdy rola-dziecko nadal żyje i plik roli rodzica na to pozwala).
 4. Dziecko w nowej sesji kontynuuje — bez domysłów z poprzedniej blokady.
 
 Ten sam wzorzec wolno użyć przy każdym spawnie, gdy brief jest niejasny.
 
 ## Spawn: reguły wspólne
 
-Brief spawnu (`orx agent spawn`, zwykle przez stdin) **jest zaproszeniem**: wymień w nim kanały do natychmiastowego dołączenia. Wskaż personę wprost (nowa sesja nie ma domyślnej). Przy każdym spawnie podaj `--harness` i `--model` z `model-assignment.md` / szablonu w pliku persony, która spawnuje. Szablony briefów są w plikach person w `roles/`, nie tutaj.
+Brief spawnu (`orx agent spawn`, zwykle przez stdin) **jest zaproszeniem**: wymień w nim kanały do natychmiastowego dołączenia. Wskaż rolę wprost (nowa sesja nie ma domyślnej). Przy każdym spawnie podaj `--harness` i `--model` z `model-assignment.md` / szablonu w pliku roli, która spawnuje. Szablony briefów są w plikach ról w `roles/`, nie tutaj.
 
 Odpowiedź z zamknięcia helpera do rodzica jest ucięta ok. 4000 znaków — dłuższy materiał na kanał, w odpowiedzi spawnu tylko skrót i ścieżki.
 

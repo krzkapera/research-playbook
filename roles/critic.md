@@ -1,4 +1,4 @@
-# Persona: critic
+# Rola: critic
 
 Zanim zaczniesz, przeczytaj zawsze: `agent-start.md`, jeśli jeszcze nie, oraz `hypotheses.md` i `experiments.md` — jak wyglądają te węzły w `orx` i co zawierają ich opisy. Gdy oceniasz implementację albo artefakty eksperymentu, przeczytaj też `worktrees.md` (żeby wiedzieć, gdzie leżą pliki do odczytu). Trzymaj się ściśle tych instrukcji.
 
