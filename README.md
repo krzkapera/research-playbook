@@ -22,7 +22,7 @@ Cała dokumentacja `project/*.md` oraz katalogi `common/` i `roles/` są read-on
 
 Przy uruchomieniu przekazujesz agentowi **jeden plik roli**: `roles/professor.md`, `roles/laborant.md`, `roles/programmer.md`, `roles/critic.md` albo `roles/librarian.md`. Agent nie rozpoznaje roli samodzielnie; ustala ją wyłącznie z tego, co przekazałeś. Jeden agent może mieć wiele ról naraz (patrz `model-assignment.md` — okrojony skład).
 
-Plik role zawiera całą treść, której rola potrzebuje zawsze — z jednym wyjątkiem: domenę `decision-maker`, bo tę samą treść współdzieli professor (poziom hipotezy) i laborant (poziom eksperymentu), więc żeby jej nie duplikować, została osobnym plikiem, do którego oba pliki ról odsyłają. Podobnie `programmer.operator.md` został osobnym plikiem, bo jest doklejany do programisty tylko warunkowo (gdy zadanie obejmuje HPC), nie zawsze. Poza tymi dwoma wyjątkami nie ma dalszego rozbicia na pliki domenowe — nie ma po co, skoro reszta domen i tak należy zawsze do dokładnie jednej roli.
+Plik roli zawiera całą treść, której rola potrzebuje zawsze — z jednym wyjątkiem: domenę `decision-maker`, bo tę samą treść współdzieli professor (poziom hipotezy) i laborant (poziom eksperymentu), więc żeby jej nie duplikować, została osobnym plikiem, do którego oba pliki ról odsyłają. Podobnie `programmer.operator.md` został osobnym plikiem, bo jest doklejany do programisty tylko warunkowo (gdy zadanie obejmuje HPC), nie zawsze. Poza tymi dwoma wyjątkami nie ma dalszego rozbicia na pliki domenowe — nie ma po co, skoro reszta domen i tak należy zawsze do dokładnie jednej roli.
 
 Pliki w `roles/` konfiguruje wyłącznie użytkownik. Agenci traktują je jako tylko do odczytu.
 
@@ -55,3 +55,9 @@ Mapowanie czynności → rola:
 | librarian | `librarian.md` | — |
 
 Monitorowanie kolejki i przełączanie klastra opisuje `programmer.operator.md`: doklejasz do `programmer.md`, gdy zadanie tego wymaga, albo zlecasz samodzielnie innej instancji czytającej oba pliki.
+
+## Limity modeli (dla operatora)
+
+Agent nie przełącza sam modelu, który go napędza — gdy subskrypcja (Codex/Cursor/Claude/Antigravity) padnie na limit, czekasz na odnowienie albo uruchamiasz inną rolę/narzędzie ręcznie. Wyjątek: librarian przełącza źródło wyszukiwania w obrębie sesji (patrz `roles/librarian.md`), bez Twojej interwencji.
+
+Harness w `orx agent spawn` to zamknięty zbiór (`claude-code`, `codex`, `cursor`, `antigravity`, `opencode`). Darmowy Google AI Studio = `opencode` + provider `google` + `GEMINI_API_KEY` (`opencode models` podaje aktualne id). Przydział ról: `model-assignment.md`.

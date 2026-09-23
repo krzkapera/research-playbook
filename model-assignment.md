@@ -1,25 +1,23 @@
 # Przydział modeli i krotność
 
-To ustalenia operacyjne, nie treść ról — opisują, które subskrypcje/modele stoją za którą rolą, i co robisz Ty jako operator, gdy dana subskrypcja trafi na limit. Agent nie potrafi sam przełączyć modelu, który go napędza — to wymaga ręcznego uruchomienia innego narzędzia przez Ciebie. Jedynym wyjątkiem jest librarian: tam "przełączenie" dotyczy źródła wyszukiwania w obrębie jednej sesji, nie modelu — agent robi to sam, bez Twojej interwencji.
+Przy `orx agent spawn` podaj `--harness` i `--model` z tabeli (lub z szablonu w pliku roli). Nazwy modeli bywają zmienne — gdy w szablonie jest placeholder, sprawdź aktualną listę narzędziem harnessu (np. `agy models`, `opencode models`).
 
-`orx agent spawn --harness <x>` przyjmuje tylko zamknięty zbiór harnessów (`claude-code`, `codex`, `cursor`, `antigravity`, `opencode`) — "Google AI Studio" nie jest żadnym z nich wprost, ale **`opencode` ma provider `google`, autoryzowany kluczem `GEMINI_API_KEY`** (dokładnie taki klucz wydaje Google AI Studio za darmo) — więc to jednak da się zaspawnować: `orx agent spawn --harness opencode --model google/<model-id>`, z `GEMINI_API_KEY` ustawionym w środowisku. Aktualną listę dostępnych `<model-id>` sprawdź przez `opencode models` — nazwy modeli, podobnie jak przy antigravity, zmieniają się w czasie, nie ma stałego aliasu.
+| Rola | Harness / model | Krotność |
+|---|---|---|
+| professor | najmocniejszy dostępny (obecnie Codex) | 1× |
+| laborant | Claude Code / Opus | N× równolegle, jedna sesja na hipotezę |
+| critic | Cursor / Grok | N× równolegle, jedna sesja na wątek (hipoteza albo eksperyment) |
+| programmer | Antigravity / Gemini | N× równolegle, każda jako osobna sesja `orx` (nie natywny subagent — `worktrees.md`) |
+| librarian | najpierw `opencode` + `google/<model-id>` (`GEMINI_API_KEY`); potem Antigravity / Gemini | spawn na jedno zapytanie; przełączanie źródła w sesji: `roles/librarian.md` |
 
-| Rola | Model / harness | Krotność | Gdy subskrypcja trafi na limit |
-|---|---|---|---|
-| professor | zawsze najmocniejszy dostępny model (obecnie Codex; docelowo możliwe przejście na Opusa) | 1× | czekasz na odnowienie; professor zawsze na najmocniejszym dostępnym modelu |
-| laborant | Opus (Claude Code) | N× równolegle, jedna instancja na hipotezę | czekasz na odnowienie |
-| critic | Grok (Cursor) | N× równolegle, jedna instancja na wątek (hipoteza/eksperyment) | czekasz na odnowienie; do tego czasu praca idzie dalej bez tej perspektywy |
-| programmer | Gemini (Antigravity) | N× równolegle, każdy jako osobna sesja `orx up`/`orx agent spawn` — **nie** natywny subagent narzędzia w jednej sesji, bo dzieliłby worktree (patrz `worktrees.md`) | czekasz na odnowienie |
-| librarian | Google AI Studio free tier, dopóki starcza limitu (`orx agent spawn --harness opencode --model google/<model-id>`, wymaga `GEMINI_API_KEY`); potem Gemini (Antigravity, przez `orx agent spawn --harness antigravity`) | spawn na pojedyncze zapytanie, kończony po odpowiedzi | agent sam przełącza źródło wyszukiwania w obrębie sesji — patrz `roles/librarian.md` |
+## Okrojony skład
 
-## Minimalny setup
+Gdy Codex i/lub Cursor są niedostępne: Opus = professor + laborant w jednej sesji, Gemini = programmer. Bez critica — praca idzie dalej bez tej perspektywy.
 
-Gdy Codex i/lub Cursor są niedostępne, projekt działa w okrojonym składzie: Opus pełni jednocześnie professor i laborant, Gemini pełni programmer. W tym składzie nie ma critica — praca idzie do przodu bez tej perspektywy.
+## Połączone role w jednej sesji
 
-### Połączone role w jednej sesji
+Gdy sesja dostała kilka plików ról (np. `professor.md` + `laborant.md`):
 
-Gdy jedna sesja ma przekazane kilka ról naraz (np. `professor.md` + `laborant.md` w okrojonym składzie):
-
-- wykonuj kolejne etapy **w tej samej sesji**, w kolejności wynikającej z ról — gdy łączysz roli, kontynuuj w bieżącej sesji;
-- szablony spawnu professor→laborant stosuj tylko gdy laborant ma być **osobną** sesją; przy połączonych rolach pomiń ten spawn i przejdź od razu do czynności laboranta;
-- nadal wolno spawnować **inne** role, których nie masz (programmer, librarian, critic).
+- wykonuj etapy **w tej samej sesji**, w kolejności wynikającej z ról;
+- szablon professor→laborant stosuj tylko gdy laborant ma być **osobną** sesją; przy połączonych rolach pomiń ten spawn;
+- wolno spawnować role, których nie masz (programmer, librarian, critic).
