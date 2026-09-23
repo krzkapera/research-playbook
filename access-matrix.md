@@ -20,11 +20,11 @@ Agent czyta wyłącznie:
 
 Jedynymi tożsamościami do adresowania i spawnu są role: `professor`, `laborant`, `programmer`, `critic`, `librarian`. Rolę bierzesz wyłącznie z przekazanego pliku roli (może być kilka naraz).
 
-Dodatki domenowe (nie są osobnymi rolami):
+Dodatki domenowe:
 
 - `roles/programmer.operator.md` — doklejany do programisty tylko gdy zadanie obejmuje HPC
 
-Szablony briefów spawnu są w pliku roli, która spawnuje (nie w `common/`).
+Szablony briefów spawnu: w pliku roli, która spawnuje.
 
 ## Połączone role
 
