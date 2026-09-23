@@ -10,14 +10,14 @@ Zanim przejdziesz do flow, te słowa oznaczają w playbooku konkretne rzeczy:
 
 - **Hipoteza** — węzeł drzewa `orx` (korzeń dla eksperymentów). Ma `id` i **slug**. Tworzenie: `hypotheses.md`. Właścicielem `description` i stanu jest professor.
 - **Eksperyment** — węzeł-dziecko hipotezy (własny branch, kanał, runy). Tworzysz go Ty wg `experiments.md`. Właścicielem `description` jesteś Ty.
-- **`description`** — pole węzła w `orx` (`orx exp desc`). Źródło prawdy; nadpisywane w całości (przed zapisem odczytaj bieżącą treść). Hipotezę edytuje professor; eksperyment — Ty. Programmer, operator i critic oddają materiał na kanale — Ty wciągasz go do `description` eksperymentu.
+- **`description`** — pole węzła w `orx` (`orx exp desc`). Źródło prawdy; nadpisywane w całości (przed zapisem odczytaj bieżącą treść). Hipotezę edytuje professor; eksperyment — Ty. Critic i krótkie sygnały programmer/operator trafiają na kanał — Ty wciągasz je do `description` eksperymentu. Pętlę naprawczą kodu programmer↔operator prowadzą przez `ask_agent`.
 - **Kanał hipotezy** — kanał `ai-crew-sync` nazwany slugiem hipotezy. Tu faza treści z professorem i skróty analiz. Zawsze dołączasz też do `project`. Protokół: `common/communication.md`.
 - **Kanał eksperymentu** — kanał `ai-crew-sync` nazwany slugiem eksperymentu. Zakładasz go zaraz po utworzeniu węzła i ogłaszasz na kanale hipotezy.
 - **Professor** — oddaje draft/`description` hipotezy, decyzje o treści i o starcie weryfikacji, odpowiedzi na dopytania.
 - **Critic hipotezy** — uwagi do treści hipotezy na kanale hipotezy (spawnuje professor).
 - **Critic eksperymentu** — uwagi do designu na kanale eksperymentu; zawsze spawnuje Ty (recenzja designu przed go/no-go).
-- **Programmer** — implementacja, commit i ścieżki artefaktów na kanale eksperymentu.
-- **Operator** — smoke i joby HPC (run id, logi, status) na kanale eksperymentu; osobna sesja (`roles/operator.md`).
+- **Programmer** — implementacja i commit; na kanale eksperymentu krótka gotowość; potem sesja żywa na `ask_agent` od operatora (`roles/programmer.md`).
+- **Operator** — smoke i joby HPC; na kanale eksperymentu **policzone wyniki** (metryki, ścieżki, run id, status); pętlę z programistą przez `ask_agent` (`roles/operator.md`).
 - **Librarian** — szeroki przegląd literatury na zlecenie.
 - **Faza treści** — twierdzenie, podstawy, alternatywa, zakres i pytania rozstrzygające (oraz pętla z criticiem hipotezy).
 - **Faza eksperymentów** — design, recenzja z criticiem, implementacja i analiza. U profesora ten sam okres to faza weryfikacji.
@@ -37,8 +37,8 @@ Jeden ciąg od spawnu do zamknięcia hipotezy:
 7. **Utwórz węzeł** i kanał wg `experiments.md` (`--parent <id-hipotezy>`). Zapisz `id`; ogłoś slug/`id`/pytanie na kanale hipotezy; pełny design → `description`.
 8. **Recenzja designu:** **spawn `critic`** tego węzła → pętla (uwagi → Twoje odniesienie) → **go/no-go**. Gdy critic zakończył sesję, a znów jest potrzebny → nowy spawn.
 9. Po **go:** **spawn nowego programisty** dla tego eksperymentu (szablon; zawsze `--no-wake`; `--harness`/`--model` z `model-assignment.md`).
-10. **Śledzenie programisty:** po spawnie czekaj przez `wait_for_updates` na kanale eksperymentu; raport (commit, ścieżki) → `description`. Dopytania = roundtrip.
-11. Gdy eksperyment wymaga smoke / joba HPC → **spawn `operator`** (szablon); po spawnie czekaj przez `wait_for_updates` na kanale eksperymentu; run id / logi / status → `description`.
+10. **Śledzenie programisty:** po spawnie czekaj przez `wait_for_updates` na kanale eksperymentu; gotowość (commit, komendy, ścieżki) → `description`. Sesja programisty zostaje żywa pod `ask_agent` od operatora. Dopytania designu = roundtrip na kanale.
+11. Gdy eksperyment wymaga smoke / joba HPC → **spawn `operator`** (szablon); po spawnie czekaj przez `wait_for_updates` na kanale eksperymentu; **policzone wyniki** (metryki, ścieżki, run id, status) → `description`.
 12. **Analiza wyników:** `description` + skrót na kanale eksperymentu **i** hipotezy (bez critica).
 13. **Kolejny eksperyment** = nowe dziecko (od kroku 6) albo koniec, gdy professor zamknie hipotezę.
 
@@ -92,9 +92,9 @@ Po **go**: zawsze **nowy** programmer dla **tego** eksperymentu.
 
 Brief: kanały do natychmiastowego dołączenia, rola, zadanie, oczekiwany wynik. Flagi spawnu i model: jak w sekcji Szablony.
 
-Po spawnie programisty czekaj przez `wait_for_updates` na kanale eksperymentu. Programmer raportuje commit i ścieżki; Ty wciągasz je do `description`. Doprecyzowania = odpowiedź na kanale i/lub `description`; sesja programisty kontynuuje po `wait_for_updates`.
+Po spawnie programisty czekaj przez `wait_for_updates` na kanale eksperymentu. Programmer raportuje gotowość (commit, komendy, ścieżki); Ty wciągasz je do `description`. Doprecyzowania designu = odpowiedź na kanale i/lub `description`. Sesja programisty zostaje żywa na `ask_agent` od operatora.
 
-Gdy eksperyment wymaga smoke / joba HPC: po gotowym kodzie **spawn `operator`** (szablon). Po spawnie czekaj przez `wait_for_updates` na kanale eksperymentu. Operator raportuje run id, logi i status; Ty wciągasz to do `description`.
+Gdy eksperyment wymaga smoke / joba HPC: po gotowości kodu **spawn `operator`** (szablon). Po spawnie czekaj przez `wait_for_updates` na kanale eksperymentu. Operator raportuje **policzone wyniki** (metryki, ścieżki artefaktów, run id, status); pętlę naprawczą z programistą prowadzi przez `ask_agent`. Ty wciągasz wynik końcowy do `description`.
 
 ## Analiza wyników (szczegóły kroku 12)
 
@@ -124,8 +124,8 @@ Jesteś programmer dla projektu <project_id>. Przeczytaj `roles/programmer.md` i
 
 Slug eksperymentu: <slug-E> (id: <id-E>)
 Kanały dołącz natychmiast: project, <slug-E>
-Zadanie: zaimplementuj eksperyment wg description węzła; commit na branchu eksperymentu; podaj komendy uruchomienia dla operatora.
-Oczekiwany wynik: commit, pliki, komendy, ścieżki artefaktów — na kanale <slug-E> i w krótkim podsumowaniu spawnu. Raportujesz na kanale; `description` aktualizuje laborant.
+Zadanie: zaimplementuj eksperyment wg description węzła; commit na branchu eksperymentu; podaj komendy uruchomienia dla operatora; po gotowości trzymaj sesję na ask_agent od operatora.
+Oczekiwany wynik: gotowość (commit, pliki, komendy, ścieżki) na kanale <slug-E> i w krótkim podsumowaniu spawnu; potem odpowiedzi na ask_agent od operatora. `description` aktualizuje laborant.
 ```
 
 ### → operator (smoke / job HPC)
@@ -135,8 +135,8 @@ Jesteś operator dla projektu <project_id>. Przeczytaj `roles/operator.md` i kie
 
 Slug eksperymentu: <slug-E> (id: <id-E>)
 Kanały dołącz natychmiast: project, <slug-E>
-Zadanie: smoke zdalnie na HPC (gdy wymagany), napisz/utrzymaj job.sbatch, submit i monitoring joba wg description i commita programisty.
-Oczekiwany wynik: run id, ścieżki logów, status Done/Failed/Cancelled — na kanale <slug-E> i w podsumowaniu spawnu. Raportujesz na kanale; `description` aktualizuje laborant.
+Zadanie: smoke zdalnie na HPC (gdy wymagany), napisz/utrzymaj job.sbatch, submit i monitoring; przy błędzie kodu najpierw napraw sam, gdy utkniesz — ask_agent do programisty.
+Oczekiwany wynik: policzone wyniki (metryki, ścieżki artefaktów), run id, status Done/Failed/Cancelled — na kanale <slug-E> i w podsumowaniu spawnu. Pętlę z programistą prowadzisz przez ask_agent. `description` aktualizuje laborant.
 ```
 
 ### → critic (węzeł eksperymentu)

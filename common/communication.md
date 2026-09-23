@@ -15,7 +15,7 @@ Kanał o nazwie sluga powstaje, gdy twórca węzła dołączy i napisze pierwsz�
 
 `description` jest źródłem prawdy o stanie i decyzjach — aktualizuj na bieżąco. Wiadomość na kanale to krótka delta: co się zmieniło i o co chodzi. Historia kanału = archiwum „dlaczego”.
 
-`description` edytuje wyłącznie właściciel etapu: `professor` (hipoteza), `laborant` (eksperyment). Inne role oddają materiał na kanale lub w odpowiedzi spawnu; właściciel wciąga go do `description`.
+`description` edytuje wyłącznie właściciel etapu: `professor` (hipoteza), `laborant` (eksperyment). Inne role oddają materiał laborantowi na kanale (albo w odpowiedzi spawnu); pętlę programmer↔operator prowadzą przez `ask_agent`. Właściciel wciąga materiał z kanału do `description`.
 
 ## Pokój (recenzja)
 
@@ -27,7 +27,16 @@ Czekaj przez `wait_for_updates` z `channel: "<slug>"`. Spawn zawsze z `--no-wake
 
 Po spawnie z `--no-wake` rodzic **nie** dostaje budzenia z odpowiedzi spawnu. Oddanie dziecka (uwagi, raport, synteza) idzie na uzgodniony kanał; rodzic odbiera je przez `wait_for_updates` na tym kanale.
 
+## P2P między helperami (programmer ↔ operator)
+
+`ask_agent` (po `list_agents`) to kanał roboczy między żywymi sesjami helperów tego samego eksperymentu.
+
+- **Programmer ↔ operator:** pętla naprawcza kodu, diagnoza logów, prośba o commit — wyłącznie przez `ask_agent`.
+- **Kanał eksperymentu** zostawiasz na sygnały dla laboranta: gotowość kodu (programmer), policzone wyniki / status końcowy (operator), roundtrip designu z laborantem, recenzja z criticiem.
+- Operator przy błędzie implementacji najpierw naprawia sam; gdy utknie — `ask_agent` do programisty. Programmer po gotowości trzyma sesję na `wait_for_updates`, żeby móc odebrać `ask_agent`.
+
 ## Zadanie vs dyskusja
+
 
 - Robota z postępem węzła → zadanie `ai-crew-sync` (`create_task` / `claim_task`), może mieć właściciela i zależności.
 - Krytyka, pytania, propozycje → zwykła dyskusja na kanale (bez claim).

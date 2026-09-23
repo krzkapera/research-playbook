@@ -43,7 +43,7 @@ Projekt `orx` zakłada użytkownik.
 - Slug zostaje przy węźle na stałe.
 - Nowy wariant pytania albo inna logika porównania = **nowy węzeł** (nowy slug), zwykle dziecko istniejącego (`--parent <id>`).
 
-Tworzenie węzłów: `hypotheses.md`, `experiments.md`. Branch i worktree: `worktrees.md`. Kanał = slug: `common/communication.md`.
+Tworzenie węzłów: `hypotheses.md`, `experiments.md`. Branch i worktree: `roles/programmer.md` (sekcja Worktree). Kanał = slug: `common/communication.md`.
 
 ## Runy
 
