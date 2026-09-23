@@ -132,7 +132,10 @@ Jesteś critic dla projektu <project_id>. Przeczytaj `roles/critic.md` i kieruj 
 
 Węzeł: <slug-E> (eksperyment)
 Kanały dołącz natychmiast: project, <slug-E>
-Zadanie: zrecenzuj węzeł na kanale <slug-E>; porównaj zlecenie z wykonaniem na podstawie description, kanału i wskazanych artefaktów (odczyt); uwagi wyłącznie na kanale <slug-E>.
+Zadanie: oceń design eksperymentu w description i na kanale <slug-E>
+         (zmienne, dane, baseline, metryki, warunki interpretacji, wyniki rozróżniające,
+         zakres wnioskowania; przedmiot oceny: treść designu w description — etap go/no-go);
+         uwagi wyłącznie na kanale <slug-E>.
 Oczekiwany wynik: uwagi na kanale <slug-E> + krótkie streszczenie w odpowiedzi spawnu.
 ```
 

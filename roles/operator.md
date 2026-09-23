@@ -22,7 +22,7 @@ Zanim przejdziesz do flow, te słowa oznaczają w playbooku konkretne rzeczy:
 - **Wzorce na klastrze** — inne projekty w `~/scratch/<…>/` (skrypty `.sh` / `.sbatch`, konfiguracja Helios/ARM); służą do wzorowania `job.sbatch` i środowiska.
 - **Kolejka** — obciążenie wybranego hosta; przy martwej lub zbyt odległej kolejce zmieniasz `--host` i kontynuujesz.
 - **Smoke** — krótki przebieg przez `orx exp run … --backend slurm` (kolejka) przed większą zmianą / pierwszym pełnym jobem; wyłącznie przez ORX na klastrze.
-- **Monitoring** — po starcie: `orx exp wait <expId>` **albo** `orx exp wake <expId>` (jedna z tych ścieżek); stan: `orx runs` / `orx logs`. Proces `orx supervise` zostawiasz w spokoju.
+- **Monitoring** — po starcie **jedna** ścieżka: `orx exp wait …` **albo** `orx exp wake <expId>`. `wait` ma dwa zakresy tej samej komendy: `wait <expId>` (Twój węzeł) albo `wait --project <projectId>` (pierwsze zakończenie w projekcie). Obie ścieżki `wait`/`wake` to tylko sygnał przebudzenia; po powrocie źródłem prawdy są `orx runs` i `orx logs`. Proces `orx supervise` zostawiasz w spokoju.
 - **Worktree** — prywatne drzewo sesji `orx`; przed edycją kodu / `job.sbatch`: `git checkout orx/<slug>` (szczegóły w `roles/programmer.md`, sekcja Worktree).
 - **Roundtrip z laborantem** — gdy brief/`description` wymaga doprecyzowania: pytania na kanale eksperymentu + `wait_for_updates`; po odpowiedzi laboranta kontynuujesz.
 - **Odpowiedź spawnu** — opcjonalne krótkie podsumowanie do programisty (≤ ~4000 znaków); dłuższy materiał na kanale.
@@ -94,7 +94,7 @@ Przeczytaj w tej kolejności, jeśli jeszcze nie:
 - Przed większą zmianą / pierwszym pełnym jobem: krótki smoke przez **`orx exp run <expId> --backend slurm --host <alias>`** (artefakty w `remoteRoot/runs/<runId>/`). Wyłącznie przez ORX na klastrze.
 - Przy zmianie jednego sprawdzonego parametru wystarczy poprzedni udany smoke na tym samym kontrakcie.
 - Krótkie few-shot też przez kolejkę (zwykle `ares`).
-- Po starcie: `orx exp wait <expId>` **albo** `orx exp wake <expId>`; potem `orx runs` / `orx logs`.
+- Po starcie: monitoring wg sekcji Monitoring (poniżej).
 
 ## job.sbatch (szczegóły kroków 7–8)
 
@@ -133,7 +133,23 @@ Submit:
 orx exp run <expId> --backend slurm --host helios   # lub athena / ares
 ```
 
-Monitoring: `orx exp wait <expId>` **albo** `orx exp wake <expId>`; `orx supervise` zostawiasz w spokoju. Logi: `orx logs` / plik `log` w `runs/<runId>/`.
+Monitoring: sekcja Monitoring. Logi: `orx logs` / plik `log` w `runs/<runId>/`.
+
+## Monitoring (szczegóły kroku 9)
+
+Ta sama komenda CLI, dwa zakresy — w jednym wywołaniu dokładnie jeden z nich:
+
+```sh
+orx exp wait <expId>                 # Twój węzeł: budzi przy zmianie stanu najnowszego runu tego eksperymentu
+orx exp wait --project <projectId>   # projekt: budzi przy pierwszym zakończeniu dowolnego runu w projekcie
+orx exp wake <expId>                 # kończysz turę; wznowienie gdy run Done albo Failed
+```
+
+- Domyślnie (jeden eksperyment w sesji): `orx exp wait <expId>` **albo** `orx exp wake <expId>` (wyłącznie jedna z tych ścieżek).
+- `orx exp wait --project <projectId>` gdy w tej sesji pilnujesz wielu runów albo pętli budżetowej w całym projekcie.
+- `wait` i `wake` to wyłącznie sygnał przebudzenia, nie źródło wyniku. Po każdym powrocie z `wait` (oraz po wake): odczytaj `orx runs`, znajdź nowe terminalne runy, przeczytaj `orx logs <runId>` (i/lub `log` w `remoteRoot/runs/<runId>/`), dopiero potem raportuj albo naprawiaj.
+- Timeout `wait` oznacza brak zmiany w oknie czasu, nie Failed.
+- Proces `orx supervise` zostawiasz w spokoju.
 
 ## Naprawa po błędzie (szczegóły kroku 10)
 

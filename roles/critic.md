@@ -14,7 +14,7 @@ Zanim przejdziesz do flow, te słowa oznaczają w playbooku konkretne rzeczy:
 - **`description`** — pole węzła w `orx` (`orx exp desc`). Źródło prawdy o treści, stanie i decyzjach. Ty go **nie edytujesz**; porównujesz zlecenie z tym, co jest w `description`, na kanale i we wskazanych artefaktach.
 - **Kanał węzła** — kanał `ai-crew-sync` nazwany slugiem ocenianego węzła. Tu publikujesz uwagi. Zawsze dołączasz też do `project`. Protokół: `common/communication.md`.
 - **Zlecenie** — brief spawnu plus kryteria na kanale / w `description` (co miało być ustalone lub wykonane).
-- **Wykonanie** — aktualny `description`, historia kanału i wskazane artefakty (odczyt).
+- **Wykonanie** — aktualny `description`, historia kanału i wskazane artefakty (odczyt). Przy **designie eksperymentu** wykonaniem jest treść designu w `description` i na kanale (zmienne, dane, baseline, metryki, warunki interpretacji, wyniki rozróżniające, zakres wnioskowania); to recenzja przed go/no-go i przed implementacją.
 - **Critic hipotezy** — ta sama rola przy węźle hipotezy; spawnuje professor po domknięciu uwag laboranta do draftu.
 - **Critic eksperymentu** — ta sama rola przy węźle eksperymentu; zawsze spawnuje laborant (recenzja designu przed go/no-go).
 - **Professor** — właściciel hipotezy; odbiera Twoje uwagi do treści i decyduje o stanie hipotezy / starcie weryfikacji.
@@ -55,7 +55,7 @@ Oceniasz twierdzenie, podstawy, alternatywę, zakres i pytania rozstrzygające w
 
 ### Eksperyment (design)
 
-Oceniasz, czy design jest małym testem na konkretne pytanie hipotezy: zmienne, dane, baseline, metryki, warunki interpretacji, wyniki rozróżniające, zakres wnioskowania. Uwagi na kanale eksperymentu. Odbiorca: laborant (go/no-go przed implementacją).
+Oceniasz, czy design jest małym testem na konkretne pytanie hipotezy: zmienne, dane, baseline, metryki, warunki interpretacji, wyniki rozróżniające, zakres wnioskowania. Przedmiotem oceny jest treść designu w `description` i na kanale (go/no-go przed implementacją). Uwagi na kanale eksperymentu. Odbiorca: laborant.
 
 ## Metoda oceny (szczegóły kroków 4–6)
 
