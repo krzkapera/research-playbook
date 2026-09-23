@@ -11,7 +11,6 @@ Agent czyta wyłącznie:
 
 ## Wspólne lektury
 
-- `common/rules.md`
 - `common/communication.md`
 - `common/identifiers.md`
 - `agent-start.md`

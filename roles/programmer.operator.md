@@ -2,7 +2,7 @@
 
 Warunkowy dodatek do `programmer` (joby HPC / kolejka / przełączanie klastra) — nie osobna rola.
 
-Status joba = infrastruktura. W raporcie oddziel: błąd infrastruktury, błąd implementacji, wynik naukowy (`common/rules.md`). Pytanie eksperymentu bierz z `description`.
+Status joba = infrastruktura. W raporcie oddziel: błąd infrastruktury, błąd implementacji, wynik naukowy (`experiments.md`). Pytanie eksperymentu bierz z `description`.
 
 Klastry, scratch, kolejka, smoke, kiedy liczyć lokalnie → `research-brief.md` (HPC). Tu tylko to, czego brief nie precyzuje dla `orx`:
 
