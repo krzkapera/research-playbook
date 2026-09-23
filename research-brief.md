@@ -17,7 +17,7 @@ Na start: nacisk na **teorię / design metody**; implementacja będzie, ale szcz
 
 - **Źródło prawdy w projekcie:** `literature/` — PDF-y i spis `literature/index.md` w jednym katalogu (bez podkatalogów). Utrzymuje `librarian`. Agenci nie zapisują paperów poza `literature/`.
 
-Przepływ: najpierw papery już zebrane, potem szerokie wyszukiwanie (własne narzędzia + firecrawl CLI — tylko research index: `docs.firecrawl.dev/sdks/cli`, `docs.firecrawl.dev/features/search`). Czytaj abstrakty; przy dopasowaniu — całość i zapis do korpusu. Pliki tymczasowe i wyniki w katalogu projektu.
+Przepływ: najpierw papery już zebrane, potem szerokie wyszukiwanie (własne narzędzia + firecrawl jako MCP — search / research index). Czytaj abstrakty; przy dopasowaniu — całość i zapis do korpusu. Pliki tymczasowe i wyniki w katalogu projektu.
 
 Wskazówka: praca **foundAD** (trening parametrów few-shot AD) — kandydat do adaptacji na Continual-Mega; sprawdź zachowanie przy jednej klasie w tasku.
 

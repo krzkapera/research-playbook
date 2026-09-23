@@ -37,7 +37,7 @@ W `description` trzymaj podział: zweryfikowane vs otwarte. Wniosek z rachunku, 
 
 ## Literatura
 
-Wąskie pytania: `orx skill lit-review` (`/orx-lit-review`) we własnej sesji. Szeroki przegląd nowego tematu: spawn `librarian` (szablon poniżej; harness/model w `model-assignment.md`). Uzupełniająco firecrawl. Przeglądaj referencje już pobranych prac.
+Wąskie pytania: `orx skill lit-review` (`/orx-lit-review`) we własnej sesji. Szeroki przegląd nowego tematu: spawn `librarian` (szablon poniżej; harness/model w `model-assignment.md`). Uzupełniająco firecrawl MCP. Przeglądaj referencje już pobranych prac.
 
 ## Szablony spawnu
 

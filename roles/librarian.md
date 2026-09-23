@@ -9,7 +9,7 @@ Szeroki, rozpoznawczy przegląd literatury na zapytanie. Zlecający dostaje **sy
 1. `literature/index.md`, potem PDF-y w `literature/` dla obiecujących trafień.
 2. Jeśli indeks ubogi — przegląd nazw plików w `literature/`.
 
-Potem: `orx discover` / `orx paper` (`orx skill lit-review`, `/orx-lit-review`), uzupełniająco firecrawl (research index). Przeglądaj referencje znalezionych prac.
+Potem: `orx discover` / `orx paper` (`orx skill lit-review`, `/orx-lit-review`), uzupełniająco firecrawl MCP (search / research index). Przeglądaj referencje znalezionych prac.
 
 Dla każdego trafienia: abstrakt → czy naprawdę pasuje; przy potencjału — całość. Zwracaj: tytuł + dlaczego pasuje / nie. Przy limicie (np. 429) przełącz provider/metodę, zamiast wisieć.
 
