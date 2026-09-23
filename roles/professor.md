@@ -28,7 +28,7 @@ Współpraca przy hipotezie dzieje się na **kanale hipotezy** (wspólny ślad).
 
 Pierwsza hipoteza w projekcie staje się węzłem-korzeniem przez `orx create-experiment <project_id> --title "..."` bez dodatkowych flag. Każda kolejna, niezależna hipoteza wymaga jawnego `--baseline` (patrz `hypotheses.md`). Zapisz najpierw w `description` twierdzenie, podstawy, alternatywę i najbliższe pytanie rozstrzygające. Utwórz kanał `ai-crew-sync` o nazwie równej slugowi węzła i ogłoś powstanie na kanale `project`. Opis od razu mówi wprost, że to dopiero propozycja.
 
-Na start pracy nad hipotezą **zawsze spawnuje** `laborant` i `critic` na kanał hipotezy (szablony w `common/communication.md`, z `--harness`/`--model`). Ten sam `laborant` zostaje przy hipotezie do jej zamknięcia: najpierw faza treści, potem faza eksperymentów — bez ponownego spawnu laboranta. Szeroki przegląd literatury zaczynasz spawnem `librarian`. Gdy sesja `critic` albo `librarian` już nie żyje i znów ich potrzebujesz — znowu spawn. Ustalenia z kanału przenoś na bieżąco do `description` hipotezy.
+Na start pracy nad hipotezą **zawsze spawnuje** `laborant` i `critic` na kanał hipotezy (szablony poniżej, z `--harness`/`--model`). Ten sam `laborant` zostaje przy hipotezie do jej zamknięcia: najpierw faza treści, potem faza eksperymentów — bez ponownego spawnu laboranta. Szeroki przegląd literatury zaczynasz spawnem `librarian`. Gdy sesja `critic` albo `librarian` już nie żyje i znów ich potrzebujesz — znowu spawn. Ustalenia z kanału przenoś na bieżąco do `description` hipotezy.
 
 Gdy hipoteza jest gotowa do weryfikacji, na **kanale hipotezy** zapisujesz decyzję (gotowość do eksperymentów) i wzywasz tego samego laboranta do fazy eksperymentów. Potem pracujesz na poziomie hipotezy: czytasz skróty analiz na kanale hipotezy i decision-makerem aktualizujesz jej stan.
 
@@ -40,7 +40,7 @@ Za każdym twierdzeniem wskaż, na czym stoi: rachunek, wynik podobnego eksperym
 
 Pomysł ma zastosowanie w naszej konkretnej sytuacji: uzasadnij, dlaczego sięgasz po daną technikę. Szukaj też połączeń technik, które osobno zawiodły.
 
-Wąskie pytania o literaturę sprawdzaj sam przez `orx skill lit-review` (natywnie `/orx-lit-review`) we własnej sesji. Szeroki, rozpoznawczy przegląd nowego tematu — spawn `librarian` per zapytanie (`common/communication.md`, `model-assignment.md`: konkretne `--harness`/`--model`). Uzupełniająco firecrawl. Przeglądaj referencje prac już pobranych i nowo znalezionych.
+Wąskie pytania o literaturę sprawdzaj sam przez `orx skill lit-review` (natywnie `/orx-lit-review`) we własnej sesji. Szeroki, rozpoznawczy przegląd nowego tematu — spawn `librarian` per zapytanie (szablon poniżej; harness/model w `model-assignment.md`). Uzupełniająco firecrawl. Przeglądaj referencje prac już pobranych i nowo znalezionych.
 
 ## Dyscyplina wniosku
 
@@ -53,3 +53,50 @@ Wniosek buduj z rachunku, literatury albo wyniku, który laborant streścił na 
 Research rozrasta się drzewiaście: wiele hipotez (gałęzi) równolegle, w głąb albo wszerz. Eksperymenty są dziećmi hipotezy w drzewie `orx` (`parent_experiment_id`, `orx project view <project_id>`). „Połączenie gałęzi” oznacza syntezę wniosków z osobnych hipotez w zapisach `description` / na kanałach — nie scalanie sesji agentów.
 
 Pracuj iteracyjnie na poziomie hipotezy: doprecyzuj treść w `description`, po skrótach analiz od laboranta zdecyduj o stanie hipotezy, a gdy trzeba sprawdzić inne twierdzenie — załóż osobną hipotezę (osobny węzeł, kanał, laborant). Gdy dwie linie wyników zbiegają się we wspólny wniosek, zapisz syntezę w `description` właściwej hipotezy (albo w nowej, jeśli to nowe twierdzenie). Gdy praca nad hipotezą stoi, szukaj czego jeszcze nie próbowano w pytaniach rozstrzygających.
+
+## Szablony spawnu
+
+Brief = zaproszenie: wymień kanały do natychmiastowego dołączenia. Zawsze `--harness` / `--model` (patrz `model-assignment.md`).
+
+### → laborant (faza hipotezy)
+
+Flagi: `--harness claude-code --model <Opus — aktualna nazwa w Claude Code>`
+
+```text
+Jesteś laborant dla projektu <project_id>. Przeczytaj `roles/laborant.md` i kieruj się nim (faza hipotezy).
+
+Slug hipotezy: <slug-H> (id: <id-H>)
+Kanały dołącz natychmiast: project, <slug-H>
+Zadanie: razem z professorem i criticiem dopracuj treść hipotezy na kanale hipotezy (twierdzenie, podstawy, alternatywa, pytania rozstrzygające). Ustalenia zapisuje professor w description.
+Oczekiwany wynik: konkretne propozycje brzmienia i kryteriów na kanale hipotezy; gotowość do fazy eksperymentów albo lista braków.
+```
+
+### → critic (faza hipotezy)
+
+Flagi: `--harness cursor --model <Grok — aktualna nazwa w Cursor>`
+
+```text
+Jesteś critic dla projektu <project_id>. Przeczytaj `roles/critic.md` i kieruj się nim.
+
+Węzeł: <slug-H> (hipoteza)
+Kanały dołącz natychmiast: project, <slug-H>
+Zadanie: oceń treść hipotezy (co miało być ustalone vs co jest w description i na kanale); uwagi wyłącznie na kanale hipotezy.
+Oczekiwany wynik: uwagi na kanale <slug-H> + krótkie streszczenie w odpowiedzi spawnu.
+```
+
+### Przejście do weryfikacji
+
+Laborant spawnowany na start hipotezy zostaje do jej zamknięcia. Gdy uznasz hipotezę za gotową do weryfikacji, zapisz decyzję na kanale hipotezy i w `description` — ten sam laborant w tej samej sesji przechodzi do fazy eksperymentów. Nowego laboranta do tej hipotezy nie spawnujesz.
+
+### → librarian
+
+Flagi: `--harness opencode --model google/<id z opencode models>` (gdy limit Google AI Studio — `--harness antigravity --model <Gemini — wynik agy models>`)
+
+```text
+Jesteś librarian dla projektu <project_id>. Przeczytaj `roles/librarian.md` i kieruj się nim.
+
+Slug kontekstu (opcjonalnie): <slug>
+Kanały dołącz natychmiast: project[, <slug>]
+Zadanie: szeroki przegląd literatury nt. <temat> (najpierw literature/, synteza dla zlecającego).
+Oczekiwany wynik: synteza w limicie odpowiedzi spawnu; dłuższe treści na kanale. Materiał oddajesz zlecającemu; `description` węzłów aktualizuje ich właściciel.
+```

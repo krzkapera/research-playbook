@@ -34,9 +34,7 @@ Na zakończenie zleconego zadania (nie rozmowy w pokoju) nie czeka się przez `a
 
 ## Delegowanie do innej sesji
 
-Zanim zaczniesz nową sesję, sprawdź `list_agents`: jeśli persona, której potrzebujesz, już działa (np. laborant obsługujący tę hipotezę, critic już przypisany do kanału tego węzła), napisz do niej P2P (`ask_agent`) zamiast spawnować kolejną. Dopiero gdy nikt taki nie jest aktywny, użyj `orx agent spawn`.
-
-**Wyjątek — programmer:** laborant na każdy nowy eksperyment zawsze spawnuje **nowego** programistę (szablon „laborant → programmer”). Nie listujesz wolnych programistów i nie doklejasz implementacji do istniejącej sesji programisty. Roundtrip po `BLOCKED` to re-spawn z uzupełnionym briefem.
+Zanim zaczniesz nową sesję, sprawdź `list_agents`: jeśli potrzebna persona już działa w tym kontekście, napisz do niej P2P (`ask_agent`) zamiast spawnować kolejną. Dopiero gdy nikt taki nie jest aktywny, użyj `orx agent spawn`. Wyjątki od ponownego użycia sesji opisuje plik persony, która spawnuje.
 
 Przed użyciem `orx agent spawn` przeczytaj natywny skill `/orx-agent-delegation` — tam jest składnia, ochrona brancha, `--no-wake`, sprzątanie (`orx agent kill`). Tutaj zostają reguły zespołu i szablony briefów.
 
@@ -87,100 +85,17 @@ Protokół:
 
 1. Dziecko pisze pytania na uzgodnionym kanale (krótko).
 2. Dziecko **kończy sesję** z odpowiedzią spawnu: `BLOCKED: potrzebuję wyjaśnienia` + pytania (to jest wake rodzica).
-3. Rodzic po wake uzupełnia `description` / brief i robi re-spawn z odpowiedziami (dla programisty zawsze re-spawn; dla innych person wolno też `ask_agent`, gdy sesja-dziecko nadal żyje).
+3. Rodzic po wake uzupełnia `description` / brief i robi re-spawn z odpowiedziami (albo `ask_agent`, gdy persona-dziecko nadal żyje i plik persony rodzica na to pozwala).
 4. Dziecko w nowej sesji kontynuuje — bez domysłów z poprzedniej blokady.
 
-Ten protokół dotyczy zwłaszcza programmer ← laborant przy niejasnym designie; ten sam wzorzec wolno użyć przy innych spawnach.
+Ten sam wzorzec wolno użyć przy każdym spawnie, gdy brief jest niejasny.
 
-## Szablony spawnu
+## Spawn: reguły wspólne
 
-Brief spawnu (`orx agent spawn`, zwykle `--stdin`) **jest zaproszeniem**: wymień w nim kanały do natychmiastowego dołączenia. Helper czyta wskazany plik persony; przy HPC doklej operatora do tej samej sesji.
+Brief spawnu (`orx agent spawn`, zwykle przez stdin) **jest zaproszeniem**: wymień w nim kanały do natychmiastowego dołączenia. Wskaż personę wprost (nowa sesja nie ma domyślnej). Przy każdym spawnie podaj `--harness` i `--model` z `model-assignment.md` / szablonu w pliku persony, która spawnuje. Szablony briefów są w plikach person w `roles/`, nie tutaj.
 
-### Professor → laborant (faza hipotezy)
-
-Flagi: `--harness claude-code --model <Opus — aktualna nazwa w Claude Code>`
-
-```text
-Jesteś laborant dla projektu <project_id>. Przeczytaj `roles/laborant.md` i kieruj się nim (faza hipotezy).
-
-Slug hipotezy: <slug-H> (id: <id-H>)
-Kanały dołącz natychmiast: project, <slug-H>
-Zadanie: razem z professorem i criticiem dopracuj treść hipotezy na kanale hipotezy (twierdzenie, podstawy, alternatywa, pytania rozstrzygające). Ustalenia zapisuje professor w description.
-Oczekiwany wynik: konkretne propozycje brzmienia i kryteriów na kanale hipotezy; gotowość do fazy eksperymentów albo lista braków.
-```
-
-### Professor → critic (faza hipotezy)
-
-Flagi: `--harness cursor --model <Grok — aktualna nazwa w Cursor>`
-
-```text
-Jesteś critic dla projektu <project_id>. Przeczytaj `roles/critic.md` i kieruj się nim.
-
-Węzeł: <slug-H> (hipoteza)
-Kanały dołącz natychmiast: project, <slug-H>
-Zadanie: oceń treść hipotezy (co miało być ustalone vs co jest w description i na kanale); uwagi wyłącznie na kanale hipotezy.
-Oczekiwany wynik: uwagi na kanale <slug-H> + krótkie streszczenie w odpowiedzi spawnu.
-```
-
-### Przejście do weryfikacji (bez nowego spawnu laboranta)
-
-Laborant spawnowany na start hipotezy zostaje do jej zamknięcia. Gdy professor uzna hipotezę za gotową do weryfikacji, zapisuje decyzję na kanale hipotezy i w `description`, a laborant w **tej samej sesji** przechodzi do fazy eksperymentów (tworzy węzły-dzieci, spawnuje criticów eksperymentów i programmera). Nowego laboranta do tej hipotezy nie spawnujesz.
-
-
-### Laborant → programmer (implementacja; bez HPC)
-
-Flagi: `--harness antigravity --model <Gemini — wynik agy models>`
-
-```text
-Jesteś programmer dla projektu <project_id>. Przeczytaj `roles/programmer.md` i kieruj się nim.
-
-Slug eksperymentu: <slug-E> (id: <id-E>)
-Kanały dołącz natychmiast: project, <slug-E>
-Zadanie: zaimplementuj eksperyment wg description węzła; smoke test; commit na branchu eksperymentu.
-Oczekiwany wynik: commit, komendy, ścieżki artefaktów — na kanale <slug-E> i w krótkim podsumowaniu spawnu; albo `BLOCKED: potrzebuję wyjaśnienia` + pytania (roundtrip). Raportujesz na kanale; `description` aktualizuje laborant.
-Doklej operatora HPC: nie
-```
-
-### Laborant → programmer+operator (implementacja + Slurm/HPC)
-
-Flagi: `--harness antigravity --model <Gemini — wynik agy models>`
-
-```text
-Jesteś programmer dla projektu <project_id>. Przeczytaj `roles/programmer.md` oraz `roles/programmer.operator.md` (ta sama sesja — programmer i operator naraz).
-
-Slug eksperymentu: <slug-E> (id: <id-E>)
-Kanały dołącz natychmiast: project, <slug-E>
-Zadanie: zaimplementuj wg description, napisz/utrzymaj job.sbatch, uruchom i monitoruj job, zgłoś status.
-Oczekiwany wynik: commit, run id, ścieżki logów, status Done/Failed — na kanale <slug-E> i w podsumowaniu spawnu; albo `BLOCKED: potrzebuję wyjaśnienia` + pytania (roundtrip). Raportujesz na kanale; `description` aktualizuje laborant.
-Doklej operatora HPC: tak
-```
-
-### Ktokolwiek → critic
-
-Flagi: `--harness cursor --model <Grok — aktualna nazwa w Cursor>`
-
-```text
-Jesteś critic dla projektu <project_id>. Przeczytaj `roles/critic.md` i kieruj się nim.
-
-Węzeł: <slug-N> (hipoteza|eksperyment)
-Kanały dołącz natychmiast: project, <slug-N>
-Zadanie: zrecenzuj węzeł na kanale <slug-N>; porównaj zlecenie z wykonaniem na podstawie description, kanału i wskazanych artefaktów (odczyt); uwagi wyłącznie na kanale <slug-N>.
-Oczekiwany wynik: uwagi na kanale <slug-N> + krótkie streszczenie w odpowiedzi spawnu.
-```
-
-### Professor/laborant → librarian
-
-Flagi: `--harness opencode --model google/<id z opencode models>` (gdy limit Google AI Studio — `--harness antigravity --model <Gemini — wynik agy models>`)
-
-```text
-Jesteś librarian dla projektu <project_id>. Przeczytaj `roles/librarian.md` i kieruj się nim.
-
-Slug kontekstu (opcjonalnie): <slug>
-Kanały dołącz natychmiast: project[, <slug>]
-Zadanie: szeroki przegląd literatury nt. <temat> (najpierw literature/, synteza dla zlecającego).
-Oczekiwany wynik: synteza w limicie odpowiedzi spawnu; dłuższe treści na kanale. Materiał oddajesz zlecającemu; `description` węzłów aktualizuje ich właściciel.
-```
+Odpowiedź z zamknięcia helpera do rodzica jest ucięta ok. 4000 znaków — dłuższy materiał na kanał, w odpowiedzi spawnu tylko skrót i ścieżki.
 
 ### Zwrot wyniku (wake + kanał)
 
-Sesja-dziecko kończąc pracę: (1) krótka odpowiedź spawnu dla rodzica (≤ ~4000 znaków), (2) jeśli są ścieżki/logi/tabele — wiadomość na uzgodnionym kanale z ścieżkami. Rodzic-właściciel etapu wciąga to do `description`.
+Sesja-dziecko kończąc pracę: (1) krótka odpowiedź spawnu dla rodzica (≤ ~4000 znaków), (2) jeśli są ścieżki/logi/tabele — wiadomość na uzgodnionym kanale z ścieżkami. Właściciel etapu wciąga to do `description`.

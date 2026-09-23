@@ -2,31 +2,36 @@
 
 Agent czyta wyłącznie:
 
-1. pliki z `common/`;
-2. przekazany mu plik persony z `roles/`, oraz pliki domenowe, do których on odsyła — to on sam mówi, czego jeszcze potrzebuje, nie osobna tabela (patrz `README.md`);
-3. bieżący węzeł hipotezy/eksperymentu w `orx` albo artefakt jawnie wskazany w zleceniu;
-4. `research-brief.md` — brief badawczy, dozwolony każdemu, gdy jego plik persony każe go przeczytać albo gdy potrzebuje sprawdzić zakres/ograniczenia badania.
+1. `agent-start.md`
+2. pliki z `common/` wymienione niżej
+3. przekazany plik persony z `roles/` oraz pliki, do których ten plik odsyła
+4. bieżący węzeł hipotezy/eksperymentu w `orx` albo artefakt wskazany w zleceniu
+5. `research-brief.md`, gdy persona każe go przeczytać albo gdy trzeba sprawdzić zakres badania
+6. `model-assignment.md`, gdy spawnujesz albo dobierasz harness/model
 
-Czytaj wyłącznie pliki wskazane w tej macierzy oraz te, do których odsyła Twoja persona. Gdy brakuje informacji, zapytaj albo poproś o wskazanie pliku.
-
-## Wspólne dla wszystkich ról
-
-Każdy agent czyta:
+## Wspólne lektury
 
 - `common/rules.md`
 - `common/communication.md`
 - `common/identifiers.md`
 - `agent-start.md`
-- przekazany plik roli
+- przekazany plik persony
 
-Te pliki zawierają tylko zasady potrzebne wszystkim rolom.
+## Persony i dodatki
 
-Dodatkowo wolno czytać `README.md` (mapa person) oraz `model-assignment.md` (gdy spawnujesz albo dobierasz harness/model).
+Jedynymi tożsamościami do adresowania i spawnu są persony: `professor`, `laborant`, `programmer`, `critic`, `librarian`. Rolę bierzesz wyłącznie z przekazanego pliku persony (może być kilka naraz).
 
-## Łączenie zakresów
+Dodatki domenowe (nie są osobnymi personami):
 
-Jeżeli agent ma kilka przekazanych person naraz (np. okrojony skład z `model-assignment.md`, gdzie jeden agent jest jednocześnie professorem i laborantem), sumuje lektury ze wszystkich przekazanych plików person i czyta wyłącznie tę sumę. Jak kontynuować w jednej sesji zamiast spawnu „jako siebie” — patrz `model-assignment.md`, „Połączone persony w jednej sesji”. Przykład: `professor.md` + `laborant.md` razem czytają `common/*`, oba pliki person i domeny, do których odsyłają (`research-brief.md`, `hypotheses.md`, `experiments.md`, `professor-laborant.decision-maker.md`). `worktrees.md` wchodzi dopiero gdy persona implementuje kod.
+- `roles/professor-laborant.decision-maker.md` — doklejany do professora (poziom hipotezy) albo laboranta (poziom eksperymentu)
+- `roles/programmer.operator.md` — doklejany do programisty tylko gdy zadanie obejmuje HPC
+
+Szablony briefów spawnu są w pliku persony, która spawnuje (nie w `common/`).
+
+## Połączone persony
+
+Gdy masz kilka przekazanych person naraz (np. okrojony skład z `model-assignment.md`), sumujesz lektury ze wszystkich tych plików i czytasz wyłącznie tę sumę. Jak kontynuować w jednej sesji zamiast spawnu „jako siebie” — `model-assignment.md`.
 
 ## Źródło prawdy
 
-Cała dokumentacja `project/*.md` oraz katalogi `common/` i `roles/` są read-only dla agentów. Zmienia je wyłącznie użytkownik. Stan badań (hipotezy, eksperymenty) nie jest częścią tej dokumentacji — żyje jako węzły `orx` i kanały/zadania `ai-crew-sync`, edytowany przez agenta aktualnie odpowiedzialnego za dany węzeł (patrz `common/communication.md`, "Kto edytuje węzeł"). Jedyny wyjątek od read-only: `literature/index.md`, dopisywany przez `librarian` pod lockiem `ai-crew-sync` (patrz `roles/librarian.md`).
+Dokumentacja `project/*.md`, `common/` i `roles/` jest read-only dla agentów — zmienia ją wyłącznie użytkownik. Stan badań żyje w węzłach `orx` i na kanałach `ai-crew-sync`; edytuje go agent aktualnie odpowiedzialny za etap (patrz `common/communication.md`). Wyjątek: `literature/index.md` dopisuje `librarian` pod lockiem (patrz `roles/librarian.md`).

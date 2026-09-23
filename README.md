@@ -1,5 +1,7 @@
 # Projekt
 
+> Dla użytkownika (mapa playbooka). **Agenci nie czytają tego pliku** — ich lektury ustala `access-matrix.md` i przekazana persona.
+
 To jest zestaw instrukcji operacyjnych dla wieloagentowego projektu badawczego.
 
 ## Dostęp do dokumentacji
