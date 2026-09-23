@@ -24,7 +24,7 @@ Utwórz dziecko i kanał wg `experiments.md` (`--parent <id-hipotezy>`). Zapisz 
 
 1. Draft w `description` (solo).
 2. Critic **tego** eksperymentu: `list_agents`; brak → spawn ze szablonu poniżej (ta sama sesja może później ocenić wyniki tego węzła).
-3. Dopytania o hipotezę → **kanał hipotezy**. Professor śpi → koniec sesji z `BLOCKED: potrzebuję wyjaśnienia` (roundtrip: `common/communication.md`).
+3. Dopytania o hipotezę → **kanał hipotezy** + `wait_for_updates` (roundtrip: `common/communication.md`). Professor odpowiada na kanale (spawn z `--no-wake` zostawia go aktywnym).
 4. Uwagi critica; bez critica (okrojony skład) → mini-autocrytyka wg sekcji Decyzje, zapis w `description`.
 5. Decision-maker: go/no-go na oddanie programmerowi.
 
@@ -34,7 +34,7 @@ Handoff dopiero po 2–5 (bez critica: 4–5).
 
 Po „go”: zawsze **nowy** programmer dla **tego** eksperymentu (szablon poniżej; `--harness`/`--model` z `model-assignment.md`). Bez `list_agents` / `ask_agent` do istniejącego programisty. HPC/Slurm → w briefie doklej `roles/programmer.operator.md` (jedna sesja).
 
-Programmer raportuje na kanale; Ty wciągasz ścieżki, run id, status do `description`. Po `BLOCKED`: uzupełnij brief/`description` i **re-spawn** (nie `ask_agent`).
+Programmer raportuje na kanale; Ty wciągasz ścieżki, run id, status do `description`. Gdy pyta o doprecyzowanie — odpowiedz na kanale i/lub uzupełnij `description`; ta sama sesja programisty kontynuuje po `wait_for_updates`.
 
 ## Analiza wyników
 
@@ -48,7 +48,7 @@ Uwzględnij krytykę i alternatywy, jeśli są. Brak critica lub uwag → sam wy
 
 ## Szablony spawnu
 
-Brief = zaproszenie na kanały. `--harness` i `--model` bierz wyłącznie z `model-assignment.md`. Nowy eksperyment → nowy programmer; `BLOCKED` → re-spawn.
+Brief = zaproszenie na kanały. Przy każdym `orx agent spawn` zawsze `--no-wake`; `--harness` i `--model` wyłącznie z `model-assignment.md`. Nowy eksperyment → nowy programmer.
 
 ### → programmer (bez HPC)
 
@@ -59,7 +59,7 @@ Jesteś programmer dla projektu <project_id>. Przeczytaj `roles/programmer.md` i
 Slug eksperymentu: <slug-E> (id: <id-E>)
 Kanały dołącz natychmiast: project, <slug-E>
 Zadanie: zaimplementuj eksperyment wg description węzła; smoke test; commit na branchu eksperymentu.
-Oczekiwany wynik: commit, komendy, ścieżki artefaktów — na kanale <slug-E> i w krótkim podsumowaniu spawnu; albo `BLOCKED: potrzebuję wyjaśnienia` + pytania (roundtrip). Raportujesz na kanale; `description` aktualizuje laborant.
+Oczekiwany wynik: commit, komendy, ścieżki artefaktów — na kanale <slug-E> i w krótkim podsumowaniu spawnu. Raportujesz na kanale; `description` aktualizuje laborant.
 Doklej operatora HPC: nie
 ```
 
@@ -72,7 +72,7 @@ Jesteś programmer dla projektu <project_id>. Przeczytaj `roles/programmer.md` o
 Slug eksperymentu: <slug-E> (id: <id-E>)
 Kanały dołącz natychmiast: project, <slug-E>
 Zadanie: zaimplementuj wg description, napisz/utrzymaj job.sbatch, uruchom i monitoruj job, zgłoś status.
-Oczekiwany wynik: commit, run id, ścieżki logów, status Done/Failed — na kanale <slug-E> i w podsumowaniu spawnu; albo `BLOCKED: potrzebuję wyjaśnienia` + pytania (roundtrip). Raportujesz na kanale; `description` aktualizuje laborant.
+Oczekiwany wynik: commit, run id, ścieżki logów, status Done/Failed — na kanale <slug-E> i w podsumowaniu spawnu. Raportujesz na kanale; `description` aktualizuje laborant.
 Doklej operatora HPC: tak
 ```
 

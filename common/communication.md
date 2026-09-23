@@ -23,7 +23,7 @@ Pokój = recenzja **gotowego** draftu z `description`. Skład rośnie stopniowo 
 
 ## Czekanie
 
-Czekaj przez `wait_for_updates` z `channel: "<slug>"`. Po `orx agent spawn` rodzic dostaje wake przy zamknięciu dziecka (chyba że `--no-wake`; skill `/orx-agent-delegation`).
+Czekaj przez `wait_for_updates` z `channel: "<slug>"`. Spawn w tym playbooku zawsze idzie z `--no-wake`, więc rodzic pozostaje aktywny i odpowiada na kanale, gdy dziecko czeka.
 
 ## Zadanie vs dyskusja
 
@@ -34,9 +34,13 @@ Czekaj przez `wait_for_updates` z `channel: "<slug>"`. Po `orx agent spawn` rodz
 
 ## Spawn
 
+Spawn jest zawsze nieblokujący: rodzic może odpalić wielu helperów naraz i koordynować ich pracę przez kanały.
+
 1. Sprawdź `list_agents` — gdy potrzebna rola już działa w tym kontekście, użyj `ask_agent`. Wyjątki: plik roli, która spawnuje.
-2. Brief: kanały do natychmiastowego dołączenia, rola wprost, zadanie, oczekiwany wynik. Zawsze `--harness` i `--model` wg `model-assignment.md`. Szablony briefów są w `roles/`.
-3. Kończąc: odpowiedź spawnu do rodzica ≤ ~4000 znaków; dłuższy materiał (ścieżki, logi, tabele) na uzgodnionym kanale, w odpowiedzi spawnu skrót + odesłanie.
+2. Przy każdym `orx agent spawn` zawsze podaj `--no-wake`. Rodzic od razu wraca do własnej pracy (kolejne spawny, odpowiedzi na kanałach); zamykająca odpowiedź dziecka nie wznawia jego sesji. Szczegóły flagi: skill `/orx-agent-delegation`.
+3. Brief: kanały do natychmiastowego dołączenia, rola wprost, zadanie, oczekiwany wynik. `--harness` i `--model` wyłącznie wg `model-assignment.md`. Szablony briefów są w `roles/`.
+4. Koordynacja równoległych dzieci = kanały (hipoteza / eksperyment). Kanał jest źródłem prawdy o trwającej pracy.
+5. Kończąc: opcjonalna krótka odpowiedź spawnu do rodzica ≤ ~4000 znaków (status, skrót + odesłanie). Dłuższy materiał (ścieżki, logi, tabele) na uzgodnionym kanale. Rodzic nie opiera się na blokującym resume — bieżący stan bierze z kanału i `description`.
 
 Szablon briefu:
 
@@ -51,11 +55,12 @@ Oczekiwany wynik: <co i w jakiej formie>
 
 ## Roundtrip (niejasny brief)
 
-1. Gdy brief/`description` jest zbyt niejasny, by kontynuować — nie zgaduj.
-2. Dziecko publikuje pytania na uzgodnionym kanale.
-3. Dziecko kończy sesję z `BLOCKED: potrzebuję wyjaśnienia` + pytania (wake rodzica).
-4. Rodzic doprecyzowuje na kanale i/lub w `description`, potem robi re-spawn (albo `ask_agent`, gdy dziecko żyje i plik roli rodzica na to pozwala).
-5. Nowa sesja dziecka kontynuuje z wyjaśnionego briefu — bez domysłów.
+Gdy brief/`description` jest zbyt niejasny, by kontynuować — nie zgaduj. Doprecyzowanie idzie przez kanał w **tej samej** sesji dziecka:
+
+1. Dziecko publikuje pytania na uzgodnionym kanale (slug hipotezy albo eksperymentu).
+2. Dziecko czeka przez `wait_for_updates` na tym kanale.
+3. Rodzic — nadal aktywny, bo spawn poszedł z `--no-wake` — odpowiada na kanale i/lub aktualizuje `description`.
+4. Dziecko kontynuuje w tej samej sesji z wyjaśnionego kanału/`description`.
 
 ## Wiadomość vs plik
 

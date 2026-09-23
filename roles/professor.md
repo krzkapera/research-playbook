@@ -26,7 +26,7 @@ Jeden ciąg od startu do zamknięcia hipotezy:
 1. **Lektura startowa** (sekcja niżej).
 2. **Utwórz węzeł hipotezy** wg `hypotheses.md` (pierwsza vs kolejna z `--baseline`). Zapisz wypisane `id`.
 3. **Draft solo w `description`**: twierdzenie, podstawy, alternatywa, zakres, najbliższe pytanie rozstrzygające. Załóż kanał = slug, ogłoś slug/`id` na `project`.
-4. **Spawn `laborant`** na kanał hipotezy (szablon na końcu; `--harness`/`--model` z `model-assignment.md`). W tym kroku spawnuje wyłącznie laboranta.
+4. **Spawn `laborant`** na kanał hipotezy (szablon na końcu; zawsze `--no-wake`; `--harness`/`--model` z `model-assignment.md`). W tym kroku spawnuje wyłącznie laboranta.
 5. **Dopracowanie z laborantem**: doprecyzujcie szczegóły tak, żeby laborant wiedział dokładnie, nad czym będzie pracował w weryfikacji. Ustalenia → `description`.
 6. Gdy laborant zgłosi **domknięcie uwag** → **spawn `critic` hipotezy**.
 7. **Pętla z criticiem:**
@@ -109,7 +109,7 @@ Wniosek w `description` opieraj na rachunku, literaturze albo skrócie od labora
 
 ## Szablony spawnu
 
-Brief = zaproszenie: kanały do natychmiastowego dołączenia. `--harness` i `--model` bierz wyłącznie z `model-assignment.md`.
+Brief = zaproszenie: kanały do natychmiastowego dołączenia. Przy każdym `orx agent spawn` zawsze `--no-wake`; `--harness` i `--model` wyłącznie z `model-assignment.md`.
 
 ### → laborant (po Twoim drafcie; przed criticiem)
 
