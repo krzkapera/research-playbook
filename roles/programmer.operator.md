@@ -4,7 +4,17 @@ Warunkowy dodatek do `programmer` (joby HPC / kolejka / przełączanie klastra) 
 
 Status joba = infrastruktura. W raporcie oddziel: błąd infrastruktury, błąd implementacji, wynik naukowy (`experiments.md`). Pytanie eksperymentu bierz z `description`.
 
-Klastry, scratch, kolejka, smoke, kiedy liczyć lokalnie → `research-brief.md` (HPC). Tu tylko to, czego brief nie precyzuje dla `orx`:
+## Klastry i kolejka
+
+Dostęp: `ssh helios`, `ssh athena`, `ssh ares` (dokumentacja Cyfronet: Helios/GPU, Athena, Ares). Helios = ARM — specjalna konfiguracja; wzoruj się na innych projektach w `~/scratch/`.
+
+- Artefakty jobów: `~/scratch/<katalog-projektu>/` (kod, cache, venv, logi — porządek).
+- Helios: najmocniejszy (pełne datasety). Ares: małe few-shot. Athena: środek. Bez GPU, gdy wystarczy CPU (Ares).
+- Nie zapychaj kolejki. Sygnał problemu: po ~10 min od submitu `squeue --start` bez START TIME, albo START TIME > 24 h — przenieś pracę na inny klaster, wróć gdy kolejka odżyje.
+- Job wznawialny; zasoby/timelimit: minimum do wyniku. Efficiency z hpc-jobs sensowna; więcej CPU OK, gdy skraca wall-clock.
+- Przed większą zmianą / pierwszym jobem: lokalny smoke. Przy zmianie jednego sprawdzonego parametru wystarczy poprzedni smoke.
+- Few-shot liczące się w kilka minut na lokalnym GPU → lokalnie (venv w katalogu projektu), nie kolejka.
+- Czekanie na koniec runów: skrypty bash. Monitorowanie przez `orx` / ten dodatek.
 
 ## job.sbatch
 

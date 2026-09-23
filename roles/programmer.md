@@ -18,4 +18,10 @@ Smoke test, commit, komendy, artefakty. Kod i małe pliki wniosku → branch eks
 
 Właściciel `description` = `laborant`. Ty oddajesz na kanale eksperymentu i w krótkim podsumowaniu spawnu (≤ ~4000 znaków): branch/commit, pliki, komendy, ścieżki, run id.
 
-**Styl kodu:** jak w `research-brief.md` (zwięźle, małe funkcje, bez komentarzy/docstringów, stałe typy).
+## Zasady kodu
+
+- Czysty, zwięzły; pakiety / krótkie pliki / małe funkcje o jednej odpowiedzialności.
+- Kod naukowy/algorytmiczny — bez nadmiaru testów, wzorców i ceremonii „enterprise”.
+- Bez komentarzy i docstringów, chyba że użytkownik poprosi o oznaczenie uwagi.
+- Warstwy abstrakcji osobno; w danym miejscu tylko to, czego czytelnik się tam spodziewa.
+- Typy ustalone raz i trzymane; bez zbędnych konwersji i try/except „na wszelki wypadek”.

@@ -37,26 +37,7 @@ Wskazówka: praca **foundAD** (trening parametrów few-shot AD) — kandydat do 
 
 Praca iteracyjna, małymi krokami. Eksperymenty powtarzalne (wiele runów przy losowości). Etapy niezależne prowadź równolegle.
 
-## HPC
-
-Dostęp: `ssh helios`, `ssh athena`, `ssh ares` (dokumentacja Cyfronet: Helios/GPU, Athena, Ares). Helios = ARM — specjalna konfiguracja; wzoruj się na innych projektach w `~/scratch/`.
-
-- Artefakty jobów: `~/scratch/<katalog-projektu>/` (kod, cache, venv, logi — porządek).
-- Helios: najmocniejszy (pełne datasety). Ares: małe few-shot. Athena: środek. Bez GPU, gdy wystarczy CPU (Ares).
-- Nie zapychaj kolejki. Sygnał problemu: po ~10 min od submitu `squeue --start` bez START TIME, albo START TIME > 24 h — przenieś pracę na inny klaster, wróć gdy kolejka odżyje.
-- Job wznawialny; zasoby/timelimit: minimum do wyniku. Efficiency z hpc-jobs sensowna; więcej CPU OK, gdy skraca wall-clock.
-- Przed większą zmianą / pierwszym jobem: lokalny smoke. Przy zmianie jednego sprawdzonego parametru wystarczy poprzedni smoke.
-- Few-shot liczące się w kilka minut na lokalnym GPU → lokalnie (venv w katalogu projektu), nie kolejka.
-- Czekanie na koniec runów: skrypty bash. Monitorowanie przez `orx` / operatora — szczegóły w `roles/programmer.operator.md`.
 
 ## Tematy do zresearchowania
 
 Vision: few-shot self-supervised; few-shot anomaly detection; few-shot continual learning; backbones / foundation (ViT, CNN); continual learning; fine-tuning; augmentation; regularyzacje przy małej liczbie przykładów klasy (reszta = inne zdjęcia); warianty LoRA; porównanie trening parametrów vs training-free.
-
-## Zasady kodu
-
-- Czysty, zwięzły; pakiety / krótkie pliki / małe funkcje o jednej odpowiedzialności.
-- Kod naukowy/algorytmiczny — bez nadmiaru testów, wzorców i ceremonii „enterprise”.
-- Bez komentarzy i docstringów, chyba że użytkownik poprosi o oznaczenie uwagi.
-- Warstwy abstrakcji osobno; w danym miejscu tylko to, czego czytelnik się tam spodziewa.
-- Typy ustalone raz i trzymane; bez zbędnych konwersji i try/except „na wszelki wypadek”.

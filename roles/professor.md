@@ -5,7 +5,7 @@
 Przeczytaj w tej kolejności, jeśli jeszcze nie:
 
 1. `agent-start.md`
-2. `research-brief.md` — temat, metody, benchmarki, HPC
+2. `research-brief.md` — temat, metody, benchmarki, zakres badania
 3. `hypotheses.md` — węzeł hipotezy i `description`
 4. `professor-laborant.decision-maker.md` — decyzja na poziomie hipotezy
 
