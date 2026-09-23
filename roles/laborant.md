@@ -12,7 +12,7 @@ Dołącz do kanału hipotezy (slug z briefu). Z professorem dopracuj twierdzenie
 
 W recenzji: uwagi critica → odniesienie profesora → Twoje odniesienie; pytania doprecyzuj z profesorem. Powtarzaj rundy do zamknięcia recenzji. Critica **eksperymentu** spawnuje laborant w fazie eksperymentów.
 
-Węzły eksperymentu twórz po uznaniu hipotezy za gotową do weryfikacji przez professora na kanale; brief może od razu wskazać fazę eksperymentów.
+Węzły eksperymentu twórz po uznaniu hipotezy za gotową do weryfikacji przez professora na kanale; brief może od razu wskazać fazę eksperymentów. Sesja trwa do zamknięcia hipotezy.
 
 ## Design eksperymentu
 
@@ -32,7 +32,7 @@ Handoff po wykonaniu kroków 2–5; przy autokrytyce po krokach 4–5.
 
 ## Handoff implementacji
 
-Po „go”: zawsze **nowy** programmer dla **tego** eksperymentu (szablon poniżej; --harness/--model z model-assignment.md). HPC/Slurm → w briefie doklej roles/programmer.operator.md.
+Po „go”: zawsze **nowy** programmer dla **tego** eksperymentu (szablon poniżej; `--harness`/`--model` z `model-assignment.md`). HPC/Slurm → w briefie doklej `roles/programmer.operator.md`.
 
 Programmer raportuje na kanale; Ty wciągasz ścieżki, run id, status do `description`. Gdy pyta o doprecyzowanie — odpowiedz na kanale i/lub uzupełnij `description`.
 
@@ -54,7 +54,7 @@ Brief = zaproszenie na kanały. Przy każdym `orx agent spawn` zawsze `--no-wake
 
 
 ```text
-Jesteś programmer dla projektu <project_id>.
+Jesteś programmer dla projektu <project_id>. Przeczytaj `roles/programmer.md` i kieruj się nim.
 
 Slug eksperymentu: <slug-E> (id: <id-E>)
 Kanały dołącz natychmiast: project, <slug-E>
@@ -67,7 +67,7 @@ Operator HPC: brak
 
 
 ```text
-Jesteś programmer dla projektu <project_id>.
+Jesteś programmer dla projektu <project_id>. Przeczytaj `roles/programmer.md` oraz `roles/programmer.operator.md` (ta sama sesja — programmer i operator naraz).
 
 Slug eksperymentu: <slug-E> (id: <id-E>)
 Kanały dołącz natychmiast: project, <slug-E>
@@ -80,7 +80,7 @@ Doklej operatora HPC: tak
 
 
 ```text
-Jesteś critic dla projektu <project_id>.
+Jesteś critic dla projektu <project_id>. Przeczytaj `roles/critic.md` i kieruj się nim.
 
 Węzeł: <slug-E> (eksperyment)
 Kanały dołącz natychmiast: project, <slug-E>
@@ -92,10 +92,10 @@ Oczekiwany wynik: uwagi na kanale <slug-E> + krótkie streszczenie w odpowiedzi 
 
 
 ```text
-Jesteś librarian dla projektu <project_id>. Przeczytaj roles/librarian.md.
+Jesteś librarian dla projektu <project_id>. Przeczytaj `roles/librarian.md` i kieruj się nim.
 
 Slug kontekstu (opcjonalnie): <slug>
 Kanały dołącz natychmiast: project[, <slug>]
-Zadanie: szeroki przegląd literatury nt. <temat>; synteza dla zlecającego.
+Zadanie: szeroki przegląd literatury nt. <temat> (najpierw literature/, synteza dla zlecającego).
 Oczekiwany wynik: synteza w limicie odpowiedzi spawnu; dłuższe treści na kanale. Materiał oddajesz zlecającemu; `description` węzłów aktualizuje ich właściciel.
 ```
