@@ -1,14 +1,14 @@
 # Przydział modeli
 
-Przy `orx agent spawn` ustaw `--harness` i `--model` wyłącznie według tabeli poniżej.
+Przy `orx agent spawn` użyj dokładnie komendy z tabeli poniżej dla danej roli (dopisz swój `<task>`).
 
-| Rola | Harness / model |
+| Rola | Komenda |
 |---|---|
-| laborant | Claude Code / Opus |
-| critic | Cursor / Grok |
-| programmer | Antigravity / Gemini |
-| operator | Antigravity / Gemini |
-| librarian | OpenCode / Gemini |
+| laborant | `orx agent spawn --harness claude-code --model 'claude-opus-5-5[1m]' --permission-mode bypassPermissions "<task>"` |
+| critic | `orx agent spawn --harness cursor --model grok-4.7-medium --permission-mode full-access "<task>"` |
+| programmer | `orx agent spawn --harness antigravity --model gemini-3.8-flash-medium --reasoning-level medium --permission-mode bypass "<task>"` |
+| operator | `orx agent spawn --harness opencode --model opencode/muse-spark-1.3-contributor-free --reasoning-level medium --permission-mode auto-approve "<task>"` |
+| librarian | `orx agent spawn --harness opencode --model google/gemini-3.8-flash --reasoning-level low --permission-mode auto-approve "<task>"` |
 
 ## Połączone role w jednej sesji
 
