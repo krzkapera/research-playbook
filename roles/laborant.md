@@ -11,7 +11,7 @@ Zanim przejdziesz do flow, te słowa oznaczają w playbooku konkretne rzeczy:
 - **Hipoteza** — węzeł drzewa `orx` (korzeń dla eksperymentów). Ma `id` i **slug**. Tworzenie: `hypotheses.md`. Właścicielem `description` i stanu jest professor.
 - **Eksperyment** — węzeł-dziecko hipotezy (własny branch, kanał, runy). Tworzysz go Ty wg `experiments.md`. Właścicielem `description` jesteś Ty.
 - **`description`** — pole węzła w `orx` (`orx exp desc`). Źródło prawdy; nadpisywane w całości (przed zapisem odczytaj bieżącą treść). Hipotezę edytuje professor; eksperyment — Ty. Critic i krótkie sygnały programmer/operator trafiają na kanał — Ty wciągasz je do `description` eksperymentu. Pętlę naprawczą kodu programmer↔operator prowadzą przez `ask_agent`.
-- **Kanał hipotezy** — kanał `ai-crew-sync` nazwany slugiem hipotezy. Zakłada go professor przy tworzeniu węzła; Ty dołączasz z briefu. Tu faza treści z professorem i skróty analiz. Zawsze dołączasz też do `project`. Protokół: `common/communication.md`.
+- **Kanał hipotezy** — kanał `ai-crew-sync` nazwany slugiem hipotezy. Zakłada go professor przy tworzeniu węzła; Ty dołączasz z briefu. Tu faza treści z professorem i skróty analiz. Zawsze dołączasz też do `project`. Protokół: `communication.md`.
 - **Kanał eksperymentu** — kanał `ai-crew-sync` nazwany slugiem eksperymentu. Zakładasz go zaraz po utworzeniu węzła i ogłaszasz na kanale hipotezy.
 - **Professor** — oddaje draft/`description` hipotezy, decyzje o treści i o starcie weryfikacji, odpowiedzi na dopytania.
 - **Critic hipotezy** — uwagi do treści hipotezy na kanale hipotezy.
@@ -22,7 +22,7 @@ Zanim przejdziesz do flow, te słowa oznaczają w playbooku konkretne rzeczy:
 - **Faza treści** — twierdzenie, podstawy, alternatywa, zakres i pytania rozstrzygające (oraz pętla z criticiem hipotezy).
 - **Faza eksperymentów** — design, recenzja z criticiem, implementacja i analiza. U profesora ten sam okres to faza weryfikacji.
 - **Go/no-go designu** — Twoja decyzja, czy oddać design programmerowi.
-- **Roundtrip** — dopytanie na uzgodnionym kanale + `wait_for_updates` w tej samej sesji (`common/communication.md`).
+- **Roundtrip** — dopytanie na uzgodnionym kanale + `wait_for_updates` w tej samej sesji (`communication.md`).
 
 ## Pełny flow pracy
 
@@ -47,7 +47,7 @@ Wiele eksperymentów naraz = wiele dzieci (osobny kanał, programmer i critic na
 
 Przeczytaj w tej kolejności, jeśli jeszcze nie:
 
-1. `agent-start.md` — zaczynasz od niego (tam m.in. `access-matrix.md` i wspólne z `common/`, w tym `identifiers.md`: id vs slug)
+1. `agent-start.md` — zaczynasz od niego (tam m.in. `access-matrix.md` oraz wspólne lektury z macierzy (`communication.md`, `identifiers.md`: id vs slug))
 2. `research-brief.md` — cel, literatura, benchmarki, flow badania
 3. `experiments.md` — węzeł eksperymentu, `description`, kanał
 4. `description` i status hipotezy (`orx exp desc` / `orx exp status`)
@@ -62,7 +62,7 @@ Cel: jasny zakres Twojej pracy w weryfikacji.
 - Sygnał otwierający pętlę z criticiem: **domknięcie uwag do draftu**.
 - Po domknięciu zostajesz na kanale hipotezy; uwagi critica odbieraj przez `wait_for_updates`; bierz udział w pętli (odniesienia do uwag; ew. doprecyzowanie zakresu z professorem).
 - Na `wait_for_updates` pod wezwanie do fazy eksperymentów przechodzisz dopiero po decyzji profesora „gotowa do weryfikacji”.
-- Pytania o treść w pętli recenzji → Roundtrip z professorem na kanale hipotezy (`common/communication.md` § Roundtrip).
+- Pytania o treść w pętli recenzji → Roundtrip z professorem na kanale hipotezy (`communication.md` § Roundtrip).
 
 ## Design eksperymentu (szczegóły kroków 6–7)
 

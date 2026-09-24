@@ -10,7 +10,7 @@ Zanim przejdziesz do flow, te słowa oznaczają w playbooku konkretne rzeczy:
 
 - **Eksperyment** — węzeł-dziecko hipotezy, który implementujesz. Brief podaje slug i `id`. Reguły węzła: `experiments.md`.
 - **`description`** — pole węzła w `orx` (`orx exp desc`). Źródło prawdy o designie i ustaleniach. Edytuje laborant. Ty czytasz je przed zmianą kodu i po uzupełnieniach z roundtripu.
-- **Kanał eksperymentu** — kanał `ai-crew-sync` nazwany slugiem eksperymentu. Tu krótka gotowość dla laboranta oraz roundtrip designu z laborantem. Zawsze dołączasz do `project`. Protokół: `common/communication.md`.
+- **Kanał eksperymentu** — kanał `ai-crew-sync` nazwany slugiem eksperymentu. Tu krótka gotowość dla laboranta oraz roundtrip designu z laborantem. Zawsze dołączasz do `project`. Protokół: `communication.md`.
 - **Laborant** — zlecający; oddaje design w `description` i na kanale, odpowiada na dopytania designu, wciąga commit i wyniki operatora (którego Ty spawujesz) do `description`.
 - **Operator** — osobna sesja HPC (smoke, `job.sbatch`, submit, monitoring, wyniki). **Spawujesz go Ty** po gotowości kodu, gdy eksperyment wymaga HPC. Bierze Twój commit; przy błędzie kodu, którego sam nie domknie, woła Cię przez **`ask_agent`**. Na kanale oddaje laborantowi **policzone wyniki**.
 - **`ask_agent`** — P2P RPC: pytanie od operatora i Twoja odpowiedź (oraz nowy commit) w tym kanale komunikacji. Tu idzie pętla naprawcza kodu z operatorem.
@@ -38,7 +38,7 @@ Jeden ciąg od spawnu do domknięcia pętli z operatorem:
 
 Przeczytaj w tej kolejności, jeśli jeszcze nie:
 
-1. `agent-start.md` — zaczynasz od niego (tam m.in. `access-matrix.md` i wspólne z `common/`, w tym `identifiers.md`: id vs slug)
+1. `agent-start.md` — zaczynasz od niego (tam m.in. `access-matrix.md` oraz wspólne lektury z macierzy (`communication.md`, `identifiers.md`: id vs slug))
 2. `experiments.md` — węzeł, `description`, kanał, runy
 3. `description` i status eksperymentu (`orx exp desc` / `orx exp status`)
 4. gdy spawujesz operatora: `roles/operator.md` (kontrakt wyników i HPC)

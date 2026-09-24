@@ -12,7 +12,7 @@ Zanim przejdziesz do flow, te słowa oznaczają w playbooku konkretne rzeczy:
 
 - **Eksperyment** — węzeł, którego joby prowadzisz. Brief podaje slug i `id`. Reguły: `experiments.md`.
 - **`description`** — pole węzła w `orx` (`orx exp desc`). Źródło prawdy o pytaniu, designie i limitach. Edytuje laborant. Ty czytasz je przed submitem.
-- **Kanał eksperymentu** — kanał `ai-crew-sync` nazwany slugiem eksperymentu. Tu oddajesz laborantowi wyniki końcowe i tu dopytujesz laboranta o brief/`description`. Zawsze dołączasz do `project`. Protokół: `common/communication.md`.
+- **Kanał eksperymentu** — kanał `ai-crew-sync` nazwany slugiem eksperymentu. Tu oddajesz laborantowi wyniki końcowe i tu dopytujesz laboranta o brief/`description`. Zawsze dołączasz do `project`. Protokół: `communication.md`.
 - **Laborant** — właściciel `description`; odpowiada na dopytania designu, wciąga Twoje wyniki do `description`.
 - **Programmer** — sesja, która **Cię spawnuje**; oddaje kod i commit na branchu eksperymentu. Pętlę naprawczą kodu prowadzisz z nim przez **`ask_agent`** (`list_agents`).
 - **`ask_agent`** — P2P RPC (`ai-crew-sync`): pytanie do żywej sesji programisty i odpowiedź w jednym wywołaniu. Tu idzie diagnoza błędu implementacji, prośba o poprawkę i potwierdzenie commita.
@@ -48,7 +48,7 @@ Jeden ciąg od spawnu do oddania wyników:
 
 Przeczytaj w tej kolejności, jeśli jeszcze nie:
 
-1. `agent-start.md` — zaczynasz od niego (tam m.in. `access-matrix.md` i wspólne z `common/`, w tym `identifiers.md`: id vs slug)
+1. `agent-start.md` — zaczynasz od niego (tam m.in. `access-matrix.md` oraz wspólne lektury z macierzy (`communication.md`, `identifiers.md`: id vs slug))
 2. `experiments.md` — runy, logi, rozdział błędów
 3. `roles/programmer.md` — sekcja Worktree (branch `orx/<slug>`)
 4. `description` i status eksperymentu (`orx exp desc` / `orx exp status`)

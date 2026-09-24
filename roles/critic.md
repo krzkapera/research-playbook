@@ -12,7 +12,7 @@ Zanim przejdziesz do flow, te słowa oznaczają w playbooku konkretne rzeczy:
 
 - **Węzeł** — hipoteza albo eksperyment w drzewie `orx`. Brief spawnu wskazuje, który oceniasz (slug i typ).
 - **`description`** — pole węzła w `orx` (`orx exp desc`). Źródło prawdy o treści, stanie i decyzjach. Ty go **nie edytujesz**; porównujesz zlecenie z tym, co jest w `description`, na kanale i we wskazanych artefaktach.
-- **Kanał węzła** — kanał `ai-crew-sync` nazwany slugiem ocenianego węzła. Tu publikujesz uwagi. Zawsze dołączasz też do `project`. Protokół: `common/communication.md`.
+- **Kanał węzła** — kanał `ai-crew-sync` nazwany slugiem ocenianego węzła. Tu publikujesz uwagi. Zawsze dołączasz też do `project`. Protokół: `communication.md`.
 - **Zlecenie** — brief spawnu plus kryteria na kanale / w `description` (co miało być ustalone lub wykonane).
 - **Wykonanie** — aktualny `description`, historia kanału i wskazane artefakty (odczyt). Przy **designie eksperymentu** wykonaniem jest treść designu w `description` i na kanale (zmienne, dane, baseline, metryki, warunki interpretacji, wyniki rozróżniające, zakres wnioskowania); to recenzja przed go/no-go i przed implementacją.
 - **Critic hipotezy** — ta sama rola przy węźle hipotezy; spawnuje professor po domknięciu uwag laboranta do draftu.
@@ -20,7 +20,7 @@ Zanim przejdziesz do flow, te słowa oznaczają w playbooku konkretne rzeczy:
 - **Professor** — właściciel hipotezy; odbiera Twoje uwagi do treści i decyduje o stanie hipotezy / starcie weryfikacji.
 - **Laborant** — właściciel eksperymentu; odbiera Twoje uwagi do designu i decyduje o go/no-go oraz kolejnych krokach eksperymentalnych.
 - **Runda recenzji** — jedna pełna ocena na kanale; kolejna runda = kolejny spawn albo kontynuacja, gdy brief / właściciel o to prosi.
-- **Roundtrip** — dopytanie na uzgodnionym kanale + `wait_for_updates` w tej samej sesji (`common/communication.md`).
+- **Roundtrip** — dopytanie na uzgodnionym kanale + `wait_for_updates` w tej samej sesji (`communication.md`).
 
 ## Pełny flow pracy
 
@@ -30,7 +30,7 @@ Jeden ciąg od spawnu do oddania uwag:
 2. **Dołącz** do kanałów z briefu: `project` oraz kanał ocenianego węzła (slug).
 3. **Ustal zakres sesji** z briefu: hipoteza (treść) **albo** eksperyment (design). Jedna sesja = jeden zakres.
 4. **Zbierz zlecenie:** brief, `description` węzła, kryteria i ustalenia na kanale.
-5. **Zbierz wykonanie:** zaktualizowany `description`, ustalenia na kanale, wskazane źródła (**odczyt**). Niejasne zlecenie → roundtrip na kanale węzła + `wait_for_updates` (`common/communication.md`) **przed oceną**; właściciel odpowiada na kanale i/lub aktualizuje `description`. Brak materiału → zgłoś na kanale węzła i czekaj przez `wait_for_updates`.
+5. **Zbierz wykonanie:** zaktualizowany `description`, ustalenia na kanale, wskazane źródła (**odczyt**). Niejasne zlecenie → roundtrip na kanale węzła + `wait_for_updates` (`communication.md`) **przed oceną**; właściciel odpowiada na kanale i/lub aktualizuje `description`. Brak materiału → zgłoś na kanale węzła i czekaj przez `wait_for_updates`.
 6. **Oceń** (sekcja Metoda): zgodność zlecenia z wykonaniem, wpływ niespójności, najtańsze kolejne sprawdzenie lub lepszy wariant.
 7. **Opublikuj uwagi na kanale ocenianego węzła** (forma: sekcja niżej). Opcjonalnie krótkie streszczenie w odpowiedzi spawnu.
 8. **Zakończ sesję**, gdy oddałeś ocenę. Po oddaniu → koniec sesji; kolejna runda = nowy spawn albo jasne wezwanie właściciela na kanale.
@@ -39,7 +39,7 @@ Jeden ciąg od spawnu do oddania uwag:
 
 Przeczytaj w tej kolejności, jeśli jeszcze nie:
 
-1. `agent-start.md` — zaczynasz od niego (tam m.in. `access-matrix.md` i wspólne z `common/`, w tym `identifiers.md`: id vs slug)
+1. `agent-start.md` — zaczynasz od niego (tam m.in. `access-matrix.md` oraz wspólne lektury z macierzy (`communication.md`, `identifiers.md`: id vs slug))
 2. `hypotheses.md` — gdy oceniasz hipotezę
 3. `experiments.md` — gdy oceniasz eksperyment
 4. `research-brief.md` — zakres badania (shoty, benchmarki, ograniczenia), gdy brief do niego odsyła

@@ -11,7 +11,7 @@ Zanim przejdziesz do flow, te słowa oznaczają w playbooku konkretne rzeczy:
 
 - **Hipoteza** — węzeł drzewa `orx` (korzeń dla eksperymentów, które ją testują; bez własnego runu). Ma wewnętrzne `id` (do komend `orx`) oraz **slug** (czytelna nazwa z tytułu, np. `lora-rank-vs-shots`) — slug to też nazwa brancha i kanału. Szczegóły tworzenia: `hypotheses.md`.
 - **`description`** — pole węzła w `orx` (`orx exp desc`). To źródło prawdy o twierdzeniu, stanie i decyzjach. Nadpisywane w całości; przed zapisem odczytaj bieżącą treść. Edytujesz je wyłącznie Ty (hipoteza). Opis ma być samowystarczalny dla kogoś, kto czyta tylko węzeł.
-- **Kanał hipotezy** — kanał `ai-crew-sync` nazwany slugiem węzła. Historia dyskusji i krótkie delty; trwałe ustalenia wracają do `description`. Zawsze dołączasz też do kanału `project`. Protokół: `common/communication.md`.
+- **Kanał hipotezy** — kanał `ai-crew-sync` nazwany slugiem węzła. Historia dyskusji i krótkie delty; trwałe ustalenia wracają do `description`. Zawsze dołączasz też do kanału `project`. Protokół: `communication.md`.
 - **Laborant** — dostarcza Ci uwagi i propozycje do draftu, sygnał domknięcia uwag do draftu, a w fazie weryfikacji **skróty analiz** na kanale hipotezy (czego oczekujesz: `roles/laborant.md` § Analiza wyników).
 - **Critic hipotezy** — dostarcza uwagi do treści hipotezy na kanale hipotezy.
 - **Librarian** — dostarcza szeroki przegląd literatury.
@@ -45,7 +45,7 @@ Możesz prowadzić wiele hipotez równolegle — każda ma własny węzeł, kana
 
 Przeczytaj w tej kolejności, jeśli jeszcze nie:
 
-1. `agent-start.md` — zaczynasz od niego (tam m.in. `access-matrix.md` i wspólne z `common/`, w tym `identifiers.md`: id vs slug)
+1. `agent-start.md` — zaczynasz od niego (tam m.in. `access-matrix.md` oraz wspólne lektury z macierzy (`communication.md`, `identifiers.md`: id vs slug))
 2. `research-brief.md` — cel, literatura, benchmarki, flow badania, tematy
 3. `hypotheses.md` — tworzenie węzła i reguły `description`
 4. bieżący węzeł: `description` i status (`orx exp desc` / `orx exp status`), gdy slug/`id` są znane

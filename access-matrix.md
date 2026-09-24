@@ -3,7 +3,7 @@
 Agent czyta wyłącznie:
 
 1. `agent-start.md`
-2. pliki z `common/` wymienione niżej
+2. wspólne lektury w rootcie repo wymienione niżej (`communication.md`, `identifiers.md`)
 3. przekazany plik roli z `roles/` oraz pliki, do których ten plik odsyła
 4. bieżący węzeł hipotezy/eksperymentu w `orx` albo artefakt wskazany w zleceniu
 5. `research-brief.md`, gdy rola każe go przeczytać albo gdy trzeba sprawdzić zakres badania
@@ -11,8 +11,8 @@ Agent czyta wyłącznie:
 
 ## Wspólne lektury
 
-- `common/communication.md`
-- `common/identifiers.md`
+- `communication.md`
+- `identifiers.md`
 - `agent-start.md`
 - przekazany plik roli
 
@@ -28,4 +28,4 @@ Gdy masz kilka przekazanych ról naraz (np. okrojony skład z `model-assignment.
 
 ## Źródło prawdy
 
-Dokumentacja `project/*.md`, `common/` i `roles/` jest read-only dla agentów — zmienia ją wyłącznie użytkownik. Stan badań żyje w węzłach `orx` i na kanałach `ai-crew-sync`; edytuje go agent aktualnie odpowiedzialny za etap (patrz `common/communication.md`). Wyjątek: `literature/index.md` dopisuje `librarian` pod lockiem (patrz `roles/librarian.md`).
+Dokumentacja `project/*.md` (w tym `communication.md`, `identifiers.md`, `access-matrix.md`) i `roles/` jest read-only dla agentów — zmienia ją wyłącznie użytkownik. Stan badań żyje w węzłach `orx` i na kanałach `ai-crew-sync`; edytuje go agent aktualnie odpowiedzialny za etap (patrz `communication.md`). Wyjątek: `literature/index.md` dopisuje `librarian` pod lockiem (patrz `roles/librarian.md`).

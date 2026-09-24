@@ -1,6 +1,6 @@
 # Hipotezy badawcze
 
-Hipoteza to węzeł drzewa `orx` bez własnego runu — korzeń dla eksperymentów, które ją testują. Komendy `orx` biorą wewnętrzne `id` węzła, nie slug (patrz `common/identifiers.md`).
+Hipoteza to węzeł drzewa `orx` bez własnego runu — korzeń dla eksperymentów, które ją testują. Komendy `orx` biorą wewnętrzne `id` węzła, nie slug (patrz `identifiers.md`).
 
 ## Tworzenie
 
@@ -16,7 +16,7 @@ Przy zmianie stanu dopisz krótkie uzasadnienie i wskazanie dowodów. Opis ma by
 
 ## Kanał
 
-Każda aktywna hipoteza ma kanał `ai-crew-sync` nazwany jej slugiem. Zakłada go `professor` przy tworzeniu węzła, zaraz po utworzeniu, i ogłasza to na kanale `project`. Ustalenia trwałe wracają do `description`; kanał to historia dyskusji (`common/communication.md`).
+Każda aktywna hipoteza ma kanał `ai-crew-sync` nazwany jej slugiem. Zakłada go `professor` przy tworzeniu węzła, zaraz po utworzeniu, i ogłasza to na kanale `project`. Ustalenia trwałe wracają do `description`; kanał to historia dyskusji (`communication.md`).
 
 ## Równoległość
 
