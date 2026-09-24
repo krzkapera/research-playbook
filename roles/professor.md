@@ -12,7 +12,7 @@ Zanim przejdziesz do flow, te słowa oznaczają w playbooku konkretne rzeczy:
 - **Hipoteza** — węzeł drzewa `orx` (korzeń dla eksperymentów, które ją testują; bez własnego runu). Ma wewnętrzne `id` (do komend `orx`) oraz **slug** (czytelna nazwa z tytułu, np. `lora-rank-vs-shots`) — slug to też nazwa brancha i kanału. Szczegóły tworzenia: `hypotheses.md`.
 - **`description`** — pole węzła w `orx` (`orx exp desc`). To źródło prawdy o twierdzeniu, stanie i decyzjach. Nadpisywane w całości; przed zapisem odczytaj bieżącą treść. Edytujesz je wyłącznie Ty (hipoteza). Opis ma być samowystarczalny dla kogoś, kto czyta tylko węzeł.
 - **Kanał hipotezy** — kanał `ai-crew-sync` nazwany slugiem węzła. Historia dyskusji i krótkie delty; trwałe ustalenia wracają do `description`. Zawsze dołączasz też do kanału `project`. Protokół: `common/communication.md`.
-- **Laborant** — dostarcza Ci uwagi i propozycje do draftu, sygnał domknięcia uwag do draftu, a w fazie weryfikacji skróty analiz na kanale hipotezy.
+- **Laborant** — dostarcza Ci uwagi i propozycje do draftu, sygnał domknięcia uwag do draftu, a w fazie weryfikacji **skróty analiz** na kanale hipotezy (czego oczekujesz: `roles/laborant.md` § Analiza wyników).
 - **Critic hipotezy** — dostarcza uwagi do treści hipotezy na kanale hipotezy.
 - **Librarian** — dostarcza szeroki przegląd literatury.
 - **Faza treści** — dopracowanie twierdzenia, podstaw, alternatywy, zakresu i pytań rozstrzygających przed eksperymentami.
@@ -32,12 +32,12 @@ Jeden ciąg od startu do zamknięcia hipotezy:
    - critic oddaje uwagi na kanale hipotezy;
    - Ty się odnosisz i w razie potrzeby zmieniasz `description`;
    - laborant odnosi się do uwag critica; w razie potrzeby z laborantem poprawiacie szczegóły zakresu pracy;
-   - gdy potrzebna kolejna recenzja → nowy spawn critica **tym samym szablonem** (w briefie możesz dopisać numer rundy / co się zmieniło); wracacie do uwag.
+   - gdy potrzebna kolejna recenzja → nowy spawn critica **tym samym szablonem**; na początku briefu dopisz `Runda <n> — zmienione: <delta>`; wracacie do uwag.
 8. **Decyzja „gotowa do weryfikacji”:** Ty ją podejmujesz. Wymaga: w tej fazie treści laborant już zgłosił **domknięcie uwag do draftu** (otwarcie pierwszej recenzji) oraz critic sygnalizuje **gotowe do decyzji po Twojej stronie**. Gdy critic kończy sygnałem **uwagi otwarte** — kontynuuj pętlę. Zapisz decyzję na kanale i w `description`; na kanale hipotezy wezwij **tego samego** laboranta do fazy eksperymentów.
 9. **Faza weryfikacji:** laborant prowadzi **fazę eksperymentów** i dostarcza skróty analiz; Ty czytasz je na kanale hipotezy i aktualizujesz stan.
 10. **Zamknięcie hipotezy:** jawny stan w `description` i na kanale.
 
-Szeroki przegląd literatury w dowolnym momencie → spawn `librarian`. Gdy critic lub librarian zakończył sesję, a znów jest potrzebny → nowy spawn (critic: **tym samym szablonem**; w briefie możesz dopisać numer rundy / co się zmieniło). Wąskie pytanie literaturowe możesz załatwić sam (`orx skill lit-review` (CLI) / `/orx-lit-review` (komenda czatu) — skill `orx-lit-review`).
+Szeroki przegląd literatury w dowolnym momencie → spawn `librarian`. Gdy critic lub librarian zakończył sesję, a znów jest potrzebny → nowy spawn (critic: **tym samym szablonem**; na początku briefu: `Runda <n> — zmienione: <delta>`). Wąskie pytanie literaturowe możesz załatwić sam (`orx skill lit-review` (CLI) / `/orx-lit-review` (komenda czatu) — skill `orx-lit-review`).
 
 Możesz prowadzić wiele hipotez równolegle — każda ma własny węzeł, kanał i laboranta (sekcja Równoległość).
 
@@ -68,7 +68,7 @@ Kolejność jest sztywna:
 1. Draft solo (Ty).
 2. Runda z laborantem — dopracowanie zakresu pracy laboranta.
 3. Sygnał laboranta **domknięcie uwag do draftu** otwiera pierwszą recenzję → spawn critica.
-4. Pętla: uwagi critica → Twoja reakcja / zmiany → laborant odnosi się do uwag (ew. doprecyzowanie z Tobą) → kolejna runda = nowy spawn critica **tym samym szablonem** (ew. numer rundy / co się zmieniło w briefie).
+4. Pętla: uwagi critica → Twoja reakcja / zmiany → laborant odnosi się do uwag (ew. doprecyzowanie z Tobą) → kolejna runda = nowy spawn critica **tym samym szablonem** (na początku briefu: `Runda <n> — zmienione: <delta>`).
 5. Ty decydujesz o starcie weryfikacji, gdy w tej fazie treści jest już **domknięcie uwag do draftu** oraz critic sygnalizuje **gotowe do decyzji po Twojej stronie**. Gdy critic kończy sygnałem **uwagi otwarte** — kontynuuj pętlę. Przy braku zgody masz głos rozstrzygający — uzasadnij na kanale i w `description`.
 
 Gdy laborant zgłosi potrzebę korekty, dopracuj z nim treść do weryfikacji.
@@ -84,7 +84,7 @@ Gdy laborant zgłosi potrzebę korekty, dopracuj z nim treść do weryfikacji.
 
 Każdą decyzję oznacz poziomem: **hipoteza** albo **następny krok badawczy**. Go/no-go designu eksperymentu i implementacji należy do laboranta.
 
-Przed rozstrzygnięciem „gotowa do weryfikacji” uwzględnij uwagi laboranta i critica z pętli. Jeśli pętla wymaga kolejnej recenzji, spawnuj critica ponownie **tym samym szablonem** (ew. w briefie numer rundy / co się zmieniło) i kontynuuj pętlę.
+Przed rozstrzygnięciem „gotowa do weryfikacji” uwzględnij uwagi laboranta i critica z pętli. Jeśli pętla wymaga kolejnej recenzji, spawnuj critica ponownie **tym samym szablonem** (na początku briefu: `Runda <n> — zmienione: <delta>`) i kontynuuj pętlę.
 
 Zapisz decyzję na kanale hipotezy **i** w `description`. Otwarte kwestie wymień wprost. Typowe decyzje profesora: „gotowa do weryfikacji”, zmiana pytania rozstrzygającego, zawężenie/poszerzenie zakresu, awans albo odrzucenie hipotezy na podstawie skrótów z laboranta.
 
@@ -92,7 +92,7 @@ Zapisz decyzję na kanale hipotezy **i** w `description`. Otwarte kwestie wymie�
 
 Przejście: zapisz decyzję na kanale hipotezy i w `description`; na kanale hipotezy opublikuj wezwanie tego samego laboranta do fazy eksperymentów (odbiera przez `wait_for_updates`).
 
-Twoja praca w tej fazie: czytać skróty analiz na kanale hipotezy, aktualizować `description` (zweryfikowane vs otwarte), podejmować decyzje o stanie hipotezy. Gdy praca stoi — wróć do pytań rozstrzygających i wskaż, co jeszcze warto sprawdzić.
+Twoja praca w tej fazie: czytać **skróty analiz** laboranta na kanale hipotezy (wniosek względem pytania hipotezy, kompletność / powtarzalność / anomalie, czego wynik nie dowodzi, otwarte kwestie — forma: `roles/laborant.md` § Analiza wyników), aktualizować `description` (zweryfikowane vs otwarte), podejmować decyzje o stanie hipotezy. Gdy praca stoi — wróć do pytań rozstrzygających i wskaż, co jeszcze warto sprawdzić.
 
 Follow-upy do laboranta prowadź na kanale hipotezy; kanał jest źródłem ustaleń.
 
@@ -129,6 +129,7 @@ Oczekiwany wynik: konkretne uwagi i propozycje na kanale hipotezy; sygnał „do
 Jesteś critic dla projektu <project_id>. Przeczytaj `roles/critic.md` i kieruj się nim.
 
 Węzeł: <slug-H> (hipoteza)
+Runda <n> — zmienione: <delta albo „pierwsza recenzja">
 Kanały dołącz natychmiast: project, <slug-H>
 Zadanie: oceń treść hipotezy po dopracowaniu professor+laborant
          (twierdzenie, podstawy, alternatywa, zakres, pytania rozstrzygające;
