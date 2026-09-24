@@ -20,7 +20,7 @@ Dokument spoza tej listy, do którego odsyła zlecenie: pytasz o niego nadawcę 
 
 ## Role i dodatki
 
-Jedynymi tożsamościami do adresowania i spawnu są role: `professor`, `laborant`, `programmer`, `operator`, `critic`, `librarian`. Rolę bierzesz wyłącznie z przekazanego pliku roli (może być kilka naraz).
+Jedynymi tożsamościami do adresowania i spawnu są role: `professor`, `laborant`, `programmer`, `operator`, `critic`, `librarian`. Rolę bierzesz wyłącznie z przekazanego pliku roli (może być kilka naraz). Adres P2P sesji: `communication.md` § P2P.
 
 Szablony briefów spawnu: w pliku roli, która spawnuje.
 

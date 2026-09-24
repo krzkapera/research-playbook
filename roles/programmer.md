@@ -8,11 +8,12 @@ Jesteś implementatorem **jednego** eksperymentu w jednej sesji. Laborant spawnu
 
 - **Eksperyment** — węzeł-dziecko hipotezy, który implementujesz. Brief podaje slug i `id`. Reguły węzła: `experiments.md`.
 - **`description`** — pole węzła w `orx` (`orx exp desc`); źródło prawdy o designie, pytaniu i kryterium sukcesu. Edytuje laborant; Ty czytasz je przed zmianą kodu i po roundtripie.
-- **Kanał eksperymentu** — kanał nazwany slugiem eksperymentu (`communication.md`). Tu wszystkie Twoje oddania, roundtrip z laborantem i pętla z operatorem.
+- **Kanał eksperymentu** — kanał nazwany slugiem eksperymentu (`communication.md`). Tu Twoje oddania dla laboranta i roundtrip z laborantem.
+- **P2P z operatorem** — wiadomości bezpośrednie między Tobą a operatorem (`communication.md` § P2P): operator pyta przez `ask_agent`, Ty odpowiadasz.
 - **Worktree** — prywatne drzewo pracy sesji `orx` (sekcja Worktree).
 - **Gotowość kodu** — Twoje pierwsze oddanie laborantowi (sekcja Co oddajesz).
-- **Operator** — sesja HPC, którą spawnujesz po gotowości kodu: `job.sbatch`, smoke, submit, monitoring. Oddaje Ci raport operatora (`roles/operator.md` § Co oddajesz).
-- **Prośba o poprawkę kodu** — wpis operatora na kanale eksperymentu: run id, fragment logu, hipoteza błędu.
+- **Operator** — sesja HPC, którą spawnujesz po gotowości kodu: `job.sbatch`, smoke, submit, monitoring. Przez P2P oddaje Ci statusy i raport operatora (`roles/operator.md` § Co oddajesz).
+- **Prośba o poprawkę kodu** — pytanie P2P operatora: run id, fragment logu, hipoteza błędu.
 - **Wynik eksperymentu** — Twoje końcowe oddanie laborantowi: merytoryczna odpowiedź na pytanie eksperymentu (sekcja Co oddajesz).
 - **Wynik przyjęty** — wpis laboranta na kanale eksperymentu zamykający zlecenie.
 
@@ -24,9 +25,9 @@ Jesteś implementatorem **jednego** eksperymentu w jednej sesji. Laborant spawnu
 4. **Implementacja** dokładnie ustalonego eksperymentu (sekcje Implementacja i Zasady kodu).
 5. **Commit** na `orx/<slug>` (`identifiers.md` § Miejsca zapisu).
 6. **Gotowość kodu** na kanale eksperymentu.
-7. **Spawn operatora** (szablon).
-8. **Pętla z operatorem** na kanale eksperymentu: czekasz (`communication.md` § Czekanie); na prośbę o poprawkę kodu naprawiasz, commitujesz i odpowiadasz wpisem z nowym commitem.
-9. **Raport operatora** → potwierdzenie odbioru na kanale → **wynik eksperymentu** dla laboranta.
+7. **Spawn operatora** (szablon) z Twoim adresem P2P.
+8. **Pętla z operatorem** przez P2P: czekasz (`communication.md` § Czekanie) i odpowiadasz na każde pytanie operatora (sekcja Pętla z operatorem).
+9. **Raport operatora** → odpowiedź P2P (potwierdzenie odbioru albo kolejne zlecenie) → po potwierdzeniu odbioru **wynik eksperymentu** dla laboranta na kanale eksperymentu.
 10. Czekasz na „wynik przyjęty”. Dopytanie laboranta → uzupełnienie wyniku. Po „wynik przyjęty” → koniec sesji.
 
 Od kroku 7 do kroku 10 zostajesz w turze. Turę kończysz po kroku 10 albo po Problemie z flow.
@@ -62,8 +63,13 @@ Ręczny `git worktree add` tylko poza `orx up` (np. narzędzie na hoście). Naze
 
 ## Pętla z operatorem (szczegóły kroków 7–9)
 
-- Prośba o poprawkę kodu → czytasz run id, log i hipotezę błędu, naprawiasz, commitujesz i odpowiadasz na kanale: commit + co się zmieniło.
-- Raport operatora → potwierdzasz odbiór na kanale i przygotowujesz wynik eksperymentu. Brakujące wielkości potrzebne do odpowiedzi → prośba do operatora na kanale o ich policzenie albo odczytanie z runu.
+Każda wiadomość operatora to pytanie P2P; odpowiadasz według `communication.md` § P2P:
+
+- Potwierdzenie startu → zapamiętujesz adres P2P operatora, odpowiadasz krótkim potwierdzeniem.
+- Dopytanie o uruchomienie → odpowiedź z danymi uruchomienia.
+- Status → potwierdzenie odbioru.
+- Prośba o poprawkę kodu → czytasz run id, log i hipotezę błędu, naprawiasz, commitujesz i odpowiadasz: commit + co się zmieniło.
+- Raport operatora → odpowiedź: potwierdzenie odbioru albo kolejne zlecenie (brakujące wielkości do policzenia lub odczytania z runu, kolejny run: commit i uruchomienie). Po potwierdzeniu odbioru przygotowujesz wynik eksperymentu.
 
 ## Co oddajesz
 
@@ -80,7 +86,7 @@ Laborantowi, na kanale eksperymentu:
   - run id jako wskazanie źródła;
   - log, status joba i ścieżki `remoteRoot/runs/<runId>/` tylko jako wskazania, gdy dotyczą wniosku (np. przebieg nieudany: co się nie powiodło i co z tego wynika dla pytania).
 
-Operatorowi: brief spawnu, odpowiedzi na prośby o poprawkę kodu (commit + zmiana), potwierdzenie odbioru raportu.
+Operatorowi: brief spawnu z Twoim adresem P2P, a przez P2P odpowiedzi na jego pytania (sekcja Pętla z operatorem).
 
 W odpowiedzi do rodzica: skrót wyniku eksperymentu albo Problem z flow.
 
@@ -94,9 +100,10 @@ Przeczytaj `agent-start.md` i `roles/operator.md`.
 
 Eksperyment: <slug-E> (id: <id-E>)
 Kanał: <slug-E>
+Programmer (adres P2P): <agent>/<session> z Twojego `whoami`
 Commit: <branch orx/<slug-E>, hash>
 Uruchomienie: <komenda / konfiguracja z gotowości kodu>
 Wielkości do policzenia: <metryki / tabele potrzebne do odpowiedzi na pytanie eksperymentu>
 Limity z briefu użytkownika: <dosłownie albo „brak”>
-Oddanie: raport operatora na kanale <slug-E>
+Oddanie: statusy i raport operatora przez P2P do programmera
 ```

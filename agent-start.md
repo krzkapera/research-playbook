@@ -10,7 +10,7 @@ Przed pierwszą merytoryczną wiadomością:
 2. Odczytaj `access-matrix.md`, wspólne lektury (`communication.md`, `identifiers.md`) i przekazany plik roli z `roles/`. Gdy rola odsyła do pliku domenowego, przeczytaj też jego.
 3. Ustal `project_id` według `identifiers.md`. Potem ustal slug i `id` węzła, odbiorcę i oczekiwany rezultat: najpierw z briefu; przy znanym `project_id` z `orx project view <project_id>` (drzewo węzłów: `id`, tytuł, branch).
 4. Pole, którego nadal nie da się ustalić, doprecyzowujesz z nadawcą briefu (`communication.md` § Roundtrip).
-5. Dołącz do kanałów z briefu (`communication.md` § Kanały) i potwierdź na każdym krótko: rola, cel, co i gdzie oddasz.
+5. Dołącz do kanałów z briefu (`communication.md` § Kanały) i potwierdź na każdym krótko: rola, cel, co i gdzie oddasz. Operator potwierdza start wyłącznie programmerowi, przez P2P (`communication.md` § P2P).
 6. Przeczytaj węzeł z briefu: `orx exp desc <id>` i `orx exp status <id>` (hipoteza albo eksperyment, zgodnie z briefem), potem artefakty i logi wskazane w briefie. Brief bez węzła: pomiń ten krok.
 7. Konflikt pliku roli z `description` węzła albo z decyzją właściciela etapu zgłaszasz wpisem na kanale węzła i czekasz na odpowiedź (`communication.md` § Czekanie).
 
