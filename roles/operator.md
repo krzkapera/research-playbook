@@ -36,8 +36,8 @@ Jeden ciąg od spawnu do oddania wyników:
 3. **Odczytaj zlecenie:** `description`, ustalenia laboranta na kanale, commit programisty (`orx exp status` / `list_agents`).
 4. Gdy brief/`description` jest niejasne względem laboranta → **roundtrip z laborantem**, potem wróć do kroku 3.
 5. **Wybór hosta** (`helios` / `athena` / `ares`) wg skali joba (sekcja Klastry).
-6. **Smoke** przez ORX na wybranym hoście, gdy wymagany (sekcja Smoke).
-7. **Napisz / zaktualizuj `job.sbatch`** w korzeniu brancha i **zacommituj** (sekcja job.sbatch).
+6. **Napisz / zaktualizuj `job.sbatch`** w korzeniu brancha i **zacommituj** (sekcja job.sbatch) — przed pierwszym smokiem / submitem.
+7. **Smoke** przez ORX na wybranym hoście, gdy wymagany (sekcja Smoke).
 8. **Submit:** `orx exp run <expId> --backend slurm --host <alias>` (`--host` z briefu / wyboru; domyślny host z `slurm.json`, gdy flaga pominięta).
 9. **Monitoruj** (`wait` albo `wake`); zdrowie kolejki sprawdzaj i w razie potrzeby zmień host (sekcja Kolejka).
 10. **Błąd przebiegu** → sekcja Naprawa (najpierw Ty na infrastrukturze / kodzie; gdy utkniesz na implementacji — `ask_agent` do programisty); po poprawce wróć do smoke/submit.
@@ -48,7 +48,7 @@ Jeden ciąg od spawnu do oddania wyników:
 
 Przeczytaj w tej kolejności, jeśli jeszcze nie:
 
-1. `agent-start.md`
+1. `agent-start.md` — zaczynasz od niego (tam m.in. `access-matrix.md` i wspólne z `common/`, w tym `identifiers.md`: id vs slug)
 2. `experiments.md` — runy, logi, rozdział błędów
 3. `roles/programmer.md` — sekcja Worktree (branch `orx/<slug>`)
 4. `description` i status eksperymentu (`orx exp desc` / `orx exp status`)
@@ -89,14 +89,15 @@ Przeczytaj w tej kolejności, jeśli jeszcze nie:
   - START TIME odleglejszy niż **24 h** → tak samo zmień host.
 - Anulowanie: `orx exp cancel <expId>` (`orx supervise` zostawiasz w spokoju).
 
-## Smoke (szczegóły kroku 6)
+## Smoke (szczegóły kroku 7)
 
+- Przed pierwszym smokiem: `job.sbatch` w zacommitowanym snapshocie (krok 6) — `orx exp run` submituje właśnie ten plik.
 - Przed większą zmianą / pierwszym pełnym jobem: krótki smoke przez **`orx exp run <expId> --backend slurm --host <alias>`** (artefakty w `remoteRoot/runs/<runId>/`). Wyłącznie przez ORX na klastrze.
 - Przy zmianie jednego sprawdzonego parametru wystarczy poprzedni udany smoke na tym samym kontrakcie.
 - Krótkie few-shot też przez kolejkę (zwykle `ares`).
 - Po starcie: monitoring wg sekcji Monitoring (poniżej).
 
-## job.sbatch (szczegóły kroków 7–8)
+## job.sbatch (szczegóły kroków 6 i 8)
 
 `orx exp run <expId> --backend slurm` submituje `job.sbatch` z korzenia **zacommitowanego** snapshotu. Ty ten plik piszesz, utrzymujesz i commitujesz przed runem. Submit opiera się na `job.sbatch` z commita; partition/account/time ustawiasz w skrypcie.
 
@@ -157,8 +158,8 @@ Po Failed / złym exit code / oczywistym błędzie w logu:
 
 1. **Rozdziel** błąd infrastruktury (kolejka, host, moduły, `job.sbatch`, ścieżki remote) od błędu **implementacji** (kod eksperymentu, dane, hiperparametry w kodzie).
 2. **Infrastruktura / `job.sbatch`:** napraw sam (`git checkout orx/<slug>`), zacommituj, wróć do smoke/submit (zmiana hosta wg sekcji Kolejka).
-3. **Implementacja:** najpierw **napraw sam**, gdy przyczyna jest jasna z logu — edytuj kod na branchu `orx/<slug>`, zacommituj, wróć do smoke/submit.
-4. Gdy po Twojej próbie błąd implementacji wymaga wiedzy programisty: `list_agents` → **`ask_agent`** do sesji programisty tego eksperymentu z: run id, fragmentem logu, hipotezą błędu, oczekiwanym commitem. Po odpowiedzi / nowym commicie — wróć do smoke/submit.
+3. **Implementacja:** jedna próba naprawy, gdy przyczyna jest jasna z logu — edytuj kod na branchu `orx/<slug>`, zacommituj, wróć do smoke/submit.
+4. Gdy ten sam błąd implementacji wraca po tej próbie: `list_agents` → **`ask_agent`** do sesji programisty tego eksperymentu z: run id, fragmentem logu, hipotezą błędu, oczekiwanym commitem. Po odpowiedzi / nowym commicie — wróć do smoke/submit.
 5. Pętlę naprawczą z programistą prowadź przez **`ask_agent`**. Na kanale eksperymentu oddaj laborantowi wynik końcowy; przy dłuższej blokadzie na kodzie — jedno krótkie statusowe „czekam na poprawkę kodu”.
 
 ## Raport (szczegóły kroku 11)
