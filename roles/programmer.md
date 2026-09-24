@@ -29,7 +29,7 @@ Jeden ciąg od spawnu do domknięcia pętli z operatorem:
 5. **Zaimplementuj** dokładnie ustalony eksperyment / narzędzie (zasady kodu niżej).
 6. **Commit** na branchu eksperymentu: kod i małe pliki wniosku. Duże surowe dane zostają tam, gdzie powstały — w raporcie tylko ścieżki.
 7. **Gotowość dla laboranta** na kanale eksperymentu (i w krótkim podsumowaniu spawnu): branch/commit, pliki, komendy uruchomienia (dla operatora), ścieżki artefaktów.
-8. Gdy eksperyment wymaga smoke / joba HPC → **spawn `operator`** (szablon niżej; zawsze `--no-wake`; `--harness`/`--model` z `model-assignment.md`).
+8. Gdy `description` lub brief laboranta przewiduje smoke / job HPC → **spawn `operator`** (szablon niżej; zawsze `--no-wake`; `--harness`/`--model` z `model-assignment.md`).
 9. **Czekaj** przez `wait_for_updates` na kanale eksperymentu — sesja zostaje żywa na **`ask_agent`** od operatora oraz na sygnały laboranta. Operator oddaje laborantowi wyniki na kanale.
 10. Gdy operator woła przez **`ask_agent`**: napraw kod, zacommituj, odpowiedz w tym samym RPC (commit + co się zmieniło). Wróć do kroku 9.
 11. **Zakończ sesję**, gdy laborant zamknie zlecenie na kanale albo na kanale widać oddane wyniki operatora i kod jest domknięty. Ten spawn dotyczy tylko tego eksperymentu.
@@ -72,7 +72,7 @@ Gdy brief lub `description` nie wystarcza do implementacji:
 - Kod i małe pliki wniosku → commit na branchu eksperymentu.
 - Duże surowe dane / cache → poza branchiem; w raporcie podaj ścieżki.
 - Sesja dotyczy **tego** eksperymentu; `ask_agent` przyjmujesz od **operatora tego** eksperymentu (poprawki po jobie).
-- Smoke i submit jobów = `operator` (osobna sesja, którą **Ty** spawujesz, gdy eksperyment wymaga HPC).
+- Smoke i submit jobów = `operator` (osobna sesja, którą **Ty** spawujesz, gdy `description` lub brief laboranta przewiduje HPC).
 
 ## Zasady kodu
 
@@ -92,7 +92,7 @@ Na **kanale eksperymentu** (dla laboranta) oraz w krótkim podsumowaniu spawnu p
 - komendy uruchomienia (wejście dla operatora);
 - ścieżki artefaktów / zależności potrzebne do joba.
 
-Gdy eksperyment wymaga smoke / joba HPC: **spawn `operator`** (szablon). Po spawnie trzymaj sesję na `wait_for_updates`. Gdy operator wywoła **`ask_agent`**: przeczytaj run id / log / hipotezę błędu, napraw, zacommituj, odpowiedz w RPC. Całą treść tej pętli trzymaj w P2P — laborant dostaje wynik końcowy od operatora na kanale.
+Gdy `description` lub brief laboranta przewiduje smoke / job HPC: **spawn `operator`** (szablon). Po spawnie trzymaj sesję na `wait_for_updates`. Gdy operator wywoła **`ask_agent`**: przeczytaj run id / log / hipotezę błędu, napraw, zacommituj, odpowiedz w RPC. Całą treść tej pętli trzymaj w P2P — laborant dostaje wynik końcowy od operatora na kanale.
 
 `description` aktualizuje laborant.
 
