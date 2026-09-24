@@ -36,12 +36,13 @@ Jeden ciąg od spawnu do oddania uwag:
 8. **Zakończ sesję**, gdy oddałeś ocenę. Kolejna runda = nowy spawn albo jasne wezwanie właściciela na kanale.
 
 Dopytania o niejasne zlecenie → roundtrip na kanale węzła + `wait_for_updates` (`common/communication.md`). Właściciel etapu odpowiada na kanale i/lub aktualizuje `description`.
+Gdy brak materiału do oceny → zgłoś na kanale węzła i czekaj przez `wait_for_updates`.
 
 ## Lektura startowa
 
 Przeczytaj w tej kolejności, jeśli jeszcze nie:
 
-1. `agent-start.md`
+1. `agent-start.md` — zaczynasz od niego (tam m.in. `access-matrix.md` i wspólne z `common/`, w tym `identifiers.md`: id vs slug)
 2. `hypotheses.md` — gdy oceniasz hipotezę
 3. `experiments.md` — gdy oceniasz eksperyment
 4. `research-brief.md` — zakres badania (shoty, benchmarki, ograniczenia), gdy brief do niego odsyła
@@ -51,7 +52,7 @@ Przeczytaj w tej kolejności, jeśli jeszcze nie:
 
 ### Hipoteza (treść)
 
-Oceniasz twierdzenie, podstawy, alternatywę, zakres i pytania rozstrzygające względem tego, co miało być ustalone (brief, kanał, `description`). Uwagi wyłącznie na kanale hipotezy. Odbiorca: professor (oraz laborant w pętli treści).
+Oceniasz twierdzenie, podstawy, alternatywę, zakres i pytania rozstrzygające względem tego, co miało być ustalone (brief, kanał, `description`). Uwagi na kanale hipotezy. Odbiorcy: professor i laborant (w fazie treści).
 
 ### Eksperyment (design)
 
