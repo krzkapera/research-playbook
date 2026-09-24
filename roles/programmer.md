@@ -24,7 +24,7 @@ Jeden ciąg od spawnu do domknięcia pętli z operatorem:
 
 1. **Lektura startowa** (sekcja niżej).
 2. **Dołącz** do kanałów z briefu: `project` oraz kanał eksperymentu (slug).
-3. **Odczytaj zlecenie:** `description` eksperymentu (`orx exp desc`), kryterium pytania, ustalenia na kanale; przygotuj worktree (sekcja Worktree).
+3. **Odczytaj zlecenie:** `description` eksperymentu (`orx exp desc`), kryterium pytania, ustalenia na kanale; przygotuj worktree: `git checkout orx/<slug>`, sprawdź czystość (`orx` już dał worktree; sekcja Worktree).
 4. Gdy brief/`description` jest niejasne lub niepełne → **roundtrip z laborantem**, potem wróć do kroku 3.
 5. **Zaimplementuj** dokładnie ustalony eksperyment / narzędzie (zasady kodu niżej).
 6. **Commit** na branchu eksperymentu: kod i małe pliki wniosku. Duże surowe dane zostają tam, gdzie powstały — w raporcie tylko ścieżki.
@@ -38,7 +38,7 @@ Jeden ciąg od spawnu do domknięcia pętli z operatorem:
 
 Przeczytaj w tej kolejności, jeśli jeszcze nie:
 
-1. `agent-start.md`
+1. `agent-start.md` — zaczynasz od niego (tam m.in. `access-matrix.md` i wspólne z `common/`, w tym `identifiers.md`: id vs slug)
 2. `experiments.md` — węzeł, `description`, kanał, runy
 3. `description` i status eksperymentu (`orx exp desc` / `orx exp status`)
 4. gdy spawujesz operatora: `roles/operator.md` (kontrakt wyników i HPC)
