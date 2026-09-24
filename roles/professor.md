@@ -129,7 +129,7 @@ Oczekiwany wynik: konkretne uwagi i propozycje na kanale hipotezy; sygnał „do
 Jesteś critic dla projektu <project_id>. Przeczytaj `roles/critic.md` i kieruj się nim.
 
 Węzeł: <slug-H> (hipoteza)
-Runda <n> — zmienione: <delta albo „pierwsza recenzja">
+Runda <n> — zmienione: <delta albo „pierwsza recenzja”>
 Kanały dołącz natychmiast: project, <slug-H>
 Zadanie: oceń treść hipotezy po dopracowaniu professor+laborant
          (twierdzenie, podstawy, alternatywa, zakres, pytania rozstrzygające;
