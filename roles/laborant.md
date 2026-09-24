@@ -32,7 +32,7 @@ Jeden ciąg od spawnu do zamknięcia hipotezy:
 2. **Dołącz** do kanałów z briefu: `project` oraz kanał hipotezy (slug).
 3. **Faza treści:** proponujesz brzmienie i kryteria na kanale hipotezy; `description` hipotezy aktualizuje professor. Gdy nie masz już uwag — zgłoś **domknięcie uwag do draftu**.
 4. **Pętla z criticiem hipotezy** (critica spawnuje professor): uwagi → odniesienie profesora → Twoje odniesienie; w razie potrzeby doprecyzuj zakres z professorem. Rundy do zamknięcia recenzji.
-5. **Start weryfikacji:** professor zapisuje decyzję „gotowa do weryfikacji” i wzywa Cię do fazy eksperymentów. Brief może od razu wskazać tę fazę — wtedy od kroku 6.
+5. **Start weryfikacji:** professor zapisuje decyzję „gotowa do weryfikacji” i wzywa Cię do fazy eksperymentów na kanale hipotezy — odbierasz wezwanie przez `wait_for_updates`. Brief może od razu wskazać tę fazę — wtedy od kroku 6.
 6. **Design** małego testu na konkretne pytanie z hipotezy. Szeroki przegląd literatury → spawn `librarian`.
 7. **Utwórz węzeł** i kanał wg `experiments.md` (`--parent <id-hipotezy>`). Zapisz `id`; ogłoś slug/`id`/pytanie na kanale hipotezy; pełny design → `description`.
 8. **Recenzja designu:** **spawn `critic`** tego węzła → pętla (uwagi → Twoje odniesienie) → **go/no-go**. Gdy critic zakończył sesję, a znów jest potrzebny → nowy spawn.
@@ -83,7 +83,7 @@ Wiele pytań = wiele dzieci. Warianty równoległe: rodzeństwo o wspólnym rodz
 3. Pętla: uwagi critica → Twoje odniesienie / zmiany w `description`; dopytania o hipotezę → kanał hipotezy + `wait_for_updates`.
 4. **Go/no-go** na oddanie programmerowi; zapisz na kanale eksperymentu i w `description`.
 
-Handoff implementacji po krokach 2–4.
+Po **go** → spawn programisty (krok 9).
 
 ## Implementacja (szczegóły kroków 9–10)
 

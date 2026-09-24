@@ -33,7 +33,7 @@ Jeden ciąg od startu do zamknięcia hipotezy:
    - Ty się odnosisz i w razie potrzeby zmieniasz `description`;
    - laborant się odnosi; w razie potrzeby z laborantem poprawiacie szczegóły zakresu pracy;
    - wracacie do uwag critica (kolejna runda).
-8. **Decyzja „gotowa do weryfikacji”:** Ty ją podejmujesz. Z reguły wtedy, gdy laborant wcześniej zgłosił **domknięcie uwag do draftu**, a critic sygnalizuje **gotowe do decyzji** (lub **gotowe do decyzji po Twojej stronie**). Zapisz decyzję na kanale i w `description`; wezwij **tego samego** laboranta do fazy eksperymentów.
+8. **Decyzja „gotowa do weryfikacji”:** Ty ją podejmujesz. Z reguły wtedy, gdy laborant wcześniej zgłosił **domknięcie uwag do draftu**, a critic sygnalizuje **gotowe do decyzji** (lub **gotowe do decyzji po Twojej stronie**). Zapisz decyzję na kanale i w `description`; na kanale hipotezy wezwij **tego samego** laboranta do fazy eksperymentów.
 9. **Faza weryfikacji:** laborant prowadzi **fazę eksperymentów** i dostarcza skróty analiz; Ty czytasz je na kanale hipotezy i aktualizujesz stan.
 10. **Zamknięcie hipotezy:** jawny stan w `description` i na kanale.
 
@@ -90,7 +90,7 @@ Zapisz decyzję na kanale hipotezy **i** w `description`. Otwarte kwestie wymie�
 
 ## Faza weryfikacji (szczegóły kroków 9–10)
 
-Przejście: przekaż decyzję na kanale i w `description`; wezwij tego samego laboranta do fazy eksperymentów.
+Przejście: zapisz decyzję na kanale hipotezy i w `description`; na kanale hipotezy opublikuj wezwanie tego samego laboranta do fazy eksperymentów (odbiera przez `wait_for_updates`).
 
 Twoja praca w tej fazie: czytać skróty analiz na kanale hipotezy, aktualizować `description` (zweryfikowane vs otwarte), podejmować decyzje o stanie hipotezy. Gdy praca stoi — wróć do pytań rozstrzygających i wskaż, co jeszcze warto sprawdzić.
 
@@ -130,13 +130,16 @@ Jesteś critic dla projektu <project_id>. Przeczytaj `roles/critic.md` i kieruj 
 
 Węzeł: <slug-H> (hipoteza)
 Kanały dołącz natychmiast: project, <slug-H>
-Zadanie: oceń treść hipotezy po dopracowaniu professor+laborant (co miało być ustalone vs co jest w description i na kanale); uwagi wyłącznie na kanale hipotezy.
+Zadanie: oceń treść hipotezy po dopracowaniu professor+laborant
+         (twierdzenie, podstawy, alternatywa, zakres, pytania rozstrzygające;
+         przedmiot oceny: treść w description i na kanale — co miało być ustalone vs co jest);
+         uwagi wyłącznie na kanale <slug-H>.
 Oczekiwany wynik: uwagi na kanale <slug-H> + krótkie streszczenie w odpowiedzi spawnu.
 ```
 
 ### Przejście do weryfikacji
 
-Decyzja na kanale hipotezy i w `description`; ten sam laborant wchodzi w fazę eksperymentów.
+Decyzja „gotowa do weryfikacji” na kanale hipotezy i w `description`; na tym samym kanale opublikuj wezwanie laboranta do fazy eksperymentów (laborant odbiera je przez `wait_for_updates`).
 
 ### → librarian
 
