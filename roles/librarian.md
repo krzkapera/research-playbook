@@ -13,7 +13,7 @@ Zanim przejdziesz do flow, te słowa oznaczają w playbooku konkretne rzeczy:
 - **Zlecający** — agent, który Cię spawnuje (zwykle professor lub laborant). Odbiera syntezę i wciąga wnioski tam, gdzie trzeba (`description` / kanał).
 - **Korpus `literature/`** — lokalne PDF-y projektu oraz spis `literature/index.md`.
 - **Indeks** — `literature/index.md` pod lockiem `literature-index` (`ai-crew-sync`).
-- **Kanał** — zawsze `project`; opcjonalnie slug z briefu (hipoteza / eksperyment / kontekst). Protokół: `common/communication.md`.
+- **Kanał** — zawsze `project`; dołącz do kanału slug gdy brief wprost wskazuje hipotezę/eksperyment (kontekst zlecenia). Protokół: `common/communication.md`.
 - **Synteza** — zwięzłe zestawienie trafień: tytuł + dlaczego pasuje / nie; wnioski dla tematu z briefu. Dłuższy materiał na kanale; skrót w odpowiedzi spawnu (limit ~4000 znaków).
 - **Odkrywanie zewnętrzne** — `orx discover` / `orx paper` (`orx skill lit-review` CLI / `/orx-lit-review` czat — skill `orx-lit-review`), uzupełniająco firecrawl MCP (search / research index).
 
@@ -22,7 +22,7 @@ Zanim przejdziesz do flow, te słowa oznaczają w playbooku konkretne rzeczy:
 Jeden ciąg od spawnu do oddania syntezy:
 
 1. **Lektura startowa** (sekcja niżej).
-2. **Dołącz** do kanałów z briefu: `project` oraz opcjonalny slug kontekstu.
+2. **Dołącz** zawsze do `project`; do kanału slug — gdy brief wprost wskazuje hipotezę/eksperyment (kontekst zlecenia).
 3. **Ustal temat** z briefu (zakres, czego zlecający potrzebuje).
 4. **Przeszukaj korpus** w kolejności (sekcja Korpus).
 5. **Uzupełnij zewnętrznie**, gdy korpus nie wystarcza (sekcja Odkrywanie).
@@ -37,7 +37,7 @@ Przy limicie API (np. 429) przełącz provider / metodę i kontynuuj.
 
 Przeczytaj w tej kolejności, jeśli jeszcze nie:
 
-1. `agent-start.md`
+1. `agent-start.md` — zaczynasz od niego (tam m.in. `access-matrix.md` i wspólne z `common/`, w tym `identifiers.md`: id vs slug)
 2. `literature/index.md` (gdy istnieje)
 3. brief spawnu — temat i kanały
 4. `common/communication.md` — kanały, locki, odpowiedź spawnu
