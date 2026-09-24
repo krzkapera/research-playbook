@@ -32,7 +32,7 @@ Po spawnie z `--no-wake` rodzic **nie** dostaje budzenia z odpowiedzi spawnu. Od
 `ask_agent` (po `list_agents`) to kanał roboczy między żywymi sesjami helperów tego samego eksperymentu.
 
 - **Programmer ↔ operator:** pętla naprawcza kodu, diagnoza logów, prośba o commit — wyłącznie przez `ask_agent`.
-- **Spawn operatora** przy HPC: robi **programmer** (nie laborant).
+- **Spawn operatora**: robi zawsze **programmer** (nie laborant).
 - **Kanał eksperymentu** zostawiasz na sygnały dla laboranta: gotowość kodu (programmer), policzone wyniki / status końcowy (operator), roundtrip designu z laborantem, recenzja z criticiem.
 - Operator przy błędzie implementacji najpierw naprawia sam; gdy utknie — `ask_agent` do programisty. Programmer po gotowości (i po spawnie operatora) trzyma sesję na `wait_for_updates`, żeby móc odebrać `ask_agent`.
 

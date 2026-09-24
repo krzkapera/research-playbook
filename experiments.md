@@ -8,7 +8,7 @@ Na Slurmie job startuje z `job.sbatch` w korzeniu brancha (`orx exp run --backen
 
 Treść (pytanie, ustalenia, krytyka, wynik) żyje w `description` (`orx exp desc`). Surowe logi i wyniki runów zostają tam, gdzie zapisuje je `orx` (`orx logs <run-id>`); `description` je streszcza i wskazuje ścieżki, nie duplikuje.
 
-`description` jest nadpisywane w całości: przed zapisem odczytaj bieżącą treść (`orx exp status` / `orx exp desc`) i zapisz pełną zaktualizowaną wersję. Edytuje wyłącznie aktualny właściciel etapu (`laborant`). Programmer na kanale oddaje gotowość (commit, komendy) i przy HPC spawnuje operatora; operator na kanale oddaje policzone wyniki (metryki, ścieżki, run id, status). Pętlę naprawczą kodu programmer↔operator prowadzą przez `ask_agent`.
+`description` jest nadpisywane w całości: przed zapisem odczytaj bieżącą treść (`orx exp status` / `orx exp desc`) i zapisz pełną zaktualizowaną wersję. Edytuje wyłącznie aktualny właściciel etapu (`laborant`). Programmer na kanale oddaje gotowość (commit, komendy) i spawnuje operatora; operator na kanale oddaje policzone wyniki (metryki, ścieżki, run id, status). Pętlę naprawczą kodu programmer↔operator prowadzą przez `ask_agent`.
 
 W `description` zapisuj tylko to, co jest istotne z punktu widzenia eksperymentu i hipotezy (pytanie, ustalenia, wynik względem hipotezy). Przebieg runu (`Starting` / `Running` / `Done` / `Failed` / `Cancelled`) zostaje w raporcie `orx`.
 
