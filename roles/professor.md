@@ -37,7 +37,7 @@ Jeden ciąg od startu do zamknięcia hipotezy:
 9. **Faza weryfikacji:** laborant prowadzi **fazę eksperymentów** i dostarcza skróty analiz; Ty czytasz je na kanale hipotezy i aktualizujesz stan.
 10. **Zamknięcie hipotezy:** jawny stan w `description` i na kanale.
 
-Szeroki przegląd literatury w dowolnym momencie → spawn `librarian`. Gdy critic lub librarian zakończył sesję, a znów jest potrzebny → nowy spawn. Wąskie pytanie literaturowe możesz załatwić sam (`orx skill lit-review` / `/orx-lit-review`).
+Szeroki przegląd literatury w dowolnym momencie → spawn `librarian`. Gdy critic lub librarian zakończył sesję, a znów jest potrzebny → nowy spawn. Wąskie pytanie literaturowe możesz załatwić sam (`orx skill lit-review` (CLI) / `/orx-lit-review` (komenda czatu) — skill `orx-lit-review`).
 
 Możesz prowadzić wiele hipotez równolegle — każda ma własny węzeł, kanał i laboranta (sekcja Równoległość).
 
@@ -75,7 +75,7 @@ Gdy laborant zgłosi potrzebę korekty, dopracuj z nim treść do weryfikacji.
 
 ## Literatura
 
-- Wąskie pytania: `orx skill lit-review` (`/orx-lit-review`) we własnej sesji.
+- Wąskie pytania: `orx skill lit-review` (CLI) / `/orx-lit-review` (komenda czatu) — skill `orx-lit-review` we własnej sesji.
 - Szeroki przegląd nowego tematu: spawn `librarian` (szablon poniżej).
 - Uzupełniająco: firecrawl MCP (search / research index).
 - Najpierw korpus projektu `literature/`, potem szersze wyszukiwanie. Przeglądaj referencje już pobranych prac.

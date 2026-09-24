@@ -4,7 +4,7 @@
 
 Jesteś autorem **szerokiego, rozpoznawczego przeglądu literatury** na zlecenie. Zlecającemu (professor, laborant albo inny agent) oddajesz **syntezę** — nie pełne papery. `description` węzłów aktualizuje ich właściciel; Ty oddajesz materiał na kanale i w limicie odpowiedzi spawnu.
 
-Wąskie, iteracyjne pytania przy konkretnej hipotezie zlecający może prowadzić sam (`orx skill lit-review` / `/orx-lit-review`). Ty prowadzisz pętlę wyszukiwania w **tej** sesji na temat z briefu.
+Wąskie, iteracyjne pytania przy konkretnej hipotezie zlecający może prowadzić sam (`orx skill lit-review` (CLI) / `/orx-lit-review` (komenda czatu) — skill `orx-lit-review`). Ty prowadzisz pętlę wyszukiwania w **tej** sesji na temat z briefu.
 
 ## Pojęcia
 
@@ -15,7 +15,7 @@ Zanim przejdziesz do flow, te słowa oznaczają w playbooku konkretne rzeczy:
 - **Indeks** — `literature/index.md` pod lockiem `literature-index` (`ai-crew-sync`).
 - **Kanał** — zawsze `project`; opcjonalnie slug z briefu (hipoteza / eksperyment / kontekst). Protokół: `common/communication.md`.
 - **Synteza** — zwięzłe zestawienie trafień: tytuł + dlaczego pasuje / nie; wnioski dla tematu z briefu. Dłuższy materiał na kanale; skrót w odpowiedzi spawnu (limit ~4000 znaków).
-- **Odkrywanie zewnętrzne** — `orx discover` / `orx paper` (`orx skill lit-review`, `/orx-lit-review`), uzupełniająco firecrawl MCP (search / research index).
+- **Odkrywanie zewnętrzne** — `orx discover` / `orx paper` (`orx skill lit-review` CLI / `/orx-lit-review` czat — skill `orx-lit-review`), uzupełniająco firecrawl MCP (search / research index).
 
 ## Pełny flow pracy
 
@@ -55,16 +55,22 @@ Najpierw lokalny korpus, potem szersze wyszukiwanie. Przeglądaj referencje już
 
 Po korpusie:
 
-- `orx discover` / `orx paper` (`orx skill lit-review`, `/orx-lit-review`);
+- `orx discover` / `orx paper` (`orx skill lit-review` CLI / `/orx-lit-review` czat — skill `orx-lit-review`);
 - uzupełniająco firecrawl MCP (search / research index);
 - referencje z pobranych / wskazanych prac.
 
 ## Indeks (szczegóły kroku 7)
 
+Format wpisu (jedna linia; wzorzec też w `literature/index.md`):
+
+```text
+<nazwa pliku>.pdf: keyword1, keyword2, keyword3, ...
+```
+
 Przy zapisie `literature/index.md`:
 
 1. `acquire_lock(name: "literature-index")` — przy `acquired: false` → `wait_for_updates`.
-2. Odczytaj plik, zmień tylko swoją linię / swój wpis.
+2. Odczytaj plik, dopisz / zmień tylko swoją linię w powyższym formacie.
 3. Zapisz, `release_lock(name: "literature-index")`.
 
 ## Oddanie wyniku (szczegóły kroku 8)
