@@ -25,7 +25,7 @@ Jeden ciąg od startu do zamknięcia hipotezy:
 1. **Lektura startowa** (sekcja niżej).
 2. **Utwórz węzeł hipotezy** wg `hypotheses.md` (pierwsza vs kolejna z `--baseline`). Zapisz wypisane `id`.
 3. **Draft solo w `description`**: twierdzenie, podstawy, alternatywa, zakres, najbliższe pytanie rozstrzygające. Załóż kanał = slug, ogłoś slug/`id` na `project`.
-4. **Spawn `laborant`** na kanał hipotezy (szablon na końcu; zawsze `--no-wake`; `--harness`/`--model` z `model-assignment.md`). W tym kroku spawnuje wyłącznie laboranta. Po spawnie czekaj przez `wait_for_updates` na kanale hipotezy.
+4. **Spawn `laborant`** na kanał hipotezy (szablon na końcu; zawsze `--no-wake`; `--harness`/`--model` z `model-assignment.md`; przy połączonych rolach — `model-assignment.md` § Połączone role, pomiń ten spawn). W tym kroku spawnuje wyłącznie laboranta. Po spawnie czekaj przez `wait_for_updates` na kanale hipotezy.
 5. **Dopracowanie z laborantem**: ustalcie szczegóły pracy laboranta w weryfikacji. Ustalenia → `description`.
 6. Gdy laborant zgłosi **domknięcie uwag do draftu** (sygnał otwierający **pierwszą** recenzję critica) → **spawn `critic` hipotezy**; po spawnie czekaj przez `wait_for_updates` na kanale hipotezy.
 7. **Pętla z criticiem:**
@@ -33,7 +33,7 @@ Jeden ciąg od startu do zamknięcia hipotezy:
    - Ty się odnosisz i w razie potrzeby zmieniasz `description`;
    - laborant odnosi się do uwag critica; w razie potrzeby z laborantem poprawiacie szczegóły zakresu pracy;
    - gdy potrzebna kolejna recenzja → nowy spawn critica **tym samym szablonem** (w briefie możesz dopisać numer rundy / co się zmieniło); wracacie do uwag.
-8. **Decyzja „gotowa do weryfikacji”:** Ty ją podejmujesz. Wymaga: w tej fazie treści laborant już zgłosił **domknięcie uwag do draftu** (otwarcie pierwszej recenzji) oraz critic sygnalizuje **gotowe do decyzji** (lub **gotowe do decyzji po Twojej stronie**). Zapisz decyzję na kanale i w `description`; na kanale hipotezy wezwij **tego samego** laboranta do fazy eksperymentów.
+8. **Decyzja „gotowa do weryfikacji”:** Ty ją podejmujesz. Wymaga: w tej fazie treści laborant już zgłosił **domknięcie uwag do draftu** (otwarcie pierwszej recenzji) oraz critic sygnalizuje **gotowe do decyzji po Twojej stronie**. Gdy critic kończy sygnałem **uwagi otwarte** — kontynuuj pętlę. Zapisz decyzję na kanale i w `description`; na kanale hipotezy wezwij **tego samego** laboranta do fazy eksperymentów.
 9. **Faza weryfikacji:** laborant prowadzi **fazę eksperymentów** i dostarcza skróty analiz; Ty czytasz je na kanale hipotezy i aktualizujesz stan.
 10. **Zamknięcie hipotezy:** jawny stan w `description` i na kanale.
 
@@ -45,7 +45,7 @@ Możesz prowadzić wiele hipotez równolegle — każda ma własny węzeł, kana
 
 Przeczytaj w tej kolejności, jeśli jeszcze nie:
 
-1. `agent-start.md`
+1. `agent-start.md` — zaczynasz od niego (tam m.in. `access-matrix.md` i wspólne z `common/`, w tym `identifiers.md`: id vs slug)
 2. `research-brief.md` — cel, literatura, benchmarki, flow badania, tematy
 3. `hypotheses.md` — tworzenie węzła i reguły `description`
 4. bieżący węzeł: `description` i status (`orx exp desc` / `orx exp status`), gdy slug/`id` są znane
@@ -69,7 +69,7 @@ Kolejność jest sztywna:
 2. Runda z laborantem — dopracowanie zakresu pracy laboranta.
 3. Sygnał laboranta **domknięcie uwag do draftu** otwiera pierwszą recenzję → spawn critica.
 4. Pętla: uwagi critica → Twoja reakcja / zmiany → laborant odnosi się do uwag (ew. doprecyzowanie z Tobą) → kolejna runda = nowy spawn critica **tym samym szablonem** (ew. numer rundy / co się zmieniło w briefie).
-5. Ty decydujesz o starcie weryfikacji, gdy w tej fazie treści jest już **domknięcie uwag do draftu** oraz critic sygnalizuje **gotowe do decyzji**. Przy braku zgody masz głos rozstrzygający — uzasadnij na kanale i w `description`.
+5. Ty decydujesz o starcie weryfikacji, gdy w tej fazie treści jest już **domknięcie uwag do draftu** oraz critic sygnalizuje **gotowe do decyzji po Twojej stronie**. Gdy critic kończy sygnałem **uwagi otwarte** — kontynuuj pętlę. Przy braku zgody masz głos rozstrzygający — uzasadnij na kanale i w `description`.
 
 Gdy laborant zgłosi potrzebę korekty, dopracuj z nim treść do weryfikacji.
 

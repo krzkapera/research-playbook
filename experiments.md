@@ -14,7 +14,7 @@ W `description` zapisuj tylko to, co jest istotne z punktu widzenia eksperymentu
 
 ## Kanał
 
-Każdy aktywny eksperyment ma kanał `ai-crew-sync` nazwany jego slugiem. Zakłada go agent tworzący węzeł (zwykle `laborant`), zaraz po utworzeniu, i ogłasza to na kanale hipotezy-rodzica (`common/communication.md`).
+Każdy aktywny eksperyment ma kanał `ai-crew-sync` nazwany jego slugiem. Zakłada go `laborant` przy tworzeniu węzła, zaraz po utworzeniu, i ogłasza to na kanale hipotezy-rodzica (`common/communication.md`).
 
 ## Warianty równoległe
 

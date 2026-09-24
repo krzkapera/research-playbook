@@ -60,6 +60,8 @@ Cel: jasny zakres Twojej pracy w weryfikacji.
 
 - Proponujesz brzmienie i kryteria na kanale hipotezy; `description` aktualizuje professor.
 - Sygnał dla profesora do spawnu critica hipotezy: **domknięcie uwag do draftu**.
+- Po domknięciu zostajesz na kanale hipotezy i bierzesz udział w pętli z criticiem (odniesienia do uwag; ew. doprecyzowanie zakresu z professorem).
+- Na `wait_for_updates` pod wezwanie do fazy eksperymentów przechodzisz dopiero po decyzji profesora „gotowa do weryfikacji”.
 - Pytania o treść w pętli recenzji → professor na kanale hipotezy.
 
 ## Design eksperymentu (szczegóły kroków 6–7)

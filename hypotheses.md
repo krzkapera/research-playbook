@@ -16,7 +16,7 @@ Przy zmianie stanu dopisz krótkie uzasadnienie i wskazanie dowodów. Opis ma by
 
 ## Kanał
 
-Każda aktywna hipoteza ma kanał `ai-crew-sync` nazwany jej slugiem. Zakłada go agent tworzący węzeł (zwykle `professor`), zaraz po utworzeniu, i ogłasza to na kanale `project`. Ustalenia trwałe wracają do `description`; kanał to historia dyskusji (`common/communication.md`).
+Każda aktywna hipoteza ma kanał `ai-crew-sync` nazwany jej slugiem. Zakłada go `professor` przy tworzeniu węzła, zaraz po utworzeniu, i ogłasza to na kanale `project`. Ustalenia trwałe wracają do `description`; kanał to historia dyskusji (`common/communication.md`).
 
 ## Równoległość
 
