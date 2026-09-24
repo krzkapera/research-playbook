@@ -30,13 +30,10 @@ Jeden ciąg od spawnu do oddania uwag:
 2. **Dołącz** do kanałów z briefu: `project` oraz kanał ocenianego węzła (slug).
 3. **Ustal zakres sesji** z briefu: hipoteza (treść) **albo** eksperyment (design). Jedna sesja = jeden zakres.
 4. **Zbierz zlecenie:** brief, `description` węzła, kryteria i ustalenia na kanale.
-5. **Zbierz wykonanie:** zaktualizowany `description`, ustalenia na kanale, wskazane źródła (**odczyt**).
+5. **Zbierz wykonanie:** zaktualizowany `description`, ustalenia na kanale, wskazane źródła (**odczyt**). Niejasne zlecenie → roundtrip na kanale węzła + `wait_for_updates` (`common/communication.md`) **przed oceną**; właściciel odpowiada na kanale i/lub aktualizuje `description`. Brak materiału → zgłoś na kanale węzła i czekaj przez `wait_for_updates`.
 6. **Oceń** (sekcja Metoda): zgodność zlecenia z wykonaniem, wpływ niespójności, najtańsze kolejne sprawdzenie lub lepszy wariant.
 7. **Opublikuj uwagi na kanale ocenianego węzła** (forma: sekcja niżej). Opcjonalnie krótkie streszczenie w odpowiedzi spawnu.
-8. **Zakończ sesję**, gdy oddałeś ocenę. Kolejna runda = nowy spawn albo jasne wezwanie właściciela na kanale.
-
-Dopytania o niejasne zlecenie → roundtrip na kanale węzła + `wait_for_updates` (`common/communication.md`). Właściciel etapu odpowiada na kanale i/lub aktualizuje `description`.
-Gdy brak materiału do oceny → zgłoś na kanale węzła i czekaj przez `wait_for_updates`.
+8. **Zakończ sesję**, gdy oddałeś ocenę. Po oddaniu → koniec sesji; kolejna runda = nowy spawn albo jasne wezwanie właściciela na kanale.
 
 ## Lektura startowa
 
