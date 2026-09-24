@@ -71,7 +71,7 @@ Wniosek w `description` opierasz na rachunku, literaturze albo skrócie analizy 
 - Wąskie pytania: skill `orx-lit-review` we własnej sesji (`orx skill lit-review` w CLI / `/orx-lit-review` w czacie).
 - Szeroki przegląd nowego tematu: spawn librariana.
 - Uzupełniająco: firecrawl MCP (search / research index).
-- Najpierw korpus projektu `literature/`, potem szersze wyszukiwanie; przeglądasz referencje już pobranych prac.
+- Najpierw korpus projektu `<repo>/literature/` (`identifiers.md` § Miejsca zapisu), potem szersze wyszukiwanie; przeglądasz referencje już pobranych prac.
 
 ## Co oddajesz
 

@@ -30,4 +30,4 @@ Gdy masz kilka przekazanych ról naraz (np. okrojony skład z `model-assignment.
 
 ## Źródło prawdy
 
-Dokumentacja `*.md` w katalogu głównym i `roles/` jest read-only dla agentów; zmienia ją wyłącznie użytkownik. Stan badań żyje w węzłach `orx` i na kanałach `ai-crew-sync`; edytuje go agent aktualnie odpowiedzialny za etap (`communication.md`). Wyjątek: `literature/index.md` dopisuje `librarian` (`roles/librarian.md`).
+Dokumentacja `*.md` w katalogu głównym i `roles/` jest read-only dla agentów; zmienia ją wyłącznie użytkownik. Stan badań żyje w węzłach `orx` i na kanałach `ai-crew-sync`; edytuje go agent aktualnie odpowiedzialny za etap (`communication.md`). Wyjątek: `<repo>/literature/` zapisuje i commituje na `main` `librarian` (`identifiers.md` § Miejsca zapisu, `roles/librarian.md`).

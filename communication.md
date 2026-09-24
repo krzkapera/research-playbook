@@ -23,7 +23,7 @@
 
 - Cała wymiana programmer ↔ operator idzie przez P2P: potwierdzenie startu, dopytania o uruchomienie, statusy, prośby o poprawkę kodu, raport operatora i odpowiedzi programmera. Operator pisze na kanale eksperymentu wyłącznie Problem z flow i konflikt z `description` (`agent-start.md`, krok 7).
 - Operator pyta, programmer odpowiada. Programmer podaje swój adres P2P w briefie spawnu operatora; adres operatora bierze z pól `from` i `from_session` jego pierwszej wiadomości.
-- **Pytanie (operator):** `ask_agent` z `to: "<adres P2P programmera>"`, `question` i `timeout_seconds` ≤ 50. Wywołanie blokuje do odpowiedzi albo do timeoutu. `answered: true` → odpowiedź w polu `answer`. `answered: false` → kolejne `ask_agent` z tym samym `to`, `resume_message_id: <question_message_id>` i `timeout_seconds` ≤ 50, bez `question`. Pętla trwa do odpowiedzi albo do maksymalnego czasu z sekcji Czekanie.
+- **Pytanie (operator):** `ask_agent` z `to: "<adres P2P programmera>"`, `question` i `timeout_seconds: 86400`. `answered: true` → odpowiedź w polu `answer`. Ponawianie: sekcja Czekanie.
 - **Odpowiedź (programmer):** pytanie przychodzi jako wiadomość bezpośrednia w pętli czekania (sekcja Czekanie). Odpowiadasz na każde pytanie: `post_message` z `to: "<from>/<from_session>"` i `reply_to: <id pytania>`.
 
 ## Opis węzła vs wpis
@@ -36,46 +36,26 @@ Pokój = recenzja **gotowego** draftu z `description`. Synonim w `roles/`: **pę
 
 ## Czekanie
 
-Czekanie na oddanie to pętla:
+- **Na wpis albo wiadomość P2P:** `wait_for_updates` z `channel: "<slug>"` i `timeout_seconds: 86400`, potem `read_messages` z `scope: "all"` i `only_new: true`. Wiadomość bezpośrednia do Twojej sesji (P2P) także budzi to wywołanie.
+- **Na odpowiedź na własne pytanie P2P:** `ask_agent` z `timeout_seconds: 86400` (sekcja P2P).
+- **Na lock:** `wait_for_updates` bez `channel`, z `timeout_seconds: 86400`, potem `read_messages` jak wyżej i ponowne `acquire_lock`.
 
-1. `wait_for_updates` z `channel: "<slug>"` i `timeout_seconds` ≤ 50. Budzi także wiadomość bezpośrednia do Twojej sesji (P2P).
-2. Po każdym obudzeniu: `read_messages` z `scope: "all"` i `only_new: true`.
-3. Oczekiwane oddanie przyszło → dalej według flow. Pusty odczyt po obudzeniu albo timeout wywołania → wróć do kroku 1.
-4. Minął maksymalny łączny czas z tabeli bez oddania → Problem z flow.
-
-Czekanie na odpowiedź na własne pytanie P2P to pętla `ask_agent` (sekcja P2P), z maksymalnym czasem z tabeli.
+Wywołanie wraca bez oczekiwanego oddania, z timeoutem albo z błędem klienta → wywołujesz je ponownie; `ask_agent` z `resume_message_id: <question_message_id>`, bez `question`.
 
 Stan pracy innych agentów odczytujesz wyłącznie z wpisów na kanale i wiadomości P2P. `list_agents` i obecność (presence) nie są sygnałem, czy agent pracuje.
 
-Rodzic zostaje w turze, dopóki spawnowane przez niego dzieci pracują nad jego węzłem. Turę kończy po nadejściu oddania, po upływie maksymalnego czasu (wtedy zgłasza Problem z flow) albo po innym Problemie z flow.
+Rodzic zostaje w turze, dopóki spawnowane przez niego dzieci pracują nad jego węzłem. Turę kończy po nadejściu oddania albo po Problemie z flow.
 
 Odpowiedź spawnu dziecka nie budzi rodzica; oddanie przychodzi wpisem na kanale albo wiadomością P2P.
-
-Maksymalny łączny czas liczysz od spawnu, od ostatniego wpisu na kanale, na którym czekasz, albo od ostatniej wiadomości P2P od roli, na którą czekasz (najpóźniejsze z nich):
-
-| Na co czekasz | Kto czeka | Maks. łączny czas |
-|---|---|---|
-| odpowiedź w rozmowie (kanał albo P2P): uwagi w fazie treści, odniesienie do uwag, roundtrip, dopytanie, potwierdzenie przyjęcia | każda rola | 15 min |
-| uwagi critica po spawnie | professor, laborant | 15 min |
-| decyzja professora: „gotowa do weryfikacji”, decyzja po skrócie analizy | laborant | 15 min |
-| synteza librariana po spawnie | zlecający | 60 min |
-| ogłoszenie eksperymentu po decyzji „gotowa do weryfikacji” albo po kolejnym pytaniu | professor | 1 h |
-| gotowość kodu po spawnie programmera | laborant | 2 h |
-| poprawka kodu po prośbie operatora | operator | 1 h |
-| raport operatora po spawnie albo po zleceniu kolejnego runu | programmer | 24 h |
-| wynik eksperymentu po gotowości kodu | laborant | 30 h |
-| skrót analizy po ogłoszeniu eksperymentu | professor | 36 h |
-| zwolnienie locka `literature-index` po pierwszej próbie `acquire_lock` | librarian | 15 min |
 
 ## Problem z flow
 
 Problem z flow to:
 
-- błąd busa: MCP `ai-crew-sync` się nie ładuje albo narzędzie zwraca błąd;
+- błąd busa: MCP `ai-crew-sync` się nie ładuje albo narzędzie zwraca błąd poza wywołaniami czekania (sekcja Czekanie);
 - błąd środowiska: narzędzie, komenda (`orx`, `git`, `ssh`) albo usługa zwraca błąd uwierzytelnienia, uprawnień, konfiguracji albo niedostępności;
 - wynik `whoami` niezgodny z `agent-start.md` (krok 1);
 - nieudany spawn: `orx agent spawn` nie wypisuje `Spawned agent session …`;
-- upływ maksymalnego czasu czekania bez oddania (sekcja Czekanie);
 - brak decyzji od roli, do której ta decyzja należy.
 
 Działanie:
@@ -112,4 +92,4 @@ Krótki wniosek mieści się we wpisie. Log, diff, tabela, wykres, długi wynik 
 
 ## Literatura
 
-Spis literatury: `literature/index.md` (`roles/librarian.md`).
+Korpus i spis literatury: `<repo>/literature/` (`identifiers.md` § Miejsca zapisu).

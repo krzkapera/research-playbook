@@ -24,7 +24,7 @@ Jesteś właścicielem weryfikacji hipotezy. W fazie treści dopracowujesz z pro
 1. **Start sesji** według `agent-start.md`; potem `research-brief.md` i `experiments.md`.
 2. **Faza treści:** na kanale hipotezy proponujesz brzmienie, kryteria i zakres weryfikacji; professor zapisuje ustalenia w `description` hipotezy. Gdy nie masz dalszych uwag — wpis „domknięcie uwag do draftu”.
 3. **Pętla z criticiem hipotezy:** odnosisz się na kanale hipotezy do każdej uwagi critica; pytania o treść → roundtrip z professorem.
-4. **Decyzja professora:** czekasz na decyzję „gotowa do weryfikacji” (`communication.md` § Czekanie). Po decyzji → krok 5. Bez decyzji po maksymalnym czasie → Problem z flow.
+4. **Decyzja professora:** czekasz na decyzję „gotowa do weryfikacji” (`communication.md` § Czekanie). Po decyzji → krok 5.
 5. **Design** małego testu na jedno pytanie hipotezy.
 6. **Utwórz węzeł eksperymentu** według `experiments.md` (`--parent <id-hipotezy>`), załóż kanał eksperymentu, zapisz pełny design w `description` i ogłoś eksperyment na kanale hipotezy.
 7. **Spawn critica eksperymentu** (szablon) → pętla: uwagi critica → Twoje odniesienie i zmiany w `description`; kolejna runda = nowy spawn.

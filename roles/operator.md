@@ -122,7 +122,7 @@ orx exp wait --project <projectId>   # projekt: budzi przy pierwszym zakończeni
 orx exp wake <expId>                 # kończysz turę; wznowienie gdy run Done albo Failed
 ```
 
-- Domyślnie (jeden eksperyment w sesji): `orx exp wait <expId>` **albo** `orx exp wake <expId>` (wyłącznie jedna z tych ścieżek). Run dłuższy niż 12 h: `orx exp wait <expId>`; statusy według sekcji Co oddajesz.
+- Domyślnie (jeden eksperyment w sesji): `orx exp wait <expId>` **albo** `orx exp wake <expId>` (wyłącznie jedna z tych ścieżek).
 - `orx exp wait --project <projectId>` gdy w tej sesji pilnujesz wielu runów albo pętli budżetowej w całym projekcie.
 - `wait` i `wake` to wyłącznie sygnał przebudzenia, nie źródło wyniku. Po każdym powrocie z `wait` (oraz po wake): odczytaj `orx runs`, znajdź nowe terminalne runy, przeczytaj `orx logs <runId>` (i/lub `log` w `remoteRoot/runs/<runId>/`), dopiero potem raportuj albo naprawiaj.
 - Timeout `wait` oznacza brak zmiany w oknie czasu, nie Failed.
@@ -135,7 +135,7 @@ Po Failed / złym exit code / oczywistym błędzie w logu:
 1. **Rozdziel** błąd środowiska (`communication.md` § Problem z flow), błąd infrastruktury joba (kolejka, host, moduły i ścieżki w `job.sbatch`) i błąd **implementacji** (kod eksperymentu, dane, hiperparametry w kodzie).
 2. **Infrastruktura joba:** naprawiasz `job.sbatch` na `orx/<slug>`, commitujesz, wracasz do smoke/submit (zmiana hosta według sekcji Kolejka). Błąd środowiska → Problem z flow.
 3. **Implementacja:** jedna próba naprawy, gdy przyczyna jest jasna z logu — edycja kodu na `orx/<slug>`, commit, powrót do smoke/submit.
-4. Ten sam błąd implementacji po tej próbie → prośba o poprawkę kodu do programmera przez P2P; nowy commit wraca w odpowiedzi `ask_agent` (maks. czas: `communication.md` § Czekanie), potem smoke/submit.
+4. Ten sam błąd implementacji po tej próbie → prośba o poprawkę kodu do programmera przez P2P; nowy commit wraca w odpowiedzi `ask_agent`, potem smoke/submit.
 
 ## Co oddajesz
 
@@ -151,6 +151,6 @@ Programmerowi w trakcie, przez P2P:
 
 - potwierdzenie startu (`agent-start.md`, krok 5);
 - dopytania o uruchomienie i prośby o poprawkę kodu;
-- **status**: po każdym submicie (run id, host, timelimit), po każdej zmianie stanu runu i najpóźniej co 12 h trwania runu.
+- **status**: po każdym submicie (run id, host, timelimit) i po każdej zmianie stanu runu.
 
 W odpowiedzi do rodzica: skrót raportu operatora albo Problem z flow.

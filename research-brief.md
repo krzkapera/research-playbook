@@ -15,7 +15,7 @@ Na start: nacisk na **teorię / design metody**; implementacja będzie, ale szcz
 
 ## Literatura
 
-- **Źródło prawdy w projekcie:** `literature/` — PDF-y i spis `literature/index.md` bezpośrednio w `literature/`; wersje tekstowe PDF-ów (`<nazwa pliku>.txt`) w `literature/txt/`. Utrzymuje `librarian`. Agenci nie zapisują paperów poza `literature/`.
+- **Źródło prawdy w projekcie:** `<repo>/literature/` (`identifiers.md` § Miejsca zapisu). Utrzymuje `librarian`.
 
 Przepływ: najpierw papery już zebrane, potem szerokie wyszukiwanie (własne narzędzia + firecrawl jako MCP — search / research index). Czytaj abstrakty; przy dopasowaniu — całość i zapis do korpusu. Miejsca zapisu wyników: `identifiers.md` § Miejsca zapisu.
 
