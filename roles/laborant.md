@@ -11,10 +11,10 @@ Zanim przejdziesz do flow, te słowa oznaczają w playbooku konkretne rzeczy:
 - **Hipoteza** — węzeł drzewa `orx` (korzeń dla eksperymentów). Ma `id` i **slug**. Tworzenie: `hypotheses.md`. Właścicielem `description` i stanu jest professor.
 - **Eksperyment** — węzeł-dziecko hipotezy (własny branch, kanał, runy). Tworzysz go Ty wg `experiments.md`. Właścicielem `description` jesteś Ty.
 - **`description`** — pole węzła w `orx` (`orx exp desc`). Źródło prawdy; nadpisywane w całości (przed zapisem odczytaj bieżącą treść). Hipotezę edytuje professor; eksperyment — Ty. Critic i krótkie sygnały programmer/operator trafiają na kanał — Ty wciągasz je do `description` eksperymentu. Pętlę naprawczą kodu programmer↔operator prowadzą przez `ask_agent`.
-- **Kanał hipotezy** — kanał `ai-crew-sync` nazwany slugiem hipotezy. Tu faza treści z professorem i skróty analiz. Zawsze dołączasz też do `project`. Protokół: `common/communication.md`.
+- **Kanał hipotezy** — kanał `ai-crew-sync` nazwany slugiem hipotezy. Zakłada go professor przy tworzeniu węzła; Ty dołączasz z briefu. Tu faza treści z professorem i skróty analiz. Zawsze dołączasz też do `project`. Protokół: `common/communication.md`.
 - **Kanał eksperymentu** — kanał `ai-crew-sync` nazwany slugiem eksperymentu. Zakładasz go zaraz po utworzeniu węzła i ogłaszasz na kanale hipotezy.
 - **Professor** — oddaje draft/`description` hipotezy, decyzje o treści i o starcie weryfikacji, odpowiedzi na dopytania.
-- **Critic hipotezy** — uwagi do treści hipotezy na kanale hipotezy (spawnuje professor).
+- **Critic hipotezy** — uwagi do treści hipotezy na kanale hipotezy.
 - **Critic eksperymentu** — uwagi do designu na kanale eksperymentu; zawsze spawnuje Ty (recenzja designu przed go/no-go).
 - **Programmer** — implementacja i commit; na kanale eksperymentu krótka gotowość; przy HPC **on spawnuje `operator`**; sesja żywa na `ask_agent` od operatora (`roles/programmer.md`).
 - **Operator** — smoke i joby HPC; spawnuje go **programmer**; na kanale eksperymentu **policzone wyniki** (metryki, ścieżki, run id, status); pętlę z programistą przez `ask_agent` (`roles/operator.md`).
@@ -30,8 +30,8 @@ Jeden ciąg od spawnu do zamknięcia hipotezy:
 
 1. **Lektura startowa** (sekcja niżej).
 2. **Dołącz** do kanałów z briefu: `project` oraz kanał hipotezy (slug).
-3. **Faza treści:** proponujesz brzmienie i kryteria na kanale hipotezy; `description` hipotezy aktualizuje professor. Gdy nie masz już uwag — zgłoś **domknięcie uwag do draftu**.
-4. **Pętla z criticiem hipotezy** (critica spawnuje professor): uwagi → odniesienie profesora → Twoje odniesienie; w razie potrzeby doprecyzuj zakres z professorem. Rundy do zamknięcia recenzji.
+3. **Faza treści:** proponujesz brzmienie i kryteria na kanale hipotezy; `description` hipotezy aktualizuje professor. Gdy nie masz już uwag — zgłoś **domknięcie uwag do draftu** (sygnał otwierający pętlę z criticiem).
+4. **Pętla z criticiem hipotezy:** na kanale hipotezy odbieraj uwagi critica przez `wait_for_updates`; odniesienie profesora → Twoje odniesienie; w razie potrzeby doprecyzuj zakres z professorem. Rundy do zamknięcia recenzji.
 5. **Start weryfikacji:** professor zapisuje decyzję „gotowa do weryfikacji” i wzywa Cię do fazy eksperymentów na kanale hipotezy — odbierasz wezwanie przez `wait_for_updates`. Brief może od razu wskazać tę fazę — wtedy od kroku 6.
 6. **Design** małego testu na konkretne pytanie z hipotezy. Szeroki przegląd literatury → spawn `librarian`.
 7. **Utwórz węzeł** i kanał wg `experiments.md` (`--parent <id-hipotezy>`). Zapisz `id`; ogłoś slug/`id`/pytanie na kanale hipotezy; pełny design → `description`.
@@ -47,7 +47,7 @@ Wiele eksperymentów naraz = wiele dzieci (osobny kanał, programmer i critic na
 
 Przeczytaj w tej kolejności, jeśli jeszcze nie:
 
-1. `agent-start.md`
+1. `agent-start.md` — zaczynasz od niego (tam m.in. `access-matrix.md` i wspólne z `common/`, w tym `identifiers.md`: id vs slug)
 2. `research-brief.md` — cel, literatura, benchmarki, flow badania
 3. `experiments.md` — węzeł eksperymentu, `description`, kanał
 4. `description` i status hipotezy (`orx exp desc` / `orx exp status`)
@@ -59,10 +59,10 @@ HPC (wyniki na kanale od operatora spawnowanego przez programistę) → `roles/p
 Cel: jasny zakres Twojej pracy w weryfikacji.
 
 - Proponujesz brzmienie i kryteria na kanale hipotezy; `description` aktualizuje professor.
-- Sygnał dla profesora do spawnu critica hipotezy: **domknięcie uwag do draftu**.
-- Po domknięciu zostajesz na kanale hipotezy i bierzesz udział w pętli z criticiem (odniesienia do uwag; ew. doprecyzowanie zakresu z professorem).
+- Sygnał otwierający pętlę z criticiem: **domknięcie uwag do draftu**.
+- Po domknięciu zostajesz na kanale hipotezy; uwagi critica odbieraj przez `wait_for_updates`; bierz udział w pętli (odniesienia do uwag; ew. doprecyzowanie zakresu z professorem).
 - Na `wait_for_updates` pod wezwanie do fazy eksperymentów przechodzisz dopiero po decyzji profesora „gotowa do weryfikacji”.
-- Pytania o treść w pętli recenzji → professor na kanale hipotezy.
+- Pytania o treść w pętli recenzji → Roundtrip z professorem na kanale hipotezy (`common/communication.md` § Roundtrip).
 
 ## Design eksperymentu (szczegóły kroków 6–7)
 
