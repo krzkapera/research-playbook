@@ -59,4 +59,5 @@ Pojedyncze uruchomienie = run `orx`:
 | raporty, wykresy, obrazy, CSV, PDF i inne trwałe wyniki | katalog artefaktów `orx`, podkatalog nazwany slugiem węzła: `<Artifacts directory>/<slug>/…`; absolutną ścieżkę katalogu artefaktów `orx` podaje w prompcie każdej sesji jako „Artifacts directory”; w wiadomościach i `description` link `artifacts/<slug>/…` |
 | kod, konfiguracja, `job.sbatch`, małe pliki wniosku | commit na branchu `orx/<slug>` w worktree sesji; commitujesz przed oddaniem, niezacommitowane zmiany znikają razem z worktree po końcu sesji |
 | wyniki runów (log, `exit_code`, pliki zapisane przez job) | `remoteRoot/runs/<runId>/` na klastrze (`orx logs <run_id>`) |
+| brief spawnu | zapisuje rola spawnująca: `<Artifacts directory>/<slug>/briefs/<rola>.md`, gdzie `<slug>` to węzeł z briefu, a `<rola>` to rola spawnowanej sesji; komenda spawnu czyta ten plik przez `--stdin`; w wiadomościach link `artifacts/<slug>/briefs/<rola>.md` |
 | stan, ustalenia i decyzje węzła | `description` węzła |
