@@ -23,18 +23,18 @@ Po utworzeniu węzła zapisz wypisane `id`. Gdy go nie masz: `orx project view <
 
 ## `project_id`
 
-Cała praca badawcza siedzi w jednym projekcie `orx`. `project_id` jest stały.
+Cała praca badawcza siedzi w jednym projekcie `orx`. `project_id` jest stały w danej sesji.
 
-`project_id`: `<nieustawiony — uzupełnia użytkownik po utworzeniu projektu; komenda: orx projects>`
+Ustal go sam na starcie sesji, w tej kolejności:
 
-Źródło wartości, w tej kolejności:
+1. brief / zlecenie — gdy podaje `project_id` albo jednoznaczną nazwę lub ścieżkę repo projektu;
+2. kontekst sesji `orx` — helper ze `orx agent spawn` dziedziczy projekt rodzica;
+3. `orx projects` — wybierz wpis zgodny z katalogiem roboczym lub nazwą repo projektu badawczego; przy dokładnie jednym pasującym kandydacie weź go;
+4. gdy nadal niejednoznaczne — krótko dopytaj na kanale `project` albo nadawcę briefu.
 
-1. ten plik (gdy użytkownik wpisze tu wartość — to źródło prawdy);
-2. brief / zlecenie;
-3. `orx projects`;
-4. pytanie na kanale `project` albo do nadawcy.
+Zapamiętaj wybrane `project_id` w sesji i wstawiaj je do komend `orx` oraz do briefów spawnu (placeholdery `<project_id>`).
 
-Projekt `orx` zakłada użytkownik.
+Projekt `orx` (repo + import w UI) zakłada użytkownik; agent tylko odczytuje `project_id`.
 
 ## `id` i slug węzła
 
