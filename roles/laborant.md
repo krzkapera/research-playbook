@@ -100,7 +100,8 @@ Po spawnie programisty czekaj przez `wait_for_updates` na kanale eksperymentu. P
 Względem pytania eksperymentu i hipotezy: kompletność, powtarzalność, anomalie, alternatywy; czego wynik nie dowodzi.
 
 - Zaktualizuj `description` eksperymentu.
-- Skrót: kanał eksperymentu **i** kanał hipotezy.
+- Skrót na kanale hipotezy (dla profesora): wniosek względem pytania hipotezy, kompletność / powtarzalność / anomalie, czego wynik nie dowodzi, otwarte kwestie.
+- Skrót na kanale eksperymentu: ten sam rdzeń plus szczegóły względem pytania eksperymentu (metryki, ścieżki, warunki interpretacji).
 - Awans / odrzucenie / kolejne pytanie hipotezy = professor.
 - Kolejny test = nowe dziecko (wróć do designu).
 
