@@ -1,6 +1,6 @@
 # Wspólne identyfikatory
 
-Ten plik ustala nazwy projektu, węzłów i runów `orx` oraz którego identyfikatora używać w komendach.
+Ten plik ustala nazwy projektu, węzłów i runów `orx`, którego identyfikatora używać w komendach oraz miejsca zapisu wyników.
 
 ## Pojęcia
 
@@ -30,7 +30,7 @@ Ustal go sam na starcie sesji, w tej kolejności:
 1. brief / zlecenie — gdy podaje `project_id` albo jednoznaczną nazwę lub ścieżkę repo projektu;
 2. kontekst sesji `orx` — helper ze `orx agent spawn` dziedziczy projekt rodzica;
 3. `orx projects` — wybierz wpis zgodny z katalogiem roboczym lub nazwą repo projektu badawczego; przy dokładnie jednym pasującym kandydacie weź go;
-4. gdy nadal niejednoznaczne — krótko dopytaj nadawcę briefu.
+4. gdy nadal niejednoznaczne — krótko dopytaj nadawcę briefu (`communication.md` § Roundtrip).
 
 Zapamiętaj wybrane `project_id` w sesji i wstawiaj je do komend `orx` oraz do briefów spawnu (placeholdery `<project_id>`).
 
@@ -43,7 +43,7 @@ Projekt `orx` (repo + import w UI) zakłada użytkownik; agent tylko odczytuje `
 - Slug zostaje przy węźle na stałe.
 - Nowy wariant pytania albo inna logika porównania = **nowy węzeł** (nowy slug), zwykle dziecko istniejącego (`--parent <id>`).
 
-Tworzenie węzłów: `hypotheses.md`, `experiments.md`. Branch i worktree: `roles/programmer.md` (sekcja Worktree). Kanał = slug: `communication.md`.
+Tworzenie węzłów: `hypotheses.md`, `experiments.md`. Branch i worktree: `roles/programmer.md` (sekcja Worktree). Kanał = slug: `communication.md` § Kanały.
 
 ## Runy
 
@@ -51,3 +51,12 @@ Pojedyncze uruchomienie = run `orx`:
 
 - lista: `orx runs <project_id> [--experiment <id>]`
 - logi: `orx logs <run_id>`
+
+## Miejsca zapisu
+
+| Co | Gdzie |
+|---|---|
+| raporty, wykresy, obrazy, CSV, PDF i inne trwałe wyniki | katalog artefaktów `orx`, podkatalog nazwany slugiem węzła: `<Artifacts directory>/<slug>/…`; absolutną ścieżkę katalogu artefaktów `orx` podaje w prompcie każdej sesji jako „Artifacts directory”; w wiadomościach i `description` link `artifacts/<slug>/…` |
+| kod, konfiguracja, `job.sbatch`, małe pliki wniosku | commit na branchu `orx/<slug>` w worktree sesji; commitujesz przed oddaniem, niezacommitowane zmiany znikają razem z worktree po końcu sesji |
+| wyniki runów (log, `exit_code`, pliki zapisane przez job) | `remoteRoot/runs/<runId>/` na klastrze (`orx logs <run_id>`) |
+| stan, ustalenia i decyzje węzła | `description` węzła |

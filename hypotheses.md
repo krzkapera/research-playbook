@@ -1,22 +1,22 @@
 # Hipotezy badawcze
 
-Hipoteza to węzeł drzewa `orx` bez własnego runu — korzeń dla eksperymentów, które ją testują. Komendy `orx` biorą wewnętrzne `id` węzła, nie slug (patrz `identifiers.md`).
+Hipoteza to węzeł drzewa `orx` bez własnego runu, korzeń dla eksperymentów, które ją testują. Komendy `orx` biorą wewnętrzne `id` węzła, nie slug (`identifiers.md`).
 
 ## Tworzenie
 
 - Pierwsza hipoteza w projekcie: `orx create-experiment <project_id> --title "..."` (bez dodatkowych flag).
-- Każda kolejna **niezależna** hipoteza (nowy korzeń, nie dziecko): jawne `--baseline`. Bez tej flagi, gdy korzeń już istnieje, nowy węzeł trafi pod najstarszy korzeń zamiast stać się osobnym korzeniem.
-- Slug (np. `lora-rank-vs-shots`) powstaje z tytułu: branch, kanał, nazwa robocza.
+- Każda kolejna **niezależna** hipoteza (nowy korzeń, nie dziecko): jawne `--baseline`. Bez tej flagi, gdy korzeń już istnieje, nowy węzeł trafia pod najstarszy korzeń.
+- Komenda wypisuje `id` i slug (linia `slug:`, np. `lora-rank-vs-shots`). Slug to nazwa brancha `orx/<slug>` i kanału.
 
 ## description
 
-Treść hipotezy (twierdzenie, narracja, stan, uzasadnienie) żyje w `description` (`orx exp desc`). Pole jest **nadpisywane w całości**: przed zapisem odczytaj bieżącą treść (`orx exp status` / `orx exp desc`) i zapisz pełną zaktualizowaną wersję.
+Treść hipotezy (twierdzenie, narracja, stan, uzasadnienie merytoryczne) żyje w `description` (`orx exp desc`). Pole jest **nadpisywane w całości**: przed zapisem odczytaj bieżącą treść (`orx exp status` / `orx exp desc`) i zapisz pełną zaktualizowaną wersję.
 
-Przy zmianie stanu dopisz krótkie uzasadnienie i wskazanie dowodów. Opis ma być samowystarczalny dla kogoś, kto nie czytał kanału.
+Przy zmianie stanu dopisz krótkie uzasadnienie i wskazanie dowodów. Opis jest samowystarczalny dla kogoś, kto nie czytał kanału.
 
 ## Kanał
 
-Każda aktywna hipoteza ma kanał `ai-crew-sync` nazwany jej slugiem. Zakłada go `professor` przy tworzeniu węzła, zaraz po utworzeniu: dołącza i pisze pierwszą wiadomość. Ustalenia trwałe wracają do `description`; kanał to historia dyskusji (`communication.md`).
+Każda aktywna hipoteza ma kanał nazwany jej slugiem. Zakłada go `professor` po utworzeniu węzła, według `communication.md` § Kanały.
 
 ## Równoległość
 

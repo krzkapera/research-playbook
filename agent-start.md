@@ -1,31 +1,41 @@
 # Start sesji agenta
 
+Pliki playbooka (`agent-start.md`, `access-matrix.md`, `communication.md`, `identifiers.md`, `model-assignment.md`, `hypotheses.md`, `experiments.md`, `research-brief.md`, `roles/…`) leżą w katalogu głównym worktree sesji, czyli w bieżącym katalogu roboczym. Czytasz je ścieżkami względnymi od tego katalogu.
+
+## Kroki startu
+
 Przed pierwszą merytoryczną wiadomością:
 
-1. Odczytaj `access-matrix.md`.
-2. Odczytaj wyłącznie wspólne lektury z macierzy (`communication.md`, `identifiers.md`) oraz przekazany plik roli z `roles/`. Gdy rola odsyła do pliku domenowego — przeczytaj też jego.
-3. Czytaj wyłącznie dokumenty wskazane w roli i w `access-matrix.md`.
-4. Ustal `project_id` według `identifiers.md` (brief → sesja → `orx projects`). Potem ustal slug hipotezy i/albo eksperymentu, odbiorcę i oczekiwany rezultat: najpierw w bieżącym komunikacie; przy znanym `project_id` — `orx project view <project_id>` (drzewo węzłów: `id`, tytuł, branch/slug).
-5. Jeśli któregoś pola nadal nie da się ustalić, zapytaj krótko nadawcę albo zgłoś blokadę (brakujący kontekst nie domyślaj).
-6. Dołącz do kanałów z briefu spawnu od razu (brief = zaproszenie) oraz według `communication.md` („Kanały"): kanał sluga hipotezy/eksperymentu przy aktywnej roli w tym węźle; wyłącznie kanały wskazane w briefie albo wynikające z aktywnej roli; zaproszenie innych na kanał = start rundy recenzji.
-7. Przeczytaj opis węzła na poziomie zlecenia: przy znanym slug/id hipotezy — węzeł hipotezy (`orx exp desc` / `orx exp status`); przy znanym slug/id eksperymentu — wtedy węzeł eksperymentu; potem wskazane artefakty/logi (`orx logs`). Brief bez sluga/id — pomiń węzły `orx`. Tylko hipoteza — czytaj hipotezę, pomiń eksperyment.
-8. Innych agentów szukaj przez `list_agents`. Potwierdź krótko: rola, cel, co i gdzie oddasz.
-9. Gdy rola jest sprzeczna z dokumentem hipotezy, eksperymentu albo aktualną decyzją zespołu — zgłoś konflikt na właściwym kanale i czekaj.
+1. **Tożsamość na busie.** Wywołaj narzędzie MCP `whoami` (`ai-crew-sync`). Poprawny wynik: `agent` = nazwa agenta Twojego harnessu (tabela niżej) oraz `session` = wartość `$ORX_CHAT_SESSION_ID`. Gdy wynik jest inny albo MCP `ai-crew-sync` się nie ładuje lub zwraca błąd: nie publikujesz niczego, w odpowiedzi (do rodzica albo użytkownika) podajesz blokadę z dokładnym wynikiem i kończysz turę.
+2. Odczytaj `access-matrix.md`, wspólne lektury (`communication.md`, `identifiers.md`) i przekazany plik roli z `roles/`. Gdy rola odsyła do pliku domenowego, przeczytaj też jego.
+3. Ustal `project_id` według `identifiers.md`. Potem ustal slug i `id` węzła, odbiorcę i oczekiwany rezultat: najpierw z briefu; przy znanym `project_id` z `orx project view <project_id>` (drzewo węzłów: `id`, tytuł, branch).
+4. Pole, którego nadal nie da się ustalić, doprecyzowujesz z nadawcą briefu (`communication.md` § Roundtrip).
+5. Dołącz do kanałów z briefu (`communication.md` § Kanały) i potwierdź na każdym krótko: rola, cel, co i gdzie oddasz.
+6. Przeczytaj węzeł z briefu: `orx exp desc <id>` i `orx exp status <id>` (hipoteza albo eksperyment, zgodnie z briefem), potem artefakty i logi wskazane w briefie. Brief bez węzła: pomiń ten krok.
+7. Konflikt pliku roli z `description` węzła albo z decyzją właściciela etapu zgłaszasz wpisem na kanale węzła i czekasz na odpowiedź (`communication.md` § Czekanie).
 
-Dokument spoza Twojego zakresu (zlecenie do niego odsyła): zapytaj o niego, zamiast czytać samodzielnie.
+| Harness | `agent` w wyniku `whoami` |
+|---|---|
+| codex | `codex` |
+| claude-code | `claude` |
+| cursor | `cursor` |
+| antigravity | `agy` |
+| opencode | `opencode` |
+
+Z busem łączysz się wyłącznie narzędziami MCP `ai-crew-sync` własnej sesji. Tokenów nie szukasz, konfiguracji ani zmiennych środowiskowych innych agentów nie czytasz, `ai-crew-sync client` ani cudzego tokenu nie używasz.
 
 ## Zasady pracy
 
 - Kod jest narzędziem do badania, a nie celem samym w sobie.
 - Sprawdzaj własne i cudze założenia.
-- Hipoteza, eksperyment, implementacja, infrastruktura i interpretacja są rozdzielnymi rzeczami — nie mieszaj ich w jednej odpowiedzi bez oznaczenia poziomu.
+- Hipoteza, eksperyment, implementacja, infrastruktura i interpretacja to rozdzielne poziomy; w jednej odpowiedzi oznaczasz poziom każdej części.
 - Kolejny krok wynika z aktualnych dowodów; planuj jeden mały krok naprzód.
 
 ## Poziom pracy
 
 - Bez sluga: sprawa projektu lub nowa propozycja.
 - Slug hipotezy, bez sluga eksperymentu: rozmowa o hipotezie.
-- Slug hipotezy i sluga eksperymentu-dziecka: konkretny eksperyment.
+- Slug hipotezy i slug eksperymentu-dziecka: konkretny eksperyment.
 - Identyfikator runu (`orx runs`): wykonanie jednego joba.
 - Ścieżka artefaktu/logu: analiza konkretnego wyniku.
 
