@@ -51,7 +51,7 @@ Po spawnie z `--no-wake` rodzic **nie** dostaje budzenia z odpowiedzi spawnu. Od
 
 1. Sprawdź `list_agents`. `ask_agent` — do żywej sesji helpera **tego samego** kontekstu (ten sam eksperyment / ta sama pętla), gdy plik roli przewiduje P2P (np. operator ↔ programmer). Nowy węzeł albo nowa dedykowana sesja wg pliku roli → `orx agent spawn` wg szablonu w `roles/` (np. laborant: nowy programmer na eksperyment), także gdy w projekcie widać inną sesję tej samej roli.
 2. Przy każdym `orx agent spawn` zawsze podaj `--no-wake`. Szczegóły flagi: skill `/orx-agent-delegation`.
-3. Brief: kanały do natychmiastowego dołączenia, rola wprost, zadanie, oczekiwany wynik. `--harness` i `--model` wyłącznie wg `model-assignment.md`. Od 2026-09-24 `orx agent spawn` ma też `--permission-mode`/`--reasoning-level`/`--service-tier` (patrz `orx-agent-spawn-options.md`) — użyj, gdy rola tego wymaga, inaczej dziedziczą po rodzicu/harnessie jak dotąd. Szablony briefów są w `roles/`.
+3. Brief: kanały do natychmiastowego dołączenia, rola wprost, zadanie, oczekiwany wynik. Spawn: komenda z `model-assignment.md` dla danej roli (brief w miejsce "<task>"). Szablony briefów są w `roles/`. Opis flag: `orx-agent-spawn-options.md`.
 4. Koordynacja równoległych dzieci = kanały (hipoteza / eksperyment). Kanał jest źródłem prawdy o trwającej pracy.
 5. Kończąc: materiał oddaj na uzgodnionym kanale (to budzi rodzica siedzącego na `wait_for_updates`). Opcjonalna krótka odpowiedź spawnu ≤ ~4000 znaków jest skrótem pomocniczym — przy `--no-wake` sama nie budzi rodzica. Bieżący stan: kanał i `description`.
 

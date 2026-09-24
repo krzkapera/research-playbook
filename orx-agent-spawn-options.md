@@ -144,13 +144,8 @@ Błąd przy nieprawidłowej wartości: `"invalid permission mode for selected ha
 
 ## Powiązanie z `model-assignment.md`
 
-| Rola | `--harness` | `--model` |
-|---|---|---|
-| laborant | `claude-code` | `claude-opus-4-8` |
-| critic | `cursor` | Grok (dynamicznie przez Cursor) |
-| programmer | `antigravity` | Gemini |
-| operator | `antigravity` | Gemini |
-| librarian | `opencode` | Gemini |
+Gotowe komendy spawnu (harness, model, permission, reasoning, `--no-wake`) są w tabeli w `model-assignment.md`. Tu tylko słownik flag; przy spawnie bierz komendę stamtąd.
+
 
 ---
 

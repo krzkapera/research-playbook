@@ -29,7 +29,7 @@ Jeden ciąg od spawnu do domknięcia pętli z operatorem:
 5. **Zaimplementuj** dokładnie ustalony eksperyment / narzędzie (zasady kodu niżej).
 6. **Commit** na branchu eksperymentu: kod i małe pliki wniosku. Duże surowe dane zostają tam, gdzie powstały — w raporcie tylko ścieżki.
 7. **Gotowość dla laboranta** na kanale eksperymentu (i w krótkim podsumowaniu spawnu): branch/commit, pliki, komendy uruchomienia (dla operatora), ścieżki artefaktów.
-8. Gdy `description` lub brief laboranta przewiduje smoke / job HPC → **spawn `operator`** (szablon niżej; zawsze `--no-wake`; `--harness`/`--model` z `model-assignment.md`).
+8. Gdy `description` lub brief laboranta przewiduje smoke / job HPC → **spawn `operator`** (szablon niżej; komenda z `model-assignment.md` dla danej roli).
 9. **Czekaj** przez `wait_for_updates` na kanale eksperymentu — sesja zostaje żywa na **`ask_agent`** od operatora oraz na sygnały laboranta. Operator oddaje laborantowi wyniki na kanale.
 10. Gdy operator woła przez **`ask_agent`**: napraw kod, zacommituj, odpowiedz w tym samym RPC (commit + co się zmieniło). Wróć do kroku 9.
 11. **Zakończ sesję**, gdy laborant zamknie zlecenie na kanale albo na kanale widać oddane wyniki operatora i kod jest domknięty. Ten spawn dotyczy tylko tego eksperymentu.
@@ -98,7 +98,7 @@ Gdy `description` lub brief laboranta przewiduje smoke / job HPC: **spawn `opera
 
 ## Szablon spawnu → operator
 
-Przy każdym `orx agent spawn`: zawsze `--no-wake`; `--harness` i `--model` wyłącznie z `model-assignment.md`.
+Przy każdym `orx agent spawn` użyj komendy z `model-assignment.md` dla danej roli (brief w miejsce "<task>").
 
 ```text
 Jesteś operator dla projektu <project_id>. Przeczytaj `roles/operator.md` i kieruj się nim.

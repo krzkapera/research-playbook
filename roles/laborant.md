@@ -36,7 +36,7 @@ Jeden ciąg od spawnu do zamknięcia hipotezy:
 6. **Design** małego testu na konkretne pytanie z hipotezy. Szeroki przegląd literatury → spawn `librarian`.
 7. **Utwórz węzeł** i kanał wg `experiments.md` (`--parent <id-hipotezy>`). Zapisz `id`; ogłoś slug/`id`/pytanie na kanale hipotezy; pełny design → `description`.
 8. **Recenzja designu:** **spawn `critic`** tego węzła → pętla (uwagi → Twoje odniesienie) → **go/no-go**. Gdy critic zakończył sesję, a znów jest potrzebny → nowy spawn.
-9. Po **go:** **spawn nowego programisty** dla tego eksperymentu (szablon; zawsze `--no-wake`; `--harness`/`--model` z `model-assignment.md`). Przy HPC programmer sam spawnuje operatora.
+9. Po **go:** **spawn nowego programisty** dla tego eksperymentu (szablon; komenda z `model-assignment.md` dla danej roli). Przy HPC programmer sam spawnuje operatora.
 10. **Śledzenie na kanale:** po spawnie czekaj przez `wait_for_updates` na kanale eksperymentu; gotowość programisty (commit, komendy, ścieżki) → `description`; potem **policzone wyniki** od operatora (metryki, ścieżki, run id, status) → `description`. Dopytania designu = roundtrip na kanale.
 11. **Analiza wyników:** `description` + skrót na kanale eksperymentu **i** hipotezy (bez critica).
 12. **Kolejny eksperyment** = nowe dziecko (od kroku 6) albo koniec, gdy professor zamknie hipotezę.
@@ -115,7 +115,7 @@ Zapisz na kanale eksperymentu **i** w `description`. Nierozstrzygnięte kwestie 
 
 ## Szablony spawnu
 
-Przy każdym `orx agent spawn`: zawsze `--no-wake`; `--harness` i `--model` wyłącznie z `model-assignment.md`. Nowy eksperyment → nowy programmer (operatora przy HPC spawnuje programmer). Critic węzła: zawsze przy recenzji designu.
+Przy każdym `orx agent spawn` użyj komendy z `model-assignment.md` dla danej roli (brief w miejsce "<task>"). Nowy eksperyment → nowy programmer (operatora przy HPC spawnuje programmer). Critic węzła: zawsze przy recenzji designu.
 
 ### → programmer
 

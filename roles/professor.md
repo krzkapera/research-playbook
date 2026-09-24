@@ -25,7 +25,7 @@ Jeden ciąg od startu do zamknięcia hipotezy:
 1. **Lektura startowa** (sekcja niżej).
 2. **Utwórz węzeł hipotezy** wg `hypotheses.md` (pierwsza vs kolejna z `--baseline`). Zapisz wypisane `id`.
 3. **Draft solo w `description`**: twierdzenie, podstawy, alternatywa, zakres, najbliższe pytanie rozstrzygające. Załóż kanał = slug, ogłoś slug/`id` na `project`.
-4. **Spawn `laborant`** na kanał hipotezy (szablon na końcu; zawsze `--no-wake`; `--harness`/`--model` z `model-assignment.md`; przy połączonych rolach — `model-assignment.md` § Połączone role, pomiń ten spawn). W tym kroku spawnuje wyłącznie laboranta. Po spawnie czekaj przez `wait_for_updates` na kanale hipotezy.
+4. **Spawn `laborant`** na kanał hipotezy (szablon na końcu; komenda z `model-assignment.md` dla laboranta; przy połączonych rolach — `model-assignment.md` § Połączone role, pomiń ten spawn). W tym kroku spawnuje wyłącznie laboranta. Po spawnie czekaj przez `wait_for_updates` na kanale hipotezy.
 5. **Dopracowanie z laborantem**: ustalcie szczegóły pracy laboranta w weryfikacji. Ustalenia → `description`.
 6. Gdy laborant zgłosi **domknięcie uwag do draftu** (sygnał otwierający **pierwszą** recenzję critica) → **spawn `critic` hipotezy**; po spawnie czekaj przez `wait_for_updates` na kanale hipotezy.
 7. **Pętla z criticiem:**
@@ -108,7 +108,7 @@ Wniosek w `description` opieraj na rachunku, literaturze albo skrócie od labora
 
 ## Szablony spawnu
 
-Brief spawnu zawiera kanały do natychmiastowego dołączenia. Przy każdym `orx agent spawn` zawsze `--no-wake`; `--harness` i `--model` wyłącznie z `model-assignment.md`.
+Brief spawnu zawiera kanały do natychmiastowego dołączenia. Przy każdym `orx agent spawn` użyj komendy z `model-assignment.md` dla danej roli (brief w miejsce "<task>").
 
 ### → laborant (po Twoim drafcie; przed criticiem)
 

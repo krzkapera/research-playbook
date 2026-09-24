@@ -7,7 +7,7 @@ Agent czyta wyłącznie:
 3. przekazany plik roli z `roles/` oraz pliki, do których ten plik odsyła
 4. bieżący węzeł hipotezy/eksperymentu w `orx` albo artefakt wskazany w zleceniu
 5. `research-brief.md`, gdy rola każe go przeczytać albo gdy trzeba sprawdzić zakres badania
-6. `model-assignment.md`, gdy spawnujesz albo dobierasz harness/model
+6. `model-assignment.md`, gdy spawnujesz (komenda z tabeli dla roli)
 
 ## Wspólne lektury
 
