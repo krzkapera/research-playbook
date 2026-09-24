@@ -45,7 +45,6 @@ Wszystkie uruchomienia eksperymentu idą przez `orx exp run` (backend `slurm`). 
 - `remoteRoot` z `slurm.json` (domyślnie `~/scratch/.orx`):
   - `source/` — snapshoty commita
   - `runs/<runId>/` — `repo/` (cwd payloadu: `cd repo`), `log`, `exit_code`
-- Override: `"remoteRoot": "/ścieżka/.orx"` w `slurm.json`.
 - Datasety i duże cache ściągaj / trzymaj na klastrze (bezpośredni download na hoście); między hostami możesz przenosić pliki, gdy trzeba.
 
 ### Wybór hosta (`--host`)
@@ -133,8 +132,8 @@ orx exp wake <expId>                 # kończysz turę; wznowienie gdy run Done 
 
 Po Failed / złym exit code / oczywistym błędzie w logu:
 
-1. **Rozdziel** błąd infrastruktury (kolejka, host, moduły, `job.sbatch`, ścieżki remote) od błędu **implementacji** (kod eksperymentu, dane, hiperparametry w kodzie).
-2. **Infrastruktura / `job.sbatch`:** naprawiasz sam na `orx/<slug>`, commitujesz, wracasz do smoke/submit (zmiana hosta według sekcji Kolejka).
+1. **Rozdziel** błąd środowiska (`communication.md` § Problem z flow), błąd infrastruktury joba (kolejka, host, moduły i ścieżki w `job.sbatch`) i błąd **implementacji** (kod eksperymentu, dane, hiperparametry w kodzie).
+2. **Infrastruktura joba:** naprawiasz `job.sbatch` na `orx/<slug>`, commitujesz, wracasz do smoke/submit (zmiana hosta według sekcji Kolejka). Błąd środowiska → Problem z flow.
 3. **Implementacja:** jedna próba naprawy, gdy przyczyna jest jasna z logu — edycja kodu na `orx/<slug>`, commit, powrót do smoke/submit.
 4. Ten sam błąd implementacji po tej próbie → prośba o poprawkę kodu do programmera przez P2P; nowy commit wraca w odpowiedzi `ask_agent` (maks. czas: `communication.md` § Czekanie), potem smoke/submit.
 

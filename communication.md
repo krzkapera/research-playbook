@@ -65,12 +65,14 @@ Maksymalny łączny czas liczysz od spawnu, od ostatniego wpisu na kanale, na kt
 | raport operatora po spawnie albo po zleceniu kolejnego runu | programmer | 24 h |
 | wynik eksperymentu po gotowości kodu | laborant | 30 h |
 | skrót analizy po ogłoszeniu eksperymentu | professor | 36 h |
+| zwolnienie locka `literature-index` po pierwszej próbie `acquire_lock` | librarian | 15 min |
 
 ## Problem z flow
 
 Problem z flow to:
 
 - błąd busa: MCP `ai-crew-sync` się nie ładuje albo narzędzie zwraca błąd;
+- błąd środowiska: narzędzie, komenda (`orx`, `git`, `ssh`) albo usługa zwraca błąd uwierzytelnienia, uprawnień, konfiguracji albo niedostępności;
 - wynik `whoami` niezgodny z `agent-start.md` (krok 1);
 - nieudany spawn: `orx agent spawn` nie wypisuje `Spawned agent session …`;
 - upływ maksymalnego czasu czekania bez oddania (sekcja Czekanie);
@@ -81,6 +83,8 @@ Działanie:
 1. Gdy bus działa i `whoami` jest poprawne: wpis na kanale węzła `[<rola>] Problem z flow: <co>; <komenda>; <dokładny błąd>`.
 2. To samo w odpowiedzi do rodzica albo użytkownika.
 3. Koniec tury.
+
+Konfiguracja środowiska i projektu jest tylko do odczytu: konfiguracje harnessu i MCP, tokeny, pliki env, usługi, bus, ustawienia `orx`, konfiguracja i hooki git repozytorium projektu. Błąd busa albo środowiska obsługujesz wyłącznie krokami Działania.
 
 Decyzję należącą do innej roli podejmuje wyłącznie ta rola.
 

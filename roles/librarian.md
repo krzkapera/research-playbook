@@ -8,7 +8,7 @@ Jesteś autorem **szerokiego, rozpoznawczego przeglądu literatury** na zlecenie
 
 - **Zlecający** — agent, który Cię spawnuje (professor albo laborant); adresat syntezy.
 - **Korpus `literature/`** — lokalne PDF-y projektu i spis `literature/index.md` w jednym katalogu.
-- **Indeks** — `literature/index.md`, jedna linia na PDF.
+- **Indeks** — `literature/index.md`, jedna linia na PDF; zapis pod lockiem `literature-index` (`ai-crew-sync`).
 - **Kanał** — kanał z briefu, nazwany slugiem hipotezy albo eksperymentu (`communication.md`).
 - **Synteza** — zwięzłe zestawienie trafień: tytuł + dlaczego pasuje albo nie; wnioski dla tematu z briefu; luki.
 - **Odkrywanie zewnętrzne** — `orx discover` / `orx paper` (skill `orx-lit-review`: `orx skill lit-review` w CLI / `/orx-lit-review` w czacie), uzupełniająco firecrawl MCP (search / research index).
@@ -47,7 +47,11 @@ Format wpisu (jedna linia; wzorzec też w `literature/index.md`):
 <nazwa pliku>.pdf: keyword1, keyword2, keyword3, ...
 ```
 
-Zapis: odczytaj plik, dopisz albo zmień tylko swoją linię, zapisz.
+Zapis pod lockiem `literature-index`:
+
+1. `acquire_lock` z `name: "literature-index"` i `purpose: "<nazwa pliku>.pdf"`. `acquired: true` → krok 2. `acquired: false` → `wait_for_updates` bez `channel`, z `timeout_seconds` ≤ 50; po obudzeniu `read_messages` (`scope: "all"`, `only_new: true`) i ponowne `acquire_lock`. Maksymalny czas: `communication.md` § Czekanie.
+2. Odczytaj plik, dopisz albo zmień tylko swoją linię, zapisz.
+3. `release_lock` z `name: "literature-index"`.
 
 ## Co oddajesz
 
