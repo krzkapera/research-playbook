@@ -11,7 +11,7 @@ Zanim przejdziesz do flow, te słowa oznaczają w playbooku konkretne rzeczy:
 - **Hipoteza** — węzeł drzewa `orx` (korzeń dla eksperymentów). Ma `id` i **slug**. Tworzenie: `hypotheses.md`. Właścicielem `description` i stanu jest professor.
 - **Eksperyment** — węzeł-dziecko hipotezy (własny branch, kanał, runy). Tworzysz go Ty wg `experiments.md`. Właścicielem `description` jesteś Ty.
 - **`description`** — pole węzła w `orx` (`orx exp desc`). Źródło prawdy; nadpisywane w całości (przed zapisem odczytaj bieżącą treść). Hipotezę edytuje professor; eksperyment — Ty. Critic i krótkie sygnały programmer/operator trafiają na kanał — Ty wciągasz je do `description` eksperymentu. Pętlę naprawczą kodu programmer↔operator prowadzą przez `ask_agent`.
-- **Kanał hipotezy** — kanał `ai-crew-sync` nazwany slugiem hipotezy. Zakłada go professor przy tworzeniu węzła; Ty dołączasz z briefu. Tu faza treści z professorem i skróty analiz. Zawsze dołączasz też do `project`. Protokół: `communication.md`.
+- **Kanał hipotezy** — kanał `ai-crew-sync` nazwany slugiem hipotezy. Zakłada go professor przy tworzeniu węzła; Ty dołączasz z briefu. Tu faza treści z professorem i skróty analiz. Protokół: `communication.md`.
 - **Kanał eksperymentu** — kanał `ai-crew-sync` nazwany slugiem eksperymentu. Zakładasz go zaraz po utworzeniu węzła i ogłaszasz na kanale hipotezy.
 - **Professor** — oddaje draft/`description` hipotezy, decyzje o treści i o starcie weryfikacji, odpowiedzi na dopytania.
 - **Critic hipotezy** — uwagi do treści hipotezy na kanale hipotezy.
@@ -29,7 +29,7 @@ Zanim przejdziesz do flow, te słowa oznaczają w playbooku konkretne rzeczy:
 Jeden ciąg od spawnu do zamknięcia hipotezy:
 
 1. **Lektura startowa** (sekcja niżej).
-2. **Dołącz** do kanałów z briefu: `project` oraz kanał hipotezy (slug).
+2. **Dołącz** do kanałów z briefu: kanał hipotezy (slug).
 3. **Faza treści:** proponujesz brzmienie i kryteria na kanale hipotezy; `description` hipotezy aktualizuje professor. Gdy nie masz już uwag — zgłoś **domknięcie uwag do draftu** (sygnał otwierający pętlę z criticiem).
 4. **Pętla z criticiem hipotezy:** na kanale hipotezy odbieraj uwagi critica przez `wait_for_updates`; uwagi critica → Twoje odniesienie na kanale; ew. doprecyzowanie zakresu z professorem (Roundtrip). Rundy do zamknięcia recenzji.
 5. **Start weryfikacji:** professor zapisuje decyzję „gotowa do weryfikacji” i wzywa Cię do fazy eksperymentów na kanale hipotezy — odbierasz wezwanie przez `wait_for_updates`. Brief może od razu wskazać tę fazę — wtedy po lekturze startowej i dołączeniu do kanałów od kroku 6 (`description` i status hipotezy — z lektury).
@@ -123,7 +123,7 @@ Przy każdym `orx agent spawn` użyj komendy z `model-assignment.md` dla danej r
 Jesteś programmer dla projektu <project_id>. Przeczytaj `roles/programmer.md` i kieruj się nim.
 
 Slug eksperymentu: <slug-E> (id: <id-E>)
-Kanały dołącz natychmiast: project, <slug-E>
+Kanały dołącz natychmiast: <slug-E>
 Zadanie: zaimplementuj eksperyment wg description węzła; commit na branchu eksperymentu; podaj komendy uruchomienia; spawn operatora (`roles/operator.md`); po gotowości trzymaj sesję na ask_agent od operatora.
 Oczekiwany wynik: gotowość (commit, pliki, komendy, ścieżki) na kanale <slug-E> i w krótkim podsumowaniu spawnu; spawn operatora; potem odpowiedzi na ask_agent od operatora. `description` aktualizuje laborant.
 ```
@@ -134,7 +134,7 @@ Oczekiwany wynik: gotowość (commit, pliki, komendy, ścieżki) na kanale <slug
 Jesteś critic dla projektu <project_id>. Przeczytaj `roles/critic.md` i kieruj się nim.
 
 Węzeł: <slug-E> (id: <id-E>) (eksperyment)
-Kanały dołącz natychmiast: project, <slug-E>
+Kanały dołącz natychmiast: <slug-E>
 Zadanie: oceń design eksperymentu w description i na kanale <slug-E>
          (zmienne, dane, baseline, metryki, warunki interpretacji, wyniki rozróżniające,
          zakres wnioskowania; przedmiot oceny: treść designu w description — etap go/no-go);
@@ -148,7 +148,7 @@ Oczekiwany wynik: uwagi na kanale <slug-E> + krótkie streszczenie w odpowiedzi 
 Jesteś librarian dla projektu <project_id>. Przeczytaj `roles/librarian.md` i kieruj się nim.
 
 Slug kontekstu (opcjonalnie): <slug>
-Kanały dołącz natychmiast: project[, <slug>]
+Kanały dołącz natychmiast: <slug>
 Zadanie: szeroki przegląd literatury nt. <temat> (najpierw literature/, synteza dla zlecającego).
 Oczekiwany wynik: synteza w limicie odpowiedzi spawnu; dłuższe treści na kanale. Materiał oddajesz zlecającemu; `description` węzłów aktualizuje ich właściciel.
 ```

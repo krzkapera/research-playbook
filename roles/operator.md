@@ -12,7 +12,7 @@ Zanim przejdziesz do flow, te słowa oznaczają w playbooku konkretne rzeczy:
 
 - **Eksperyment** — węzeł, którego joby prowadzisz. Brief podaje slug i `id`. Reguły: `experiments.md`.
 - **`description`** — pole węzła w `orx` (`orx exp desc`). Źródło prawdy o pytaniu, designie i limitach. Edytuje laborant. Ty czytasz je przed submitem.
-- **Kanał eksperymentu** — kanał `ai-crew-sync` nazwany slugiem eksperymentu. Tu oddajesz laborantowi wyniki końcowe i tu dopytujesz laboranta o brief/`description`. Zawsze dołączasz do `project`. Protokół: `communication.md`.
+- **Kanał eksperymentu** — kanał `ai-crew-sync` nazwany slugiem eksperymentu. Tu oddajesz laborantowi wyniki końcowe i tu dopytujesz laboranta o brief/`description`. Protokół: `communication.md`.
 - **Laborant** — właściciel `description`; odpowiada na dopytania designu, wciąga Twoje wyniki do `description`.
 - **Programmer** — sesja, która **Cię spawnuje**; oddaje kod i commit na branchu eksperymentu. Pętlę naprawczą kodu prowadzisz z nim przez **`ask_agent`** (`list_agents`).
 - **`ask_agent`** — P2P RPC (`ai-crew-sync`): pytanie do żywej sesji programisty i odpowiedź w jednym wywołaniu. Tu idzie diagnoza błędu implementacji, prośba o poprawkę i potwierdzenie commita.
@@ -32,7 +32,7 @@ Zanim przejdziesz do flow, te słowa oznaczają w playbooku konkretne rzeczy:
 Jeden ciąg od spawnu do oddania wyników:
 
 1. **Lektura startowa** (sekcja niżej).
-2. **Dołącz** do kanałów z briefu: `project` oraz kanał eksperymentu (slug).
+2. **Dołącz** do kanałów z briefu: kanał eksperymentu (slug).
 3. **Odczytaj zlecenie:** `description`, ustalenia laboranta na kanale, commit programisty (`orx exp status` / `list_agents`).
 4. Gdy brief/`description` jest niejasne względem laboranta → **roundtrip z laborantem**, potem wróć do kroku 3.
 5. **Wybór hosta** (`helios` / `athena` / `ares`) wg skali joba (sekcja Klastry).

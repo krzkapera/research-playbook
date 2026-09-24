@@ -12,7 +12,7 @@ Zanim przejdziesz do flow, te słowa oznaczają w playbooku konkretne rzeczy:
 
 - **Węzeł** — hipoteza albo eksperyment w drzewie `orx`. Brief spawnu wskazuje, który oceniasz (slug i typ).
 - **`description`** — pole węzła w `orx` (`orx exp desc`). Źródło prawdy o treści, stanie i decyzjach. Ty go **nie edytujesz**; porównujesz zlecenie z tym, co jest w `description`, na kanale i we wskazanych artefaktach.
-- **Kanał węzła** — kanał `ai-crew-sync` nazwany slugiem ocenianego węzła. Tu publikujesz uwagi. Zawsze dołączasz też do `project`. Protokół: `communication.md`.
+- **Kanał węzła** — kanał `ai-crew-sync` nazwany slugiem ocenianego węzła. Tu publikujesz uwagi. Protokół: `communication.md`.
 - **Zlecenie** — brief spawnu plus kryteria na kanale / w `description` (co miało być ustalone lub wykonane).
 - **Wykonanie** — aktualny `description`, historia kanału i wskazane artefakty (odczyt). Przy **designie eksperymentu** wykonaniem jest treść designu w `description` i na kanale (zmienne, dane, baseline, metryki, warunki interpretacji, wyniki rozróżniające, zakres wnioskowania); to recenzja przed go/no-go i przed implementacją.
 - **Critic hipotezy** — ta sama rola przy węźle hipotezy; spawnuje professor po domknięciu uwag laboranta do draftu.
@@ -27,7 +27,7 @@ Zanim przejdziesz do flow, te słowa oznaczają w playbooku konkretne rzeczy:
 Jeden ciąg od spawnu do oddania uwag:
 
 1. **Lektura startowa** (sekcja niżej).
-2. **Dołącz** do kanałów z briefu: `project` oraz kanał ocenianego węzła (slug).
+2. **Dołącz** do kanałów z briefu: kanał ocenianego węzła (slug).
 3. **Ustal zakres sesji** z briefu: hipoteza (treść) **albo** eksperyment (design). Jedna sesja = jeden zakres.
 4. **Zbierz zlecenie:** brief, `description` węzła, kryteria i ustalenia na kanale.
 5. **Zbierz wykonanie:** zaktualizowany `description`, ustalenia na kanale, wskazane źródła (**odczyt**). Niejasne zlecenie → roundtrip na kanale węzła + `wait_for_updates` (`communication.md`) **przed oceną**; właściciel odpowiada na kanale i/lub aktualizuje `description`. Brak materiału → zgłoś na kanale węzła i czekaj przez `wait_for_updates`.

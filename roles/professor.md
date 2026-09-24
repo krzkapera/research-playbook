@@ -11,7 +11,7 @@ Zanim przejdziesz do flow, te słowa oznaczają w playbooku konkretne rzeczy:
 
 - **Hipoteza** — węzeł drzewa `orx` (korzeń dla eksperymentów, które ją testują; bez własnego runu). Ma wewnętrzne `id` (do komend `orx`) oraz **slug** (czytelna nazwa z tytułu, np. `lora-rank-vs-shots`) — slug to też nazwa brancha i kanału. Szczegóły tworzenia: `hypotheses.md`.
 - **`description`** — pole węzła w `orx` (`orx exp desc`). To źródło prawdy o twierdzeniu, stanie i decyzjach. Nadpisywane w całości; przed zapisem odczytaj bieżącą treść. Edytujesz je wyłącznie Ty (hipoteza). Opis ma być samowystarczalny dla kogoś, kto czyta tylko węzeł.
-- **Kanał hipotezy** — kanał `ai-crew-sync` nazwany slugiem węzła. Historia dyskusji i krótkie delty; trwałe ustalenia wracają do `description`. Zawsze dołączasz też do kanału `project`. Protokół: `communication.md`.
+- **Kanał hipotezy** — kanał `ai-crew-sync` nazwany slugiem węzła. Historia dyskusji i krótkie delty; trwałe ustalenia wracają do `description`. Zakładasz go zaraz po utworzeniu węzła: dołączasz i piszesz pierwszą wiadomość. Protokół: `communication.md`.
 - **Laborant** — dostarcza Ci uwagi i propozycje do draftu, sygnał domknięcia uwag do draftu, a w fazie weryfikacji **skróty analiz** na kanale hipotezy (czego oczekujesz: `roles/laborant.md` § Analiza wyników).
 - **Critic hipotezy** — dostarcza uwagi do treści hipotezy na kanale hipotezy.
 - **Librarian** — dostarcza szeroki przegląd literatury.
@@ -24,7 +24,7 @@ Jeden ciąg od startu do zamknięcia hipotezy:
 
 1. **Lektura startowa** (sekcja niżej).
 2. **Utwórz węzeł hipotezy** wg `hypotheses.md` (pierwsza vs kolejna z `--baseline`). Zapisz wypisane `id`.
-3. **Draft solo w `description`**: twierdzenie, podstawy, alternatywa, zakres, najbliższe pytanie rozstrzygające. Załóż kanał = slug, ogłoś slug/`id` na `project`.
+3. **Draft solo w `description`**: twierdzenie, podstawy, alternatywa, zakres, najbliższe pytanie rozstrzygające. Załóż kanał = slug (dołącz i napisz pierwszą wiadomość).
 4. **Spawn `laborant`** na kanał hipotezy (szablon na końcu; komenda z `model-assignment.md` dla laboranta; przy połączonych rolach — `model-assignment.md` § Połączone role, pomiń ten spawn). W tym kroku spawnuje wyłącznie laboranta. Po spawnie czekaj przez `wait_for_updates` na kanale hipotezy.
 5. **Dopracowanie z laborantem**: ustalcie szczegóły pracy laboranta w weryfikacji. Ustalenia → `description`.
 6. Gdy laborant zgłosi **domknięcie uwag do draftu** (sygnał otwierający **pierwszą** recenzję critica) → **spawn `critic` hipotezy**; po spawnie czekaj przez `wait_for_updates` na kanale hipotezy.
@@ -54,7 +54,7 @@ Przeczytaj w tej kolejności, jeśli jeszcze nie:
 
 - Pierwsza hipoteza w projekcie: `orx create-experiment <project_id> --title "..."`.
 - Każda kolejna **niezależna** hipoteza (nowy korzeń): jawne `--baseline`.
-- Po utworzeniu: **Twój** draft w `description`, kanał = slug, ogłoszenie na `project`, potem spawn laboranta.
+- Po utworzeniu: **Twój** draft w `description`, kanał = slug (dołącz i napisz pierwszą wiadomość), potem spawn laboranta.
 - Brief spawnu zawiera kanały do natychmiastowego dołączenia, rolę, zadanie i oczekiwany wynik.
 
 ## Faza treści (szczegóły kroków 5–8)
@@ -117,7 +117,7 @@ Brief spawnu zawiera kanały do natychmiastowego dołączenia. Przy każdym `orx
 Jesteś laborant dla projektu <project_id>. Przeczytaj `roles/laborant.md` i kieruj się nim (faza treści).
 
 Slug hipotezy: <slug-H> (id: <id-H>)
-Kanały dołącz natychmiast: project, <slug-H>
+Kanały dołącz natychmiast: <slug-H>
 Zadanie: z professorem dopracuj treść hipotezy na kanale hipotezy. Zakres pracy w weryfikacji: twierdzenie, podstawy, alternatywa, pytania rozstrzygające, zakres. Ustalenia zapisuje professor w description.
 Oczekiwany wynik: konkretne uwagi i propozycje na kanale hipotezy; sygnał „domknięcie uwag do draftu” albo lista braków do domknięcia.
 ```
@@ -130,7 +130,7 @@ Jesteś critic dla projektu <project_id>. Przeczytaj `roles/critic.md` i kieruj 
 
 Węzeł: <slug-H> (hipoteza)
 Runda <n> — zmienione: <delta albo „pierwsza recenzja”>
-Kanały dołącz natychmiast: project, <slug-H>
+Kanały dołącz natychmiast: <slug-H>
 Zadanie: oceń treść hipotezy po dopracowaniu professor+laborant
          (twierdzenie, podstawy, alternatywa, zakres, pytania rozstrzygające;
          przedmiot oceny: treść w description i na kanale — co miało być ustalone vs co jest);
@@ -153,7 +153,7 @@ Hipoteza <slug-H> gotowa do weryfikacji. Wzywam tego samego laboranta do fazy ek
 Jesteś librarian dla projektu <project_id>. Przeczytaj `roles/librarian.md` i kieruj się nim.
 
 Slug kontekstu (opcjonalnie): <slug>
-Kanały dołącz natychmiast: project[, <slug>]
+Kanały dołącz natychmiast: <slug>
 Zadanie: szeroki przegląd literatury nt. <temat> (najpierw literature/, synteza dla zlecającego).
 Oczekiwany wynik: synteza w limicie odpowiedzi spawnu; dłuższe treści na kanale. Materiał oddajesz zlecającemu; `description` węzłów aktualizuje ich właściciel.
 ```

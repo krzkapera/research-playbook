@@ -10,7 +10,7 @@ Zanim przejdziesz do flow, te słowa oznaczają w playbooku konkretne rzeczy:
 
 - **Eksperyment** — węzeł-dziecko hipotezy, który implementujesz. Brief podaje slug i `id`. Reguły węzła: `experiments.md`.
 - **`description`** — pole węzła w `orx` (`orx exp desc`). Źródło prawdy o designie i ustaleniach. Edytuje laborant. Ty czytasz je przed zmianą kodu i po uzupełnieniach z roundtripu.
-- **Kanał eksperymentu** — kanał `ai-crew-sync` nazwany slugiem eksperymentu. Tu krótka gotowość dla laboranta oraz roundtrip designu z laborantem. Zawsze dołączasz do `project`. Protokół: `communication.md`.
+- **Kanał eksperymentu** — kanał `ai-crew-sync` nazwany slugiem eksperymentu. Tu krótka gotowość dla laboranta oraz roundtrip designu z laborantem. Protokół: `communication.md`.
 - **Laborant** — zlecający; oddaje design w `description` i na kanale, odpowiada na dopytania designu, wciąga commit i wyniki operatora (którego Ty spawujesz) do `description`.
 - **Operator** — osobna sesja HPC (smoke, `job.sbatch`, submit, monitoring, wyniki). **Spawujesz go Ty** po gotowości kodu. Bierze Twój commit; przy błędzie kodu, którego sam nie domknie, woła Cię przez **`ask_agent`**. Na kanale oddaje laborantowi **policzone wyniki**.
 - **`ask_agent`** — P2P RPC: pytanie od operatora i Twoja odpowiedź (oraz nowy commit) w tym kanale komunikacji. Tu idzie pętla naprawcza kodu z operatorem.
@@ -23,7 +23,7 @@ Zanim przejdziesz do flow, te słowa oznaczają w playbooku konkretne rzeczy:
 Jeden ciąg od spawnu do domknięcia pętli z operatorem:
 
 1. **Lektura startowa** (sekcja niżej).
-2. **Dołącz** do kanałów z briefu: `project` oraz kanał eksperymentu (slug).
+2. **Dołącz** do kanałów z briefu: kanał eksperymentu (slug).
 3. **Odczytaj zlecenie:** `description` eksperymentu (`orx exp desc`), kryterium pytania, ustalenia na kanale; przygotuj worktree: `git checkout orx/<slug>`, sprawdź czystość (`orx` już dał worktree; sekcja Worktree).
 4. Gdy brief/`description` jest niejasne lub niepełne → **roundtrip z laborantem**, potem wróć do kroku 3.
 5. **Zaimplementuj** dokładnie ustalony eksperyment / narzędzie (zasady kodu niżej).
@@ -104,7 +104,7 @@ Przy każdym `orx agent spawn` użyj komendy z `model-assignment.md` dla danej r
 Jesteś operator dla projektu <project_id>. Przeczytaj `roles/operator.md` i kieruj się nim.
 
 Slug eksperymentu: <slug-E> (id: <id-E>)
-Kanały dołącz natychmiast: project, <slug-E>
+Kanały dołącz natychmiast: <slug-E>
 Zadanie: smoke zdalnie na HPC, napisz/utrzymaj job.sbatch, submit i monitoring; przy błędzie kodu najpierw napraw sam, gdy utkniesz — ask_agent do programisty.
 Oczekiwany wynik: policzone wyniki (metryki, ścieżki artefaktów), run id, status Done/Failed/Cancelled — na kanale <slug-E> i w podsumowaniu spawnu. Pętlę z programistą prowadzisz przez ask_agent. `description` aktualizuje laborant.
 ```

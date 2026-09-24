@@ -4,12 +4,15 @@ Narzędzie: `ai-crew-sync` — wiadomości, P2P (`ask_agent`), kanały, zadania,
 
 ## Kanały
 
-- Zawsze dołączaj do `project`.
-- Do kanału sluga węzła dołączaj tylko przy aktywnej roli *teraz* (właściciel etapu, zaproszenie do recenzji, albo zlecenie wskazuje ten slug).
-- Bez dołączania na zapas.
+Kanały pracy to kanały `ai-crew-sync` nazwane slugiem hipotezy albo eksperymentu.
+
+- Twórca węzła zakłada kanał = slug zaraz po utworzeniu węzła: dołącza i pisze pierwszą wiadomość.
+- Nowy eksperyment: laborant ogłasza slug/`id`/pytanie na kanale hipotezy-rodzica.
+- Do kanału sluga dołączasz przy aktywnej roli *teraz* (właściciel etapu, zaproszenie do recenzji, albo zlecenie wskazuje ten slug).
+- Dołączasz wyłącznie do kanałów wskazanych w briefie albo wynikających z aktywnej roli.
 - Draft solo nie wymaga innych na kanale. Wciąganie ludzi na kanał = start rundy recenzji.
 
-Kanał o nazwie sluga powstaje, gdy twórca węzła dołączy i napisze pierwszą wiadomość. Zaproszenie = podanie nazwy kanału w briefie albo P2P.
+Zaproszenie = podanie nazwy kanału w briefie albo P2P.
 
 ## Opis węzła vs wiadomość
 
@@ -61,7 +64,7 @@ Szablon briefu:
 Jesteś <rola> dla projektu <project_id>. Przeczytaj `roles/<plik-roli>.md` i kieruj się nim.
 
 Slug hipotezy/eksperymentu: <slug, jeśli dotyczy>
-Kanały dołącz natychmiast: project[, <slug>]
+Kanały dołącz natychmiast: <slug>[, <slug-dziecka>]
 Zadanie: <konkretne, samodzielne>
 Oczekiwany wynik: <co i w jakiej formie>
 ```

@@ -30,7 +30,7 @@ Ustal go sam na starcie sesji, w tej kolejności:
 1. brief / zlecenie — gdy podaje `project_id` albo jednoznaczną nazwę lub ścieżkę repo projektu;
 2. kontekst sesji `orx` — helper ze `orx agent spawn` dziedziczy projekt rodzica;
 3. `orx projects` — wybierz wpis zgodny z katalogiem roboczym lub nazwą repo projektu badawczego; przy dokładnie jednym pasującym kandydacie weź go;
-4. gdy nadal niejednoznaczne — krótko dopytaj na kanale `project` albo nadawcę briefu.
+4. gdy nadal niejednoznaczne — krótko dopytaj nadawcę briefu.
 
 Zapamiętaj wybrane `project_id` w sesji i wstawiaj je do komend `orx` oraz do briefów spawnu (placeholdery `<project_id>`).
 
