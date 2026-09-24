@@ -31,8 +31,8 @@ Jeden ciąg od spawnu do zamknięcia hipotezy:
 1. **Lektura startowa** (sekcja niżej).
 2. **Dołącz** do kanałów z briefu: `project` oraz kanał hipotezy (slug).
 3. **Faza treści:** proponujesz brzmienie i kryteria na kanale hipotezy; `description` hipotezy aktualizuje professor. Gdy nie masz już uwag — zgłoś **domknięcie uwag do draftu** (sygnał otwierający pętlę z criticiem).
-4. **Pętla z criticiem hipotezy:** na kanale hipotezy odbieraj uwagi critica przez `wait_for_updates`; odniesienie profesora → Twoje odniesienie; w razie potrzeby doprecyzuj zakres z professorem. Rundy do zamknięcia recenzji.
-5. **Start weryfikacji:** professor zapisuje decyzję „gotowa do weryfikacji” i wzywa Cię do fazy eksperymentów na kanale hipotezy — odbierasz wezwanie przez `wait_for_updates`. Brief może od razu wskazać tę fazę — wtedy od kroku 6.
+4. **Pętla z criticiem hipotezy:** na kanale hipotezy odbieraj uwagi critica przez `wait_for_updates`; uwagi critica → Twoje odniesienie na kanale; ew. doprecyzowanie zakresu z professorem (Roundtrip). Rundy do zamknięcia recenzji.
+5. **Start weryfikacji:** professor zapisuje decyzję „gotowa do weryfikacji” i wzywa Cię do fazy eksperymentów na kanale hipotezy — odbierasz wezwanie przez `wait_for_updates`. Brief może od razu wskazać tę fazę — wtedy po lekturze startowej i dołączeniu do kanałów od kroku 6 (`description` i status hipotezy — z lektury).
 6. **Design** małego testu na konkretne pytanie z hipotezy. Szeroki przegląd literatury → spawn `librarian`.
 7. **Utwórz węzeł** i kanał wg `experiments.md` (`--parent <id-hipotezy>`). Zapisz `id`; ogłoś slug/`id`/pytanie na kanale hipotezy; pełny design → `description`.
 8. **Recenzja designu:** **spawn `critic`** tego węzła → pętla (uwagi → Twoje odniesienie) → **go/no-go**. Gdy critic zakończył sesję, a znów jest potrzebny → nowy spawn.
@@ -133,7 +133,7 @@ Oczekiwany wynik: gotowość (commit, pliki, komendy, ścieżki) na kanale <slug
 ```text
 Jesteś critic dla projektu <project_id>. Przeczytaj `roles/critic.md` i kieruj się nim.
 
-Węzeł: <slug-E> (eksperyment)
+Węzeł: <slug-E> (id: <id-E>) (eksperyment)
 Kanały dołącz natychmiast: project, <slug-E>
 Zadanie: oceń design eksperymentu w description i na kanale <slug-E>
          (zmienne, dane, baseline, metryki, warunki interpretacji, wyniki rozróżniające,
