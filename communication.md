@@ -95,12 +95,12 @@ Decyzję należącą do innej roli podejmuje wyłącznie ta rola.
 
 ## Roundtrip (niejasny brief)
 
-Gdy brief albo `description` nie wystarcza do kontynuacji, doprecyzowanie idzie przez kanał w **tej samej** sesji dziecka (operator dopytuje programmera przez P2P):
+Gdy zlecenie (brief, `description`, dokument, do którego zlecenie odsyła) nie wystarcza do kontynuacji, dziecko dopytuje nadawcę zlecenia w **tej samej** sesji, drogą, którą przyszło zlecenie: operator — programmera przez P2P (sekcja P2P); pozostałe role — na kanale węzła.
 
-1. Dziecko publikuje pytania na kanale węzła.
+1. Dziecko zadaje pytania tą drogą.
 2. Dziecko czeka na odpowiedź (sekcja Czekanie).
-3. Rodzic odpowiada na kanale i/lub aktualizuje `description`.
-4. Dziecko kontynuuje w tej samej sesji z wyjaśnionego kanału/`description`.
+3. Nadawca odpowiada tą samą drogą i/lub aktualizuje `description`.
+4. Dziecko kontynuuje w tej samej sesji z wyjaśnionej odpowiedzi/`description`.
 
 ## Wiadomość vs plik
 

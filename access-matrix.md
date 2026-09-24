@@ -9,7 +9,7 @@ Agent czyta wyłącznie:
 5. `research-brief.md`, gdy rola każe go przeczytać albo gdy trzeba sprawdzić zakres badania
 6. `model-assignment.md`, gdy spawnujesz (komenda z tabeli dla roli)
 
-Dokument spoza tej listy, do którego odsyła zlecenie: pytasz o niego nadawcę na kanale węzła. Tokeny, konfiguracje i zmienne środowiskowe innych agentów są poza zakresem lektury (`agent-start.md`, krok 1).
+Dokument spoza tej listy, do którego odsyła zlecenie: pytasz o niego nadawcę zlecenia (`communication.md` § Roundtrip). Tokeny, konfiguracje i zmienne środowiskowe innych agentów są poza zakresem lektury (`agent-start.md`, krok 1).
 
 ## Wspólne lektury
 

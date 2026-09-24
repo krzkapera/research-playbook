@@ -12,6 +12,8 @@ Przy `orx agent spawn` uruchom **dokładnie komendę z tabeli** dla danej roli. 
 
 ## Połączone role w jednej sesji
 
+Programmer i operator zawsze pracują jako osobne sesje: operatora spawnuje programmer (`roles/programmer.md` § Szablon spawnu → operator).
+
 Gdy sesja dostała kilka plików ról (np. `professor.md` + `laborant.md`):
 
 - etapy prowadź **w tej samej sesji**, w kolejności flow roli „głównej” (pierwsza w briefie / zleceniu) z wchłoniętymi etapami pozostałych;
