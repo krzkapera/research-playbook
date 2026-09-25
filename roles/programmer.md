@@ -12,8 +12,8 @@ Jesteś implementatorem **jednego** eksperymentu w jednej sesji. Laborant spawnu
 - **P2P z operatorem** — wiadomości bezpośrednie między Tobą a operatorem (`communication.md` § P2P): operator pyta przez `ask_agent`, Ty odpowiadasz.
 - **Worktree** — prywatne drzewo pracy sesji `orx` (sekcja Worktree).
 - **Gotowość kodu** — Twoje pierwsze oddanie laborantowi (sekcja Co oddajesz).
-- **Operator** — sesja HPC, którą spawnujesz po gotowości kodu: `job.sbatch`, smoke, submit, monitoring. Przez P2P oddaje Ci statusy i raport operatora (`roles/operator.md` § Co oddajesz).
-- **Prośba o poprawkę kodu** — pytanie P2P operatora: run id, fragment logu, hipoteza błędu.
+- **Operator** — sesja HPC, którą spawnujesz po gotowości kodu. Decyduje, jak i gdzie uruchomić eksperyment (host, zasoby, czas, środowisko joba, `job.sbatch`), prowadzi go do wyniku i sam naprawia drobne błędy. Przez P2P oddaje Ci statusy i raport operatora (`roles/operator.md` § Co oddajesz).
+- **Prośba o poprawkę kodu** — pytanie P2P operatora o poważny błąd logiczny (`roles/operator.md` § Naprawa): run id, fragment logu, hipoteza błędu.
 - **Wynik eksperymentu** — Twoje końcowe oddanie laborantowi: merytoryczna odpowiedź na pytanie eksperymentu (sekcja Co oddajesz).
 - **Wynik przyjęty** — wpis laboranta na kanale eksperymentu zamykający zlecenie.
 
@@ -38,7 +38,12 @@ Każda sesja `orx up` (także po `orx agent spawn`) dostaje własny, prywatny wo
 
 Worktree należy do sesji, nie do brancha. Inny eksperyment w tej samej sesji = kolejny `git checkout orx/<inny-slug>` w tym samym worktree.
 
-Branch `orx/<slug>` jest checkoutowany w jednym worktree naraz: do spawnu operatora w Twoim, potem w worktree operatora. Przed spawnem operatora zwalniasz go: `git switch --detach`. Poprawka kodu po spawnie operatora: `git switch --detach orx/<slug>`, zmiana, commit; hash commita wysyłasz operatorowi w odpowiedzi P2P.
+Branch `orx/<slug>` jest checkoutowany w jednym worktree naraz i ma jednego właściciela:
+
+1. **Do spawnu operatora** branch należy do Ciebie: jest checkoutowany w Twoim worktree, commitujesz na nim implementację.
+2. **Przed spawnem operatora** zwalniasz go: `git switch --detach`. Od tej chwili branch należy do operatora: tylko on na nim commituje i tylko on go przesuwa.
+3. **Poprawka kodu po spawnie operatora:** `git switch --detach orx/<slug>` (start od aktualnego czubka brancha, razem z commitami operatora), zmiana, commit na detached HEAD. Hash tego commita wysyłasz operatorowi w odpowiedzi P2P; operator włącza go do brancha przez `git merge <hash>`.
+4. **Po spawnie operatora nie zmieniasz refu `orx/<slug>`:** żadnego `git checkout orx/<slug>`, commitu na branchu, `git update-ref`, `git branch -f`, `git reset`, `git rebase` ani `git push` na ten branch.
 
 Równolegli programiści przy różnym kodzie: osobny `orx agent spawn` (osobna sesja, osobny worktree). Natywny subagent modelu: krótkie zapytania i analiza tekstu.
 
@@ -50,7 +55,7 @@ Ręczny `git worktree add` tylko poza `orx up` (np. narzędzie na hoście). Naze
 - Przed zmianą kodu odczytujesz bieżące `description` i stan worktree.
 - Kod, konfiguracje i małe pliki wniosku → commit na `orx/<slug>`. Duże surowe dane i cache → poza branchem; w oddaniu podajesz ścieżki.
 - Kod liczy i zapisuje wielkości, o które pyta eksperyment (metryki, tabele), tak by operator mógł je odczytać z runu.
-- `job.sbatch`, smoke i submit wykonuje operator (`roles/operator.md` § job.sbatch).
+- Przekazujesz eksperyment, a nie sposób uruchomienia: jak i gdzie go uruchomić (host, zasoby, czas, środowisko joba, `job.sbatch`, smoke, submit) decyduje operator (`roles/operator.md` § job.sbatch). W gotowości kodu i w briefie operatora podajesz wyłącznie komendę wejściową z korzenia repozytorium, jej argumenty, wymagane dane i zależności; bez hosta, zasobów, limitu czasu i dyrektyw `#SBATCH`.
 
 ## Zasady kodu
 
@@ -78,7 +83,7 @@ Laborantowi, na kanale eksperymentu:
 - **Gotowość kodu** (krok 6):
   - branch i commit;
   - zmienione i dodane pliki;
-  - jak uruchomić: komenda wejściowa z korzenia repozytorium, konfiguracja, wymagane dane i zależności.
+  - jak uruchomić: komenda wejściowa z korzenia repozytorium, jej argumenty, wymagane dane i zależności (host, zasoby i `job.sbatch` ustala operator).
 - **Wynik eksperymentu** (krok 9) — odpowiedź na pytanie eksperymentu w formie, która mu odpowiada:
   - odpowiedź na pytanie eksperymentu i wniosek względem kryterium sukcesu z `description`;
   - policzone wartości: liczby, tabela albo wykres — to, czego wymaga pytanie;
@@ -102,7 +107,7 @@ Eksperyment: <slug-E> (id: <id-E>)
 Kanał: <slug-E>
 Programmer (adres P2P): <agent>/<session> z Twojego `whoami`
 Commit: <branch orx/<slug-E>, hash>
-Uruchomienie: <komenda wejściowa / konfiguracja z gotowości kodu>
+Uruchomienie: <komenda wejściowa z korzenia repozytorium i jej argumenty, z gotowości kodu; bez hosta, zasobów i #SBATCH>
 Wielkości do policzenia: <metryki / tabele potrzebne do odpowiedzi na pytanie eksperymentu>
 Limity z briefu użytkownika: <dosłownie albo „brak”>
 Oddanie: statusy i raport operatora przez P2P do programmera
