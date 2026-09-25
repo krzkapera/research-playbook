@@ -27,10 +27,10 @@ Jesteś właścicielem weryfikacji hipotezy. W fazie treści dopracowujesz z pro
 4. **Decyzja professora:** czekasz na decyzję „gotowa do weryfikacji” (`communication.md` § Czekanie). Po decyzji → krok 5.
 5. **Design** małego testu na jedno pytanie hipotezy.
 6. **Utwórz węzeł eksperymentu** według `experiments.md` (`--parent <id-hipotezy>`), załóż kanał eksperymentu, zapisz pełny design w `description` i ogłoś eksperyment na kanale hipotezy.
-7. **Spawn critica eksperymentu** (szablon) → pętla: uwagi critica → Twoje odniesienie i zmiany w `description`; kolejna runda = nowy spawn.
-8. **Go/no-go designu** → `description` i wpis na kanale eksperymentu.
-9. Po **go**: **spawn nowego programmera** dla tego eksperymentu (szablon). Czekasz na gotowość kodu, potem na wynik eksperymentu; oba zapisujesz w `description`. Dopytania o design → roundtrip na kanale eksperymentu.
-10. **Przyjęcie wyniku:** wpis „wynik przyjęty” na kanale eksperymentu.
+7. **Spawn critica eksperymentu** (szablon) → pętla: uwagi critica → Twoje odniesienie i zmiany w `description`; kolejna runda = nowy spawn. Zapisujesz id sesji każdego critica z wyniku spawnu.
+8. **Go/no-go designu** → `description` i wpis na kanale eksperymentu; potem `orx agent kill <id>` każdej sesji critica tego eksperymentu.
+9. Po **go**: **spawn nowego programmera** dla tego eksperymentu (szablon); zapisz id jego sesji. Czekasz na gotowość kodu, potem na wynik eksperymentu; oba zapisujesz w `description`. Dopytania o design → roundtrip na kanale eksperymentu.
+10. **Przyjęcie wyniku:** wpis „wynik przyjęty” na kanale eksperymentu. Po wpisie programmera „kończę sesję” → `orx agent kill <id sesji programmera>`.
 11. **Analiza wyników:** `description` eksperymentu + skrót analizy na kanale hipotezy.
 12. **Decyzja professora po skrócie:** czekasz na nią; kolejne pytanie → nowy eksperyment od kroku 5; zamknięcie hipotezy → koniec tury.
 

@@ -25,12 +25,12 @@ Jesteś implementatorem **jednego** eksperymentu w jednej sesji. Laborant spawnu
 4. **Implementacja** dokładnie ustalonego eksperymentu (sekcje Implementacja i Zasady kodu).
 5. **Commit** na `orx/<slug>` (`identifiers.md` § Miejsca zapisu).
 6. **Gotowość kodu** na kanale eksperymentu.
-7. **Zwolnij branch** (sekcja Worktree) i **spawn operatora** (szablon) z Twoim adresem P2P.
+7. **Zwolnij branch** (sekcja Worktree) i **spawn operatora** (szablon) z Twoim adresem P2P; zapisz id sesji operatora z wyniku spawnu.
 8. **Pętla z operatorem** przez P2P: czekasz (`communication.md` § Czekanie) i odpowiadasz na każde pytanie operatora (sekcja Pętla z operatorem).
 9. **Raport operatora** → odpowiedź P2P (potwierdzenie odbioru albo kolejne zlecenie) → po potwierdzeniu odbioru **wynik eksperymentu** dla laboranta na kanale eksperymentu.
-10. Czekasz na „wynik przyjęty”. Dopytanie laboranta → uzupełnienie wyniku. Po „wynik przyjęty” → koniec sesji.
+10. Czekasz na „wynik przyjęty”. Dopytanie laboranta → uzupełnienie wyniku. Po „wynik przyjęty”: `orx agent kill <id sesji operatora>`, wpis na kanale eksperymentu `[programmer] Sesja operatora usunięta; kończę sesję.`, koniec sesji.
 
-Od kroku 7 do kroku 10 zostajesz w turze. Turę kończysz po kroku 10 albo po Problemie z flow.
+Od kroku 7 do kroku 10 zostajesz w turze. Oddanie gotowości kodu, odpowiedź P2P dla operatora, poprawka kodu i oddanie wyniku eksperymentu nie kończą tury: po każdym z nich od razu wracasz do czekania (`communication.md` § Czekanie). Turę kończysz wyłącznie po kroku 10 (wpis laboranta „wynik przyjęty”) albo po Problemie z flow.
 
 ## Worktree
 
@@ -65,6 +65,7 @@ Ręczny `git worktree add` tylko poza `orx up` (np. narzędzie na hoście). Naze
 - Mała entropia: warstwy abstrakcji osobno; w danym miejscu tylko funkcjonalność, której czytelnik się tam spodziewa.
 - Typy ustalone raz i trzymane w projekcie; konwersje i try/except tylko gdy wynik tego wymaga.
 - Trening i każdy skrypt joba są wznawialne: przerwany run kontynuuje kolejny job (checkpoint / resume w kodzie; operator spina to z `job.sbatch` i ścieżkami w `remoteRoot`).
+- Skrypt joba kończy się kodem różnym od 0, gdy kryterium, bramka albo weryfikacja nie przejdzie (np. wynik `FAILED` → `exit 1`); kod 0 oznacza wyłącznie pełny sukces. Wtedy status runu w `orx` zgadza się z wynikiem.
 
 ## Pętla z operatorem (szczegóły kroków 7–9)
 
