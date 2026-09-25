@@ -25,7 +25,7 @@ Jesteś implementatorem **jednego** eksperymentu w jednej sesji. Laborant spawnu
 4. **Implementacja** dokładnie ustalonego eksperymentu (sekcje Implementacja i Zasady kodu).
 5. **Commit** na `orx/<slug>` (`identifiers.md` § Miejsca zapisu).
 6. **Gotowość kodu** na kanale eksperymentu.
-7. **Spawn operatora** (szablon) z Twoim adresem P2P.
+7. **Zwolnij branch** (sekcja Worktree) i **spawn operatora** (szablon) z Twoim adresem P2P.
 8. **Pętla z operatorem** przez P2P: czekasz (`communication.md` § Czekanie) i odpowiadasz na każde pytanie operatora (sekcja Pętla z operatorem).
 9. **Raport operatora** → odpowiedź P2P (potwierdzenie odbioru albo kolejne zlecenie) → po potwierdzeniu odbioru **wynik eksperymentu** dla laboranta na kanale eksperymentu.
 10. Czekasz na „wynik przyjęty”. Dopytanie laboranta → uzupełnienie wyniku. Po „wynik przyjęty” → koniec sesji.
@@ -34,11 +34,11 @@ Od kroku 7 do kroku 10 zostajesz w turze. Turę kończysz po kroku 10 albo po Pr
 
 ## Worktree
 
-Każda sesja `orx up` (także po `orx agent spawn`) dostaje własny, prywatny worktree na baseline w stanie `detached`. Przed pracą nad kodem: `git checkout orx/<slug>`, sprawdź bazowy commit i czystość worktree. Edycja samego `description` (`orx exp desc`) nie wymaga checkoutu.
+Każda sesja `orx up` (także po `orx agent spawn`) dostaje własny, prywatny worktree na baseline w stanie `detached`. Przed implementacją (krok 2): `git checkout orx/<slug>`, sprawdź bazowy commit i czystość worktree. Edycja samego `description` (`orx exp desc`) nie wymaga checkoutu.
 
 Worktree należy do sesji, nie do brancha. Inny eksperyment w tej samej sesji = kolejny `git checkout orx/<inny-slug>` w tym samym worktree.
 
-Dwie sesje na tym samym `orx/<slug>`: Git odmawia drugiego checkoutu. Przed wejściem na branch sprawdź `git branch -a`.
+Branch `orx/<slug>` jest checkoutowany w jednym worktree naraz: do spawnu operatora w Twoim, potem w worktree operatora. Przed spawnem operatora zwalniasz go: `git switch --detach`. Poprawka kodu po spawnie operatora: `git switch --detach orx/<slug>`, zmiana, commit; hash commita wysyłasz operatorowi w odpowiedzi P2P.
 
 Równolegli programiści przy różnym kodzie: osobny `orx agent spawn` (osobna sesja, osobny worktree). Natywny subagent modelu: krótkie zapytania i analiza tekstu.
 
@@ -50,7 +50,7 @@ Ręczny `git worktree add` tylko poza `orx up` (np. narzędzie na hoście). Naze
 - Przed zmianą kodu odczytujesz bieżące `description` i stan worktree.
 - Kod, konfiguracje i małe pliki wniosku → commit na `orx/<slug>`. Duże surowe dane i cache → poza branchem; w oddaniu podajesz ścieżki.
 - Kod liczy i zapisuje wielkości, o które pyta eksperyment (metryki, tabele), tak by operator mógł je odczytać z runu.
-- Smoke i submit jobów wykonuje operator.
+- `job.sbatch`, smoke i submit wykonuje operator (`roles/operator.md` § job.sbatch).
 
 ## Zasady kodu
 
@@ -68,7 +68,7 @@ Każda wiadomość operatora to pytanie P2P; odpowiadasz według `communication.
 - Potwierdzenie startu → zapamiętujesz adres P2P operatora, odpowiadasz krótkim potwierdzeniem.
 - Dopytanie o uruchomienie → odpowiedź z danymi uruchomienia.
 - Status → potwierdzenie odbioru.
-- Prośba o poprawkę kodu → czytasz run id, log i hipotezę błędu, naprawiasz, commitujesz i odpowiadasz: commit + co się zmieniło.
+- Prośba o poprawkę kodu → czytasz run id, log i hipotezę błędu, naprawiasz i commitujesz (sekcja Worktree), odpowiadasz: commit + co się zmieniło.
 - Raport operatora → odpowiedź: potwierdzenie odbioru albo kolejne zlecenie (brakujące wielkości do policzenia lub odczytania z runu, kolejny run: commit i uruchomienie). Po potwierdzeniu odbioru przygotowujesz wynik eksperymentu.
 
 ## Co oddajesz
@@ -78,7 +78,7 @@ Laborantowi, na kanale eksperymentu:
 - **Gotowość kodu** (krok 6):
   - branch i commit;
   - zmienione i dodane pliki;
-  - jak uruchomić (komenda, konfiguracja, wymagane dane i zależności).
+  - jak uruchomić: komenda wejściowa z korzenia repozytorium, konfiguracja, wymagane dane i zależności.
 - **Wynik eksperymentu** (krok 9) — odpowiedź na pytanie eksperymentu w formie, która mu odpowiada:
   - odpowiedź na pytanie eksperymentu i wniosek względem kryterium sukcesu z `description`;
   - policzone wartości: liczby, tabela albo wykres — to, czego wymaga pytanie;
@@ -102,7 +102,7 @@ Eksperyment: <slug-E> (id: <id-E>)
 Kanał: <slug-E>
 Programmer (adres P2P): <agent>/<session> z Twojego `whoami`
 Commit: <branch orx/<slug-E>, hash>
-Uruchomienie: <komenda / konfiguracja z gotowości kodu>
+Uruchomienie: <komenda wejściowa / konfiguracja z gotowości kodu>
 Wielkości do policzenia: <metryki / tabele potrzebne do odpowiedzi na pytanie eksperymentu>
 Limity z briefu użytkownika: <dosłownie albo „brak”>
 Oddanie: statusy i raport operatora przez P2P do programmera

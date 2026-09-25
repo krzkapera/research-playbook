@@ -64,7 +64,7 @@ Wiele pytań = wiele dzieci. Warianty równoległe: rodzeństwo o wspólnym rodz
 1. Design w `description` eksperymentu.
 2. **Spawn critica eksperymentu** dla każdego eksperymentu (szablon). Limit uwag i rund z briefu dotyczy każdego critica osobno.
 3. Czekasz na uwagi critica; odnosisz się do każdej na kanale eksperymentu i zapisujesz zmiany w `description`. Dopytania o hipotezę → kanał hipotezy.
-4. **Go/no-go** po uwagach critica z pętli; zapis w `description` i na kanale eksperymentu. Kolejna recenzja potrzebna → nowy spawn critica.
+4. **Go/no-go** po domknięciu recenzji (`communication.md` § Pokój); zapis w `description` i na kanale eksperymentu. Sygnał „uwagi otwarte” w ramach limitu → nowy spawn critica.
 
 ## Implementacja i obliczenia (szczegóły kroków 9–10)
 

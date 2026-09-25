@@ -34,6 +34,8 @@
 
 Pokój = recenzja **gotowego** draftu z `description`. Synonim w `roles/`: **pętla** / **runda recenzji** (np. pętla z criticiem). Skład rośnie stopniowo (kolejna osoba → kolejna runda). Właściciel etapu ma głos rozstrzygający przy braku zgody. Pokój kończy się, gdy wracasz do solo albo zmieniasz etap.
 
+Recenzja critica jest domknięta, gdy właściciel etapu odpowiedział na każdą uwagę, a ostatni wpis critica kończy się sygnałem „gotowe do decyzji po stronie <właściciel etapu>” albo limit uwag lub rund z briefu użytkownika jest wyczerpany.
+
 ## Czekanie
 
 - **Na wpis albo wiadomość P2P:** `wait_for_updates` z `channel: "<slug>"` i `timeout_seconds: 86400`, potem `read_messages` z `scope: "all"` i `only_new: true`. Wiadomość bezpośrednia do Twojej sesji (P2P) także budzi to wywołanie.
@@ -44,7 +46,7 @@ Wywołanie wraca bez oczekiwanego oddania, z timeoutem albo z błędem klienta �
 
 Stan pracy innych agentów odczytujesz wyłącznie z wpisów na kanale i wiadomości P2P. `list_agents` i obecność (presence) nie są sygnałem, czy agent pracuje.
 
-Rodzic zostaje w turze, dopóki spawnowane przez niego dzieci pracują nad jego węzłem. Turę kończy po nadejściu oddania albo po Problemie z flow.
+Turę kończysz w ostatnim kroku flow z pliku roli albo po Problemie z flow. Do tego czasu czekasz według tej sekcji.
 
 Odpowiedź spawnu dziecka nie budzi rodzica; oddanie przychodzi wpisem na kanale albo wiadomością P2P.
 
@@ -55,8 +57,7 @@ Problem z flow to:
 - błąd busa: MCP `ai-crew-sync` się nie ładuje albo narzędzie zwraca błąd poza wywołaniami czekania (sekcja Czekanie);
 - błąd środowiska: narzędzie, komenda (`orx`, `git`, `ssh`) albo usługa zwraca błąd uwierzytelnienia, uprawnień, konfiguracji albo niedostępności;
 - wynik `whoami` niezgodny z `agent-start.md` (krok 1);
-- nieudany spawn: `orx agent spawn` nie wypisuje `Spawned agent session …`;
-- brak decyzji od roli, do której ta decyzja należy.
+- nieudany spawn: `orx agent spawn` nie wypisuje `Spawned agent session …`.
 
 Działanie:
 
@@ -92,4 +93,4 @@ Krótki wniosek mieści się we wpisie. Log, diff, tabela, wykres, długi wynik 
 
 ## Literatura
 
-Korpus i spis literatury: `<repo>/literature/` (`identifiers.md` § Miejsca zapisu).
+Korpus i spis literatury: `~/literature/` (`identifiers.md` § Miejsca zapisu).

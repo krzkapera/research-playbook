@@ -2,7 +2,7 @@
 
 Eksperyment to węzeł drzewa `orx`, dziecko hipotezy, którą testuje: `orx create-experiment <project_id> --parent <id-hipotezy> --title "..."` (`id` hipotezy, nie slug; `identifiers.md`). Komenda wypisuje `id` i slug (linia `slug:`). Eksperyment ma własny branch `orx/<slug>` i runy.
 
-Na Slurmie job startuje z `job.sbatch` w korzeniu brancha (`orx exp run --backend slurm`; `roles/operator.md`). Pola `run_command` nie ustawia się przy tworzeniu węzła.
+Na Slurmie job startuje z `job.sbatch` w korzeniu brancha (`orx exp run --backend slurm`; `roles/operator.md` § job.sbatch). Pola `run_command` nie ustawia się przy tworzeniu węzła.
 
 ## description i logi
 

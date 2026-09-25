@@ -57,8 +57,8 @@ Pojedyncze uruchomienie = run `orx`:
 | Co | Gdzie |
 |---|---|
 | raporty, wykresy, obrazy, CSV, PDF i inne trwałe wyniki | katalog artefaktów `orx`, podkatalog nazwany slugiem węzła: `<Artifacts directory>/<slug>/…`; absolutną ścieżkę katalogu artefaktów `orx` podaje w prompcie każdej sesji jako „Artifacts directory”; w wiadomościach i `description` link `artifacts/<slug>/…` |
-| kod, konfiguracja, `job.sbatch`, małe pliki wniosku | commit na branchu `orx/<slug>` w worktree sesji; commitujesz przed oddaniem, niezacommitowane zmiany znikają razem z worktree po końcu sesji |
+| kod, konfiguracja, małe pliki wniosku; `job.sbatch` (pisze operator, `roles/operator.md` § job.sbatch) | commit na branchu `orx/<slug>` w worktree sesji; commitujesz przed oddaniem, niezacommitowane zmiany znikają razem z worktree po końcu sesji |
 | wyniki runów (log, `exit_code`, pliki zapisane przez job) | `remoteRoot/runs/<runId>/` na klastrze (`orx logs <run_id>`) |
 | brief spawnu | zapisuje rola spawnująca: `<Artifacts directory>/<slug>/briefs/<rola>.md`, gdzie `<slug>` to węzeł z briefu, a `<rola>` to rola spawnowanej sesji; komenda spawnu czyta ten plik przez `--stdin`; w wiadomościach link `artifacts/<slug>/briefs/<rola>.md` |
-| literatura: PDF-y, ich wersje tekstowe, spis | `<repo>/literature/<nazwa pliku>.pdf`, `<repo>/literature/txt/<nazwa pliku>.txt`, `<repo>/literature/index.md`; `<repo>` = pole `repo:` z `orx project view <project_id>` (główny checkout repozytorium projektu, branch `main`); zapisuje i commituje `librarian` (`roles/librarian.md`), pozostałe role czytają |
+| literatura: PDF-y, ich wersje tekstowe, spis | `~/literature/<nazwa pliku>.pdf`, `~/literature/txt/<nazwa pliku>.txt`, `~/literature/index.md` na hoście, na którym pracują agenci; zapisuje `librarian` (`roles/librarian.md` § Zapis korpusu), pozostałe role czytają |
 | stan, ustalenia i decyzje węzła | `description` węzła |

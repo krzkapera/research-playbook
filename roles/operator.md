@@ -13,20 +13,20 @@ Wszystkie uruchomienia eksperymentu idą przez `orx exp run` (backend `slurm`). 
 - **Kanał eksperymentu** — kanał nazwany slugiem eksperymentu (`communication.md`). Czytasz na nim gotowość kodu; zakres Twoich wpisów: `communication.md` § P2P.
 - **P2P z programmerem** — `ask_agent` na adres P2P programmera z briefu (`communication.md` § P2P). Tą drogą idą wszystkie Twoje wiadomości do programmera; jego odpowiedź wraca w wyniku `ask_agent`.
 - **Prośba o poprawkę kodu** — Twoje pytanie P2P do programmera: run id, fragment logu, hipoteza błędu, oczekiwana zmiana.
-- **`job.sbatch`** — skrypt submitu w korzeniu brancha eksperymentu (część commita). `orx exp run <expId> --backend slurm` submituje ten plik z zacommitowanego snapshotu.
+- **`job.sbatch`** — skrypt submitu w korzeniu brancha eksperymentu (część commita). `orx exp run <expId> --backend slurm` pakuje commit z końca brancha `orx/<slug>` i submituje ten plik z jego korzenia.
 - **Host / klaster** — alias z `~/.ssh/config` przekazywany jako `--host` (Cyfronet: `helios`, `athena`, `ares`). Dokumentacja: Helios, Athena, Ares.
 - **`remoteRoot`** — katalog remote ORX z `slurm.json` (domyślnie `~/scratch/.orx`): `source/` (tarballe snapshotów), `runs/<runId>/` (`repo/`, `log`, `exit_code`).
 - **Wzorce na klastrze** — inne projekty w `~/scratch/<…>/` (skrypty `.sh` / `.sbatch`, konfiguracja Helios/ARM); wzorzec dla `job.sbatch` i środowiska.
 - **Kolejka** — obciążenie wybranego hosta; przy martwej lub zbyt odległej kolejce zmieniasz `--host` i kontynuujesz.
 - **Smoke** — krótki przebieg przez `orx exp run … --backend slurm` (kolejka) przed większą zmianą albo pierwszym pełnym jobem.
-- **Monitoring** — po starcie **jedna** ścieżka: `orx exp wait …` **albo** `orx exp wake <expId>`. Po powrocie źródłem prawdy są `orx runs` i `orx logs`.
-- **Worktree** — prywatne drzewo sesji `orx`; przed edycją kodu albo `job.sbatch`: `git checkout orx/<slug>` (`roles/programmer.md` § Worktree).
+- **Monitoring** — po starcie **jedna** ścieżka: `orx exp wait …` **albo** `orx exp wake <expId>`. Po powrocie źródłem prawdy są `orx runs <project_id> --experiment <expId>` i `orx logs <runId>`.
+- **Worktree** — prywatne drzewo sesji `orx`. Branch `orx/<slug>` checkoutujesz w kroku 2 i trzymasz do końca sesji (`roles/programmer.md` § Worktree).
 - **Raport operatora** — Twoje oddanie programmerowi (sekcja Co oddajesz).
 
 ## Pełny flow pracy
 
 1. **Start sesji** według `agent-start.md`; potem `experiments.md`, `roles/programmer.md` § Worktree, dokumentacja Cyfronet wybranego hosta; przy Helios/ARM przykładowe `.sh` / `.sbatch` z `~/scratch/` na klastrze.
-2. **Zlecenie:** brief, `description` (`orx exp desc` / `orx exp status`), gotowość kodu programmera na kanale; `git checkout orx/<slug>` na commicie z briefu.
+2. **Zlecenie:** brief, `description` (`orx exp desc` / `orx exp status`), gotowość kodu programmera na kanale; `git checkout orx/<slug>`, `git rev-parse --short HEAD` wypisuje commit z briefu.
 3. Niejasne uruchomienie → dopytanie programmera przez P2P, potem krok 2.
 4. **Wybór hosta** według skali joba (sekcja Klastry).
 5. **Napisz / zaktualizuj `job.sbatch`** w korzeniu brancha i **zacommituj** przed pierwszym smokiem albo submitem.
@@ -36,7 +36,7 @@ Wszystkie uruchomienia eksperymentu idą przez `orx exp run` (backend `slurm`). 
 9. **Błąd przebiegu** → sekcja Naprawa; po poprawce wróć do kroku 6 albo 7.
 10. **Odczyt wyników:** `orx runs`, `orx logs <runId>`, pliki w `remoteRoot/runs/<runId>/`; policz albo odczytaj wielkości z briefu.
 11. **Raport operatora** przez P2P; odpowiedź programmera wraca w `ask_agent`.
-12. Odpowiedź „kolejne zlecenie” → kroki 5–11. Potwierdzenie odbioru → koniec sesji.
+12. Odpowiedź „kolejne zlecenie” → `git merge <commit>` na `orx/<slug>`, gdy zawiera commit; potem kroki 5–11. Potwierdzenie odbioru → koniec sesji.
 
 ## Klastry i remoteRoot (szczegóły kroków 4, 8)
 
@@ -75,12 +75,12 @@ Wszystkie uruchomienia eksperymentu idą przez `orx exp run` (backend `slurm`). 
 
 ## job.sbatch (szczegóły kroków 5 i 7)
 
-`orx exp run <expId> --backend slurm` submituje `job.sbatch` z korzenia **zacommitowanego** snapshotu. Ty ten plik piszesz, utrzymujesz i commitujesz przed runem. Submit opiera się na `job.sbatch` z commita; partition/account/time ustawiasz w skrypcie.
+`orx exp run <expId> --backend slurm` submituje `job.sbatch` z commita na końcu brancha `orx/<slug>`. Ty ten plik piszesz, utrzymujesz i commitujesz na `orx/<slug>` przed runem. Zasoby ustawiasz w skrypcie: minimum potrzebne do wyniku, w granicach limitów z briefu i `description`.
 
 W `job.sbatch` muszą być m.in.:
 
 - `#SBATCH --output=log` i `#SBATCH --error=log` (względem katalogu runu — cwd przy `sbatch`)
-- dyrektywy zasobów (`--partition`, `--gres`, `--time`, …) dopasowane do minimum potrzebnego wyniku
+- dyrektywy zasobów (`--partition`, `--gres`, `--time`, `--mem`, …)
 - payload w podshellu z `cd repo || exit 97` (snapshot ORX)
 - zapis `exit_code` w katalogu runu po zakończeniu, np. `echo "$code" > exit_code`
 
@@ -135,7 +135,7 @@ Po Failed / złym exit code / oczywistym błędzie w logu:
 1. **Rozdziel** błąd środowiska (`communication.md` § Problem z flow), błąd infrastruktury joba (kolejka, host, moduły i ścieżki w `job.sbatch`) i błąd **implementacji** (kod eksperymentu, dane, hiperparametry w kodzie).
 2. **Infrastruktura joba:** naprawiasz `job.sbatch` na `orx/<slug>`, commitujesz, wracasz do smoke/submit (zmiana hosta według sekcji Kolejka). Błąd środowiska → Problem z flow.
 3. **Implementacja:** jedna próba naprawy, gdy przyczyna jest jasna z logu — edycja kodu na `orx/<slug>`, commit, powrót do smoke/submit.
-4. Ten sam błąd implementacji po tej próbie → prośba o poprawkę kodu do programmera przez P2P; nowy commit wraca w odpowiedzi `ask_agent`, potem smoke/submit.
+4. Ten sam błąd implementacji po tej próbie → prośba o poprawkę kodu do programmera przez P2P; nowy commit wraca w odpowiedzi `ask_agent` → `git merge <commit>` na `orx/<slug>`, potem smoke/submit.
 
 ## Co oddajesz
 
