@@ -125,6 +125,7 @@ orx exp wake <expId>                 # kończysz turę; wznowienie gdy run Done 
 - Domyślnie (jeden eksperyment w sesji): `orx exp wait <expId>` **albo** `orx exp wake <expId>` (wyłącznie jedna z tych ścieżek).
 - `orx exp wait --project <projectId>` gdy w tej sesji pilnujesz wielu runów albo pętli budżetowej w całym projekcie.
 - `wait` i `wake` to wyłącznie sygnał przebudzenia, nie źródło wyniku. Po każdym powrocie z `wait` (oraz po wake): odczytaj `orx runs`, znajdź nowe terminalne runy, przeczytaj `orx logs <runId>` (i/lub `log` w `remoteRoot/runs/<runId>/`), dopiero potem raportuj albo naprawiaj.
+- Exit code runu bierzesz z pliku `remoteRoot/runs/<runId>/exit_code` na klastrze; pole exit code w `orx` jest przy backendzie Slurm puste.
 - Timeout `wait` oznacza brak zmiany w oknie czasu, nie Failed.
 - Proces `orx supervise` zostawiasz w spokoju.
 
