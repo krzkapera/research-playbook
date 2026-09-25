@@ -56,9 +56,10 @@ Pojedyncze uruchomienie = run `orx`:
 
 | Co | Gdzie |
 |---|---|
-| raporty, wykresy, obrazy, CSV, PDF i inne trwałe wyniki | katalog artefaktów `orx`, podkatalog nazwany slugiem węzła: `<Artifacts directory>/<slug>/…`; absolutną ścieżkę katalogu artefaktów `orx` podaje w prompcie każdej sesji jako „Artifacts directory”; w wiadomościach i `description` link `artifacts/<slug>/…` |
+| raporty, notatki, analizy, wykresy, obrazy, CSV, PDF i inne trwałe wyniki (katalog `research/`, także gdy brief użytkownika każe zapisywać wyniki do `research/`) | katalog artefaktów `orx`: `<Artifacts directory>/research/<slug>/…`, gdzie `<slug>` to węzeł, którego dotyczy plik; absolutną ścieżkę katalogu artefaktów `orx` podaje w prompcie każdej sesji jako „Artifacts directory”; w wiadomościach i `description` link `artifacts/research/<slug>/…`. `research/` nie istnieje w repozytorium: nie zakładasz go w worktree i nie commitujesz tych plików do gita |
+| kopie cudzego kodu i źródeł do wglądu (paper, repo referencyjne) | `<Artifacts directory>/research/<slug>/sources/…`, z licencją źródła; kod potrzebny do runu trafia jako commit na branch eksperymentu `orx/<slug>` (programmer) |
 | kod, konfiguracja, małe pliki wniosku; `job.sbatch` (pisze operator, `roles/operator.md` § job.sbatch) | commit na branchu `orx/<slug>` w worktree sesji; commitujesz przed oddaniem, niezacommitowane zmiany znikają razem z worktree po końcu sesji |
 | wyniki runów (log, `exit_code`, pliki zapisane przez job) | `remoteRoot/runs/<runId>/` na klastrze (`orx logs <run_id>`) |
 | brief spawnu | zapisuje rola spawnująca: `<Artifacts directory>/<slug>/briefs/<rola>.md`, gdzie `<slug>` to węzeł z briefu, a `<rola>` to rola spawnowanej sesji; komenda spawnu czyta ten plik przez `--stdin`; w wiadomościach link `artifacts/<slug>/briefs/<rola>.md` |
 | literatura: PDF-y, ich wersje tekstowe, spis | `~/literature/<nazwa pliku>.pdf`, `~/literature/txt/<nazwa pliku>.txt`, `~/literature/index.md` na hoście, na którym pracują agenci; zapisuje `librarian` (`roles/librarian.md` § Zapis korpusu), pozostałe role czytają |
-| stan, ustalenia i decyzje węzła | `description` węzła |
+| stan, ustalenia i decyzje węzła | `description` węzła; nie kopiujesz `description` do plików (np. `hypothesis.md`) |

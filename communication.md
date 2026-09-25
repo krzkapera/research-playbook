@@ -21,10 +21,12 @@
 
 ## P2P (programmer ↔ operator)
 
-- Cała wymiana programmer ↔ operator idzie przez P2P: potwierdzenie startu, dopytania o uruchomienie, statusy, prośby o poprawkę kodu, raport operatora i odpowiedzi programmera. Operator pisze na kanale eksperymentu wyłącznie Problem z flow i konflikt z `description` (`agent-start.md`, krok 7).
+- Operator komunikuje się wyłącznie z programmerem i wyłącznie przez `ask_agent`: potwierdzenie startu, dopytania o uruchomienie, statusy, prośby o poprawkę kodu, raport operatora, Problem z flow i konflikt z `description`. Operator nie dołącza do żadnego kanału, nie czyta kanałów i nic na nich nie pisze.
+- Pozostałe role (professor, laborant, critic, librarian) nie komunikują się z operatorem. Decyzję dotyczącą runów (np. wstrzymanie) laborant przekazuje programmerowi na kanale eksperymentu; programmer przekazuje ją operatorowi przez P2P.
 - Operator pyta, programmer odpowiada. Programmer podaje swój adres P2P w briefie spawnu operatora; adres operatora bierze z pól `from` i `from_session` jego pierwszej wiadomości.
 - **Pytanie (operator):** `ask_agent` z `to: "<adres P2P programmera>"`, `question` i `timeout_seconds: 86400`. `answered: true` → odpowiedź w polu `answer`. Ponawianie: sekcja Czekanie.
 - **Odpowiedź (programmer):** pytanie przychodzi jako wiadomość bezpośrednia w pętli czekania (sekcja Czekanie). Odpowiadasz na każde pytanie: `post_message` z `to: "<from>/<from_session>"` i `reply_to: <id pytania>`.
+- **Polecenie bez pytania (programmer):** decyzję, która nie czeka na pytanie operatora (np. wstrzymanie runów po decyzji laboranta), wysyłasz `post_message` z `to: "<adres P2P operatora>"`. Operator odczytuje wiadomości P2P (`read_messages` z `scope: "all"`, `only_new: true`) po każdym powrocie z monitoringu runu i przed każdym submitem.
 
 ## Opis węzła vs wpis
 
@@ -73,7 +75,7 @@ Problem z flow to:
 
 Działanie:
 
-1. Gdy bus działa i `whoami` jest poprawne: wpis na kanale węzła `[<rola>] Problem z flow: <co>; <komenda>; <dokładny błąd>`.
+1. Gdy bus działa i `whoami` jest poprawne: wpis na kanale węzła `[<rola>] Problem z flow: <co>; <komenda>; <dokładny błąd>`. Operator zamiast wpisu wysyła to samo programmerowi przez `ask_agent`.
 2. To samo w odpowiedzi do rodzica albo użytkownika.
 3. Koniec tury.
 
@@ -84,6 +86,8 @@ Decyzję należącą do innej roli podejmuje wyłącznie ta rola.
 ## Spawn
 
 - `orx agent` ma dwie komendy: `spawn` i `kill`. Postęp dziecka śledzisz na kanale węzła; postęp operatora — w P2P.
+- Po każdym spawnie zapisujesz id sesji dziecka z wyniku komendy (`Spawned agent session <id>`).
+- `orx agent kill <id>` usuwa sesję, którą spawnowałeś (bezpośrednio albo przez swoje dziecko), razem z jej worktree i niezacommitowanymi zmianami; jej dzieci zostają. Wywołujesz go wyłącznie wtedy, gdy dziecko skończyło pracę, w kroku wskazanym w pliku roli.
 - Komenda spawnu: wiersz roli z `model-assignment.md`; brief z pliku (`identifiers.md` § Miejsca zapisu) przez `--stdin`.
 - Szablon briefu jest w pliku roli, która spawnuje. Brief zawiera wyłącznie dane tej sesji: rolę, `project_id`, węzeł (`id`, slug), kanał, zadanie specyficzne dla tej sesji, limity z briefu użytkownika oraz oddanie (co i gdzie: kanał albo adres P2P odbiorcy). Brief odsyła do `agent-start.md` i pliku roli; reguły z playbooka zostają w plikach playbooka.
 - Limity z briefu użytkownika przekazujesz w briefie dziecka dosłownie, z rolą, której dotyczą.
@@ -101,7 +105,7 @@ Gdy zlecenie (brief, `description`, dokument, do którego zlecenie odsyła) nie 
 
 ## Wiadomość vs plik
 
-Krótki wniosek mieści się we wpisie. Log, diff, tabela, wykres, długi wynik → plik w miejscu według `identifiers.md` § Miejsca zapisu; we wpisie ścieżka albo link `artifacts/<slug>/…`. Styl: zwykły, krótki tekst.
+Krótki wniosek mieści się we wpisie. Log, diff, tabela, wykres, długi wynik → plik w miejscu według `identifiers.md` § Miejsca zapisu; we wpisie ścieżka albo link `artifacts/research/<slug>/…`. Styl: zwykły, krótki tekst.
 
 ## Literatura
 

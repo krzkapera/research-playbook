@@ -25,10 +25,10 @@ Jesteś implementatorem **jednego** eksperymentu w jednej sesji. Laborant spawnu
 4. **Implementacja** dokładnie ustalonego eksperymentu (sekcje Implementacja i Zasady kodu).
 5. **Commit** na `orx/<slug>` (`identifiers.md` § Miejsca zapisu).
 6. **Gotowość kodu** na kanale eksperymentu.
-7. **Zwolnij branch** (sekcja Worktree) i **spawn operatora** (szablon) z Twoim adresem P2P.
+7. **Zwolnij branch** (sekcja Worktree) i **spawn operatora** (szablon) z Twoim adresem P2P; zapisz id sesji operatora z wyniku spawnu.
 8. **Pętla z operatorem** przez P2P: czekasz (`communication.md` § Czekanie) i odpowiadasz na każde pytanie operatora (sekcja Pętla z operatorem).
 9. **Raport operatora** → odpowiedź P2P (potwierdzenie odbioru albo kolejne zlecenie) → po potwierdzeniu odbioru **wynik eksperymentu** dla laboranta na kanale eksperymentu.
-10. Czekasz na „wynik przyjęty”. Dopytanie laboranta → uzupełnienie wyniku. Po „wynik przyjęty” → koniec sesji.
+10. Czekasz na „wynik przyjęty”. Dopytanie laboranta → uzupełnienie wyniku. Po „wynik przyjęty”: `orx agent kill <id sesji operatora>`, wpis na kanale eksperymentu `[programmer] Sesja operatora usunięta; kończę sesję.`, koniec sesji.
 
 Od kroku 7 do kroku 10 zostajesz w turze. Oddanie gotowości kodu, odpowiedź P2P dla operatora, poprawka kodu i oddanie wyniku eksperymentu nie kończą tury: po każdym z nich od razu wracasz do czekania (`communication.md` § Czekanie). Turę kończysz wyłącznie po kroku 10 (wpis laboranta „wynik przyjęty”) albo po Problemie z flow.
 
@@ -77,6 +77,8 @@ Każda wiadomość operatora to pytanie P2P; odpowiadasz według `communication.
 - Prośba o poprawkę kodu → czytasz run id, log i hipotezę błędu, naprawiasz i commitujesz (sekcja Worktree), odpowiadasz: commit + co się zmieniło.
 - Raport operatora → odpowiedź: potwierdzenie odbioru albo kolejne zlecenie (brakujące wielkości do policzenia lub odczytania z runu, kolejny run: commit i uruchomienie). Po potwierdzeniu odbioru przygotowujesz wynik eksperymentu.
 
+Jesteś jedynym łącznikiem operatora z resztą zespołu: operator nie czyta kanałów. Decyzję laboranta z kanału eksperymentu, która dotyczy runów (np. wstrzymanie, zmiana zakresu, nowy commit do uruchomienia), przekazujesz operatorowi przez P2P (`communication.md` § P2P, polecenie bez pytania).
+
 ## Co oddajesz
 
 Laborantowi, na kanale eksperymentu:
@@ -88,7 +90,7 @@ Laborantowi, na kanale eksperymentu:
 - **Wynik eksperymentu** (krok 9) — odpowiedź na pytanie eksperymentu w formie, która mu odpowiada:
   - odpowiedź na pytanie eksperymentu i wniosek względem kryterium sukcesu z `description`;
   - policzone wartości: liczby, tabela albo wykres — to, czego wymaga pytanie;
-  - linki do artefaktów `artifacts/<slug>/…` (raporty, wykresy, CSV) i commit kodu;
+  - linki do artefaktów `artifacts/research/<slug>/…` (raporty, wykresy, CSV) i commit kodu;
   - run id jako wskazanie źródła;
   - log, status joba i ścieżki `remoteRoot/runs/<runId>/` tylko jako wskazania, gdy dotyczą wniosku (np. przebieg nieudany: co się nie powiodło i co z tego wynika dla pytania).
 
@@ -105,7 +107,6 @@ Rola: operator. Projekt: <project_id>.
 Przeczytaj `agent-start.md` i `roles/operator.md`.
 
 Eksperyment: <slug-E> (id: <id-E>)
-Kanał: <slug-E>
 Programmer (adres P2P): <agent>/<session> z Twojego `whoami`
 Commit: <branch orx/<slug-E>, hash>
 Uruchomienie: <komenda wejściowa z korzenia repozytorium i jej argumenty, z gotowości kodu; bez hosta, zasobów i #SBATCH>

@@ -27,10 +27,10 @@ Jesteś właścicielem weryfikacji hipotezy. W fazie treści dopracowujesz z pro
 4. **Decyzja professora:** czekasz na decyzję „gotowa do weryfikacji” (`communication.md` § Czekanie). Po decyzji → krok 5.
 5. **Design** małego testu na jedno pytanie hipotezy.
 6. **Utwórz węzeł eksperymentu** według `experiments.md` (`--parent <id-hipotezy>`), załóż kanał eksperymentu, zapisz pełny design w `description` i ogłoś eksperyment na kanale hipotezy.
-7. **Spawn critica eksperymentu** (szablon) → pętla: uwagi critica → Twoje odniesienie i zmiany w `description`; kolejna runda = nowy spawn, najwyżej 3 rundy na eksperyment (`communication.md` § Pokój).
-8. **Go/no-go designu** → `description` i wpis na kanale eksperymentu.
-9. Po **go**: **spawn nowego programmera** dla tego eksperymentu (szablon). Czekasz na gotowość kodu, potem na wynik eksperymentu; oba zapisujesz w `description`. Dopytania o design → roundtrip na kanale eksperymentu.
-10. **Przyjęcie wyniku:** wpis „wynik przyjęty” na kanale eksperymentu.
+7. **Spawn critica eksperymentu** (szablon) → pętla: uwagi critica → Twoje odniesienie i zmiany w `description`; kolejna runda = nowy spawn, najwyżej 3 rundy na eksperyment (`communication.md` § Pokój). Zapisujesz id sesji każdego critica z wyniku spawnu.
+8. **Go/no-go designu** → `description` i wpis na kanale eksperymentu; potem `orx agent kill <id>` każdej sesji critica tego eksperymentu.
+9. Po **go**: **spawn nowego programmera** dla tego eksperymentu (szablon); zapisz id jego sesji. Czekasz na gotowość kodu, potem na wynik eksperymentu; oba zapisujesz w `description`. Dopytania o design → roundtrip na kanale eksperymentu.
+10. **Przyjęcie wyniku:** wpis „wynik przyjęty” na kanale eksperymentu. Po wpisie programmera „kończę sesję” → `orx agent kill <id sesji programmera>`.
 11. **Analiza wyników:** `description` eksperymentu + skrót analizy na kanale hipotezy.
 12. **Decyzja professora po skrócie:** czekasz na nią; kolejne pytanie → nowy eksperyment od kroku 5; zamknięcie hipotezy → koniec tury.
 
@@ -69,6 +69,7 @@ Wiele pytań = wiele dzieci. Warianty równoległe: rodzeństwo o wspólnym rodz
 ## Implementacja i obliczenia (szczegóły kroków 9–10)
 
 - Po **go**: zawsze **nowy** programmer dla **tego** eksperymentu.
+- Z operatorem się nie komunikujesz i nie wydajesz mu poleceń. Decyzję dotyczącą runów (np. wstrzymanie, zmiana zakresu) piszesz na kanale eksperymentu do programmera; programmer przekazuje ją operatorowi. Jak i gdzie uruchomić eksperyment oraz naprawa drobnych błędów technicznych należą do operatora (`roles/operator.md` § Naprawa) i nie wymagają Twojej zgody.
 - Gotowość kodu (commit, uruchomienie) zapisujesz w `description`.
 - Wynik eksperymentu oceniasz względem pytania i kryterium sukcesu z `description`. Wynik bez odpowiedzi na pytanie eksperymentu → dopytanie programmera na kanale eksperymentu.
 - Wynik przyjęty → zapis w `description` i wpis „wynik przyjęty” na kanale eksperymentu.
@@ -93,7 +94,7 @@ Decyzję zapisujesz na kanale eksperymentu **i** w `description`; nierozstrzygni
 - **Professorowi (kanał hipotezy):**
   - w fazie treści: uwagi i propozycje, „domknięcie uwag do draftu”, odniesienia do uwag critica hipotezy;
   - ogłoszenie eksperymentu: slug, `id`, pytanie;
-  - skrót analizy: wniosek względem pytania hipotezy; kompletność / powtarzalność / anomalie; czego wynik nie dowodzi; otwarte kwestie; linki `artifacts/<slug-E>/…`.
+  - skrót analizy: wniosek względem pytania hipotezy; kompletność / powtarzalność / anomalie; czego wynik nie dowodzi; otwarte kwestie; linki `artifacts/research/<slug-E>/…`.
 - **Criticowi eksperymentu:** design w `description` eksperymentu, brief spawnu, odniesienie do każdej uwagi na kanale eksperymentu.
 - **Programmerowi:** design w `description` (go), brief spawnu, odpowiedzi na dopytania, wpis „wynik przyjęty”.
 
