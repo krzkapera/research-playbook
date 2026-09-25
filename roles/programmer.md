@@ -25,10 +25,10 @@ Jesteś implementatorem **jednego** eksperymentu w jednej sesji. Laborant spawnu
 4. **Implementacja** dokładnie ustalonego eksperymentu (sekcje Implementacja i Zasady kodu).
 5. **Commit** na `orx/<slug>` (`identifiers.md` § Miejsca zapisu).
 6. **Gotowość kodu** na kanale eksperymentu.
-7. **Zwolnij branch** (sekcja Worktree) i **spawn operatora** (szablon) z Twoim adresem P2P; zapisz id sesji operatora z wyniku spawnu.
+7. **Zwolnij branch** (sekcja Worktree) i **spawn operatora** (szablon) z Twoim adresem P2P.
 8. **Pętla z operatorem** przez P2P: czekasz (`communication.md` § Czekanie) i odpowiadasz na każde pytanie operatora (sekcja Pętla z operatorem).
 9. **Raport operatora** → odpowiedź P2P (potwierdzenie odbioru albo kolejne zlecenie) → po potwierdzeniu odbioru **wynik eksperymentu** dla laboranta na kanale eksperymentu.
-10. Czekasz na „wynik przyjęty”. Dopytanie laboranta → uzupełnienie wyniku. Po „wynik przyjęty”: `orx agent kill <id sesji operatora>`, wpis na kanale eksperymentu `[programmer] Sesja operatora usunięta; kończę sesję.`, koniec sesji.
+10. Czekasz na „wynik przyjęty”. Dopytanie laboranta → uzupełnienie wyniku. Po „wynik przyjęty” → koniec sesji.
 
 Od kroku 7 do kroku 10 zostajesz w turze. Oddanie gotowości kodu, odpowiedź P2P dla operatora, poprawka kodu i oddanie wyniku eksperymentu nie kończą tury: po każdym z nich od razu wracasz do czekania (`communication.md` § Czekanie). Turę kończysz wyłącznie po kroku 10 (wpis laboranta „wynik przyjęty”) albo po Problemie z flow.
 

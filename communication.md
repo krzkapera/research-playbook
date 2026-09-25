@@ -71,10 +71,7 @@ Decyzję należącą do innej roli podejmuje wyłącznie ta rola.
 
 ## Spawn
 
-- `orx agent` ma dwie komendy: `spawn` i `kill`. Postęp dziecka śledzisz na kanale węzła; postęp operatora — w P2P.
-- Po każdym spawnie zapisujesz id sesji dziecka z wyniku komendy (`Spawned agent session <id>`).
-- `orx agent kill <id>` usuwa sesję dziecka razem z jej worktree i niezacommitowanymi zmianami, bez jej dzieci. Wywołujesz go wyłącznie wtedy, gdy dziecko skończyło pracę, w kroku wskazanym w pliku roli.
-- Komenda spawnu: wiersz roli z `model-assignment.md`; brief z pliku (`identifiers.md` § Miejsca zapisu) przez `--stdin`.
+- `orx agent` ma dwie komendy: `spawn` i `kill`. Postęp dziecka śledzisz na kanale węzła; postęp operatora — w P2P.- Komenda spawnu: wiersz roli z `model-assignment.md`; brief z pliku (`identifiers.md` § Miejsca zapisu) przez `--stdin`.
 - Szablon briefu jest w pliku roli, która spawnuje. Brief zawiera wyłącznie dane tej sesji: rolę, `project_id`, węzeł (`id`, slug), kanał, zadanie specyficzne dla tej sesji, limity z briefu użytkownika oraz oddanie (co i gdzie: kanał albo adres P2P odbiorcy). Brief odsyła do `agent-start.md` i pliku roli; reguły z playbooka zostają w plikach playbooka.
 - Limity z briefu użytkownika przekazujesz w briefie dziecka dosłownie, z rolą, której dotyczą.
 - Równoległe spawny: każde dziecko pracuje na kanale swojego węzła.

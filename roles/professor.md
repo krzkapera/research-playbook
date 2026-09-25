@@ -24,7 +24,7 @@ Jesteś właścicielem **hipotezy badawczej**: jej treści, stanu, `description`
 3. **Draft solo w `description`**: twierdzenie, podstawy, alternatywa (co może być prawdą zamiast tego), zakres, pytania rozstrzygające, podział zweryfikowane vs otwarte. Załóż kanał hipotezy (`communication.md` § Kanały).
 4. **Spawn laboranta** (szablon). Czekaj na jego uwagi (`communication.md` § Czekanie).
 5. **Dopracowanie z laborantem** na kanale hipotezy. Po każdej rundzie zapisujesz ustalenia w `description`.
-6. Po wpisie laboranta **„domknięcie uwag do draftu”** → **spawn critica hipotezy** (szablon „→ critic hipotezy”, komenda z wiersza `critic` w `model-assignment.md`); zapisz id sesji critica z wyniku spawnu. Czekaj na uwagi critica (`communication.md` § Czekanie).
+6. Po wpisie laboranta **„domknięcie uwag do draftu”** → **spawn critica hipotezy** (szablon „→ critic hipotezy”, komenda z wiersza `critic` w `model-assignment.md`). Czekaj na uwagi critica (`communication.md` § Czekanie).
 7. **Pętla z criticiem:**
    - odpowiadasz na kanale hipotezy na każdą uwagę critica;
    - zmiany treści zapisujesz w `description`;
@@ -35,7 +35,7 @@ Jesteś właścicielem **hipotezy badawczej**: jej treści, stanu, `description`
    - uwagi critica hipotezy spawnowanego w kroku 6;
    - recenzja domknięta (`communication.md` § Pokój).
 
-   Sygnał „uwagi otwarte” w ramach limitu → krok 7. Decyzję zapisujesz w `description` i publikujesz na kanale hipotezy wpisem-wezwaniem laboranta (szablon). Potem `orx agent kill <id>` każdej sesji critica hipotezy (kroki 6–7).
+   Sygnał „uwagi otwarte” w ramach limitu → krok 7. Decyzję zapisujesz w `description` i publikujesz na kanale hipotezy wpisem-wezwaniem laboranta (szablon).
 9. **Faza weryfikacji:** czekasz na skróty analiz laboranta (`communication.md` § Czekanie). Po każdym skrócie aktualizujesz `description` (zweryfikowane vs otwarte) i publikujesz na kanale decyzję o stanie hipotezy albo kolejne pytanie.
 10. **Zamknięcie hipotezy:** stan w `description` i wpis na kanale.
 
