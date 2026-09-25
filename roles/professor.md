@@ -29,7 +29,7 @@ Jesteś właścicielem **hipotezy badawczej**: jej treści, stanu, `description`
    - odpowiadasz na kanale hipotezy na każdą uwagę critica;
    - zmiany treści zapisujesz w `description`;
    - laborant odnosi się do uwag critica; doprecyzowanie zakresu z laborantem → `description`;
-   - kolejna recenzja = nowy spawn critica tym samym szablonem z linią `Runda <n> — zmienione: <delta>`.
+   - kolejna recenzja = nowy spawn critica tym samym szablonem z linią `Runda <n> — zmienione: <delta>`; najwyżej 3 rundy na hipotezę (`communication.md` § Pokój).
 8. **Decyzja „gotowa do weryfikacji”** — podejmujesz ją, gdy na kanale hipotezy są wszystkie elementy:
    - wpis laboranta „domknięcie uwag do draftu”;
    - uwagi critica hipotezy spawnowanego w kroku 6;

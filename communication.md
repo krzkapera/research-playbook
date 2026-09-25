@@ -34,7 +34,9 @@
 
 Pokój = recenzja **gotowego** draftu z `description`. Synonim w `roles/`: **pętla** / **runda recenzji** (np. pętla z criticiem). Skład rośnie stopniowo (kolejna osoba → kolejna runda). Właściciel etapu ma głos rozstrzygający przy braku zgody. Pokój kończy się, gdy wracasz do solo albo zmieniasz etap.
 
-Recenzja critica jest domknięta, gdy właściciel etapu odpowiedział na każdą uwagę, a ostatni wpis critica kończy się sygnałem „gotowe do decyzji po stronie <właściciel etapu>” albo limit uwag lub rund z briefu użytkownika jest wyczerpany.
+Recenzja critica jest domknięta, gdy właściciel etapu odpowiedział na każdą uwagę, a ostatni wpis critica kończy się sygnałem „gotowe do decyzji po stronie <właściciel etapu>” albo limit uwag lub rund jest wyczerpany.
+
+Limit rund: najwyżej **3 rundy** critica na jeden węzeł (hipotezę albo eksperyment), chyba że brief użytkownika podaje inny limit. Po 3. rundzie właściciel etapu nie spawnuje kolejnego critica: odpowiada na ostatnie uwagi i podejmuje decyzję, wymieniając w `description` uwagi, które zostały otwarte.
 
 ## Czekanie
 
@@ -47,6 +49,16 @@ Wywołanie wraca bez oczekiwanego oddania, z timeoutem albo z błędem klienta �
 Stan pracy innych agentów odczytujesz wyłącznie z wpisów na kanale i wiadomości P2P. `list_agents` i obecność (presence) nie są sygnałem, czy agent pracuje.
 
 Turę kończysz w ostatnim kroku flow z pliku roli albo po Problemie z flow. Do tego czasu czekasz według tej sekcji.
+
+## Wznowienie
+
+Wiadomość użytkownika bez nowego zadania (np. „kontynuuj”) wznawia przerwaną pracę:
+
+1. `read_messages` z `scope: "all"` i `only_new: true`: nowe wpisy na Twoich kanałach i wiadomości P2P od ostatniego odczytu.
+2. `orx exp desc <id>` i `orx exp status <id>` węzła z briefu.
+3. Ustalasz ostatni wykonany krok flow z pliku roli i kontynuujesz od następnego; oczekujące pytanie P2P albo wpis skierowany do Ciebie obsługujesz najpierw.
+
+Wiadomość użytkownika „playbook zaktualizowany” → pliki playbooka czytasz ponownie z `main` (`agent-start.md` § Wersja playbooka) i dalej stosujesz nową wersję; potem jak przy „kontynuuj”.
 
 Odpowiedź spawnu dziecka nie budzi rodzica; oddanie przychodzi wpisem na kanale albo wiadomością P2P.
 

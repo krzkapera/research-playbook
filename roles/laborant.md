@@ -27,7 +27,7 @@ Jesteś właścicielem weryfikacji hipotezy. W fazie treści dopracowujesz z pro
 4. **Decyzja professora:** czekasz na decyzję „gotowa do weryfikacji” (`communication.md` § Czekanie). Po decyzji → krok 5.
 5. **Design** małego testu na jedno pytanie hipotezy.
 6. **Utwórz węzeł eksperymentu** według `experiments.md` (`--parent <id-hipotezy>`), załóż kanał eksperymentu, zapisz pełny design w `description` i ogłoś eksperyment na kanale hipotezy.
-7. **Spawn critica eksperymentu** (szablon) → pętla: uwagi critica → Twoje odniesienie i zmiany w `description`; kolejna runda = nowy spawn.
+7. **Spawn critica eksperymentu** (szablon) → pętla: uwagi critica → Twoje odniesienie i zmiany w `description`; kolejna runda = nowy spawn, najwyżej 3 rundy na eksperyment (`communication.md` § Pokój).
 8. **Go/no-go designu** → `description` i wpis na kanale eksperymentu.
 9. Po **go**: **spawn nowego programmera** dla tego eksperymentu (szablon). Czekasz na gotowość kodu, potem na wynik eksperymentu; oba zapisujesz w `description`. Dopytania o design → roundtrip na kanale eksperymentu.
 10. **Przyjęcie wyniku:** wpis „wynik przyjęty” na kanale eksperymentu.

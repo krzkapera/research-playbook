@@ -21,7 +21,7 @@ Wszystkie uruchomienia eksperymentu idą przez `orx exp run` (backend `slurm`). 
 - **Wzorce na klastrze** — inne projekty w `~/scratch/<…>/` (skrypty `.sh` / `.sbatch`, konfiguracja Helios/ARM); wzorzec dla `job.sbatch` i środowiska.
 - **Kolejka** — obciążenie wybranego hosta; przy martwej lub zbyt odległej kolejce zmieniasz `--host` i kontynuujesz.
 - **Smoke** — krótki przebieg przez `orx exp run … --backend slurm` (kolejka) przed większą zmianą albo pierwszym pełnym jobem.
-- **Monitoring** — po starcie **jedna** ścieżka: `orx exp wait …` **albo** `orx exp wake <expId>`. Po powrocie źródłem prawdy są `orx runs <project_id> --experiment <expId>` i `orx logs <runId>`.
+- **Monitoring** — po starcie **jedna** ścieżka: `orx exp wait …` **albo** `orx exp wake <expId>`, bez `sleep` (sekcja Monitoring). Po powrocie źródłem prawdy są `orx runs <project_id> --experiment <expId>` i `orx logs <runId>`.
 - **Worktree** — prywatne drzewo sesji `orx`. Branch `orx/<slug>` checkoutujesz w kroku 2 i trzymasz do końca sesji (`roles/programmer.md` § Worktree). Od kroku 2 branch należy do Ciebie: tylko Ty na nim commitujesz i tylko Ty go przesuwasz. Poprawka programmera przychodzi jako hash commita w odpowiedzi P2P; włączasz ją `git merge <hash>` na `orx/<slug>`.
 - **Raport operatora** — Twoje oddanie programmerowi (sekcja Co oddajesz).
 
@@ -126,6 +126,7 @@ orx exp wake <expId>                 # kończysz turę; wznowienie gdy run Done 
 ```
 
 - Domyślnie (jeden eksperyment w sesji): `orx exp wait <expId>` **albo** `orx exp wake <expId>` (wyłącznie jedna z tych ścieżek).
+- Na run czekasz wyłącznie przez `orx exp wait` albo `orx exp wake` — budzą od razu przy zmianie stanu runu. Bez `sleep`, pętli ze `sleep` ani odpytywania `orx runs` / `squeue` w odstępach czasu.
 - `orx exp wait --project <projectId>` gdy w tej sesji pilnujesz wielu runów albo pętli budżetowej w całym projekcie.
 - `wait` i `wake` to wyłącznie sygnał przebudzenia, nie źródło wyniku. Po każdym powrocie z `wait` (oraz po wake): odczytaj `orx runs`, znajdź nowe terminalne runy, przeczytaj `orx logs <runId>` (i/lub `log` w `remoteRoot/runs/<runId>/`), dopiero potem raportuj albo naprawiaj.
 - Exit code runu bierzesz z pliku `remoteRoot/runs/<runId>/exit_code` na klastrze; pole exit code w `orx` jest przy backendzie Slurm puste.
