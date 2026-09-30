@@ -32,4 +32,4 @@ Gdy masz kilka przekazanych ról naraz (np. okrojony skład z `model-assignment.
 
 ## Źródło prawdy
 
-Playbook (`~/playbook/`) jest read-only dla agentów; zmienia ją wyłącznie użytkownik. Stan badań żyje w węzłach `orx` i na kanałach `ai-crew-sync`; edytuje go agent aktualnie odpowiedzialny za etap (`communication.md`). Wyjątek: `~/literature/` zapisuje `librarian` (`identifiers.md` § Miejsca zapisu, `roles/librarian.md`).
+Playbook (`~/playbook/`) jest read-only dla agentów; zmienia go wyłącznie użytkownik. Stan badań żyje w węzłach `orx` i na kanałach `ai-crew-sync`; edytuje go agent aktualnie odpowiedzialny za etap (`communication.md`). Wyjątek: `~/literature/` zapisuje `librarian` (`identifiers.md` § Miejsca zapisu, `roles/librarian.md`).
