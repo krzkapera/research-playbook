@@ -60,7 +60,7 @@ Wiadomość użytkownika bez nowego zadania (np. „kontynuuj”) wznawia przerw
 2. `orx exp desc <id>` i `orx exp status <id>` węzła z briefu.
 3. Ustalasz ostatni wykonany krok flow z pliku roli i kontynuujesz od następnego; oczekujące pytanie P2P albo wpis skierowany do Ciebie obsługujesz najpierw.
 
-Wiadomość użytkownika „playbook zaktualizowany” → pliki playbooka czytasz ponownie z `main` (`agent-start.md` § Wersja playbooka) i dalej stosujesz nową wersję; potem jak przy „kontynuuj”.
+Wiadomość użytkownika „playbook zaktualizowany” → pliki playbooka czytasz ponownie z `~/playbook/` (`agent-start.md` § Wersja playbooka) i dalej stosujesz nową wersję; potem jak przy „kontynuuj”.
 
 Odpowiedź spawnu dziecka nie budzi rodzica; oddanie przychodzi wpisem na kanale albo wiadomością P2P.
 

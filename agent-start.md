@@ -1,10 +1,10 @@
 # Start sesji agenta
 
-Pliki playbooka (`agent-start.md`, `access-matrix.md`, `communication.md`, `identifiers.md`, `model-assignment.md`, `hypotheses.md`, `experiments.md`, `research-brief.md`, `roles/…`) leżą w katalogu głównym worktree sesji, czyli w bieżącym katalogu roboczym. Czytasz je ścieżkami względnymi od tego katalogu.
+Pliki playbooka (`agent-start.md`, `access-matrix.md`, `communication.md`, `identifiers.md`, `model-assignment.md`, `hypotheses.md`, `experiments.md`, `research-brief.md`, `roles/…`) leżą w `~/playbook/`, poza repo projektu i worktree sesji. Ścieżki plików playbooka w tych dokumentach są względne wobec `~/playbook/`: `roles/operator.md` to `~/playbook/roles/operator.md`.
 
 ## Wersja playbooka
 
-Pliki playbooka w worktree sesji to wersja z chwili startu sesji. Aktualna wersja jest na `main` i czytasz ją poleceniem `git show main:<plik>` (np. `git show main:roles/operator.md`). Po wiadomości użytkownika „playbook zaktualizowany” czytasz z `main` ponownie `agent-start.md`, `communication.md`, `identifiers.md` i swój plik roli; od tej chwili obowiązuje wersja z `main` (`communication.md` § Wznowienie).
+Obowiązuje wersja przeczytana na starcie sesji. Po wiadomości użytkownika „playbook zaktualizowany” czytasz ponownie z `~/playbook/` `agent-start.md`, `communication.md`, `identifiers.md` i swój plik roli; od tej chwili obowiązuje nowa wersja (`communication.md` § Wznowienie).
 
 ## Kroki startu
 

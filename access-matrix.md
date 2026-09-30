@@ -3,7 +3,7 @@
 Agent czyta wyłącznie:
 
 1. `agent-start.md`
-2. wspólne lektury w katalogu głównym worktree wymienione niżej (`communication.md`, `identifiers.md`)
+2. wspólne lektury w `~/playbook/` wymienione niżej (`communication.md`, `identifiers.md`)
 3. przekazany plik roli z `roles/` oraz pliki, do których ten plik odsyła
 4. bieżący węzeł hipotezy/eksperymentu w `orx` albo artefakt wskazany w zleceniu
 5. `research-brief.md`, gdy rola każe go przeczytać albo gdy trzeba sprawdzić zakres badania
@@ -32,4 +32,4 @@ Gdy masz kilka przekazanych ról naraz (np. okrojony skład z `model-assignment.
 
 ## Źródło prawdy
 
-Dokumentacja `*.md` w katalogu głównym i `roles/` jest read-only dla agentów; zmienia ją wyłącznie użytkownik. Stan badań żyje w węzłach `orx` i na kanałach `ai-crew-sync`; edytuje go agent aktualnie odpowiedzialny za etap (`communication.md`). Wyjątek: `~/literature/` zapisuje `librarian` (`identifiers.md` § Miejsca zapisu, `roles/librarian.md`).
+Playbook (`~/playbook/`) jest read-only dla agentów; zmienia ją wyłącznie użytkownik. Stan badań żyje w węzłach `orx` i na kanałach `ai-crew-sync`; edytuje go agent aktualnie odpowiedzialny za etap (`communication.md`). Wyjątek: `~/literature/` zapisuje `librarian` (`identifiers.md` § Miejsca zapisu, `roles/librarian.md`).
