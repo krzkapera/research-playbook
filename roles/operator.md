@@ -15,7 +15,7 @@ Wszystkie uruchomienia śledzone przez ORX wykonuj przez `job.sbatch` i `orx exp
 
 1. Dobierz host do wymagań eksperymentu i aktualnej kolejki; uwzględnij dokumentację Cyfronetu oraz wzorce `.sh` i `.sbatch` z `~/scratch/`. Dla Heliosa uwzględnij ARM i jego właściwy profil.
 2. Ares wybierz, gdy wystarcza CPU; nie kieruj tam jobów wymagających GPU. Athenę wybierz dla GPU, gdy jej zasoby wystarczą. Heliosa wybierz dla pełnych datasetów lub cięższych jobów. Uwzględnij też inne joby użytkownika.
-3. Jeśli dla małego joba rozważasz `home`, zapytaj użytkownika, czy komputer jest dostępny i czy zezwala na to uruchomienie; zaczekaj na jego odpowiedź przed wyborem `home`. Jeśli host nie jest poprawnie obsługiwany przez backend ORX/Slurm, zgłoś `FLOW_BLOCKED` orchestratorowi i laborantowi; nie obchodź ORX przez bezpośrednie SSH.
+3. Jeśli dla małego joba CPU rozważasz `home`, wyślij orchestratorowi P2P `HOME_ACCESS_REQUEST` (projekt, węzeł, krótki opis obciążenia i czasu) i zakończ turę. `home` wybierz dopiero po `HOME_ACCESS_ANSWER` z wyraźną zgodą użytkownika i potwierdzeniem, że komputer jest dostępny; sama dostępność SSH nie jest zgodą. Jeśli host nie jest poprawnie obsługiwany przez backend ORX/Slurm, zgłoś `FLOW_BLOCKED` orchestratorowi i laborantowi; nie obchodź ORX przez bezpośrednie SSH.
 4. Przydziel minimalne wystarczające zasoby i timelimit. Sprawdź `squeue --start` na wybranym hoście. Jeśli po około 10 minutach od zgłoszenia brak `START TIME` albo planowany start jest za ponad 24 godziny, przenieś następne joby na inny odpowiedni host. Nie anuluj cudzych zadań.
 5. Umieszczaj projekty, środowiska, cache, datasety, checkpointy, wyniki i logi na klastrze w `~/scratch/<nazwa-projektu>`; pliki ORX runu pozostają w `remoteRoot/runs/<runId>/`. Transferuj duże pliki bez pośredniego zapisywania na hoście agentów. Dane lokalnego `home`, jeśli użytkownik zatwierdził obliczenie, trzymaj w `~/research/<slug>/`.
 
@@ -27,6 +27,7 @@ Wszystkie uruchomienia śledzone przez ORX wykonuj przez `job.sbatch` i `orx exp
 4. Uruchom pełny job przez `orx exp run <node_id> --backend slurm --host <host>`. Wszystkie runy śledzone przez ORX uruchamiaj w ten sposób.
 5. Gdy job ma status `PENDING`, pozostań aktywny i monitoruj kolejkę; nie kończ tury ani nie używaj `orx exp wake`, dopóki nie potwierdzisz startu joba. Po potwierdzeniu startu zarejestruj oczekiwanie przez `orx exp wake <node_id>` i zakończ turę. Nie używaj `orx exp wait`.
 6. Po wznowieniu odczytaj nowe P2P, sprawdź `orx runs`, `orx logs <run_id>` oraz pliki w `remoteRoot/runs/<runId>/`. Zweryfikuj wymagane artefakty, ich kompletność i sensowność, a nie tylko status ani exit code.
+7. Anulowanie runu własnego eksperymentu: `orx exp cancel <node_id>`. Procesu `orx supervise` nie ruszaj.
 
 ## Naprawa i weryfikacja
 

@@ -40,4 +40,4 @@ Każda sesja `orx up` ma własny prywatny worktree. Przez cały eksperyment jest
 ## Co oddajesz
 
 - **Laborantowi P2P:** `PLAN_QUESTION`, `IMPLEMENTATION_QUESTION`, odpowiedzi i uzgodnienia oraz `RESULTS_READY`; po prośbie o poprawkę — ponowne wyniki.
-- **Orchestratorowi P2P:** `FLOW_BLOCKED` przy blokadzie operacyjnej oraz `READY_TO_DELETE` po `FINISH_REQUEST`.
+- **Orchestratorowi P2P:** `FLOW_BLOCKED` przy blokadzie operacyjnej, `HOME_ACCESS_REQUEST` przed użyciem `home` oraz `READY_TO_DELETE` po `FINISH_REQUEST`.

@@ -27,7 +27,7 @@ Kanał i P2P pełnią różne funkcje: kanał archiwizuje dyskusję, a bezpośre
 - Pytania, odpowiedzi, decyzje i oddania wymagające działania adresata wysyłaj przez `post_message` z `to: "<agent>/<session>"`; dołącz `reply_to`, gdy odpowiadasz na konkretną wiadomość. Komunikacja implementacyjna laborant–koder idzie wyłącznie P2P: nie kopiuj jej ani technicznych podsumowań na kanał czytany przez profesora. Kanał służy treści hipotezy i naukowemu raportowi laboranta.
 - Nie używaj `ask_agent` jako blokującego oczekiwania ani nie uruchamiaj `wait_for_updates` w pętli. Po wysłaniu pytania lub oddania, gdy nie masz innej pracy do wykonania, zakończ turę. Po wznowieniu odczytaj nowe P2P i kontynuuj.
 - Odpowiadaj na każdą wiadomość wymagającą działania. Nie wysyłaj osobnego ACK, jeśli sama odpowiedź albo wykonanie zlecenia potwierdza odbiór — unikaj pętli niepotrzebnych wybudzeń.
-
+- P2P nie przerywa trwającej tury. Gdy pracujesz dłużej, odczytuj nowe wiadomości (`read_messages`, `scope: "all"`, `only_new: true`) w punktach kontrolnych: po zakończeniu bieżącej czynności, a przed rozpoczęciem następnej — zwłaszcza po utworzeniu węzła, zapisie `description`, wpisie na kanale, wysłaniu P2P i sprawdzeniu stanu joba. Wiadomość pilną (blokuje czyjąś pracę albo zagraża poprawności badania) obsłuż w najbliższym punkcie kontrolnym; niepilną — po domknięciu bieżącego etapu.
 
 ## Orchestracja
 
@@ -39,11 +39,13 @@ Wiadomości poniżej są typami treści istniejących wiadomości P2P (`post_mes
 | `REQUEST_AGENT` | laborant → orchestrator | Przy prośbie o kodera laborant podaje ścieżkę do gotowego briefu z planem implementacji; przy prośbie o librariana podaje zakres przeglądu literatury. |
 | `REGISTER_SESSION` | uruchomiona sesja → orchestrator | Rola, węzeł, `request_id`, identyfikator sesji ORX i adres P2P z `whoami`. |
 | `AGENT_ASSIGNED` | orchestrator → zleceniodawca | Przydział roli, identyfikator sesji ORX i adres P2P. |
+| `AGENT_PENDING` | orchestrator → zleceniodawca | Spawn wstrzymany przez RAM lub limit; przyczyna i pozycja w kolejce. Zleceniodawca kończy turę; `AGENT_ASSIGNED` przyjdzie po spawnie. |
 | `QUESTION` / `ANSWER` | laborant ↔ professor | Tylko treść, zakres lub interpretacja hipotezy; wiadomość wskazuje pytanie, na które odpowiada. |
 | `HYPOTHESIS_APPROVED` | professor → laborant (P2P) | Przejście `ROBOCZA` → `GOTOWA DO IMPLEMENTACJI`: professor najpierw zapisuje stan w `description`; laborant kontynuuje po otrzymaniu komunikatu. |
 | `IMPLEMENTATION_REQUEST` | laborant → przypisany programmer (P2P) | Zlecenie realizacji planu z briefu kodera; wiadomość podaje jego ścieżkę. |
 | `PLAN_QUESTION` / `PLAN_ANSWER` | programmer ↔ laborant (P2P) | Krytyczne uwagi i dopracowanie planu przed implementacją; laborant aktualizuje brief. |
-| `IMPLEMENTATION_QUESTION` / `IMPLEMENTATION_ANSWER` | programmer ↔ laborant (P2P) | Pytania i decyzje, które pojawiają się w trakcie implementacji lub wykonania eksperymentu. Zmiana technicznego planu trafia do briefu; zmiana pytania badawczego lub protokołu eksperymentu do `description`.
+| `IMPLEMENTATION_QUESTION` / `IMPLEMENTATION_ANSWER` | programmer ↔ laborant (P2P) | Pytania i decyzje, które pojawiają się w trakcie implementacji lub wykonania eksperymentu. Zmiana technicznego planu trafia do briefu; zmiana pytania badawczego lub protokołu eksperymentu do `description`. |
+| `HOME_ACCESS_REQUEST` / `HOME_ACCESS_ANSWER` | programmer ↔ orchestrator (P2P) | Prośba o zgodę użytkownika na mały job CPU na `home` (projekt, węzeł, opis obciążenia) i odpowiedź z decyzją użytkownika. |
 | `AGENT_DONE` | librarian → orchestrator (P2P) | Synteza przekazana zleceniodawcy; librarian nie ma dalszej pracy. Orchestrator rozpoczyna cleanup. |
 | `RESULTS_READY` | programmer → laborant (P2P) | Wyniki techniczne i artefakty gotowe do merytorycznej weryfikacji; bez professora. |
 | `REWORK_REQUEST` | laborant → programmer (P2P) | Konkretna brakująca kontrola lub poprawka planu/kodu/wyników. |
