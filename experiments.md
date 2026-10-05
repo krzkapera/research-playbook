@@ -1,8 +1,10 @@
 # Eksperymenty
 
-Główny eksperyment hipotezy uruchamiaj bezpośrednio na węźle hipotezy; nie twórz dla niego sztucznego dziecka. Dodatkowe, odrębne pytania testuj w eksperymentach-dzieciach bezpośrednio pod węzłem hipotezy: `orx create-experiment <project_id> --parent <id-hipotezy> --title "..."` (`id` hipotezy, nie slug; `identifiers.md`). Komenda wypisuje `id` i slug (linia `slug:`); dziecko ma własny branch `orx/<slug>` i runy. Po `NEXT_TEST` laborant tworzy właśnie takie dziecko, zapisuje w nim protokół i przygotowuje brief dla jego sluga; przypisany koder kontynuuje w tej samej sesji.
+Główny eksperyment hipotezy uruchamiaj bezpośrednio na węźle hipotezy; nie twórz dla niego sztucznego dziecka. Dodatkowe, odrębne pytania testuj w eksperymentach-dzieciach bezpośrednio pod węzłem hipotezy: `orx create-experiment <project_id> --parent <id-hipotezy> --run-command 'cd repo 2>/dev/null; bash run.sh' --title "..."` (`id` hipotezy, nie slug; `identifiers.md`). Komenda wypisuje `id` i slug (linia `slug:`); dziecko ma własny branch `orx/<slug>` i runy. Po `NEXT_TEST` laborant tworzy właśnie takie dziecko, zapisuje w nim protokół i przygotowuje brief dla jego sluga; przypisany koder kontynuuje w tej samej sesji.
 
-Na Slurmie job startuje z `job.sbatch` w korzeniu brancha (`orx exp run --backend slurm`; procedura w `roles/operator.md` § `job.sbatch`). Pola `run_command` nie ustawia się przy tworzeniu węzła.
+Na Slurmie job startuje z `job.sbatch` w korzeniu brancha (`orx exp run --backend slurm`), a na `home` z komendy runu węzła; oba wywołują `run.sh` (`roles/operator.md` § `job.sbatch`). Dlatego każdy węzeł tworzysz z dokładnie tą komendą runu: `--run-command 'cd repo 2>/dev/null; bash run.sh'`.
+
+Po przyjęciu wyniku przez laboranta (`RESEARCH_REPORT`) branch węzła jest zamrożony: nie commitujesz na nim więcej. Dalsza zmiana to nowy eksperyment-dziecko.
 
 ## description i logi
 

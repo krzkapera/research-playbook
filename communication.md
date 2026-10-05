@@ -45,7 +45,7 @@ Wiadomości poniżej są typami treści istniejących wiadomości P2P (`post_mes
 | `IMPLEMENTATION_REQUEST` | laborant → przypisany programmer (P2P) | Zlecenie realizacji planu z briefu kodera; wiadomość podaje jego ścieżkę. |
 | `PLAN_QUESTION` / `PLAN_ANSWER` | programmer ↔ laborant (P2P) | Krytyczne uwagi i dopracowanie planu przed implementacją; laborant aktualizuje brief. |
 | `IMPLEMENTATION_QUESTION` / `IMPLEMENTATION_ANSWER` | programmer ↔ laborant (P2P) | Pytania i decyzje, które pojawiają się w trakcie implementacji lub wykonania eksperymentu. Zmiana technicznego planu trafia do briefu; zmiana pytania badawczego lub protokołu eksperymentu do `description`. |
-| `HOME_ACCESS_REQUEST` / `HOME_ACCESS_ANSWER` | programmer ↔ orchestrator (P2P) | Prośba o zgodę użytkownika na mały job CPU na `home` (projekt, węzeł, opis obciążenia) i odpowiedź z decyzją użytkownika. |
+| `HOME_ACCESS_REQUEST` / `HOME_ACCESS_ANSWER` | programmer ↔ orchestrator (P2P) | Prośba o zgodę użytkownika na mały job na `home` (projekt, węzeł, opis obciążenia) i odpowiedź z decyzją użytkownika. |
 | `AGENT_DONE` | librarian → orchestrator (P2P) | Synteza przekazana zleceniodawcy; librarian nie ma dalszej pracy. Orchestrator rozpoczyna cleanup. |
 | `RESULTS_READY` | programmer → laborant (P2P) | Wyniki techniczne i artefakty gotowe do merytorycznej weryfikacji; bez professora. |
 | `REWORK_REQUEST` | laborant → programmer (P2P) | Konkretna brakująca kontrola lub poprawka planu/kodu/wyników. |
@@ -77,7 +77,7 @@ Wpis to krótka delta, a historia kanału jest archiwum dyskusji. Wpis nie zast�
 
 ## Koniec tury zamiast czekania
 
-Jeśli dalszy postęp zależy od wiadomości innej osoby, wyślij jej P2P z konkretnym pytaniem lub oddaniem. Dyskusję o hipotezie i wnioski naukowe archiwizuj na kanale; implementacyjne wiadomości pozostają wyłącznie P2P. Gdy nie masz innej pracy, zakończ turę — mostek wznowi sesję po nowej wiadomości P2P. Po wznowieniu odczytaj nowe P2P (`read_messages`, `scope: "all"`, `only_new: true`) i ponownie sprawdź `description` lub status runu. Nie używaj `wait_for_updates`, blokującego `ask_agent` ani pętli `sleep` do czekania na zdarzenia.
+Jeśli dalszy postęp zależy od wiadomości innej osoby, wyślij jej P2P z konkretnym pytaniem lub oddaniem. Dyskusję o hipotezie i wnioski naukowe archiwizuj na kanale; implementacyjne wiadomości pozostają wyłącznie P2P. Gdy nie masz innej pracy, zakończ turę — mostek wznowi sesję po nowej wiadomości P2P. Po wznowieniu odczytaj nowe P2P (`read_messages`, `scope: "all"`, `only_new: true`) i ponownie sprawdź `description` lub status runu. Nie używaj `wait_for_updates`, blokującego `ask_agent` ani pętli `sleep` do czekania na zdarzenia. Jedyne wyjątki to cykl oczekiwania na RAM orchestratora i sprawdzanie startu joba przez kodera (`roles/operator.md` § Po zgłoszeniu joba).
 
 Przy `acquired: false` nie zapisuj: możesz wykonywać inną pracę albo wysłać właścicielowi `LOCK_RETRY_REQUEST`, zakończyć turę i wrócić po `LOCK_RELEASED`; przed zapisem ponownie zdobądź lock i odczytaj aktualny opis. Sam upływ TTL ani awaria właściciela nie budzą sesji — w takim przypadku przekaż `RETRY_PENDING` orchestratorowi P2P.
 

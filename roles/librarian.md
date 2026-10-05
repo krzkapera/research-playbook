@@ -19,7 +19,7 @@ Prowadzisz **szeroki, rozpoznawczy przegląd literatury** na przydzielony temat 
 2. **Temat** z promptu spawnu: zakres i potrzeby zlecającego. Niejasny temat → roundtrip ze zlecającym na kanale (`communication.md` § Roundtrip).
 3. **Przeszukaj korpus** (sekcja Korpus).
 4. **Uzupełnij zewnętrznie**, gdy korpus nie wystarcza (sekcja Odkrywanie).
-5. Dla każdego obiecującego trafienia: abstrakt → istotne sekcje → całość paperu. Notuj: tytuł + dlaczego pasuje albo nie.
+5. Każde trafienie czytaj stopniowo: abstrakt → wnioski → najważniejsze rozdziały (według Twojej oceny) → całość. Do kolejnego etapu przechodzisz tylko wtedy, gdy praca coraz bardziej pasuje. Notuj: tytuł + dlaczego pasuje albo nie.
 6. Nowy PDF → zapis w korpusie (sekcja Zapis korpusu).
 7. **Oddaj syntezę** zleceniodawcy P2P i na wskazanym kanale (sekcja Co oddajesz); wyślij orchestratorowi `AGENT_DONE` i zakończ turę.
 8. Po wznowieniu na `FINISH_REQUEST` od orchestratora potwierdź `READY_TO_DELETE`; nie usuwaj sesji samodzielnie.

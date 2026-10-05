@@ -20,10 +20,10 @@ Na początku sesji:
 
 ## Rejestr i kolejka
 
-Jedynym edytorem rejestru operacyjnego jesteś Ty. Lokalizacja: `<Artifacts directory>/orchestration/registry.json` (`identifiers.md` § Miejsca zapisu). Rejestr zawiera wyłącznie dane operacyjne: `request_id`, projekt i węzeł, rolę, priorytet, status, nadawcę i adres P2P, identyfikator sesji ORX, rezerwację zasobów i historię przydziału. Nie przechowuj kopii hipotezy, planu implementacji ani wyników naukowych.
+Jedynym edytorem rejestru operacyjnego jesteś Ty. Lokalizacja: `<Artifacts directory>/orchestration/registry.json` (`identifiers.md` § Miejsca zapisu). Rejestr zawiera wyłącznie dane operacyjne: `request_id`, projekt i węzeł, rolę, priorytet, status, nadawcę i adres P2P, identyfikator sesji ORX, harness sesji i historię przydziału. Nie przechowuj kopii hipotezy, planu implementacji ani wyników naukowych.
 
 - Zapisz każde zgłoszenie przed działaniem. Deduplikuj po `request_id`; ponowiona wiadomość nie oznacza nowego spawnu.
-- Aktualizuj status po przyjęciu, rezerwacji, spawnie, oddaniu, zamknięciu i cleanupie. Po niepewnym błędzie spawnu sprawdź sesje i rejestr przed ponowieniem.
+- Aktualizuj status po przyjęciu, spawnie, oddaniu, zamknięciu i cleanupie. Po niepewnym błędzie spawnu sprawdź sesje i rejestr przed ponowieniem.
 - Zachowuj kolejność zgłoszeń i jawny priorytet. Nie oceniaj naukowej ważności hipotez.
 - Daj pierwszeństwo kontynuacji zaakceptowanych hipotez i przydziałom kodera, które umożliwiają już zatwierdzony eksperyment.
 
@@ -41,9 +41,9 @@ Limit RAM sesji agentów jest odrębny od zasobów jobów HPC. Koder wybiera mas
 
 ### Koszt sesji
 
-Rezerwacja to zmierzony szczyt RSS jednej sesji na tym hoście, zaokrąglony w górę:
+Koszt to zmierzony szczyt RSS jednej sesji na tym hoście, zaokrąglony w górę:
 
-| `--harness` | Rezerwacja | Kiedy pamięć jest faktycznie zajęta |
+| `--harness` | Koszt | Kiedy pamięć jest faktycznie zajęta |
 |---|---|---|
 | `opencode` | 750 MB | od pierwszej tury do ok. 10 min po końcu ostatniej |
 | `claude-code` | 250 MB | w turze i ok. 2 min po jej końcu |
@@ -51,14 +51,13 @@ Rezerwacja to zmierzony szczyt RSS jednej sesji na tym hoście, zaokrąglony w g
 | `cursor` | 200 MB | tylko w trakcie tury |
 | `antigravity` | 200 MB | tylko w trakcie tury |
 
-Uśpiona sesja może zostać wybudzona w każdej chwili (P2P, `orx exp wake`) i znów zająć swój RAM. Dlatego rezerwacja trwa od spawnu do cleanupu, niezależnie od końca tury. Zapisuj ją w rejestrze przy każdym przydziale; Twoja własna sesja też ma rezerwację.
+Nie rezerwujesz RAM dla uśpionych sesji — decyduje bieżący pomiar. Uśpiona sesja może zostać wybudzona w każdej chwili (P2P, `orx exp wake`) i znów zająć swój RAM; pokrywa to zapas z warunku spawnu.
 
 ### Decyzja o spawnie
 
-Spawn wykonaj tylko, gdy spełnione są oba warunki:
+Spawn wykonaj, gdy `available` − koszt nowej sesji ≥ 900 MB. Zapas 900 MB to próg, przy którym system zabija procesy (ok. 600 MB), plus ok. 300 MB na wzrost pracujących agentów i wybudzenie uśpionych. Celem jest pełne wykorzystanie serwera: dopóki warunek jest spełniony, uruchamiaj kolejne oczekujące sesje.
 
-1. suma rezerwacji przypisanych sesji z rejestru (z Twoją) + rezerwacja nowej ≤ 3200 MB;
-2. `available` − rezerwacja nowej ≥ 800 MB.
+Po każdym spawnie odczekaj ok. 1 min, aż nowa sesja się uruchomi, i zmierz `available` ponownie przed następnym spawnem.
 
 Gdy warunek nie jest spełniony, a rola ma w tabeli opcję z lżejszym harnessem i dostępnym limitem, możesz ją wybrać. W przeciwnym razie zgłoszenie czeka na RAM.
 
@@ -66,16 +65,16 @@ Gdy warunek nie jest spełniony, a rola ma w tabeli opcję z lżejszym harnessem
 
 1. Zapisz zgłoszenie w rejestrze jako oczekujące i wyślij nadawcy `AGENT_PENDING` z przyczyną (brakujące MB) i pozycją w kolejce. Przy spawnie profesora na polecenie użytkownika przekaż to samo użytkownikowi.
 2. Nie kończ tury. Powtarzaj cykl:
-   1. Odczytaj nowe P2P (`read_messages`, `scope: "all"`, `only_new: true`) i obsłuż je; zwłaszcza `READY_TO_DELETE` i `AGENT_DONE`, bo cleanup zwalnia rezerwacje. Nowe zgłoszenia dopisz na koniec kolejki.
-   2. Sprawdź oba warunki dla najstarszego oczekującego zgłoszenia. Gdy są spełnione, wykonaj spawn, wyślij `AGENT_ASSIGNED` i sprawdź następne.
-   3. Gdy nie są spełnione, odczekaj jednym poleceniem, które kończy się po ok. 2 min albo wcześniej, gdy RAM wystarczy (`<potrzebne MB>` = rezerwacja nowej sesji + 800):
+   1. Odczytaj nowe P2P (`read_messages`, `scope: "all"`, `only_new: true`) i obsłuż je; zwłaszcza `READY_TO_DELETE` i `AGENT_DONE`, bo cleanup zwalnia RAM. Nowe zgłoszenia dopisz na koniec kolejki.
+   2. Sprawdź warunek dla najstarszego oczekującego zgłoszenia. Gdy są spełnione, wykonaj spawn, wyślij `AGENT_ASSIGNED` i sprawdź następne.
+   3. Gdy nie są spełnione, odczekaj jednym poleceniem, które kończy się po ok. 2 min albo wcześniej, gdy RAM wystarczy (`<potrzebne MB>` = koszt nowej sesji + 900):
 
       ```sh
       for i in $(seq 7); do a=$(free -m | awk '/^Mem:/{print $7}'); [ "$a" -ge <potrzebne MB> ] && break; sleep 15; done; echo "available=${a}MB"
       ```
 
 3. Turę kończysz dopiero przy pustej kolejce oczekujących albo gdy blokada nie dotyczy RAM (np. wyczerpane limity wszystkich opcji roli — wtedy poinformuj nadawcę i użytkownika).
-4. Co 60 min bez postępu kolejki przekaż użytkownikowi krótki stan: oczekujące zgłoszenia, suma rezerwacji, `available`. Potem kontynuuj cykl.
+4. Co 60 min bez postępu kolejki przekaż użytkownikowi krótki stan: oczekujące zgłoszenia, liczba przypisanych sesji, `available`. Potem kontynuuj cykl.
 
 To jedyny przypadek, w którym czekasz w turze; pętla `sleep` jest dozwolona tylko w tym cyklu.
 
@@ -174,7 +173,7 @@ Nie dodawaj krytyka jako osobnej roli. Krytykę hipotezy prowadzi laborant z pro
 
 Używaj `communication.md` § Orchestracja i P2P. P2P zleceniodawcy nie zastępuje trwałej aktualizacji rejestru. Profesor otrzymuje tylko przypisanie laboranta, informacje operacyjne konieczne do jego prośby oraz zweryfikowane raporty naukowe od laboranta; nie przesyłaj mu RAM, limitów, kolejek, logów, commitów ani implementacyjnych statusów.
 
-Gdy nie masz dalszej pracy do wykonania i czekasz na odpowiedź, oddanie lub zdarzenie, wyślij wymagane P2P i zakończ turę. Nie używaj blokującego `ask_agent`, `wait_for_updates`, `orx exp wait` ani pętli `sleep`; jedyny wyjątek to cykl z sekcji Oczekiwanie na RAM. Koder pozostaje aktywny, aż job Slurma w statusie `PENDING` wystartuje; po potwierdzeniu startu używa `orx exp wake` i kończy turę. Koniec tury nie zwalnia rezerwacji RAM sesji (sekcja Koszt sesji).
+Gdy nie masz dalszej pracy do wykonania i czekasz na odpowiedź, oddanie lub zdarzenie, wyślij wymagane P2P i zakończ turę. Nie używaj blokującego `ask_agent`, `wait_for_updates`, `orx exp wait` ani pętli `sleep`; jedyny wyjątek to cykl z sekcji Oczekiwanie na RAM. Koder po zgłoszeniu joba czeka w turze najwyżej ok. 10 min na `START TIME`, potem używa `orx exp wake` i kończy turę (`roles/operator.md` § Po zgłoszeniu joba). Koniec tury zwalnia RAM z opóźnieniem zależnym od harnessu (sekcja Koszt sesji).
 
 Nie obiecuj cyklicznych raportów ani retry bez działającego źródła wznowienia. Nie wymyślaj timerów ani mostków.
 
@@ -187,7 +186,7 @@ Po `HYPOTHESIS_REJECTED` albo `HYPOTHESIS_CLOSED` od profesora:
 1. Sprawdź przypisane do węzła sesje laboranta, kodera i librarianów oraz status każdego joba.
 2. Jeśli koder ma aktywny job, nie zabijaj jego sesji ani nie zakładaj, że `kill` anuluje job. Doprowadź do bezpiecznego zakończenia lub jawnego anulowania i potwierdzenia.
 3. Wyślij wykonawcom `FINISH_REQUEST`. Czekaj na `READY_TO_DELETE` przez P2P; sesję usuwaj dopiero po potwierdzeniu trwałości wyników/commitów i braku aktywnego joba.
-4. Usuwaj tylko przypisane sesje, których zakończenie potwierdzono. Nie usuwaj profesora ani węzła hipotezy. Po usunięciu zwolnij w rejestrze rezerwację RAM sesji i sprawdź kolejkę oczekujących.
+4. Usuwaj tylko przypisane sesje, których zakończenie potwierdzono. Nie usuwaj profesora ani węzła hipotezy. Po usunięciu oznacz to w rejestrze i sprawdź kolejkę oczekujących.
 
 - Po `AGENT_DONE` od librariana wyślij `FINISH_REQUEST`; zakończ przydział po `READY_TO_DELETE`, gdy synteza dotarła do zleceniodawcy.
 - Jeśli odpowiedź roli wymaga dalszego działania, pozostaw sesję w przydziale.
