@@ -37,7 +37,6 @@ Wiadomości poniżej są typami treści istniejących wiadomości P2P (`post_mes
 |---|---|---|
 | `REQUEST_AGENT` | professor → orchestrator | Zapisana hipoteza wymaga laboranta. Professor prowadzi sam przegląd literatury dla własnej hipotezy. |
 | `REQUEST_AGENT` | laborant → orchestrator | Przy prośbie o kodera laborant podaje ścieżkę do gotowego briefu z planem implementacji; przy prośbie o librariana podaje zakres przeglądu literatury. |
-| `REGISTER_SESSION` | uruchomiona sesja → orchestrator | Rola, węzeł, `request_id`, identyfikator sesji ORX i adres P2P z `whoami`. |
 | `AGENT_ASSIGNED` | orchestrator → zleceniodawca | Przydział roli, identyfikator sesji ORX i adres P2P. |
 | `AGENT_PENDING` | orchestrator → zleceniodawca | Spawn wstrzymany przez RAM lub limit; przyczyna i pozycja w kolejce. Zleceniodawca kończy turę; `AGENT_ASSIGNED` przyjdzie po spawnie. |
 | `QUESTION` / `ANSWER` | laborant ↔ professor | Tylko treść, zakres lub interpretacja hipotezy; wiadomość wskazuje pytanie, na które odpowiada. |
@@ -54,9 +53,8 @@ Wiadomości poniżej są typami treści istniejących wiadomości P2P (`post_mes
 | `NEXT_TEST` | professor → laborant (P2P) | Kolejny test w hipotezie `GOTOWA DO IMPLEMENTACJI`; laborant tworzy eksperyment jako bezpośrednie dziecko hipotezy i zleca go przez P2P koderowi już przypisanemu do tej hipotezy. Orchestrator nie uczestniczy w ponownym przydziale. |
 | `HYPOTHESIS_REJECTED` | professor → orchestrator | Przejście do `ODRZUCONA`: professor zapisuje powód i prosi o sprzątnięcie sesji przypisanych do węzła, nie samego węzła. |
 | `HYPOTHESIS_CLOSED` | professor → orchestrator | Po pełnym sprawdzeniu professor zapisuje wniosek i prosi o sprzątnięcie sesji, nie samego węzła. |
-| `WAITING` / `ACTIVE` | laborant lub programmer → orchestrator | Stan operacyjny sesji, nie stan hipotezy; nie wymaga powiadamiania profesora. |
 | `FINISH_REQUEST` / `READY_TO_DELETE` | orchestrator ↔ laborant, programmer lub librarian | Cleanup po potwierdzeniu braku aktywnego joba i trwałości wyników. |
-| `FLOW_BLOCKED` | dowolna sesja → orchestrator | Blokada techniczna, środowiskowa, limitu, RAM lub wybudzenia. |
+| `FLOW_BLOCKED` | dowolna sesja → orchestrator | Blokada techniczna, środowiskowa, limitu, RAM lub wybudzenia. Nadawca kończy turę; orchestrator przekazuje sprawę użytkownikowi. |
 | `LOCK_RETRY_REQUEST` | autor opisu → aktualny właściciel locka | Prośba o krótkie powiadomienie po zwolnieniu locka; nie przyznaje prawa do zapisu. |
 | `LOCK_RELEASED` | dotychczasowy właściciel → oczekujący autor | Informacja o zwolnieniu; odbiorca musi ponownie zdobyć lock i świeżo odczytać description. |
 | `RETRY_PENDING` | orchestrator (rejestr) | Zlecenie/edycja czeka na nową próbę po konflikcie, limicie lub braku zasobu; nie jest aktywnym spawnem. |
@@ -70,7 +68,7 @@ Przy `acquired: false` nie zapisuj. Jeśli chcesz ponowić po zwolnieniu locka, 
 
 ## Opis węzła vs wpis
 
-`description` jest źródłem prawdy o stanie naukowym węzła: twierdzeniu hipotezy profesora, uzgodnionym protokole eksperymentu laboranta oraz zweryfikowanych ustaleniach naukowych. Każda rola zapisuje wyłącznie sekcję przypisaną jej w instrukcji roli. Szczegółowy plan implementacji znajduje się w briefie kodera w artifacts, nie w `description`. Nie kopiuj tam prywatnej korespondencji, logów ani roboczych szczegółów implementacji. Każda zmiana odczytuje aktualny pełny opis i zachowuje cudze sekcje. Ponieważ `orx exp desc --set/--stdin` nadpisuje całość, wszystkich edytorów obowiązuje wspólny lock: `orx-desc:<project_id>:<node_id>`. Po `acquire_lock` z TTL 300 s odczytaj aktualny opis, zmień własną sekcję, zapisz całość przed wygaśnięciem i zwolnij lock. Jeśli locka nie uzyskasz, nie zapisuj; jeśli dzierżawa wygasła lub własność jest niepewna, odrzuć kopię i ponownie odczytaj po zdobyciu locka. Nie czekaj na innych ani nie kończ tury, trzymając lock. Po zwolnieniu locka odpowiedz `LOCK_RELEASED` oczekującym, którzy wysłali `LOCK_RETRY_REQUEST`; ta wiadomość nie przyznaje prawa do zapisu. Blokada jest kooperacyjna — ORX nie wymusza jej przy zapisie.
+`description` jest źródłem prawdy o stanie naukowym węzła: twierdzeniu hipotezy profesora, uzgodnionym protokole eksperymentu laboranta oraz zweryfikowanych ustaleniach naukowych. Każda rola zapisuje w nim wyłącznie ustalenia należące do niej według instrukcji roli. Szczegółowy plan implementacji znajduje się w briefie kodera w artifacts, nie w `description`. Nie kopiuj tam prywatnej korespondencji, logów ani roboczych szczegółów implementacji. Każda zmiana odczytuje aktualny pełny opis i zachowuje treść wpisaną przez innych. Ponieważ `orx exp desc --set/--stdin` nadpisuje całość, wszystkich edytorów obowiązuje wspólny lock: `orx-desc:<project_id>:<node_id>`. Po `acquire_lock` z TTL 300 s odczytaj aktualny opis, wprowadź swoją zmianę, zapisz całość przed wygaśnięciem i zwolnij lock. Jeśli locka nie uzyskasz, nie zapisuj; jeśli dzierżawa wygasła lub własność jest niepewna, odrzuć kopię i ponownie odczytaj po zdobyciu locka. Nie czekaj na innych ani nie kończ tury, trzymając lock. Po zwolnieniu locka odpowiedz `LOCK_RELEASED` oczekującym, którzy wysłali `LOCK_RETRY_REQUEST`; ta wiadomość nie przyznaje prawa do zapisu. Blokada jest kooperacyjna — ORX nie wymusza jej przy zapisie.
 
 Wpis to krótka delta, a historia kanału jest archiwum dyskusji. Wpis nie zastępuje aktualizacji naukowego `description` przez właściwego autora.
 

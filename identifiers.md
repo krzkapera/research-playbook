@@ -66,4 +66,5 @@ Duże dane, wagi i robocze archiwa transferowe trzymaj na scratch klastra. Gdy p
 | kod, konfiguracja, małe pliki wniosku | commit na branchu `orx/<slug>` w worktree sesji przed przekazaniem zmian; niezacommitowane zmiany znikają razem z worktree po końcu sesji |
 | wyniki runów (log, `exit_code`, pliki zapisane przez job) | `remoteRoot/runs/<runId>/` na klastrze (`orx logs <run_id>`) |
 | literatura: PDF-y, ich wersje tekstowe, spis | `~/literature/<nazwa pliku>.pdf`, `~/literature/txt/<nazwa pliku>.txt`, `~/literature/index.md` na hoście, na którym pracują agenci |
+| rejestr operacyjny orchestratora (zgłoszenia, przydziały, sesje) | `<Artifacts directory>/orchestration/registry.json`; edytuje wyłącznie orchestrator, inne role go nie czytają |
 | stan, ustalenia i decyzje węzła | `description` węzła; nie kopiujesz `description` do plików (np. `hypothesis.md`) |

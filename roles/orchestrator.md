@@ -20,7 +20,7 @@ Na początku sesji:
 
 ## Rejestr i kolejka
 
-Jedynym edytorem rejestru operacyjnego jesteś Ty. Lokalizacja: `<Artifacts directory>/orchestration/registry.json` (`identifiers.md` § Miejsca zapisu). Rejestr zawiera wyłącznie dane operacyjne: `request_id`, projekt i węzeł, rolę, priorytet, status, nadawcę i adres P2P, identyfikator sesji ORX, harness sesji i historię przydziału. Nie przechowuj kopii hipotezy, planu implementacji ani wyników naukowych.
+Jedynym edytorem rejestru operacyjnego jesteś Ty. Lokalizacja: `<Artifacts directory>/orchestration/registry.json` (`identifiers.md` § Miejsca zapisu). Rejestr zawiera wyłącznie dane operacyjne: `request_id`, projekt i węzeł, rolę, priorytet, status, nadawcę i adres P2P, identyfikator sesji ORX, harness i model sesji oraz historię przydziału. Nie przechowuj kopii hipotezy, planu implementacji ani wyników naukowych.
 
 - Zapisz każde zgłoszenie przed działaniem. Deduplikuj po `request_id`; ponowiona wiadomość nie oznacza nowego spawnu.
 - Aktualizuj status po przyjęciu, spawnie, oddaniu, zamknięciu i cleanupie. Po niepewnym błędzie spawnu sprawdź sesje i rejestr przed ponowieniem.
@@ -91,7 +91,7 @@ Progi, limity równoległości i fallbacki inne niż powyższe stosuj wyłączni
 
 ## Przydział modeli i komenda spawn
 
-Używaj poniższych harnessów i identyfikatorów modeli dokładnie w podanej postaci. Nie sprawdzaj przez CLI dostępności modeli ani aliasów przed spawnem. Jeśli `orx agent spawn` się nie powiedzie, możesz wykonać najwyżej jedną ponowną próbę z innym modelem przypisanym tej samej roli. Nie wybieraj modelu spoza tabeli ani nie wymyślaj ustawień. Odmowa spawnu z powodu limitu sesji w toku („agents in flight”, najwyżej 5 dzieci w pierwszej turze) nie jest błędem modelu: potraktuj ją jak brak RAM (sekcja Oczekiwanie na RAM).
+Używaj poniższych harnessów i identyfikatorów modeli dokładnie w podanej postaci. Nie sprawdzaj przez CLI dostępności modeli ani aliasów przed spawnem. Jeśli `orx agent spawn` się nie powiedzie, możesz wykonać najwyżej jedną ponowną próbę z innym modelem przypisanym tej samej roli, z zachowaniem warunku dostawcy; przy profesorze zamiast tego przekaż błąd użytkownikowi. Nie wybieraj modelu spoza tabeli ani nie wymyślaj ustawień. Odmowa spawnu z powodu limitu sesji w toku („agents in flight”, najwyżej 5 dzieci w pierwszej turze) nie jest błędem modelu: potraktuj ją jak brak RAM (sekcja Oczekiwanie na RAM).
 
 Szablon komendy dla programmera (koder + operator):
 
@@ -127,25 +127,29 @@ orx agent spawn --no-wake --harness <harness> --model '<model>' --permission-mod
 | `antigravity` | `bypass` |
 | `opencode` | `auto-approve` |
 
-| Rola | `--harness` | `--model` | Model | Warunki |
+| Rola | `--harness` | `--model` | Model | Dostawca modelu |
 |---|---|---|---|---|
-| orchestrator | `opencode` | `opencode/nemotron-3.5-lightning-free` | Nemotron 3.5 Lightning | |
-| professor | `claude-code` | `claude-opus-5-5[1m]` | Opus 5.5 | |
-| professor | `codex` | `gpt-6-astra` | GPT-6 Astra | |
-| professor | `opencode` | `opencode/nemotron-3-ultra-free` | Nemotron 3 Ultra | |
-| laborant | `claude-code` | `claude-sonnet-5-5` | Sonnet 5.5 | |
-| laborant | `cursor` | `grok-4.7-medium` | Grok 4.7 | |
-| laborant | `antigravity` | `claude-sonnet-4-6` | Sonnet 4.6 | |
-| laborant | `opencode` | `opencode/muse-spark-1.3-contributor-free` | Muse Spark 1.3 Free | |
-| laborant | `opencode` | `opencode/mimo-v2.6-flash-free` | MiMo-V2.6-Flash | |
-| laborant | `opencode` | `opencode/ling-3.1-flash-free` | Ling 3.1 Flash | |
-| laborant | `codex` | `gpt-6-sol` / `gpt-6-luna` | GPT-6 Sol / GPT-6 Luna | Tylko po wykorzystaniu pełnego limitu Astra i jeśli wystarczy limitu dla laboranta/kodera. |
-| programmer (koder) | `cursor` | `gpt-5.6-sol-medium` | GPT-5.6 Sol | |
-| programmer (koder) | `antigravity` | `gemini-3.8-flash-medium` | Gemini 3.8 Flash | |
-| programmer (koder) | `opencode` | `opencode/muse-spark-1.3-contributor-free` | Muse Spark 1.3 Free | |
-| programmer (koder) | `opencode` | `opencode/longcat-2.5-preview-free` | LongCat 2.5 | |
-| programmer (koder) | `codex` | `gpt-6-sol` / `gpt-6-luna` | GPT-6 Sol / GPT-6 Luna | Tylko po wykorzystaniu pełnego limitu Astra i jeśli wystarczy limitu dla laboranta/kodera. |
-| librarian | `opencode` | `google/gemini-3.8-flash` | Gemini 3.8 Flash | Zachowane z wcześniejszego przypisania. |
+| orchestrator | `opencode` | `opencode/nemotron-3.5-lightning-free` | Nemotron 3.5 Lightning | NVIDIA |
+| professor | `claude-code` | `claude-opus-5-5[1m]` | Opus 5.5 | Anthropic |
+| professor | `codex` | `gpt-6-astra` | GPT-6 Astra | OpenAI |
+| professor | `opencode` | `opencode/nemotron-3-ultra-free` | Nemotron 3 Ultra | NVIDIA |
+| laborant | `claude-code` | `claude-sonnet-5-5` | Sonnet 5.5 | Anthropic |
+| laborant | `cursor` | `grok-4.7-medium` | Grok 4.7 | xAI |
+| laborant | `antigravity` | `claude-sonnet-4-6` | Sonnet 4.6 | Anthropic |
+| laborant | `opencode` | `opencode/muse-spark-1.3-contributor-free` | Muse Spark 1.3 Free | Meta |
+| laborant | `opencode` | `opencode/mimo-v2.6-flash-free` | MiMo-V2.6-Flash | Xiaomi |
+| laborant | `opencode` | `opencode/ling-3.1-flash-free` | Ling 3.1 Flash | Ant Group |
+| programmer (koder) | `cursor` | `gpt-5.6-sol-medium` | GPT-5.6 Sol | OpenAI |
+| programmer (koder) | `antigravity` | `gemini-3.8-flash-medium` | Gemini 3.8 Flash | Google |
+| programmer (koder) | `opencode` | `opencode/muse-spark-1.3-contributor-free` | Muse Spark 1.3 Free | Meta |
+| programmer (koder) | `opencode` | `opencode/longcat-2.5-preview-free` | LongCat 2.5 | Meituan |
+| librarian | `opencode` | `google/gemini-3.8-flash` | Gemini 3.8 Flash | Google |
+
+### Wybór modelu
+
+- **Profesor:** model wskazuje użytkownik w poleceniu spawnu. Jeśli go nie wskazał, zapytaj; nie wybieraj sam.
+- **Laborant, koder, librarian:** wybierz opcję roli tak, żeby limity nigdy się nie wyczerpały. Bierz opcję z największym zapasem limitu według `limits`; pamiętaj, że limity Claude i Codex zużywają też profesorowie. Darmowe modele OpenCode nie zużywają limitów, ale kosztują najwięcej RAM (sekcja Koszt sesji). Gdy opcje są równorzędne, wybierz losowo.
+- **Warunek:** laborant ma innego dostawcę modelu niż profesor jego hipotezy, a koder innego niż jego laborant (kolumna Dostawca modelu).
 
 ## Przyjmowanie zgłoszeń i spawn
 
@@ -157,15 +161,15 @@ Obsługuj P2P `REQUEST_AGENT` według roli i etapu:
 
 Laborant i programmer są przypisani do hipotezy i pozostają dostępni dla kolejnych eksperymentów tego węzła. Pierwszy przydział kodera wykonujesz po `REQUEST_AGENT` laboranta. Przy `NEXT_TEST` laborant tworzy eksperyment-dziecko hipotezy i przekazuje brief bezpośrednio przypisanemu koderowi przez P2P `IMPLEMENTATION_REQUEST`; nie jest to nowe zgłoszenie do orchestratora. Koder wykonuje też operacje eksperymentu w tej samej sesji.
 
-Przed spawnem profesora ustal `project_id` (`identifiers.md`); jeśli jest niejednoznaczny, zapytaj użytkownika i nie spawnuj z niewypełnionym polem. Na polecenie użytkownika uruchamiasz profesora, wybierając jedną z przypisanych mu opcji z tabeli powyżej i uwzględniając jawne warunki limitów. Prompt przekazujesz bezpośrednio przy spawnie zgodnie z szablonem komendy powyżej.
+Przed spawnem profesora ustal `project_id` (`identifiers.md`); jeśli jest niejednoznaczny, zapytaj użytkownika i nie spawnuj z niewypełnionym polem. Na polecenie użytkownika uruchamiasz profesora z modelem wskazanym przez użytkownika (sekcja Wybór modelu). Prompt przekazujesz bezpośrednio przy spawnie zgodnie z szablonem komendy powyżej.
 
 Przy każdym zgłoszeniu:
 
 1. Rozróżnij polecenie użytkownika o spawn profesora od P2P `REQUEST_AGENT`. Zapisz `request_id`, projekt, rolę i nadawcę; dla zgłoszenia dotyczącego istniejącego węzła dopisz `node_id` oraz adresy P2P rozmówców.
-2. Sprawdź rejestr, warunki RAM (sekcja Decyzja o spawnie), `limits` oraz przypisane opcje roli w tabeli powyżej. Dobieraj model z tabeli i parametry wskazane dla tej roli.
+2. Sprawdź rejestr, warunki RAM (sekcja Decyzja o spawnie), `limits` i dobierz model według sekcji Wybór modelu.
 3. Gdy RAM, limit sesji w toku albo limit harnessu wstrzymuje spawn, postępuj według sekcji Oczekiwanie na RAM (`AGENT_PENDING` do nadawcy).
-4. Dla profesora użyj promptu bazowego z jego szablonu, a tryb „użytkownik jako krytyk” dopisz tylko po wyraźnej prośbie użytkownika. Dla laboranta użyj promptu z jego szablonu, wstawiając identyfikatory węzła i adresy P2P profesora oraz orchestratora. Dla librariana użyj promptu z jego szablonu, wypełniając temat, zlecającego, odbiorcę syntezy i kanał danymi ze zgłoszenia. Przy żądaniu kodera użyj ścieżki briefu `briefs/programmer.md` podanej przez laboranta w `REQUEST_AGENT`; brief zawiera plan implementacji oraz ścieżki instrukcji `roles/programmer.md` i `roles/operator.md`. Następnie wykonaj spawn. Przy błędzie spawnu wykonaj najwyżej jedną ponowną próbę z inną opcją przypisaną tej roli i zapisz obie próby w rejestrze.
-5. Po spawnie zapisz id sesji ORX. Po `REGISTER_SESSION` zapisz rzeczywisty adres P2P podany przez dziecko; odpowiedz `AGENT_ASSIGNED` P2P nadawcy zgłoszenia albo potwierdź użytkownikowi w rozmowie spawn profesora. Po dwóch nieudanych próbach przekaż użytkownikowi błąd i stan zgłoszenia.
+4. Dla profesora użyj promptu bazowego z jego szablonu, a tryb „użytkownik jako krytyk” dopisz tylko po wyraźnej prośbie użytkownika. Dla laboranta użyj promptu z jego szablonu, wstawiając identyfikatory węzła i adresy P2P profesora oraz orchestratora. Dla librariana użyj promptu z jego szablonu, wypełniając temat, zlecającego, odbiorcę syntezy i kanał danymi ze zgłoszenia. Przy żądaniu kodera użyj ścieżki briefu `briefs/programmer.md` podanej przez laboranta w `REQUEST_AGENT`; brief zawiera plan implementacji oraz ścieżki instrukcji `roles/programmer.md` i `roles/operator.md`. Następnie wykonaj spawn. Przy błędzie spawnu postępuj według sekcji Przydział modeli i komenda spawn i zapisz każdą próbę w rejestrze.
+5. Po spawnie zapisz id sesji ORX z wyniku (`Spawned agent session <id>`) i adres P2P dziecka: `<agent>/<id>`, gdzie `<agent>` wynika z harnessu (`agent-start.md`, tabela harnessów). Od razu wyślij nadawcy zgłoszenia `AGENT_ASSIGNED` z rolą, adresem P2P i id sesji albo potwierdź użytkownikowi w rozmowie spawn profesora. Po dwóch nieudanych próbach przekaż użytkownikowi błąd i stan zgłoszenia.
 
 Nie dodawaj krytyka jako osobnej roli. Krytykę hipotezy prowadzi laborant z profesorem, a koder krytycznie przegląda plan laboranta.
 
@@ -179,7 +183,7 @@ Nie obiecuj cyklicznych raportów ani retry bez działającego źródła wznowie
 
 ## Przydział i sprzątanie sesji
 
-Prowadź oddzielnie tożsamość roli, sesję ORX i adres P2P (`whoami`). Odpowiadaj na `REGISTER_SESSION` i `AGENT_ASSIGNED`, aktualizując rejestr. Sama obecność lub status uśpienia nie dowodzą zakończenia pracy ani zwolnienia RAM.
+Prowadź oddzielnie tożsamość roli, sesję ORX i adres P2P (`whoami`). Każdy przydział zapisuj w rejestrze razem z adresem P2P dziecka. Sama obecność lub status uśpienia nie dowodzą zakończenia pracy ani zwolnienia RAM.
 
 Po `HYPOTHESIS_REJECTED` albo `HYPOTHESIS_CLOSED` od profesora:
 
@@ -190,6 +194,10 @@ Po `HYPOTHESIS_REJECTED` albo `HYPOTHESIS_CLOSED` od profesora:
 
 - Po `AGENT_DONE` od librariana wyślij `FINISH_REQUEST`; zakończ przydział po `READY_TO_DELETE`, gdy synteza dotarła do zleceniodawcy.
 - Jeśli odpowiedź roli wymaga dalszego działania, pozostaw sesję w przydziale.
+
+## Blokady
+
+Po `FLOW_BLOCKED` albo `RETRY_PENDING` zapisz sprawę w rejestrze przy przydziale nadawcy i przekaż użytkownikowi krótko: kto, węzeł, co jest zablokowane i dokładny błąd. Konfiguracji środowiska nie naprawiasz. Następnie zakończ turę, chyba że trwa cykl Oczekiwanie na RAM — wtedy go kontynuuj.
 
 ## Zgoda na `home`
 

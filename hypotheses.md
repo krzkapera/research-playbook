@@ -20,11 +20,11 @@ Hipoteza to węzeł `orx` z twierdzeniem badawczym, który może być zarazem w�
 
 Przy przejściu `ROBOCZA` → `GOTOWA DO IMPLEMENTACJI` professor zapisuje stan w `description`, a następnie wysyła laborantowi P2P `HYPOTHESIS_APPROVED`. Jeśli rezygnuje z badania przed wykonaniem eksperymentu, ustawia `ODRZUCONA` i wysyła `HYPOTHESIS_REJECTED` do orchestratora, aby posprzątał przypisane sesje. Dopiero po sprawdzeniu hipotezy i decyzji o braku dalszych testów professor ustawia `ZAMKNIĘTA` i wysyła `HYPOTHESIS_CLOSED`. `NEXT_TEST` nie jest stanem ani zamknięciem — oznacza kolejny test w ramach otwartej hipotezy. Laborant tworzy go jako eksperyment-dziecko bezpośrednio pod węzłem hipotezy; nie tworzy dziecka poprzedniego eksperymentu.
 
-Stany sesji (`WAITING`, `ACTIVE`), kolejki (`RETRY_PENDING`) i runów należą do rejestru operacyjnego lub ORX, nie do pola `Stan` hipotezy. Nie twórz osobnego stanu hipotezy dla oczekiwania na zasoby, błędu joba, poprawki kodu ani kolejnej iteracji implementacji.
+Stany sesji, kolejki (`RETRY_PENDING`) i runów należą do rejestru operacyjnego lub ORX, nie do pola `Stan` hipotezy. Nie twórz osobnego stanu hipotezy dla oczekiwania na zasoby, błędu joba, poprawki kodu ani kolejnej iteracji implementacji.
 
 ## description
 
-Treść hipotezy (twierdzenie, narracja, stan, uzasadnienie merytoryczne) żyje w `description` (`orx exp desc`). Pole jest **nadpisywane w całości**. Profesor zapisuje bezpośrednio własne wnioski i decyzje; przed zapisem stosuje kooperacyjny lock `orx-desc:<project_id>:<node_id>` z `communication.md` § Opis węzła vs wpis: acquire → świeży odczyt → zmiana z zachowaniem pozostałych sekcji → zapis → release. Nie zapisuj treści odczytanej przed uzyskaniem locka. Po utracie dzierżawy odrzuć kopię i zacznij od świeżego odczytu.
+Treść hipotezy (twierdzenie, narracja, stan, uzasadnienie merytoryczne) żyje w `description` (`orx exp desc`). Pole jest **nadpisywane w całości**. Profesor zapisuje bezpośrednio własne wnioski i decyzje; przed zapisem stosuje kooperacyjny lock `orx-desc:<project_id>:<node_id>` z `communication.md` § Opis węzła vs wpis: acquire → świeży odczyt → zmiana z zachowaniem treści innych autorów → zapis → release. Nie zapisuj treści odczytanej przed uzyskaniem locka. Po utracie dzierżawy odrzuć kopię i zacznij od świeżego odczytu.
 
 Przy zmianie stanu dopisz krótkie uzasadnienie i wskazanie dowodów. Opis jest samowystarczalny dla kogoś, kto nie czytał kanału.
 

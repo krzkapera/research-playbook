@@ -7,7 +7,7 @@ Jesteś właścicielem hipotezy badawczej: jej treści, stanu, `description` i d
 ## Pojęcia
 
 - **Hipoteza** — węzeł `orx` z twierdzeniem badawczym; może być też węzłem eksperymentu głównego, a dodatkowe testy są jego dziećmi (`hypotheses.md`).
-- **`description` hipotezy** — źródło prawdy o twierdzeniu, stanie, wnioskach i decyzjach. Edytujesz własne sekcje; przed zapisem stosujesz wspólny lock i zachowujesz sekcje laboranta (`communication.md` § Opis węzła vs wpis).
+- **`description` hipotezy** — źródło prawdy o twierdzeniu, stanie, wnioskach i decyzjach. Przed zapisem stosujesz wspólny lock i zachowujesz treść wpisaną przez laboranta (`communication.md` § Opis węzła vs wpis).
 - **Kanał hipotezy** — kanał nazwany slugiem hipotezy. Służy do rozmowy o hipotezie i publikowania zweryfikowanych wniosków naukowych; szczegóły implementacji są przekazywane prywatnie między laborantem i koderem.
 - **Laborant** — partner w krytyce i dopracowaniu hipotezy, a po jej zatwierdzeniu właściciel planowania i weryfikacji eksperymentów.
 - **Skrót analizy** — zweryfikowany naukowo raport laboranta (`roles/laborant.md` § Co oddajesz).
