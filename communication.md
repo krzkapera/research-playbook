@@ -3,54 +3,84 @@
 ## Pojęcia
 
 - **Bus** — `ai-crew-sync`: kanały, wiadomości i P2P, obsługiwane narzędziami MCP własnej sesji (tożsamość: `agent-start.md`, krok 1).
-- **Kanał węzła** — kanał nazwany slugiem hipotezy albo eksperymentu. Cała koordynacja pracy nad węzłem idzie na jego kanale.
+- **Kanał węzła** — kanał nazwany slugiem hipotezy albo eksperymentu. Służy do treści hipotezy i zweryfikowanych wniosków naukowych; komunikacja implementacyjna laborant–koder odbywa się prywatnie P2P.
 - **Dołączenie do kanału** — odczyt historii kanału (`read_messages`, `scope: "<slug>"`, `only_new: false`) i dalsza praca na nim. Zaproszenie = nazwa kanału w briefie spawnu albo we wpisie.
-- **Wpis** — wiadomość na kanale (`post_message`, `channel: "<slug>"`). Każdy wpis zaczyna się etykietą roli: `[professor]`, `[laborant]`, `[critic]`, `[programmer]`, `[operator]`, `[librarian]`.
-- **P2P** — wiadomości bezpośrednie między sesjami programmera i operatora: pytanie `ask_agent`, odpowiedź `post_message` (sekcja P2P).
+- **Wpis** — wiadomość na kanale (`post_message`, `channel: "<slug>"`). Każdy wpis zaczyna się etykietą roli: `[orchestrator]`, `[professor]`, `[laborant]`, `[programmer]`, `[librarian]`.
+- **P2P** — wiadomość bezpośrednia między sesjami, wysyłana przez `post_message` (sekcje P2P i Orchestracja).
 - **Adres P2P** — `<agent>/<session>` z wyniku `whoami` sesji (`agent-start.md`, krok 1).
 - **Oddanie** — wpis albo wiadomość P2P z materiałem, na który czeka inna rola. Zawartość oddania definiuje plik roli oddającej (sekcja Co oddajesz).
 - **`description`** — pole węzła w `orx`; źródło prawdy o stanie i decyzjach węzła.
-- **Właściciel etapu** — `professor` (hipoteza), `laborant` (eksperyment).
+- **Koder** — sesja roli `programmer` przypisana przez orchestratora do hipotezy; ta sama sesja obsługuje implementację i wykonanie eksperymentu.
+- **Właściciel etapu** — `professor` odpowiada za treść i stan hipotezy, `laborant` za protokół i weryfikację eksperymentu; szczegóły zapisu określają role i protokół locka poniżej.
 - **Problem z flow** — sytuacja z listy w sekcji Problem z flow.
 
 ## Kanały
 
 - Kanał węzła zakłada twórca węzła po `orx create-experiment`: nazwa kanału = slug wypisany przez tę komendę (linia `slug:`). Po założeniu twórca dołącza do kanału i pisze pierwszy wpis.
 - Dołączasz do kanałów wskazanych w briefie i do kanału węzła, w którym masz aktywną rolę.
-- Draft solo nie wymaga innych na kanale. Zaproszenie innych na kanał otwiera rundę recenzji.
+- Draft solo nie wymaga innych na kanale. Zaproszenie innych otwiera wspólną dyskusję o hipotezie lub eksperymencie.
 
-## P2P (programmer ↔ operator)
+## P2P
 
-- Operator komunikuje się wyłącznie z programmerem i wyłącznie przez `ask_agent`: potwierdzenie startu, dopytania o uruchomienie, statusy, prośby o poprawkę kodu, raport operatora, Problem z flow i konflikt z `description`. Operator nie dołącza do żadnego kanału, nie czyta kanałów i nic na nich nie pisze.
-- Pozostałe role (professor, laborant, critic, librarian) nie komunikują się z operatorem. Decyzję dotyczącą runów (np. wstrzymanie) laborant przekazuje programmerowi na kanale eksperymentu; programmer przekazuje ją operatorowi przez P2P.
-- Operator pyta, programmer odpowiada. Programmer podaje swój adres P2P w briefie spawnu operatora; adres operatora bierze z pól `from` i `from_session` jego pierwszej wiadomości.
-- **Pytanie (operator):** `ask_agent` z `to: "<adres P2P programmera>"`, `question` i `timeout_seconds: 86400`. `answered: true` → odpowiedź w polu `answer`. Ponawianie: sekcja Czekanie.
-- **Odpowiedź (programmer):** pytanie przychodzi jako wiadomość bezpośrednia w pętli czekania (sekcja Czekanie). Odpowiadasz na każde pytanie: `post_message` z `to: "<from>/<from_session>"` i `reply_to: <id pytania>`.
-- **Polecenie bez pytania (programmer):** decyzję, która nie czeka na pytanie operatora (np. wstrzymanie runów po decyzji laboranta), wysyłasz `post_message` z `to: "<adres P2P operatora>"`. Operator odczytuje wiadomości P2P (`read_messages` z `scope: "all"`, `only_new: true`) po każdym powrocie z monitoringu runu i przed każdym submitem.
+Kanał i P2P pełnią różne funkcje: kanał archiwizuje dyskusję, a bezpośrednie P2P dostarcza wiadomość i może wznowić sesję, która zakończyła turę. Do adresowania używaj dokładnego `<agent>/<session>` z `whoami`; identyfikator sesji ORX nie jest adresem P2P. Każdą wiadomość, na którą odbiorca ma zareagować po zakończeniu swojej tury, wyślij P2P. Sam wpis na kanale nie jest sygnałem wznowienia.
+
+- Pytania, odpowiedzi, decyzje i oddania wymagające działania adresata wysyłaj przez `post_message` z `to: "<agent>/<session>"`; dołącz `reply_to`, gdy odpowiadasz na konkretną wiadomość. Komunikacja implementacyjna laborant–koder idzie wyłącznie P2P: nie kopiuj jej ani technicznych podsumowań na kanał czytany przez profesora. Kanał służy treści hipotezy i naukowemu raportowi laboranta.
+- Nie używaj `ask_agent` jako blokującego oczekiwania ani nie uruchamiaj `wait_for_updates` w pętli. Po wysłaniu pytania lub oddania, gdy nie masz innej pracy do wykonania, zakończ turę. Po wznowieniu odczytaj nowe P2P i kontynuuj.
+- Odpowiadaj na każdą wiadomość wymagającą działania. Nie wysyłaj osobnego ACK, jeśli sama odpowiedź albo wykonanie zlecenia potwierdza odbiór — unikaj pętli niepotrzebnych wybudzeń.
+
+
+## Orchestracja
+
+Wiadomości poniżej są typami treści istniejących wiadomości P2P (`post_message`), a nie nowymi narzędziami. Każda wiadomość operacyjna zawiera `request_id` (gdy dotyczy zlecenia), `project_id`, `node_id` (jeśli dotyczy węzła), rolę nadawcy i odbiorcę. Orchestrator deduplikuje zlecenia po `request_id` w rejestrze z `roles/orchestrator.md`; samo `post_message` nie zapewnia idempotencji.
+
+| Typ | Nadawca → odbiorca | Znaczenie |
+|---|---|---|
+| `REQUEST_AGENT` | professor → orchestrator | Zapisana hipoteza wymaga laboranta. Professor prowadzi sam przegląd literatury dla własnej hipotezy. |
+| `REQUEST_AGENT` | laborant → orchestrator | Przy prośbie o kodera laborant podaje ścieżkę do gotowego briefu z planem implementacji; przy prośbie o librariana podaje zakres przeglądu literatury. |
+| `REGISTER_SESSION` | uruchomiona sesja → orchestrator | Rola, węzeł, `request_id`, identyfikator sesji ORX i adres P2P z `whoami`. |
+| `AGENT_ASSIGNED` | orchestrator → zleceniodawca | Przydział roli, identyfikator sesji ORX i adres P2P. |
+| `QUESTION` / `ANSWER` | laborant ↔ professor | Tylko treść, zakres lub interpretacja hipotezy; wiadomość wskazuje pytanie, na które odpowiada. |
+| `HYPOTHESIS_APPROVED` | professor → laborant (P2P) | Przejście `ROBOCZA` → `GOTOWA DO IMPLEMENTACJI`: professor najpierw zapisuje stan w `description`; laborant kontynuuje po otrzymaniu komunikatu. |
+| `IMPLEMENTATION_REQUEST` | laborant → przypisany programmer (P2P) | Zlecenie realizacji planu z briefu kodera; wiadomość podaje jego ścieżkę. |
+| `PLAN_QUESTION` / `PLAN_ANSWER` | programmer ↔ laborant (P2P) | Krytyczne uwagi i dopracowanie planu przed implementacją; laborant aktualizuje brief. |
+| `IMPLEMENTATION_QUESTION` / `IMPLEMENTATION_ANSWER` | programmer ↔ laborant (P2P) | Pytania i decyzje, które pojawiają się w trakcie implementacji lub wykonania eksperymentu. Zmiana technicznego planu trafia do briefu; zmiana pytania badawczego lub protokołu eksperymentu do `description`.
+| `AGENT_DONE` | librarian → orchestrator (P2P) | Synteza przekazana zleceniodawcy; librarian nie ma dalszej pracy. Orchestrator rozpoczyna cleanup. |
+| `RESULTS_READY` | programmer → laborant (P2P) | Wyniki techniczne i artefakty gotowe do merytorycznej weryfikacji; bez professora. |
+| `REWORK_REQUEST` | laborant → programmer (P2P) | Konkretna brakująca kontrola lub poprawka planu/kodu/wyników. |
+| `RESEARCH_REPORT` | laborant → professor (P2P i kanał hipotezy) | Zweryfikowany wniosek naukowy, istotne metryki, ograniczenia i pytanie dalsze; bez kodu, logów ani szczegółów implementacji. |
+| `LITERATURE_REPORT` | librarian → zleceniodawca (P2P i wskazany kanał) | Synteza literatury w zakresie briefu i wskazanie źródeł. |
+| `NEXT_TEST` | professor → laborant (P2P) | Kolejny test w hipotezie `GOTOWA DO IMPLEMENTACJI`; laborant tworzy eksperyment jako bezpośrednie dziecko hipotezy i zleca go przez P2P koderowi już przypisanemu do tej hipotezy. Orchestrator nie uczestniczy w ponownym przydziale. |
+| `HYPOTHESIS_REJECTED` | professor → orchestrator | Przejście do `ODRZUCONA`: professor zapisuje powód i prosi o sprzątnięcie sesji przypisanych do węzła, nie samego węzła. |
+| `HYPOTHESIS_CLOSED` | professor → orchestrator | Po pełnym sprawdzeniu professor zapisuje wniosek i prosi o sprzątnięcie sesji, nie samego węzła. |
+| `WAITING` / `ACTIVE` | laborant lub programmer → orchestrator | Stan operacyjny sesji, nie stan hipotezy; nie wymaga powiadamiania profesora. |
+| `FINISH_REQUEST` / `READY_TO_DELETE` | orchestrator ↔ laborant, programmer lub librarian | Cleanup po potwierdzeniu braku aktywnego joba i trwałości wyników. |
+| `FLOW_BLOCKED` | dowolna sesja → orchestrator | Blokada techniczna, środowiskowa, limitu, RAM lub wybudzenia. |
+| `LOCK_RETRY_REQUEST` | autor opisu → aktualny właściciel locka | Prośba o krótkie powiadomienie po zwolnieniu locka; nie przyznaje prawa do zapisu. |
+| `LOCK_RELEASED` | dotychczasowy właściciel → oczekujący autor | Informacja o zwolnieniu; odbiorca musi ponownie zdobyć lock i świeżo odczytać description. |
+| `RETRY_PENDING` | orchestrator (rejestr) | Zlecenie/edycja czeka na nową próbę po konflikcie, limicie lub braku zasobu; nie jest aktywnym spawnem. |
+
+
+### Asynchroniczne wznowienie
+
+Gdy skończysz bieżącą pracę i czekasz na odpowiedź lub oddanie, wyślij wymagane P2P, a następnie zakończ turę. Skonfigurowany mostek P2P → ORX dostarcza nową wiadomość do sesji i wznawia ją; po powrocie odczytaj wiadomości i sprawdź aktualny stan przed działaniem. Kanał sam w sobie nie budzi zakończonej tury. Nie wysyłaj ACK, które nie niosą odpowiedzi ani postępu.
+
+Przy `acquired: false` nie zapisuj. Jeśli chcesz ponowić po zwolnieniu locka, wyślij właścicielowi `LOCK_RETRY_REQUEST` i zakończ turę; po P2P `LOCK_RELEASED` wznowiona sesja ponownie zdobywa lock i świeżo odczytuje opis. Sam upływ TTL ani awaria właściciela nie wysyłają powiadomienia; oznacz sprawę jako `RETRY_PENDING` i przekaż ją orchestratorowi P2P. Nie spinuj pollingiem ani nie zakładaj, że TTL sam wznowi sesję. Nie obiecuj raportów okresowych ani automatycznych retry bez działającego źródła wznowienia.
 
 ## Opis węzła vs wpis
 
-`description` edytuje wyłącznie właściciel etapu i aktualizuje go na bieżąco (odczyt → nadpisanie całości). Wpis to krótka delta: co się zmieniło i o co chodzi. Historia kanału jest archiwum dyskusji. Inne role oddają materiał właścicielowi etapu na kanale węzła; właściciel przenosi ustalenia do `description`.
+`description` jest źródłem prawdy o stanie naukowym węzła: twierdzeniu hipotezy profesora, uzgodnionym protokole eksperymentu laboranta oraz zweryfikowanych ustaleniach naukowych. Każda rola zapisuje wyłącznie sekcję przypisaną jej w instrukcji roli. Szczegółowy plan implementacji znajduje się w briefie kodera w artifacts, nie w `description`. Nie kopiuj tam prywatnej korespondencji, logów ani roboczych szczegółów implementacji. Każda zmiana odczytuje aktualny pełny opis i zachowuje cudze sekcje. Ponieważ `orx exp desc --set/--stdin` nadpisuje całość, wszystkich edytorów obowiązuje wspólny lock: `orx-desc:<project_id>:<node_id>`. Po `acquire_lock` z TTL 300 s odczytaj aktualny opis, zmień własną sekcję, zapisz całość przed wygaśnięciem i zwolnij lock. Jeśli locka nie uzyskasz, nie zapisuj; jeśli dzierżawa wygasła lub własność jest niepewna, odrzuć kopię i ponownie odczytaj po zdobyciu locka. Nie czekaj na innych ani nie kończ tury, trzymając lock. Po zwolnieniu locka odpowiedz `LOCK_RELEASED` oczekującym, którzy wysłali `LOCK_RETRY_REQUEST`; ta wiadomość nie przyznaje prawa do zapisu. Blokada jest kooperacyjna — ORX nie wymusza jej przy zapisie.
 
-## Pokój (recenzja)
+Wpis to krótka delta, a historia kanału jest archiwum dyskusji. Wpis nie zastępuje aktualizacji naukowego `description` przez właściwego autora.
 
-Pokój = recenzja **gotowego** draftu z `description`. Synonim w `roles/`: **pętla** / **runda recenzji** (np. pętla z criticiem). Skład rośnie stopniowo (kolejna osoba → kolejna runda). Właściciel etapu ma głos rozstrzygający przy braku zgody. Pokój kończy się, gdy wracasz do solo albo zmieniasz etap.
 
-Recenzja critica jest domknięta, gdy właściciel etapu odpowiedział na każdą uwagę, a ostatni wpis critica kończy się sygnałem „gotowe do decyzji po stronie <właściciel etapu>” albo limit uwag lub rund jest wyczerpany.
+## Koniec tury zamiast czekania
 
-Limit rund: najwyżej **3 rundy** critica na jeden węzeł (hipotezę albo eksperyment), chyba że brief użytkownika podaje inny limit. Po 3. rundzie właściciel etapu nie spawnuje kolejnego critica: odpowiada na ostatnie uwagi i podejmuje decyzję, wymieniając w `description` uwagi, które zostały otwarte.
+Jeśli dalszy postęp zależy od wiadomości innej osoby, wyślij jej P2P z konkretnym pytaniem lub oddaniem. Dyskusję o hipotezie i wnioski naukowe archiwizuj na kanale; implementacyjne wiadomości pozostają wyłącznie P2P. Gdy nie masz innej pracy, zakończ turę — mostek wznowi sesję po nowej wiadomości P2P. Po wznowieniu odczytaj nowe P2P (`read_messages`, `scope: "all"`, `only_new: true`) i ponownie sprawdź `description` lub status runu. Nie używaj `wait_for_updates`, blokującego `ask_agent` ani pętli `sleep` do czekania na zdarzenia.
 
-## Czekanie
+Przy `acquired: false` nie zapisuj: możesz wykonywać inną pracę albo wysłać właścicielowi `LOCK_RETRY_REQUEST`, zakończyć turę i wrócić po `LOCK_RELEASED`; przed zapisem ponownie zdobądź lock i odczytaj aktualny opis. Sam upływ TTL ani awaria właściciela nie budzą sesji — w takim przypadku przekaż `RETRY_PENDING` orchestratorowi P2P.
 
-- **Na wpis albo wiadomość P2P:** `wait_for_updates` z `channel: "<slug>"` i `timeout_seconds: 86400`, potem `read_messages` z `scope: "all"` i `only_new: true`. Wiadomość bezpośrednia do Twojej sesji (P2P) także budzi to wywołanie.
-- **Na odpowiedź na własne pytanie P2P:** `ask_agent` z `timeout_seconds: 86400` (sekcja P2P).
-- **Na lock:** `wait_for_updates` bez `channel`, z `timeout_seconds: 86400`, potem `read_messages` jak wyżej i ponowne `acquire_lock`.
 
-Wywołanie wraca bez oczekiwanego oddania, z timeoutem albo z błędem klienta → wywołujesz je ponownie; `ask_agent` z `resume_message_id: <question_message_id>`, bez `question`.
-
-Stan pracy innych agentów odczytujesz wyłącznie z wpisów na kanale i wiadomości P2P. `list_agents` i obecność (presence) nie są sygnałem, czy agent pracuje.
-
-Turę kończysz w ostatnim kroku flow z pliku roli albo po Problemie z flow. Do tego czasu czekasz według tej sekcji.
+Stan pracy innych agentów odczytujesz z kanałów i P2P; `list_agents` i presence nie dowodzą, czy agent pracuje. Turę kończysz po oddaniu, gdy nie masz dalszej pracy, albo po Problemie z flow.
 
 ## Wznowienie
 
@@ -62,20 +92,20 @@ Wiadomość użytkownika bez nowego zadania (np. „kontynuuj”) wznawia przerw
 
 Wiadomość użytkownika „playbook zaktualizowany” → pliki playbooka czytasz ponownie z `~/playbook/` (`agent-start.md` § Wersja playbooka) i dalej stosujesz nową wersję; potem jak przy „kontynuuj”.
 
-Odpowiedź spawnu dziecka nie budzi rodzica; oddanie przychodzi wpisem na kanale albo wiadomością P2P.
+Odpowiedź spawnu dziecka nie jest sama w sobie sygnałem wznowienia rodzica. Oddanie wymagające działania wysyłaj rodzicowi bezpośrednio P2P; wpis na kanale może służyć jako archiwum, ale nie zastępuje P2P.
 
 ## Problem z flow
 
 Problem z flow to:
 
-- błąd busa: MCP `ai-crew-sync` się nie ładuje albo narzędzie zwraca błąd poza wywołaniami czekania (sekcja Czekanie);
+- błąd busa: MCP `ai-crew-sync` się nie ładuje albo narzędzie zwraca błąd przy odczycie lub wysyłaniu wiadomości P2P;
 - błąd środowiska: narzędzie, komenda (`orx`, `git`, `ssh`) albo usługa zwraca błąd uwierzytelnienia, uprawnień, konfiguracji albo niedostępności;
 - wynik `whoami` niezgodny z `agent-start.md` (krok 1);
 - nieudany spawn: `orx agent spawn` nie wypisuje `Spawned agent session …`.
 
 Działanie:
 
-1. Gdy bus działa i `whoami` jest poprawne: wpis na kanale węzła `[<rola>] Problem z flow: <co>; <komenda>; <dokładny błąd>`. Operator zamiast wpisu wysyła to samo programmerowi przez `ask_agent`.
+1. Gdy bus działa i `whoami` jest poprawne, wyślij `FLOW_BLOCKED` P2P do orchestratora i nadawcy zlecenia. Nie publikuj problemów technicznych na kanale hipotezy; kanał może zawierać tylko istotny dla hipotezy skutek naukowy.
 2. To samo w odpowiedzi do rodzica albo użytkownika.
 3. Koniec tury.
 
@@ -83,25 +113,18 @@ Konfiguracja środowiska i projektu jest tylko do odczytu: konfiguracje harnessu
 
 Decyzję należącą do innej roli podejmuje wyłącznie ta rola.
 
-## Spawn
+## Spawn i cleanup
 
-- `orx agent` ma dwie komendy: `spawn` i `kill`. Postęp dziecka śledzisz na kanale węzła; postęp operatora — w P2P.
-- Po każdym spawnie zapisujesz id sesji dziecka z wyniku komendy (`Spawned agent session <id>`).
-- `orx agent kill <id>` usuwa sesję, którą spawnowałeś (bezpośrednio albo przez swoje dziecko), razem z jej worktree i niezacommitowanymi zmianami; jej dzieci zostają. Wywołujesz go wyłącznie wtedy, gdy dziecko skończyło pracę, w kroku wskazanym w pliku roli.
-- Komenda spawnu: wiersz roli z `model-assignment.md`; brief z pliku (`identifiers.md` § Miejsca zapisu) przez `--stdin`.
-- Szablon briefu jest w pliku roli, która spawnuje. Brief zawiera wyłącznie dane tej sesji: rolę, `project_id`, węzeł (`id`, slug), kanał, zadanie specyficzne dla tej sesji, limity z briefu użytkownika oraz oddanie (co i gdzie: kanał albo adres P2P odbiorcy). Brief odsyła do `agent-start.md` i pliku roli; reguły z playbooka zostają w plikach playbooka.
-- Limity z briefu użytkownika przekazujesz w briefie dziecka dosłownie, z rolą, której dotyczą.
-- Równoległe spawny: każde dziecko pracuje na kanale swojego węzła.
-- Nowy węzeł albo nowa dedykowana sesja według pliku roli = nowy spawn według szablonu, także gdy w projekcie widać inną sesję tej samej roli.
+Wyłącznie orchestrator wykonuje `orx agent spawn` i `orx agent kill`; pozostałe role proszą go o przydział przez P2P `REQUEST_AGENT`. Nie uruchamiaj ani nie usuwaj sesji samodzielnie.
 
 ## Roundtrip (niejasny brief)
 
-Gdy zlecenie (brief, `description`, dokument, do którego zlecenie odsyła) nie wystarcza do kontynuacji, dziecko dopytuje nadawcę zlecenia w **tej samej** sesji, drogą, którą przyszło zlecenie: operator — programmera przez P2P (sekcja P2P); pozostałe role — na kanale węzła.
+Gdy brief lub `description` nie wystarcza do kontynuacji, dopytaj nadawcę zlecenia bezpośrednio P2P. Jeśli sprawa dotyczy treści hipotezy, zwróć się do jej właściciela wskazanego w instrukcji roli.
 
 1. Dziecko zadaje pytania tą drogą.
-2. Dziecko czeka na odpowiedź (sekcja Czekanie).
-3. Nadawca odpowiada tą samą drogą i/lub aktualizuje `description`.
-4. Dziecko kontynuuje w tej samej sesji z wyjaśnionej odpowiedzi/`description`.
+2. Jeśli nie ma innej pracy, dziecko kończy turę.
+3. Nadawca odpowiada P2P i/lub aktualizuje `description`.
+4. Wiadomość wznowi dziecko; ono odczytuje odpowiedź i kontynuuje w tej samej sesji.
 
 ## Wiadomość vs plik
 

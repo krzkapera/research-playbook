@@ -1,6 +1,6 @@
 # Start sesji agenta
 
-Pliki playbooka (`agent-start.md`, `access-matrix.md`, `communication.md`, `identifiers.md`, `model-assignment.md`, `hypotheses.md`, `experiments.md`, `research-brief.md`, `roles/…`) leżą w `~/playbook/`, poza repo projektu i worktree sesji. Ścieżki plików playbooka w tych dokumentach są względne wobec `~/playbook/`: `roles/operator.md` to `~/playbook/roles/operator.md`.
+Pliki playbooka (`agent-start.md`, `access-matrix.md`, `communication.md`, `identifiers.md`, `hypotheses.md`, `experiments.md`, `research-brief.md`, `roles/…`) leżą w `~/playbook/`, poza repo projektu i worktree sesji. Ścieżki plików playbooka w tych dokumentach są względne wobec `~/playbook/`: `roles/operator.md` to `~/playbook/roles/operator.md` (procedura obsługi jobów używana przez programmera).
 
 ## Wersja playbooka
 
@@ -14,9 +14,9 @@ Przed pierwszą merytoryczną wiadomością:
 2. Odczytaj `access-matrix.md`, wspólne lektury (`communication.md`, `identifiers.md`) i przekazany plik roli z `roles/`. Gdy rola odsyła do pliku domenowego, przeczytaj też jego.
 3. Ustal `project_id` według `identifiers.md`. Potem ustal slug i `id` węzła, odbiorcę i oczekiwany rezultat: najpierw z briefu; przy znanym `project_id` z `orx project view <project_id>` (drzewo węzłów: `id`, tytuł, branch).
 4. Pole, którego nadal nie da się ustalić, doprecyzowujesz z nadawcą briefu (`communication.md` § Roundtrip).
-5. Dołącz do kanałów z briefu (`communication.md` § Kanały) i potwierdź na każdym krótko: rola, cel, co i gdzie oddasz. Operator nie dołącza do żadnego kanału: start potwierdza wyłącznie programmerowi przez `ask_agent` (`communication.md` § P2P).
+5. Postępuj zgodnie z instrukcjami swojej roli dotyczącymi kanałów i potwierdzenia udziału. Jeśli rodzic lub orchestrator ma odebrać rejestrację albo oddanie po zakończeniu swojej tury, wyślij mu także P2P.
 6. Przeczytaj węzeł z briefu: `orx exp desc <id>` i `orx exp status <id>` (hipoteza albo eksperyment, zgodnie z briefem), potem artefakty i logi wskazane w briefie. Brief bez węzła: pomiń ten krok.
-7. Konflikt pliku roli z `description` węzła albo z decyzją właściciela etapu zgłaszasz wpisem na kanale węzła i czekasz na odpowiedź (`communication.md` § Czekanie). Operator zgłasza konflikt programmerowi przez `ask_agent`; polecenia przyjmuje wyłącznie od programmera.
+7. Konflikt pliku roli z `description` węzła albo z decyzją właściciela etapu zgłaszasz właścicielowi P2P, a jeśli dotyczy treści węzła, dodajesz też wpis na kanale. Gdy nie masz innej pracy, kończysz turę i wracasz po odpowiedzi (`communication.md` § P2P).
 
 | Harness | `agent` w wyniku `whoami` |
 |---|---|

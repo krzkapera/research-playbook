@@ -32,7 +32,7 @@ Ustal go sam na starcie sesji, w tej kolejności:
 3. `orx projects` — wybierz wpis zgodny z katalogiem roboczym lub nazwą repo projektu badawczego; przy dokładnie jednym pasującym kandydacie weź go;
 4. gdy nadal niejednoznaczne — krótko dopytaj nadawcę briefu (`communication.md` § Roundtrip).
 
-Zapamiętaj wybrane `project_id` w sesji i wstawiaj je do komend `orx` oraz do briefów spawnu (placeholdery `<project_id>`).
+Zapamiętaj wybrane `project_id` w sesji i wstawiaj je do komend `orx`.
 
 Projekt `orx` (repo + import w UI) zakłada użytkownik; agent tylko odczytuje `project_id`.
 
@@ -43,7 +43,7 @@ Projekt `orx` (repo + import w UI) zakłada użytkownik; agent tylko odczytuje `
 - Slug zostaje przy węźle na stałe.
 - Nowy wariant pytania albo inna logika porównania = **nowy węzeł** (nowy slug), zwykle dziecko istniejącego (`--parent <id>`).
 
-Tworzenie węzłów: `hypotheses.md`, `experiments.md`. Branch i worktree: `roles/programmer.md` (sekcja Worktree). Kanał = slug: `communication.md` § Kanały.
+Tworzenie węzłów: `hypotheses.md`, `experiments.md`. Kanał = slug: `communication.md` § Kanały.
 
 ## Runy
 
@@ -54,12 +54,16 @@ Pojedyncze uruchomienie = run `orx`:
 
 ## Miejsca zapisu
 
+Własne pliki robocze zapisuj w worktree lub w artifacts właściwego węzła, zgodnie z tabelą miejsc zapisu. Nie twórz ich we wspólnym `/tmp` ani luzem w HOME. Osobne miejsca dla literatury i danych na klastrze pozostają bez zmian. Reguła dotyczy plików celowo tworzonych przez agentów, nie plików tymczasowych tworzonych automatycznie przez harness.
+
+Duże dane, wagi i robocze archiwa transferowe trzymaj na scratch klastra. Gdy potrzebuje ich inny host obliczeniowy, przesyłaj je bezpośrednio między hostami — bez pośredniego składowania na hoście agentów. Reguła nie dotyczy raportów i wyników w artifacts ani plików zarządzanych przez `orx`, np. snapshotów kodu.
+
 | Co | Gdzie |
 |---|---|
 | raporty, notatki, analizy, wykresy, obrazy, CSV, PDF i inne trwałe wyniki (katalog `research/`, także gdy brief użytkownika każe zapisywać wyniki do `research/`) | katalog artefaktów `orx`: `<Artifacts directory>/research/<slug>/…`, gdzie `<slug>` to węzeł, którego dotyczy plik; absolutną ścieżkę katalogu artefaktów `orx` podaje w prompcie każdej sesji jako „Artifacts directory”; w wiadomościach i `description` link `artifacts/research/<slug>/…`. `research/` nie istnieje w repozytorium: nie zakładasz go w worktree i nie commitujesz tych plików do gita |
-| kopie cudzego kodu i źródeł do wglądu (paper, repo referencyjne) | `<Artifacts directory>/research/<slug>/sources/…`, z licencją źródła; kod potrzebny do runu trafia jako commit na branch eksperymentu `orx/<slug>` (programmer) |
-| kod, konfiguracja, małe pliki wniosku; `job.sbatch` (pisze operator, `roles/operator.md` § job.sbatch) | commit na branchu `orx/<slug>` w worktree sesji; commitujesz przed oddaniem, niezacommitowane zmiany znikają razem z worktree po końcu sesji |
+| brief kodera | `<Artifacts directory>/research/<slug>/briefs/programmer.md`; laborant jest jego właścicielem, zawiera szczegółowy plan implementacji oraz wskazuje instrukcję kodera i procedurę uruchamiania jobów |
+| kopie cudzego kodu i źródeł do wglądu (paper, repo referencyjne) | `<Artifacts directory>/research/<slug>/sources/…`, z licencją źródła; trwały kod eksperymentu trafia do repozytorium zgodnie z jego branchingiem |
+| kod, konfiguracja, małe pliki wniosku | commit na branchu `orx/<slug>` w worktree sesji przed przekazaniem zmian; niezacommitowane zmiany znikają razem z worktree po końcu sesji |
 | wyniki runów (log, `exit_code`, pliki zapisane przez job) | `remoteRoot/runs/<runId>/` na klastrze (`orx logs <run_id>`) |
-| brief spawnu | zapisuje rola spawnująca: `<Artifacts directory>/<slug>/briefs/<rola>.md`, gdzie `<slug>` to węzeł z briefu, a `<rola>` to rola spawnowanej sesji; komenda spawnu czyta ten plik przez `--stdin`; w wiadomościach link `artifacts/<slug>/briefs/<rola>.md` |
-| literatura: PDF-y, ich wersje tekstowe, spis | `~/literature/<nazwa pliku>.pdf`, `~/literature/txt/<nazwa pliku>.txt`, `~/literature/index.md` na hoście, na którym pracują agenci; zapisuje `librarian` (`roles/librarian.md` § Zapis korpusu), pozostałe role czytają |
+| literatura: PDF-y, ich wersje tekstowe, spis | `~/literature/<nazwa pliku>.pdf`, `~/literature/txt/<nazwa pliku>.txt`, `~/literature/index.md` na hoście, na którym pracują agenci |
 | stan, ustalenia i decyzje węzła | `description` węzła; nie kopiujesz `description` do plików (np. `hypothesis.md`) |
