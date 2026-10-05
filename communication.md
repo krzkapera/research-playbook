@@ -44,7 +44,6 @@ Wiadomości poniżej są typami treści istniejących wiadomości P2P (`post_mes
 | `IMPLEMENTATION_REQUEST` | laborant → przypisany programmer (P2P) | Zlecenie kolejnego testu (`NEXT_TEST`) z nowego briefu kodera; wiadomość podaje jego ścieżkę. Pierwszym zleceniem jest brief ze spawnu. |
 | `PLAN_QUESTION` / `PLAN_ANSWER` | programmer ↔ laborant (P2P) | Krytyczne uwagi i dopracowanie planu przed implementacją; laborant aktualizuje brief. |
 | `IMPLEMENTATION_QUESTION` / `IMPLEMENTATION_ANSWER` | programmer ↔ laborant (P2P) | Pytania i decyzje, które pojawiają się w trakcie implementacji lub wykonania eksperymentu. Zmiana technicznego planu trafia do briefu; zmiana pytania badawczego lub protokołu eksperymentu do `description`. |
-| `HOME_ACCESS_REQUEST` / `HOME_ACCESS_ANSWER` | programmer ↔ orchestrator (P2P) | Prośba o zgodę użytkownika na mały job na `home` (projekt, węzeł, opis obciążenia) i odpowiedź z decyzją użytkownika. |
 | `AGENT_DONE` | librarian → orchestrator (P2P) | Synteza przekazana zleceniodawcy; librarian nie ma dalszej pracy. Orchestrator rozpoczyna cleanup. |
 | `RESULTS_READY` | programmer → laborant (P2P) | Wyniki techniczne i artefakty gotowe do merytorycznej weryfikacji; bez professora. |
 | `REWORK_REQUEST` | laborant → programmer (P2P) | Konkretna brakująca kontrola lub poprawka planu/kodu/wyników. |

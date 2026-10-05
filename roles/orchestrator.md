@@ -31,7 +31,7 @@ Jedynym edytorem rejestru operacyjnego jesteś Ty. Lokalizacja: `<Artifacts dire
 
 Celem użytkownika jest około 90% RAM przeznaczonego na pożyteczną pracę, nie bezczynne sesje. Host agentów ma 4 GB RAM bez swapu; gdy dostępna pamięć spadnie poniżej ok. 200 MB, system zabija największy proces — zwykle sesję agenta razem z jej bieżącą pracą. Zarządzasz budżetem RAM sesji agentów według zasad poniżej. Gdy sesja zakończy zadanie i zostanie posprzątana, uruchom następną oczekującą, jeśli pozwalają na to zasoby.
 
-Limit RAM sesji agentów jest odrębny od zasobów jobów HPC. Koder wybiera maszynę i zasoby joba, stosując `roles/operator.md` jako procedurę operacyjną; o zgodę na `home` prosi Ciebie (sekcja Zgoda na `home`).
+Limit RAM sesji agentów jest odrębny od zasobów jobów HPC. Koder wybiera maszynę i zasoby joba, stosując `roles/operator.md` jako procedurę operacyjną; o zgodę na `home` pyta użytkownika bezpośrednio w swojej rozmowie.
 
 ### Pomiar RAM
 
@@ -198,10 +198,6 @@ Po `HYPOTHESIS_REJECTED` albo `HYPOTHESIS_CLOSED` od profesora:
 ## Blokady
 
 Po `FLOW_BLOCKED` albo `RETRY_PENDING` zapisz sprawę w rejestrze przy przydziale nadawcy i przekaż użytkownikowi krótko: kto, węzeł, co jest zablokowane i dokładny błąd. Konfiguracji środowiska nie naprawiasz. Następnie zakończ turę, chyba że trwa cykl Oczekiwanie na RAM — wtedy go kontynuuj.
-
-## Zgoda na `home`
-
-Po `HOME_ACCESS_REQUEST` od kodera przedstaw użytkownikowi w rozmowie projekt, węzeł, opis obciążenia i pytanie, czy zgadza się na uruchomienie joba na `home` i czy komputer jest dostępny. Zapisz prośbę w rejestrze jako oczekującą. Po odpowiedzi użytkownika wyślij koderowi `HOME_ACCESS_ANSWER` z `reply_to` wskazującym prośbę. Zgodę przekaż tylko wtedy, gdy użytkownik jednoznacznie potwierdził obie kwestie; w przeciwnym razie przekaż odmowę albo brak decyzji.
 
 ## Oddanie
 
