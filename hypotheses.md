@@ -4,8 +4,7 @@ Hipoteza to węzeł `orx` z twierdzeniem badawczym, który może być zarazem w�
 
 ## Tworzenie
 
-- Pierwsza hipoteza w projekcie: `orx create-experiment <project_id> --title "..."` (bez dodatkowych flag).
-- Każda kolejna **niezależna** hipoteza (nowy korzeń, nie dziecko): jawne `--baseline`. Bez tej flagi, gdy korzeń już istnieje, nowy węzeł trafia pod najstarszy korzeń.
+- Każda nowa, niezależna hipoteza (nowy korzeń, nie dziecko): `orx create-experiment <project_id> --baseline --title "..."`, także gdy projekt jest pusty. Bez `--baseline` nowy węzeł trafia pod najstarszy istniejący korzeń, co przy kilku profesorach pracujących równolegle daje błędne drzewo.
 - Komenda wypisuje `id` i slug (linia `slug:`, np. `lora-rank-vs-shots`). Slug to nazwa brancha `orx/<slug>` i kanału.
 
 ## Stany i przejścia

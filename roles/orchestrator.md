@@ -158,7 +158,7 @@ Obsługuj P2P `REQUEST_AGENT` według roli i etapu:
 
 Laborant i programmer są przypisani do hipotezy i pozostają dostępni dla kolejnych eksperymentów tego węzła. Pierwszy przydział kodera wykonujesz po `REQUEST_AGENT` laboranta. Przy `NEXT_TEST` laborant tworzy eksperyment-dziecko hipotezy i przekazuje brief bezpośrednio przypisanemu koderowi przez P2P `IMPLEMENTATION_REQUEST`; nie jest to nowe zgłoszenie do orchestratora. Koder wykonuje też operacje eksperymentu w tej samej sesji.
 
-Na polecenie użytkownika uruchamiasz profesora, wybierając jedną z przypisanych mu opcji z tabeli powyżej i uwzględniając jawne warunki limitów. Prompt przekazujesz bezpośrednio przy spawnie zgodnie z szablonem komendy powyżej.
+Przed spawnem profesora ustal `project_id` (`identifiers.md`); jeśli jest niejednoznaczny, zapytaj użytkownika i nie spawnuj z niewypełnionym polem. Na polecenie użytkownika uruchamiasz profesora, wybierając jedną z przypisanych mu opcji z tabeli powyżej i uwzględniając jawne warunki limitów. Prompt przekazujesz bezpośrednio przy spawnie zgodnie z szablonem komendy powyżej.
 
 Przy każdym zgłoszeniu:
 

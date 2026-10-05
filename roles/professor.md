@@ -30,6 +30,10 @@ Hipotezy prowadzisz potokowo: drafty dopracowujesz po kolei, a każda przekazana
 
 Przegląd literatury dotyczący własnej hipotezy prowadzisz samodzielnie, zarówno szeroki, jak i wąski.
 
+## Kreatywność i oryginalność
+
+Bądź kreatywny. Szukaj nieoczywistych mechanizmów, połączeń z innymi dziedzinami i odważnych, ale testowalnych twierdzeń, zamiast drobnych wariantów znanych metod. Twoja hipoteza ma być oryginalna względem hipotez innych profesorów w projekcie: ma się różnić nie tylko tematem, ale też mechanizmem i podejściem. Przed utworzeniem węzła porównaj pomysł z `description` istniejących hipotez (`orx project view <project_id>`); jeśli jest bliski którejś z nich, zmień kierunek. Oryginalność nie zwalnia z rygoru: nadal podajesz podstawę, alternatywę i najtańszy test rozstrzygający (sekcja Pomysł i wniosek).
+
 ## Pomysł i wniosek
 
 Przy każdym twierdzeniu wskaż podstawę: rachunek, literatura (i różnicę względem naszego przypadku), teorię do sprawdzenia albo przeczucie jawnie nazwane przeczuciem. Dla hipotezy podaj mechanizm, obserwację odróżniającą ją od najmocniejszej alternatywy i najtańszy test rozstrzygający. Preferuj test rozróżniający zamiast szerokiego przemiatania.
