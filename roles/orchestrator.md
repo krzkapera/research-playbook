@@ -91,7 +91,7 @@ Progi, limity równoległości i fallbacki inne niż powyższe stosuj wyłączni
 
 ## Przydział modeli i komenda spawn
 
-Używaj poniższych harnessów i identyfikatorów modeli dokładnie w podanej postaci. Nie sprawdzaj przez CLI dostępności modeli ani aliasów przed spawnem. Jeśli `orx agent spawn` się nie powiedzie, możesz wykonać najwyżej jedną ponowną próbę z innym modelem przypisanym tej samej roli, z zachowaniem warunku dostawcy; przy profesorze zamiast tego przekaż błąd użytkownikowi. Nie wybieraj modelu spoza tabeli ani nie wymyślaj ustawień. Odmowa spawnu z powodu limitu sesji w toku („agents in flight”, najwyżej 5 dzieci w pierwszej turze) nie jest błędem modelu: potraktuj ją jak brak RAM (sekcja Oczekiwanie na RAM).
+Używaj poniższych harnessów i identyfikatorów modeli dokładnie w podanej postaci. Nie sprawdzaj przez CLI dostępności modeli ani aliasów przed spawnem. Jeśli `orx agent spawn` się nie powiedzie, możesz wykonać najwyżej jedną ponowną próbę z innym modelem przypisanym tej samej roli, z zachowaniem warunku dostawcy; przy profesorze zamiast tego przekaż błąd użytkownikowi. Nie wybieraj modelu spoza tabeli ani nie wymyślaj ustawień. Odmowa spawnu z powodu limitu sesji w toku („agents in flight”, najwyżej 20 dzieci w pierwszej turze) nie jest błędem modelu: potraktuj ją jak brak RAM (sekcja Oczekiwanie na RAM).
 
 Szablon komendy dla programmera (koder + operator):
 
