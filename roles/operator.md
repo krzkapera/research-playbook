@@ -22,7 +22,7 @@ Wszystkie uruchomienia wykonuj przez `orx exp run`: na klastrach backendem Slurm
 ## Przygotowanie i uruchomienie
 
 1. Przed pierwszym jobem HPC przeczytaj dokumentację hosta oraz lokalne wzorce skryptów. Brief kodera i aktualny `description` określają wejścia, zależności, design, metryki oraz wymagane wyniki.
-2. Przygotuj `job.sbatch` na branchu `orx/<slug>` i zacommituj go wraz z implementacją przed smoke/submitem. Job musi być wznawialny i zapisywać logi oraz wyniki w odrębnych lokalizacjach runu.
+2. Przygotuj `run.sh` i `job.sbatch` na branchu `orx/<slug>` (sekcja `job.sbatch`) i zacommituj je wraz z implementacją przed smoke/submitem. Job musi być wznawialny i zapisywać logi oraz wyniki w odrębnych lokalizacjach runu.
 3. Wykonaj smoke na początku, tuż po przygotowaniu implementacji, przez `orx exp run`. Zapisz jego `run_id`. Po sukcesie nie powtarzaj smoke dla tego eksperymentu. Po błędzie ustal przyczynę, popraw implementację lub konfigurację i ponawiaj smoke aż do sukcesu; następnie uruchom pełny przebieg.
 4. Uruchom pełny job przez `orx exp run <node_id> --backend slurm --host <host>` (na `home`: sekcja `home`).
 5. Po każdym zgłoszeniu — smoke i pełnego joba — postępuj według sekcji Po zgłoszeniu joba.

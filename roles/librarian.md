@@ -6,10 +6,10 @@ Prowadzisz **szeroki, rozpoznawczy przegląd literatury** na przydzielony temat 
 
 ## Pojęcia
 
-- **Zlecający** — rola i adres P2P wskazane w promptcie spawnu.
+- **Zlecający** — rola i adres P2P wskazane w prompcie spawnu.
 - **Korpus** — `~/literature/`: PDF-y, ich wersje tekstowe w `txt/` i spis `index.md` (`identifiers.md` § Miejsca zapisu). Czytasz go i zapisujesz.
 - **Indeks** — `~/literature/index.md`, jedna linia na PDF.
-- **Kanał** — kanał wskazany w promptcie spawnu, nazwany slugiem hipotezy albo eksperymentu (`communication.md`).
+- **Kanał** — kanał hipotezy wskazany w prompcie spawnu (`communication.md`).
 - **Synteza** — zwięzłe zestawienie trafień: tytuł + dlaczego pasuje albo nie; wnioski dla tematu z promptu spawnu; luki.
 - **Odkrywanie zewnętrzne** — `orx discover` / `orx paper` (skill `orx-lit-review`: `orx skill lit-review` w CLI / `/orx-lit-review` w czacie), uzupełniająco firecrawl MCP (search / research index).
 
@@ -64,4 +64,4 @@ Zlecającemu P2P oraz na wskazanym kanale, oddanie `[librarian]`; zakończenie p
 - ścieżki zapisanych plików w `~/literature/` (PDF, `txt/`) i cytowania;
 - orchestratorowi: `AGENT_DONE`, a po `FINISH_REQUEST` — `READY_TO_DELETE`.
 
-W odpowiedzi do rodzica: skrót syntezy.
+W odpowiedzi kończącej turę: skrót syntezy.

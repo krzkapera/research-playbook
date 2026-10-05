@@ -10,11 +10,11 @@ Obowiązuje wersja przeczytana na starcie sesji. Po wiadomości użytkownika „
 
 Przed pierwszą merytoryczną wiadomością:
 
-1. **Tożsamość na busie.** Wywołaj narzędzie MCP `whoami` (`ai-crew-sync`). Poprawny wynik: `agent` = nazwa agenta Twojego harnessu (tabela niżej) oraz `session` = wartość `$ORX_CHAT_SESSION_ID`. Gdy wynik jest inny albo MCP `ai-crew-sync` się nie ładuje lub zwraca błąd: nie publikujesz niczego, w odpowiedzi (do rodzica albo użytkownika) podajesz blokadę z dokładnym wynikiem i kończysz turę.
+1. **Tożsamość na busie.** Wywołaj narzędzie MCP `whoami` (`ai-crew-sync`). Poprawny wynik: `agent` = nazwa agenta Twojego harnessu (tabela niżej) oraz `session` = wartość `$ORX_CHAT_SESSION_ID`. Gdy wynik jest inny albo MCP `ai-crew-sync` się nie ładuje lub zwraca błąd: nie publikujesz niczego, w odpowiedzi kończącej turę podajesz blokadę z dokładnym wynikiem i kończysz turę.
 2. Odczytaj `access-matrix.md`, wspólne lektury (`communication.md`, `identifiers.md`) i przekazany plik roli z `roles/`. Gdy rola odsyła do pliku domenowego, przeczytaj też jego.
 3. Ustal `project_id` według `identifiers.md`. Potem ustal slug i `id` węzła, odbiorcę i oczekiwany rezultat: najpierw z briefu; przy znanym `project_id` z `orx project view <project_id>` (drzewo węzłów: `id`, tytuł, branch).
 4. Pole, którego nadal nie da się ustalić, doprecyzowujesz z nadawcą briefu (`communication.md` § Roundtrip).
-5. Postępuj zgodnie z instrukcjami swojej roli dotyczącymi kanałów i potwierdzenia udziału. Jeśli rodzic lub orchestrator ma odebrać rejestrację albo oddanie po zakończeniu swojej tury, wyślij mu także P2P.
+5. Postępuj zgodnie z instrukcjami swojej roli dotyczącymi kanałów. Oddanie, na które ktoś czeka, wysyłaj mu P2P (`communication.md` § P2P).
 6. Przeczytaj węzeł z briefu: `orx exp desc <id>` i `orx exp status <id>` (hipoteza albo eksperyment, zgodnie z briefem), potem artefakty i logi wskazane w briefie. Brief bez węzła: pomiń ten krok.
 7. Konflikt pliku roli z `description` węzła albo z decyzją właściciela etapu zgłaszasz właścicielowi P2P, a jeśli dotyczy treści węzła, dodajesz też wpis na kanale. Gdy nie masz innej pracy, kończysz turę i wracasz po odpowiedzi (`communication.md` § P2P).
 

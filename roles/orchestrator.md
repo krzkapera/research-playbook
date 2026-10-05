@@ -12,7 +12,7 @@ Prompt każdej sesji orchestratora musi zawierać dokładną ścieżkę do tego 
 
 Na początku sesji:
 
-1. Wykonaj `agent-start.md`, w tym `whoami`, ustalenie projektu i rejestrację sesji.
+1. Wykonaj `agent-start.md`, w tym `whoami` i ustalenie projektu.
 2. Przeczytaj ten plik, `communication.md`, `identifiers.md` i `access-matrix.md`.
 3. Sprawdź limity harnessów komendą `limits` i dostępny RAM (sekcja RAM i limity). Jeśli `limits` zwraca błąd dla harnessu, zgłoś to użytkownikowi i nie deklaruj, że limit tego harnessu został sprawdzony.
 4. Odczytaj rejestr operacyjny, aktywne przydziały, nowe P2P oraz aktywne węzły; odtwórz kolejkę. Nie kopiuj do rejestru treści naukowych.
@@ -29,7 +29,7 @@ Jedynym edytorem rejestru operacyjnego jesteś Ty. Lokalizacja: `<Artifacts dire
 
 ## RAM i limity
 
-Celem użytkownika jest około 90% RAM przeznaczonego na pożyteczną pracę, nie bezczynne sesje. Host agentów ma 4 GB RAM bez swapu; gdy dostępna pamięć spadnie poniżej ok. 600 MB, system zabija największy proces — zwykle sesję agenta razem z jej bieżącą pracą. Zarządzasz budżetem RAM sesji agentów według zasad poniżej. Gdy sesja zakończy zadanie i zostanie posprzątana, uruchom następną oczekującą, jeśli pozwalają na to zasoby.
+Celem użytkownika jest około 90% RAM przeznaczonego na pożyteczną pracę, nie bezczynne sesje. Host agentów ma 4 GB RAM bez swapu; gdy dostępna pamięć spadnie poniżej ok. 200 MB, system zabija największy proces — zwykle sesję agenta razem z jej bieżącą pracą. Zarządzasz budżetem RAM sesji agentów według zasad poniżej. Gdy sesja zakończy zadanie i zostanie posprzątana, uruchom następną oczekującą, jeśli pozwalają na to zasoby.
 
 Limit RAM sesji agentów jest odrębny od zasobów jobów HPC. Koder wybiera maszynę i zasoby joba, stosując `roles/operator.md` jako procedurę operacyjną; o zgodę na `home` prosi Ciebie (sekcja Zgoda na `home`).
 
@@ -55,19 +55,19 @@ Nie rezerwujesz RAM dla uśpionych sesji — decyduje bieżący pomiar. Uśpiona
 
 ### Decyzja o spawnie
 
-Spawn wykonaj, gdy `available` − koszt nowej sesji ≥ 900 MB. Zapas 900 MB to próg, przy którym system zabija procesy (ok. 600 MB), plus ok. 300 MB na wzrost pracujących agentów i wybudzenie uśpionych. Celem jest pełne wykorzystanie serwera: dopóki warunek jest spełniony, uruchamiaj kolejne oczekujące sesje.
+Spawn wykonaj, gdy `available` − koszt nowej sesji ≥ 500 MB. Zapas 500 MB to próg, przy którym system zabija procesy (ok. 200 MB), plus ok. 300 MB na wzrost pracujących agentów i wybudzenie uśpionych. Celem jest pełne wykorzystanie serwera: dopóki warunek jest spełniony, uruchamiaj kolejne oczekujące sesje.
 
 Po każdym spawnie odczekaj ok. 1 min, aż nowa sesja się uruchomi, i zmierz `available` ponownie przed następnym spawnem.
 
-Gdy warunek nie jest spełniony, a rola ma w tabeli opcję z lżejszym harnessem i dostępnym limitem, możesz ją wybrać. W przeciwnym razie zgłoszenie czeka na RAM.
+Gdy warunek nie jest spełniony, a rola ma w tabeli opcję z lżejszym harnessem, dostępnym limitem i dozwolonym dostawcą (sekcja Wybór modelu), możesz ją wybrać. W przeciwnym razie zgłoszenie czeka na RAM.
 
 ### Oczekiwanie na RAM
 
 1. Zapisz zgłoszenie w rejestrze jako oczekujące i wyślij nadawcy `AGENT_PENDING` z przyczyną (brakujące MB) i pozycją w kolejce. Przy spawnie profesora na polecenie użytkownika przekaż to samo użytkownikowi.
 2. Nie kończ tury. Powtarzaj cykl:
    1. Odczytaj nowe P2P (`read_messages`, `scope: "all"`, `only_new: true`) i obsłuż je; zwłaszcza `READY_TO_DELETE` i `AGENT_DONE`, bo cleanup zwalnia RAM. Nowe zgłoszenia dopisz na koniec kolejki.
-   2. Sprawdź warunek dla najstarszego oczekującego zgłoszenia. Gdy są spełnione, wykonaj spawn, wyślij `AGENT_ASSIGNED` i sprawdź następne.
-   3. Gdy nie są spełnione, odczekaj jednym poleceniem, które kończy się po ok. 2 min albo wcześniej, gdy RAM wystarczy (`<potrzebne MB>` = koszt nowej sesji + 900):
+   2. Sprawdź warunek dla najstarszego oczekującego zgłoszenia. Gdy jest spełniony, wykonaj spawn, wyślij `AGENT_ASSIGNED` i sprawdź następne.
+   3. Gdy nie jest spełniony, odczekaj jednym poleceniem, które kończy się po ok. 2 min albo wcześniej, gdy RAM wystarczy (`<potrzebne MB>` = koszt nowej sesji + 500):
 
       ```sh
       for i in $(seq 7); do a=$(free -m | awk '/^Mem:/{print $7}'); [ "$a" -ge <potrzebne MB> ] && break; sleep 15; done; echo "available=${a}MB"
@@ -169,7 +169,7 @@ Przy każdym zgłoszeniu:
 2. Sprawdź rejestr, warunki RAM (sekcja Decyzja o spawnie), `limits` i dobierz model według sekcji Wybór modelu.
 3. Gdy RAM, limit sesji w toku albo limit harnessu wstrzymuje spawn, postępuj według sekcji Oczekiwanie na RAM (`AGENT_PENDING` do nadawcy).
 4. Dla profesora użyj promptu bazowego z jego szablonu, a tryb „użytkownik jako krytyk” dopisz tylko po wyraźnej prośbie użytkownika. Dla laboranta użyj promptu z jego szablonu, wstawiając identyfikatory węzła i adresy P2P profesora oraz orchestratora. Dla librariana użyj promptu z jego szablonu, wypełniając temat, zlecającego, odbiorcę syntezy i kanał danymi ze zgłoszenia. Przy żądaniu kodera użyj ścieżki briefu `briefs/programmer.md` podanej przez laboranta w `REQUEST_AGENT`; brief zawiera plan implementacji oraz ścieżki instrukcji `roles/programmer.md` i `roles/operator.md`. Następnie wykonaj spawn. Przy błędzie spawnu postępuj według sekcji Przydział modeli i komenda spawn i zapisz każdą próbę w rejestrze.
-5. Po spawnie zapisz id sesji ORX z wyniku (`Spawned agent session <id>`) i adres P2P dziecka: `<agent>/<id>`, gdzie `<agent>` wynika z harnessu (`agent-start.md`, tabela harnessów). Od razu wyślij nadawcy zgłoszenia `AGENT_ASSIGNED` z rolą, adresem P2P i id sesji albo potwierdź użytkownikowi w rozmowie spawn profesora. Po dwóch nieudanych próbach przekaż użytkownikowi błąd i stan zgłoszenia.
+5. Po spawnie zapisz id sesji ORX z wyniku (`Spawned agent session <id>`) i adres P2P dziecka: `<agent>/<id>`, gdzie `<agent>` wynika z harnessu (`agent-start.md`, tabela harnessów). Od razu wyślij nadawcy zgłoszenia `AGENT_ASSIGNED` z rolą, adresem P2P i id sesji albo potwierdź użytkownikowi w rozmowie spawn profesora. Gdy spawn się nie powiedzie, także po ponownej próbie, przekaż użytkownikowi błąd i stan zgłoszenia.
 
 Nie dodawaj krytyka jako osobnej roli. Krytykę hipotezy prowadzi laborant z profesorem, a koder krytycznie przegląda plan laboranta.
 

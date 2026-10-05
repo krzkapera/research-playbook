@@ -15,7 +15,7 @@ Zanim przejdziesz dalej, te słowa oznaczają w playbooku konkretne rzeczy:
 ## Którego używać
 
 1. **Projekt** → `project_id` (`orx create-experiment`, `orx project view`, `orx runs` z projektem).
-2. **Komenda na węźle** (`orx exp status` / `desc` / `run` / `cancel` / `wake` / `wait`, `--parent`) → wewnętrzne **`id`**.
+2. **Komenda na węźle** (`orx exp status` / `desc` / `run` / `cancel` / `wake`, `--parent`) → wewnętrzne **`id`**.
 3. **Branch, kanał, nazwa robocza** → **slug**.
 4. **Logi / status jednego joba** → **`run_id`** (`orx logs <run_id>`).
 

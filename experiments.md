@@ -16,7 +16,7 @@ W `description` zapisuj to, co istotne dla eksperymentu i hipotezy (pytanie, ust
 
 ## Kanał
 
-Eksperyment główny uruchomiony na węźle hipotezy używa kanału hipotezy, założonego przez professora. Eksperyment-dziecko ma kanał nazwany swoim slugiem; zakłada go laborant po utworzeniu węzła, według `communication.md` § Kanały.
+Eksperymenty, także dzieci, używają kanału hipotezy; laborant nie zakłada osobnych kanałów (`communication.md` § Kanały).
 
 ## Warianty równoległe
 

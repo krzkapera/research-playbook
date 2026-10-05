@@ -20,7 +20,7 @@ Hipoteza to węzeł `orx` z twierdzeniem badawczym, który może być zarazem w�
 
 Przy przejściu `ROBOCZA` → `GOTOWA DO IMPLEMENTACJI` professor zapisuje stan w `description`, a następnie wysyła laborantowi P2P `HYPOTHESIS_APPROVED`. Jeśli rezygnuje z badania przed wykonaniem eksperymentu, ustawia `ODRZUCONA` i wysyła `HYPOTHESIS_REJECTED` do orchestratora, aby posprzątał przypisane sesje. Dopiero po sprawdzeniu hipotezy i decyzji o braku dalszych testów professor ustawia `ZAMKNIĘTA` i wysyła `HYPOTHESIS_CLOSED`. `NEXT_TEST` nie jest stanem ani zamknięciem — oznacza kolejny test w ramach otwartej hipotezy. Laborant tworzy go jako eksperyment-dziecko bezpośrednio pod węzłem hipotezy; nie tworzy dziecka poprzedniego eksperymentu.
 
-Stany sesji, kolejki (`RETRY_PENDING`) i runów należą do rejestru operacyjnego lub ORX, nie do pola `Stan` hipotezy. Nie twórz osobnego stanu hipotezy dla oczekiwania na zasoby, błędu joba, poprawki kodu ani kolejnej iteracji implementacji.
+Stany sesji, kolejki zgłoszeń i runów należą do rejestru operacyjnego lub ORX, nie do pola `Stan` hipotezy. Nie twórz osobnego stanu hipotezy dla oczekiwania na zasoby, błędu joba, poprawki kodu ani kolejnej iteracji implementacji.
 
 ## description
 

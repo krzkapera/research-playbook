@@ -3,7 +3,7 @@
 ## Pojęcia
 
 - **Bus** — `ai-crew-sync`: kanały, wiadomości i P2P, obsługiwane narzędziami MCP własnej sesji (tożsamość: `agent-start.md`, krok 1).
-- **Kanał węzła** — kanał nazwany slugiem hipotezy albo eksperymentu. Służy do treści hipotezy i zweryfikowanych wniosków naukowych; komunikacja implementacyjna laborant–koder odbywa się prywatnie P2P.
+- **Kanał hipotezy** — kanał nazwany slugiem hipotezy; eksperymenty-dzieci nie mają osobnych kanałów. Służy do treści hipotezy i zweryfikowanych wniosków naukowych; komunikacja implementacyjna laborant–koder odbywa się prywatnie P2P.
 - **Dołączenie do kanału** — odczyt historii kanału (`read_messages`, `scope: "<slug>"`, `only_new: false`) i dalsza praca na nim. Zaproszenie = nazwa kanału w briefie spawnu albo we wpisie.
 - **Wpis** — wiadomość na kanale (`post_message`, `channel: "<slug>"`). Każdy wpis zaczyna się etykietą roli: `[orchestrator]`, `[professor]`, `[laborant]`, `[programmer]`, `[librarian]`.
 - **P2P** — wiadomość bezpośrednia między sesjami, wysyłana przez `post_message` (sekcje P2P i Orchestracja).
@@ -16,8 +16,8 @@
 
 ## Kanały
 
-- Kanał węzła zakłada twórca węzła po `orx create-experiment`: nazwa kanału = slug wypisany przez tę komendę (linia `slug:`). Po założeniu twórca dołącza do kanału i pisze pierwszy wpis.
-- Dołączasz do kanałów wskazanych w briefie i do kanału węzła, w którym masz aktywną rolę.
+- Kanał hipotezy zakłada profesor po `orx create-experiment`: nazwa kanału = slug wypisany przez tę komendę (linia `slug:`). Po założeniu dołącza do kanału i pisze pierwszy wpis.
+- Dołączasz do kanałów wskazanych w briefie i do kanału hipotezy, w której masz aktywną rolę (koder nie czyta kanału).
 - Draft solo nie wymaga innych na kanale. Zaproszenie innych otwiera wspólną dyskusję o hipotezie lub eksperymencie.
 
 ## P2P
@@ -41,7 +41,7 @@ Wiadomości poniżej są typami treści istniejących wiadomości P2P (`post_mes
 | `AGENT_PENDING` | orchestrator → zleceniodawca | Spawn wstrzymany przez RAM lub limit; przyczyna i pozycja w kolejce. Zleceniodawca kończy turę; `AGENT_ASSIGNED` przyjdzie po spawnie. |
 | `QUESTION` / `ANSWER` | laborant ↔ professor | Tylko treść, zakres lub interpretacja hipotezy; wiadomość wskazuje pytanie, na które odpowiada. |
 | `HYPOTHESIS_APPROVED` | professor → laborant (P2P) | Przejście `ROBOCZA` → `GOTOWA DO IMPLEMENTACJI`: professor najpierw zapisuje stan w `description`; laborant kontynuuje po otrzymaniu komunikatu. |
-| `IMPLEMENTATION_REQUEST` | laborant → przypisany programmer (P2P) | Zlecenie realizacji planu z briefu kodera; wiadomość podaje jego ścieżkę. |
+| `IMPLEMENTATION_REQUEST` | laborant → przypisany programmer (P2P) | Zlecenie kolejnego testu (`NEXT_TEST`) z nowego briefu kodera; wiadomość podaje jego ścieżkę. Pierwszym zleceniem jest brief ze spawnu. |
 | `PLAN_QUESTION` / `PLAN_ANSWER` | programmer ↔ laborant (P2P) | Krytyczne uwagi i dopracowanie planu przed implementacją; laborant aktualizuje brief. |
 | `IMPLEMENTATION_QUESTION` / `IMPLEMENTATION_ANSWER` | programmer ↔ laborant (P2P) | Pytania i decyzje, które pojawiają się w trakcie implementacji lub wykonania eksperymentu. Zmiana technicznego planu trafia do briefu; zmiana pytania badawczego lub protokołu eksperymentu do `description`. |
 | `HOME_ACCESS_REQUEST` / `HOME_ACCESS_ANSWER` | programmer ↔ orchestrator (P2P) | Prośba o zgodę użytkownika na mały job na `home` (projekt, węzeł, opis obciążenia) i odpowiedź z decyzją użytkownika. |
@@ -57,14 +57,7 @@ Wiadomości poniżej są typami treści istniejących wiadomości P2P (`post_mes
 | `FLOW_BLOCKED` | dowolna sesja → orchestrator | Blokada techniczna, środowiskowa, limitu, RAM lub wybudzenia. Nadawca kończy turę; orchestrator przekazuje sprawę użytkownikowi. |
 | `LOCK_RETRY_REQUEST` | autor opisu → aktualny właściciel locka | Prośba o krótkie powiadomienie po zwolnieniu locka; nie przyznaje prawa do zapisu. |
 | `LOCK_RELEASED` | dotychczasowy właściciel → oczekujący autor | Informacja o zwolnieniu; odbiorca musi ponownie zdobyć lock i świeżo odczytać description. |
-| `RETRY_PENDING` | orchestrator (rejestr) | Zlecenie/edycja czeka na nową próbę po konflikcie, limicie lub braku zasobu; nie jest aktywnym spawnem. |
-
-
-### Asynchroniczne wznowienie
-
-Gdy skończysz bieżącą pracę i czekasz na odpowiedź lub oddanie, wyślij wymagane P2P, a następnie zakończ turę. Skonfigurowany mostek P2P → ORX dostarcza nową wiadomość do sesji i wznawia ją; po powrocie odczytaj wiadomości i sprawdź aktualny stan przed działaniem. Kanał sam w sobie nie budzi zakończonej tury. Nie wysyłaj ACK, które nie niosą odpowiedzi ani postępu.
-
-Przy `acquired: false` nie zapisuj. Jeśli chcesz ponowić po zwolnieniu locka, wyślij właścicielowi `LOCK_RETRY_REQUEST` i zakończ turę; po P2P `LOCK_RELEASED` wznowiona sesja ponownie zdobywa lock i świeżo odczytuje opis. Sam upływ TTL ani awaria właściciela nie wysyłają powiadomienia; oznacz sprawę jako `RETRY_PENDING` i przekaż ją orchestratorowi P2P. Nie spinuj pollingiem ani nie zakładaj, że TTL sam wznowi sesję. Nie obiecuj raportów okresowych ani automatycznych retry bez działającego źródła wznowienia.
+| `RETRY_PENDING` | autor opisu → orchestrator | Zapis czeka na lock, którego właściciel nie odpowiada; nadawca kończy turę, orchestrator przekazuje sprawę użytkownikowi. |
 
 ## Opis węzła vs wpis
 
@@ -72,13 +65,11 @@ Przy `acquired: false` nie zapisuj. Jeśli chcesz ponowić po zwolnieniu locka, 
 
 Wpis to krótka delta, a historia kanału jest archiwum dyskusji. Wpis nie zastępuje aktualizacji naukowego `description` przez właściwego autora.
 
-
 ## Koniec tury zamiast czekania
 
 Jeśli dalszy postęp zależy od wiadomości innej osoby, wyślij jej P2P z konkretnym pytaniem lub oddaniem. Dyskusję o hipotezie i wnioski naukowe archiwizuj na kanale; implementacyjne wiadomości pozostają wyłącznie P2P. Gdy nie masz innej pracy, zakończ turę — mostek wznowi sesję po nowej wiadomości P2P. Po wznowieniu odczytaj nowe P2P (`read_messages`, `scope: "all"`, `only_new: true`) i ponownie sprawdź `description` lub status runu. Nie używaj `wait_for_updates`, blokującego `ask_agent` ani pętli `sleep` do czekania na zdarzenia. Jedyne wyjątki to cykl oczekiwania na RAM orchestratora i sprawdzanie startu joba przez kodera (`roles/operator.md` § Po zgłoszeniu joba).
 
-Przy `acquired: false` nie zapisuj: możesz wykonywać inną pracę albo wysłać właścicielowi `LOCK_RETRY_REQUEST`, zakończyć turę i wrócić po `LOCK_RELEASED`; przed zapisem ponownie zdobądź lock i odczytaj aktualny opis. Sam upływ TTL ani awaria właściciela nie budzą sesji — w takim przypadku przekaż `RETRY_PENDING` orchestratorowi P2P.
-
+Przy `acquired: false` nie zapisuj: możesz wykonywać inną pracę albo wysłać właścicielowi `LOCK_RETRY_REQUEST`, zakończyć turę i wrócić po `LOCK_RELEASED`; przed zapisem ponownie zdobądź lock i odczytaj aktualny opis. Sam upływ TTL ani awaria właściciela nie budzą sesji — w takim przypadku przekaż `RETRY_PENDING` orchestratorowi P2P i zakończ turę.
 
 Stan pracy innych agentów odczytujesz z kanałów i P2P; `list_agents` i presence nie dowodzą, czy agent pracuje. Turę kończysz po oddaniu, gdy nie masz dalszej pracy, albo po Problemie z flow.
 
@@ -92,7 +83,7 @@ Wiadomość użytkownika bez nowego zadania (np. „kontynuuj”) wznawia przerw
 
 Wiadomość użytkownika „playbook zaktualizowany” → pliki playbooka czytasz ponownie z `~/playbook/` (`agent-start.md` § Wersja playbooka) i dalej stosujesz nową wersję; potem jak przy „kontynuuj”.
 
-Odpowiedź spawnu dziecka nie jest sama w sobie sygnałem wznowienia rodzica. Oddanie wymagające działania wysyłaj rodzicowi bezpośrednio P2P; wpis na kanale może służyć jako archiwum, ale nie zastępuje P2P.
+Odpowiedź kończąca turę nie budzi nikogo. Oddanie wymagające działania wysyłaj zleceniodawcy bezpośrednio P2P; wpis na kanale może służyć jako archiwum, ale nie zastępuje P2P.
 
 ## Problem z flow
 
@@ -106,7 +97,7 @@ Problem z flow to:
 Działanie:
 
 1. Gdy bus działa i `whoami` jest poprawne, wyślij `FLOW_BLOCKED` P2P do orchestratora i nadawcy zlecenia. Nie publikuj problemów technicznych na kanale hipotezy; kanał może zawierać tylko istotny dla hipotezy skutek naukowy.
-2. To samo w odpowiedzi do rodzica albo użytkownika.
+2. To samo w odpowiedzi kończącej turę.
 3. Koniec tury.
 
 Konfiguracja środowiska i projektu jest tylko do odczytu: konfiguracje harnessu i MCP, tokeny, pliki env, usługi, bus, ustawienia `orx`, konfiguracja i hooki git repozytorium projektu. Błąd busa albo środowiska obsługujesz wyłącznie krokami Działania.
