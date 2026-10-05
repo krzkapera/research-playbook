@@ -85,7 +85,7 @@ Przed każdym spawnem uruchom `limits` (bez argumentów). Wypisuje sekcje `# Cla
 
 - Claude: `Current session` albo `Current week` — 100% used;
 - Antigravity: `Remaining` 0% w grupie modelu (`Gemini Models` dla Gemini, `Claude and GPT models` dla Sonnet 4.6);
-- Cursor: linia `message: You've hit your usage limit`;
+- Cursor: ignoruj `totalPercentUsed` i `message: You've hit your usage limit`. Decydują dwie linie: `autoPercentUsed` = limit Groka (`grok-4.7-medium`), `apiPercentUsed` = limit GPT (`gpt-5.6-sol-medium`). Model jest niedostępny dopiero przy 100% w swojej linii;
 - Codex: `primary` albo `secondary` — 100% used.
 
 Progi, limity równoległości i fallbacki inne niż powyższe stosuj wyłącznie, gdy wynikają z aktualnego briefu użytkownika lub tabeli przypisań modeli.
