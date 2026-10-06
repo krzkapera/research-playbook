@@ -96,30 +96,39 @@ Progi, limity równoległości i fallbacki inne niż powyższe stosuj wyłączni
 
 Używaj poniższych harnessów i identyfikatorów modeli dokładnie w podanej postaci. Nie sprawdzaj przez CLI dostępności modeli ani aliasów przed spawnem. Jeśli `orx agent spawn` się nie powiedzie, możesz wykonać najwyżej jedną ponowną próbę z innym modelem przypisanym tej samej roli, z zachowaniem warunku dostawcy; przy profesorze zamiast tego przekaż błąd użytkownikowi. Nie wybieraj modelu spoza tabeli ani nie wymyślaj ustawień. Odmowa spawnu z powodu limitu sesji w toku („agents in flight”, najwyżej 20 dzieci w pierwszej turze) nie jest błędem modelu: potraktuj ją jak brak RAM (sekcja Oczekiwanie na RAM).
 
+Każdą sesję nazywasz flagą `--title` (nazwa w panelu bocznym orx):
+
+- profesor: `Profesor <model krótko>`, np. `Profesor Opus`, `Profesor Astra`;
+- laborant: `Laborant <tag> <model krótko>`, np. `Laborant amortized Muse`;
+- koder: `Koder <tag> <model krótko>`, np. `Koder amortized Gemini`;
+- librarian: `Librarian <tag> <model krótko>`.
+
+`<model krótko>` to jedno słowo z kolumny Model w tabeli przydziału (Opus, Astra, Sonnet, Grok, Muse, MiMo, Ling, GPT, Gemini, Longcat). `<tag>` to pierwsze słowo sluga hipotezy (np. `amortized` z `amortized-continual-adaptation-support-condition`); gdy to samo słowo ma już inna żywa hipoteza w rejestrze, weź dwa pierwsze słowa. Laborant i koder tej samej hipotezy mają ten sam `<tag>`. Nazwę zapisz w rejestrze przy sesji.
+
 W szablonach `<HOME>` to wynik `echo $HOME` z Twojej sesji (`agent-start.md` § Ścieżki). Wstawiasz go dosłownie, np. `/…/playbook/roles/laborant.md`; nie zostawiasz w prompcie `~` ani `<HOME>`. Część modeli rozwija `~` błędnie (np. do `/root`) i nie znajduje plików roli.
 
 Szablon komendy dla programmera (koder + operator):
 
 ```sh
-orx agent spawn --no-wake --harness <harness> --model '<model>' --permission-mode <mode> [--reasoning-level <level>] --stdin < <Artifacts directory>/research/<slug>/briefs/programmer.md
+orx agent spawn --no-wake --harness <harness> --model '<model>' --permission-mode <mode> [--reasoning-level <level>] --title "Koder <tag> <model krótko>" --stdin < <Artifacts directory>/research/<slug>/briefs/programmer.md
 ```
 
 Dla laboranta przekaż prompt bezpośrednio jako argument zadania, uzupełniając dane zgłoszenia:
 
 ```sh
-orx agent spawn --no-wake --harness <harness> --model '<model>' --permission-mode <mode> [--reasoning-level <level>] "Jesteś laborantem. Plik instrukcji: <HOME>/playbook/roles/laborant.md. Projekt: <project_id>. Węzeł hipotezy: <node_id> (<slug>). Profesor: <adres P2P profesora>. Orchestrator: <adres P2P orchestratora>. Przeczytaj description węzła i rozpocznij od krytyki oraz dopracowania hipotezy z profesorem."
+orx agent spawn --no-wake --harness <harness> --model '<model>' --permission-mode <mode> [--reasoning-level <level>] --title "Laborant <tag> <model krótko>" "Jesteś laborantem. Plik instrukcji: <HOME>/playbook/roles/laborant.md. Projekt: <project_id>. Węzeł hipotezy: <node_id> (<slug>). Profesor: <adres P2P profesora>. Orchestrator: <adres P2P orchestratora>. Przeczytaj description węzła i rozpocznij od krytyki oraz dopracowania hipotezy z profesorem."
 ```
 
 Dla profesora przekaż prompt bezpośrednio jako argument zadania:
 
 ```sh
-orx agent spawn --no-wake --harness <harness> --model '<model>' --permission-mode <mode> [--reasoning-level <level>] "Jesteś profesorem i librarianem dla siebie. Pliki instrukcji: <HOME>/playbook/roles/professor.md oraz <HOME>/playbook/roles/librarian.md. Projekt: <project_id>. Orchestrator: <adres P2P orchestratora>."
+orx agent spawn --no-wake --harness <harness> --model '<model>' --permission-mode <mode> [--reasoning-level <level>] --title "Profesor <model krótko>" "Jesteś profesorem i librarianem dla siebie. Pliki instrukcji: <HOME>/playbook/roles/professor.md oraz <HOME>/playbook/roles/librarian.md. Projekt: <project_id>. Orchestrator: <adres P2P orchestratora>."
 ```
 
 Dla librariana przekaż prompt bezpośrednio jako argument zadania, uzupełniając wszystkie pola:
 
 ```sh
-orx agent spawn --no-wake --harness <harness> --model '<model>' --permission-mode <mode> [--reasoning-level <level>] "Jesteś librarianem. Plik instrukcji: <HOME>/playbook/roles/librarian.md. Projekt: <project_id>. Węzeł: <node_id>. Temat i zadanie: <zakres przeglądu>. Zlecający: <rola i adres P2P>. Odbiorca syntezy: <rola i adres P2P>. Orchestrator: <adres P2P orchestratora>. Kanał: <slug>"
+orx agent spawn --no-wake --harness <harness> --model '<model>' --permission-mode <mode> [--reasoning-level <level>] --title "Librarian <tag> <model krótko>" "Jesteś librarianem. Plik instrukcji: <HOME>/playbook/roles/librarian.md. Projekt: <project_id>. Węzeł: <node_id>. Temat i zadanie: <zakres przeglądu>. Zlecający: <rola i adres P2P>. Odbiorca syntezy: <rola i adres P2P>. Orchestrator: <adres P2P orchestratora>. Kanał: <slug>"
 ```
 
 `<harness>`, `<model>`, `<mode>`, `<slug>`, `<role>`, identyfikatory, zakres i adresy zastąp danymi z tabel oraz zgłoszenia. Promptów profesora, laboranta i librariana używaj bezpośrednio jako argumentu zadania zgodnie z ich szablonami. Bazowy prompt profesora ma dokładnie treść pokazaną w szablonie, z uzupełnionymi `project_id` i Twoim adresem P2P. Gdy użytkownik wyraźnie prosi o tryb „użytkownik jako krytyk”, dopisz do promptu: `Tryb „użytkownik jako krytyk” jest włączony: przed prośbą o laboranta przedstaw użytkownikowi draft hipotezy i zaczekaj na jego jawną akceptację.` W pozostałych przypadkach użyj wyłącznie promptu bazowego. Nawiasy kwadratowe oznaczają opcjonalne flagi — pomiń je, jeśli nie zostały jawnie przypisane tej roli. `--permission-mode` jest obowiązkowe i zależy od harnessu:
