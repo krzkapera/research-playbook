@@ -2,6 +2,19 @@
 
 Pliki playbooka (`agent-start.md`, `access-matrix.md`, `communication.md`, `identifiers.md`, `hypotheses.md`, `experiments.md`, `research-brief.md`, `roles/…`) leżą w `~/playbook/`, poza repo projektu i worktree sesji. Ścieżki plików playbooka w tych dokumentach są względne wobec `~/playbook/`: `roles/operator.md` to `~/playbook/roles/operator.md` (procedura obsługi jobów używana przez programmera).
 
+## Ścieżki
+
+Playbook zapisuje ścieżki w czterech postaciach. Każdą zamieniasz na ścieżkę bezwzględną, zanim jej użyjesz:
+
+| Zapis | Znaczenie | Jak ustalić ścieżkę bezwzględną |
+|---|---|---|
+| `~/…` (np. `~/playbook/`, `~/literature/`) | katalog domowy agentów na hoście, na którym pracujesz | `echo $HOME` w bashu na starcie sesji; `~/playbook/roles/x.md` = `$HOME/playbook/roles/x.md`. To nie jest `/root` ani katalog worktree |
+| `<Artifacts directory>/…` | katalog artefaktów `orx` projektu | dokładna wartość z linii „Artifacts directory:” w instrukcjach `orx` Twojej sesji; nie składasz jej z `~` ani z nazwy projektu |
+| `<host>:~/…` (np. `ares:~/scratch/…`, `home:~/research/…`) | katalog domowy użytkownika na zdalnym hoście obliczeniowym | używasz tylko w komendach `ssh <host>` / `scp` / `rsync`; nie istnieje na hoście agentów |
+| `artifacts/research/<slug>/…` | link do artefaktu w wiadomościach i `description` | nie otwierasz go jako ścieżki; odpowiada `<Artifacts directory>/research/<slug>/…` |
+
+W narzędziach plikowych harnessu (read, write, edit, glob itp.) podajesz wyłącznie ścieżki bezwzględne: `~` nie jest tam rozwijane, a ścieżka względna wskazuje worktree sesji. Ścieżkę względną stosujesz tylko dla plików repo w worktree.
+
 ## Wersja playbooka
 
 Obowiązuje wersja przeczytana na starcie sesji. Po wiadomości użytkownika „playbook zaktualizowany” czytasz ponownie z `~/playbook/` `agent-start.md`, `communication.md`, `identifiers.md` i swój plik roli; od tej chwili obowiązuje nowa wersja (`communication.md` § Wznowienie).

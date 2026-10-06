@@ -8,16 +8,16 @@ Wszystkie uruchomienia wykonuj przez `orx exp run`: na klastrach backendem Slurm
 
 - **Eksperyment** — węzeł wskazany w briefie kodera; brief podaje `project_id`, `node_id` i slug (`experiments.md`).
 - **`description`** — źródło prawdy o pytaniu, uzgodnionym designie i ograniczeniach naukowych. Przed submitem czytaj jego aktualną treść.
-- **`remoteRoot`** — katalog ORX określony w konfiguracji Slurm (domyślnie `~/scratch/.orx`): snapshoty w `source/`, runy w `runs/<runId>/`.
+- **`remoteRoot`** — katalog ORX określony w konfiguracji Slurm (domyślnie `<klaster>:~/scratch/.orx`): snapshoty w `source/`, runy w `runs/<runId>/`.
 - **Smoke** — początkowy krótki test implementacji, przed pełnym uruchomieniem. Po udanym smoke nie powtarzaj go dla tego eksperymentu, także po poprawkach kodu lub wznowieniu.
 
 ## Wybór hosta i zasobów
 
-1. Dobierz host do wymagań eksperymentu i aktualnej kolejki; uwzględnij dokumentację Cyfronetu oraz wzorce `.sh` i `.sbatch` z `~/scratch/`. Dla Heliosa uwzględnij ARM i jego właściwy profil.
+1. Dobierz host do wymagań eksperymentu i aktualnej kolejki; uwzględnij dokumentację Cyfronetu oraz wzorce `.sh` i `.sbatch` z `<klaster>:~/scratch/`. Dla Heliosa uwzględnij ARM i jego właściwy profil.
 2. Ares wybierz, gdy wystarcza CPU; nie kieruj tam jobów wymagających GPU. Athenę wybierz dla GPU, gdy jej zasoby wystarczą. Heliosa wybierz dla pełnych datasetów lub cięższych jobów. Uwzględnij też inne joby użytkownika.
 3. `home` to komputer użytkownika z GPU (RTX), bez kolejki. Rozważ go dla małych obliczeń few-shot, które policzą się w kilka minut, a nie są wielowariantowym batchem — wtedy nie ma sensu czekać w kolejce klastra. Przed użyciem zapytaj użytkownika w odpowiedzi kończącej Twoją turę (w Twojej rozmowie, nie przez P2P): projekt, węzeł, krótki opis obciążenia i czasu, pytanie o zgodę i dostępność komputera. Użytkownik odpowie w tej samej rozmowie. `home` wybierz dopiero po jego wyraźnej zgodzie i potwierdzeniu, że komputer jest dostępny; sama dostępność SSH nie jest zgodą.
 4. Zasoby i timelimit bierz tak, żeby wystarczyły, ale jak najmniejsze — wtedy job szybciej wychodzi z kolejki. Nie oszczędzaj, ale nie bierz na zapas. Utrzymuj wysoką efficiency widoczną w `hpc-jobs`, żeby nie marnować grantu, ale nie duś GPU: jeśli przy większej liczbie CPU job policzy się wyraźnie szybciej, weź więcej CPU — przede wszystkim liczy się szybkość otrzymania wyników. Zgłaszaj joby często, ale uzasadnione; nie zastępuj myślenia masowymi eksperymentami. Nie anuluj cudzych zadań.
-5. Umieszczaj projekty, środowiska, cache, datasety, checkpointy, wyniki i logi na klastrze w `~/scratch/<nazwa-projektu>`; pliki ORX runu pozostają w `remoteRoot/runs/<runId>/`. Transferuj duże pliki bez pośredniego zapisywania na hoście agentów. Dane lokalnego `home`, jeśli użytkownik zatwierdził obliczenie, trzymaj w `~/research/<slug>/`.
+5. Umieszczaj projekty, środowiska, cache, datasety, checkpointy, wyniki i logi na klastrze w `<klaster>:~/scratch/<nazwa-projektu>`; pliki ORX runu pozostają w `remoteRoot/runs/<runId>/`. Transferuj duże pliki bez pośredniego zapisywania na hoście agentów. Dane `home`, jeśli użytkownik zatwierdził obliczenie, trzymaj w `home:~/research/<slug>/`.
 
 ## Przygotowanie i uruchomienie
 
@@ -83,4 +83,4 @@ Dodaj pozostałe dyrektywy zasobów potrzebne wybranemu hostowi, np. `--gres` lu
 
 ## `home`
 
-`home` nie ma Slurma. Uruchamiasz na nim przez `orx exp run <node_id> --backend ssh --host home`; backend ssh nie czyta `job.sbatch`, tylko wykonuje komendę runu węzła `cd repo 2>/dev/null; bash run.sh` (`experiments.md`), a log i kod wyjścia zapisuje sam w `~/.orx/runs/<runId>/` na `home`. Sprawdź komendę runu w `orx exp status <node_id>`; jeśli jest inna, zgłoś laborantowi i orchestratorowi `FLOW_BLOCKED`. Venv, dane i cache na `home` trzymaj w `~/research/<slug>/`.
+`home` nie ma Slurma. Uruchamiasz na nim przez `orx exp run <node_id> --backend ssh --host home`; backend ssh nie czyta `job.sbatch`, tylko wykonuje komendę runu węzła `cd repo 2>/dev/null; bash run.sh` (`experiments.md`), a log i kod wyjścia zapisuje sam w `home:~/.orx/runs/<runId>/`. Sprawdź komendę runu w `orx exp status <node_id>`; jeśli jest inna, zgłoś laborantowi i orchestratorowi `FLOW_BLOCKED`. Venv, dane i cache trzymaj w `home:~/research/<slug>/`.

@@ -12,7 +12,7 @@ Prompt każdej sesji orchestratora musi zawierać dokładną ścieżkę do tego 
 
 Na początku sesji:
 
-1. Wykonaj `agent-start.md`, w tym `whoami` i ustalenie projektu.
+1. Wykonaj `agent-start.md`, w tym `whoami`, ustalenie projektu i ścieżek bezwzględnych (`agent-start.md` § Ścieżki).
 2. Przeczytaj ten plik, `communication.md`, `identifiers.md` i `access-matrix.md`.
 3. Sprawdź limity harnessów komendą `limits` i dostępny RAM (sekcja RAM i limity). Jeśli `limits` zwraca błąd dla harnessu, zgłoś to użytkownikowi i nie deklaruj, że limit tego harnessu został sprawdzony.
 4. Odczytaj rejestr operacyjny, aktywne przydziały, nowe P2P oraz aktywne węzły; odtwórz kolejkę. Nie kopiuj do rejestru treści naukowych.
@@ -20,7 +20,7 @@ Na początku sesji:
 
 ## Rejestr i kolejka
 
-Jedynym edytorem rejestru operacyjnego jesteś Ty. Lokalizacja: `<Artifacts directory>/orchestration/registry.json` (`identifiers.md` § Miejsca zapisu). Rejestr zawiera wyłącznie dane operacyjne: `request_id`, projekt i węzeł, rolę, priorytet, status, nadawcę i adres P2P, identyfikator sesji ORX, harness i model sesji oraz historię przydziału. Nie przechowuj kopii hipotezy, planu implementacji ani wyników naukowych.
+Jedynym edytorem rejestru operacyjnego jesteś Ty. Lokalizacja: `<Artifacts directory>/orchestration/registry.json` (`identifiers.md` § Miejsca zapisu); zapisuj go zawsze pod ścieżką bezwzględną (`agent-start.md` § Ścieżki), nigdy względną ani w worktree. Rejestr zawiera wyłącznie dane operacyjne: `request_id`, projekt i węzeł, rolę, priorytet, status, nadawcę i adres P2P, identyfikator sesji ORX, harness i model sesji oraz historię przydziału. Nie przechowuj kopii hipotezy, planu implementacji ani wyników naukowych.
 
 - Zapisz każde zgłoszenie przed działaniem. Deduplikuj po `request_id`; ponowiona wiadomość nie oznacza nowego spawnu.
 - Aktualizuj status po przyjęciu, spawnie, oddaniu, zamknięciu i cleanupie. Po niepewnym błędzie spawnu sprawdź sesje i rejestr przed ponowieniem.

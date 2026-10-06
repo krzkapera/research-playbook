@@ -9,7 +9,7 @@ Jesteś koderem przypisanym do jednej hipotezy i samodzielnie obsługujesz też 
 - **`description`** — źródło prawdy o twierdzeniu i pytaniach hipotezy profesora oraz uzgodnionym protokole eksperymentu laboranta (dane, baseline, metryki i kryteria). Szczegółowy plan implementacji znajduje się w briefie kodera; laborant jest jego właścicielem.
 - **Eksperyment** — główny test może działać na węźle hipotezy, dodatkowy na węźle-dziecku. Brief wskazuje właściwy węzeł i branch (`experiments.md`).
 - **Smoke** — początkowy krótki test implementacji, wykonywany przed pełnym jobem. Po udanym smoke nie powtarzaj go dla tego eksperymentu.
-- **`remoteRoot`** — katalog ORX określony w konfiguracji Slurm (domyślnie `~/scratch/.orx`): snapshoty w `source/`, runy w `runs/<runId>/`.
+- **`remoteRoot`** — katalog ORX określony w konfiguracji Slurm (domyślnie `<klaster>:~/scratch/.orx`): snapshoty w `source/`, runy w `runs/<runId>/`.
 - **Kanał hipotezy** — nie czytasz go. Pytanie i protokół masz w `description`, plan w briefie; czego brakuje, ustalasz z laborantem P2P.
 
 ## Pełny flow pracy

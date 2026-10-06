@@ -60,11 +60,11 @@ Duże dane, wagi i robocze archiwa transferowe trzymaj na scratch klastra. Gdy p
 
 | Co | Gdzie |
 |---|---|
-| raporty, notatki, analizy, wykresy, obrazy, CSV, PDF i inne trwałe wyniki (katalog `research/`, także gdy brief użytkownika każe zapisywać wyniki do `research/`) | katalog artefaktów `orx`: `<Artifacts directory>/research/<slug>/…`, gdzie `<slug>` to węzeł, którego dotyczy plik; absolutną ścieżkę katalogu artefaktów `orx` podaje w prompcie każdej sesji jako „Artifacts directory”; w wiadomościach i `description` link `artifacts/research/<slug>/…`. `research/` nie istnieje w repozytorium: nie zakładasz go w worktree i nie commitujesz tych plików do gita |
+| raporty, notatki, analizy, wykresy, obrazy, CSV, PDF i inne trwałe wyniki (katalog `research/`, także gdy brief użytkownika każe zapisywać wyniki do `research/`) | katalog artefaktów `orx`: `<Artifacts directory>/research/<slug>/…`, gdzie `<slug>` to węzeł, którego dotyczy plik; `<Artifacts directory>` to ścieżka bezwzględna z instrukcji `orx` sesji (`agent-start.md` § Ścieżki); w wiadomościach i `description` link `artifacts/research/<slug>/…`. `research/` nie istnieje w repozytorium: nie zakładasz go w worktree i nie commitujesz tych plików do gita |
 | brief kodera | `<Artifacts directory>/research/<slug>/briefs/programmer.md`; laborant jest jego właścicielem, zawiera szczegółowy plan implementacji oraz wskazuje instrukcję kodera i procedurę uruchamiania jobów |
 | kopie cudzego kodu i źródeł do wglądu (paper, repo referencyjne) | `<Artifacts directory>/research/<slug>/sources/…`, z licencją źródła; trwały kod eksperymentu trafia do repozytorium zgodnie z jego branchingiem |
 | kod, konfiguracja, małe pliki wniosku | commit na branchu `orx/<slug>` w worktree sesji przed przekazaniem zmian; niezacommitowane zmiany znikają razem z worktree po końcu sesji |
-| wyniki runów (log, `exit_code`, pliki zapisane przez job) | `remoteRoot/runs/<runId>/` na klastrze (`orx logs <run_id>`) |
-| literatura: PDF-y, ich wersje tekstowe, spis | `~/literature/<nazwa pliku>.pdf`, `~/literature/txt/<nazwa pliku>.txt`, `~/literature/index.md` na hoście, na którym pracują agenci |
+| wyniki runów (log, `exit_code`, pliki zapisane przez job) | `<klaster>:remoteRoot/runs/<runId>/` albo `home:~/.orx/runs/<runId>/` (`orx logs <run_id>`) |
+| literatura: PDF-y, ich wersje tekstowe, spis | `~/literature/<nazwa pliku>.pdf`, `~/literature/txt/<nazwa pliku>.txt`, `~/literature/index.md` na hoście agentów (`~` według `agent-start.md` § Ścieżki) |
 | rejestr operacyjny orchestratora (zgłoszenia, przydziały, sesje) | `<Artifacts directory>/orchestration/registry.json`; edytuje wyłącznie orchestrator, inne role go nie czytają |
 | stan, ustalenia i decyzje węzła | `description` węzła; nie kopiujesz `description` do plików (np. `hypothesis.md`) |
