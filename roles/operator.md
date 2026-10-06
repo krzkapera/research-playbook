@@ -36,7 +36,7 @@ Wszystkie uruchomienia wykonuj przez `orx exp run`: na klastrach backendem Slurm
 1. Na klastrze zostań w turze najwyżej ok. 10 min od zgłoszenia i sprawdzaj kolejkę jednym poleceniem trwającym do ok. 2 min, powtarzanym w razie potrzeby:
 
    ```sh
-   for i in $(seq 4); do ssh <host> "squeue --me --start -n <slug> -h -o '%i %T %S'"; sleep 25; done
+   for i in $(seq 3); do ssh <host> "squeue --me --start -n <slug> -h -o '%i %T %S'"; sleep 25; done
    ```
 
 2. Status `RUNNING` albo `START TIME` w ciągu 24 h → `orx exp wake <node_id>` i koniec tury.
