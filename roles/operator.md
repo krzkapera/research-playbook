@@ -71,6 +71,8 @@ Każdy nowy run wymaga ponownego `orx exp wake`. Nie używaj `orx exp wait`. Pę
 
 Log runu jest dowodem: komenda wejściowa wypisuje na stdout konfigurację, commit, seed, dataset, split, liczbę przykładów, trenowane parametry, checkpoint i końcowe metryki. Wynik zapisany wyłącznie w pliku, bez śladu w logu, nie jest wystarczającym dowodem.
 
+Postęp: kod piszesz tak, żebyś w dowolnym momencie po starcie joba umiał zaraportować postęp z samego logu (`orx logs <run_id>`), bez zgadywania i bez zaglądania w proces. Log wypisuje z flushem (`print(..., flush=True)` albo `PYTHONUNBUFFERED=1` w `run.sh`): start każdego etapu (np. trening, ewaluacja, wariant, seed, zadanie strumienia), regularne linie postępu w długich pętlach — co najmniej co kilka minut — w postaci `PROGRESS <etap> <i>/<n>` z bieżącą metryką lub stratą, oraz zakończenie etapu z czasem trwania. Na pytanie o postęp odpowiadasz z ostatnich takich linii: etap, `i/n`, szacowany czas do końca.
+
 ```bash
 #!/usr/bin/env bash
 #SBATCH --job-name=<slug>
