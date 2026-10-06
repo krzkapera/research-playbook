@@ -150,6 +150,7 @@ orx agent spawn --no-wake --harness <harness> --model '<model>' --permission-mod
 - **Profesor:** model wskazuje użytkownik w poleceniu spawnu. Jeśli go nie wskazał, zapytaj; nie wybieraj sam.
 - **Laborant, koder, librarian:** wybierz opcję roli tak, żeby limity nigdy się nie wyczerpały. Bierz opcję z największym zapasem limitu według `limits`; pamiętaj, że limity Claude i Codex zużywają też profesorowie. Darmowe modele OpenCode nie zużywają limitów, ale kosztują najwięcej RAM (sekcja Koszt sesji). Gdy opcje są równorzędne, wybierz losowo.
 - **Warunek:** laborant ma innego dostawcę modelu niż profesor jego hipotezy, a koder innego niż jego laborant (kolumna Dostawca modelu).
+- **Reasoning level (`--reasoning-level`):** profesor — poziom wskazany przez użytkownika, a gdy go nie podał, pomiń flagę; laborant — `high`, ale tylko na harnessach claude-code i codex; koder i librarian — bez flagi. Na cursor, antigravity i opencode flagi nie podajesz: poziom jest częścią nazwy modelu (np. `gpt-5.6-sol-medium`) albo zostaje domyślny. Wartość piszesz małymi literami; codex przyjmuje `none`, `minimal`, `low`, `medium`, `high`, `xhigh`, `max` (np. „XHigh” od użytkownika → `xhigh`). Błędna wartość nie jest odrzucana przy spawnie, tylko w pierwszej turze dziecka.
 
 ## Przyjmowanie zgłoszeń i spawn
 
