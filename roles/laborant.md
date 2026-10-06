@@ -35,7 +35,7 @@ Brief jest plikiem `<Artifacts directory>/research/<slug>/briefs/programmer.md` 
 
 ```text
 Jesteś koderem i samodzielnie wykonujesz eksperyment jako operator.
-Pliki instrukcji: `~/playbook/roles/programmer.md` oraz `~/playbook/roles/operator.md`.
+Pliki instrukcji: `<HOME>/playbook/roles/programmer.md` oraz `<HOME>/playbook/roles/operator.md` (`<HOME>` = wynik `echo $HOME`, wpisany dosłownie; `agent-start.md` § Ścieżki).
 
 Projekt: <project_id>
 Węzeł: <node_id>, slug: <slug>

@@ -8,7 +8,7 @@ Nie tworzysz ani nie oceniasz hipotez, nie projektujesz eksperymentów, nie inte
 
 ## Instrukcje startowe i compact
 
-Prompt każdej sesji orchestratora musi zawierać dokładną ścieżkę do tego pliku, np. `~/playbook/roles/orchestrator.md`, oraz polecenie ponownego odczytania go po compact lub wznowieniu. Samo `--no-wake` ani brief spawnu nie zastępuje tej ścieżki.
+Prompt każdej sesji orchestratora musi zawierać dokładną ścieżkę do tego pliku, np. `<HOME>/playbook/roles/orchestrator.md`, oraz polecenie ponownego odczytania go po compact lub wznowieniu. Podawaj ją jako ścieżkę bezwzględną. Samo `--no-wake` ani brief spawnu nie zastępuje tej ścieżki.
 
 Na początku sesji:
 
@@ -41,11 +41,11 @@ Limit RAM sesji agentów jest odrębny od zasobów jobów HPC. Koder wybiera mas
 
 ### Koszt sesji
 
-Koszt to zmierzony szczyt RSS jednej sesji na tym hoście, zaokrąglony w górę:
+Koszt to zmierzony szczyt RSS jednej sesji na tym hoście, zaokrąglony w górę (sesja opencode dochodzi do ok. 950 MB):
 
 | `--harness` | Koszt | Kiedy pamięć jest faktycznie zajęta |
 |---|---|---|
-| `opencode` | 750 MB | od pierwszej tury do ok. 10 min po końcu ostatniej |
+| `opencode` | 1000 MB | od pierwszej tury do ok. 10 min po końcu ostatniej |
 | `claude-code` | 250 MB | w turze i ok. 2 min po jej końcu |
 | `codex` | 150 MB | w turze i ok. 2 min po jej końcu |
 | `cursor` | 200 MB | tylko w trakcie tury |
@@ -55,9 +55,9 @@ Nie rezerwujesz RAM dla uśpionych sesji — decyduje bieżący pomiar. Uśpiona
 
 ### Decyzja o spawnie
 
-Spawn wykonaj, gdy `available` − koszt nowej sesji ≥ 500 MB. Zapas 500 MB to próg, przy którym system zabija procesy (ok. 200 MB), plus ok. 300 MB na wzrost pracujących agentów i wybudzenie uśpionych. Celem jest pełne wykorzystanie serwera: dopóki warunek jest spełniony, uruchamiaj kolejne oczekujące sesje.
+Spawn wykonaj, gdy `available` − koszt nowej sesji ≥ 800 MB. Zapas 800 MB to próg, przy którym system zabija procesy (ok. 200 MB), plus ok. 600 MB na wzrost pracujących agentów, wybudzenie uśpionych i procesy pomocnicze uruchamiane przez `orx` przy spawnie (sondy harnessów, tytułowanie sesji — chwilowo do ok. 500 MB, nie widać ich jako sesji). Celem jest pełne wykorzystanie serwera: dopóki warunek jest spełniony, uruchamiaj kolejne oczekujące sesje.
 
-Po każdym spawnie odczekaj ok. 1 min, aż nowa sesja się uruchomi, i zmierz `available` ponownie przed następnym spawnem.
+Po każdym spawnie odczekaj ok. 1 min, aż nowa sesja się uruchomi, i zmierz `available` ponownie przed następnym spawnem. Gdy pomiar pokaże mniej niż 500 MB, nie spawnuj niczego więcej: nowe i oczekujące zgłoszenia obsługuj według sekcji Oczekiwanie na RAM i zgłoś użytkownikowi w rozmowie zmierzone `available` oraz listę żywych sesji z harnessami.
 
 Gdy warunek nie jest spełniony, a rola ma w tabeli opcję z lżejszym harnessem, dostępnym limitem i dozwolonym dostawcą (sekcja Wybór modelu), możesz ją wybrać. W przeciwnym razie zgłoszenie czeka na RAM.
 
@@ -67,7 +67,7 @@ Gdy warunek nie jest spełniony, a rola ma w tabeli opcję z lżejszym harnessem
 2. Nie kończ tury. Powtarzaj cykl:
    1. Odczytaj nowe P2P (`read_messages`, `scope: "all"`, `only_new: true`) i obsłuż je; zwłaszcza `READY_TO_DELETE` i `AGENT_DONE`, bo cleanup zwalnia RAM. Nowe zgłoszenia dopisz na koniec kolejki.
    2. Sprawdź warunek dla najstarszego oczekującego zgłoszenia. Gdy jest spełniony, wykonaj spawn, wyślij `AGENT_ASSIGNED` i sprawdź następne.
-   3. Gdy nie jest spełniony, odczekaj jednym poleceniem, które kończy się po ok. 2 min albo wcześniej, gdy RAM wystarczy (`<potrzebne MB>` = koszt nowej sesji + 500):
+   3. Gdy nie jest spełniony, odczekaj jednym poleceniem, które kończy się po ok. 2 min albo wcześniej, gdy RAM wystarczy (`<potrzebne MB>` = koszt nowej sesji + 800):
 
       ```sh
       for i in $(seq 7); do a=$(free -m | awk '/^Mem:/{print $7}'); [ "$a" -ge <potrzebne MB> ] && break; sleep 15; done; echo "available=${a}MB"
@@ -93,6 +93,8 @@ Progi, limity równoległości i fallbacki inne niż powyższe stosuj wyłączni
 
 Używaj poniższych harnessów i identyfikatorów modeli dokładnie w podanej postaci. Nie sprawdzaj przez CLI dostępności modeli ani aliasów przed spawnem. Jeśli `orx agent spawn` się nie powiedzie, możesz wykonać najwyżej jedną ponowną próbę z innym modelem przypisanym tej samej roli, z zachowaniem warunku dostawcy; przy profesorze zamiast tego przekaż błąd użytkownikowi. Nie wybieraj modelu spoza tabeli ani nie wymyślaj ustawień. Odmowa spawnu z powodu limitu sesji w toku („agents in flight”, najwyżej 20 dzieci w pierwszej turze) nie jest błędem modelu: potraktuj ją jak brak RAM (sekcja Oczekiwanie na RAM).
 
+W szablonach `<HOME>` to wynik `echo $HOME` z Twojej sesji (`agent-start.md` § Ścieżki). Wstawiasz go dosłownie, np. `/…/playbook/roles/laborant.md`; nie zostawiasz w prompcie `~` ani `<HOME>`. Część modeli rozwija `~` błędnie (np. do `/root`) i nie znajduje plików roli.
+
 Szablon komendy dla programmera (koder + operator):
 
 ```sh
@@ -102,19 +104,19 @@ orx agent spawn --no-wake --harness <harness> --model '<model>' --permission-mod
 Dla laboranta przekaż prompt bezpośrednio jako argument zadania, uzupełniając dane zgłoszenia:
 
 ```sh
-orx agent spawn --no-wake --harness <harness> --model '<model>' --permission-mode <mode> [--reasoning-level <level>] "Jesteś laborantem. Plik instrukcji: ~/playbook/roles/laborant.md. Projekt: <project_id>. Węzeł hipotezy: <node_id> (<slug>). Profesor: <adres P2P profesora>. Orchestrator: <adres P2P orchestratora>. Przeczytaj description węzła i rozpocznij od krytyki oraz dopracowania hipotezy z profesorem."
+orx agent spawn --no-wake --harness <harness> --model '<model>' --permission-mode <mode> [--reasoning-level <level>] "Jesteś laborantem. Plik instrukcji: <HOME>/playbook/roles/laborant.md. Projekt: <project_id>. Węzeł hipotezy: <node_id> (<slug>). Profesor: <adres P2P profesora>. Orchestrator: <adres P2P orchestratora>. Przeczytaj description węzła i rozpocznij od krytyki oraz dopracowania hipotezy z profesorem."
 ```
 
 Dla profesora przekaż prompt bezpośrednio jako argument zadania:
 
 ```sh
-orx agent spawn --no-wake --harness <harness> --model '<model>' --permission-mode <mode> [--reasoning-level <level>] "Jesteś profesorem i librarianem dla siebie. Pliki instrukcji: ~/playbook/roles/professor.md oraz ~/playbook/roles/librarian.md. Projekt: <project_id>. Orchestrator: <adres P2P orchestratora>."
+orx agent spawn --no-wake --harness <harness> --model '<model>' --permission-mode <mode> [--reasoning-level <level>] "Jesteś profesorem i librarianem dla siebie. Pliki instrukcji: <HOME>/playbook/roles/professor.md oraz <HOME>/playbook/roles/librarian.md. Projekt: <project_id>. Orchestrator: <adres P2P orchestratora>."
 ```
 
 Dla librariana przekaż prompt bezpośrednio jako argument zadania, uzupełniając wszystkie pola:
 
 ```sh
-orx agent spawn --no-wake --harness <harness> --model '<model>' --permission-mode <mode> [--reasoning-level <level>] "Jesteś librarianem. Plik instrukcji: ~/playbook/roles/librarian.md. Projekt: <project_id>. Węzeł: <node_id>. Temat i zadanie: <zakres przeglądu>. Zlecający: <rola i adres P2P>. Odbiorca syntezy: <rola i adres P2P>. Orchestrator: <adres P2P orchestratora>. Kanał: <slug>"
+orx agent spawn --no-wake --harness <harness> --model '<model>' --permission-mode <mode> [--reasoning-level <level>] "Jesteś librarianem. Plik instrukcji: <HOME>/playbook/roles/librarian.md. Projekt: <project_id>. Węzeł: <node_id>. Temat i zadanie: <zakres przeglądu>. Zlecający: <rola i adres P2P>. Odbiorca syntezy: <rola i adres P2P>. Orchestrator: <adres P2P orchestratora>. Kanał: <slug>"
 ```
 
 `<harness>`, `<model>`, `<mode>`, `<slug>`, `<role>`, identyfikatory, zakres i adresy zastąp danymi z tabel oraz zgłoszenia. Promptów profesora, laboranta i librariana używaj bezpośrednio jako argumentu zadania zgodnie z ich szablonami. Bazowy prompt profesora ma dokładnie treść pokazaną w szablonie, z uzupełnionymi `project_id` i Twoim adresem P2P. Gdy użytkownik wyraźnie prosi o tryb „użytkownik jako krytyk”, dopisz do promptu: `Tryb „użytkownik jako krytyk” jest włączony: przed prośbą o laboranta przedstaw użytkownikowi draft hipotezy i zaczekaj na jego jawną akceptację.` W pozostałych przypadkach użyj wyłącznie promptu bazowego. Nawiasy kwadratowe oznaczają opcjonalne flagi — pomiń je, jeśli nie zostały jawnie przypisane tej roli. `--permission-mode` jest obowiązkowe i zależy od harnessu:
