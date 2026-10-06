@@ -85,7 +85,8 @@ Przed każdym spawnem uruchom `limits` (bez argumentów). Wypisuje sekcje `# Cla
 - Claude: `Current session` albo `Current week` — 100% used;
 - Antigravity: `Remaining` 0% w grupie modelu (`Gemini Models` dla Gemini, `Claude and GPT models` dla Sonnet 4.6);
 - Cursor: ignoruj `totalPercentUsed` i `message: You've hit your usage limit`. Decydują dwie linie: `autoPercentUsed` = limit Groka (`grok-4.7-medium`), `apiPercentUsed` = limit GPT (`gpt-5.6-sol-medium`). Model jest niedostępny dopiero przy 100% w swojej linii;
-- Codex: `primary` albo `secondary` — 100% used.
+- Codex: `primary` albo `secondary` — 100% used;
+- OpenCode: brak w `limits`, limit nieznany i wspólny dla wszystkich sesji OpenCode; jest wyczerpany, gdy tura sesji OpenCode kończy się komunikatem „Free usage exceeded”.
 
 Progi, limity równoległości i fallbacki inne niż powyższe stosuj wyłącznie, gdy wynikają z aktualnego briefu użytkownika lub tabeli przypisań modeli.
 
@@ -150,7 +151,7 @@ orx agent spawn --no-wake --harness <harness> --model '<model>' --permission-mod
 ### Wybór modelu
 
 - **Profesor:** model wskazuje użytkownik w poleceniu spawnu. Jeśli go nie wskazał, zapytaj; nie wybieraj sam.
-- **Laborant, koder, librarian:** wybierz opcję roli tak, żeby limity nigdy się nie wyczerpały. Bierz opcję z największym zapasem limitu według `limits`; pamiętaj, że limity Claude i Codex zużywają też profesorowie. Darmowe modele OpenCode nie zużywają limitów, ale kosztują najwięcej RAM (sekcja Koszt sesji). Gdy opcje są równorzędne, wybierz losowo.
+- **Laborant, koder, librarian:** wybierz opcję roli tak, żeby limity nigdy się nie wyczerpały. Bierz opcję z największym zapasem limitu według `limits`; pamiętaj, że limity Claude i Codex zużywają też profesorowie. Limit darmowych modeli OpenCode jest nieznany: `limits` go nie pokazuje, a jest wspólny dla wszystkich sesji OpenCode. Po jego przekroczeniu tura kończy się komunikatem „Free usage exceeded” i wszystkie sesje OpenCode stoją do odnowienia (`retrying` z odległym terminem). Gdy to zobaczysz, traktuj OpenCode jak harness z wyczerpanym limitem i zgłoś to użytkownikowi. Sesje OpenCode kosztują też najwięcej RAM (sekcja Koszt sesji). Gdy opcje są równorzędne, wybierz losowo.
 - **Warunek:** laborant ma innego dostawcę modelu niż profesor jego hipotezy, a koder innego niż jego laborant (kolumna Dostawca modelu).
 - **Reasoning level (`--reasoning-level`):** profesor — poziom wskazany przez użytkownika, a gdy go nie podał, pomiń flagę; laborant — `high`, ale tylko na harnessach claude-code i codex; koder i librarian — bez flagi. Na cursor, antigravity i opencode flagi nie podajesz: poziom jest częścią nazwy modelu (np. `gpt-5.6-sol-medium`) albo zostaje domyślny. Wartość piszesz małymi literami; codex przyjmuje `none`, `minimal`, `low`, `medium`, `high`, `xhigh`, `max` (np. „XHigh” od użytkownika → `xhigh`). Błędna wartość nie jest odrzucana przy spawnie, tylko w pierwszej turze dziecka.
 
