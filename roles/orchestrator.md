@@ -59,6 +59,8 @@ Spawn wykonaj, gdy `available` − koszt nowej sesji ≥ 800 MB. Zapas 800 MB to
 
 Po każdym spawnie odczekaj ok. 1 min, aż nowa sesja się uruchomi, i zmierz `available` ponownie przed następnym spawnem. Gdy pomiar pokaże mniej niż 500 MB, nie spawnuj niczego więcej: nowe i oczekujące zgłoszenia obsługuj według sekcji Oczekiwanie na RAM i zgłoś użytkownikowi w rozmowie zmierzone `available` oraz listę żywych sesji z harnessami.
 
+Niezależnie od RAM żywych sesji `opencode` może być najwyżej 3 naraz (wliczając Ciebie, jeśli działasz na `opencode`); liczysz je z rejestru. Kolejną rolę przydziel innemu harnessowi z tabeli; gdy żadna inna opcja nie jest dostępna, zgłoszenie czeka jak na RAM. Powód: każda sesja `opencode` zajmuje do ok. 1 GB i wszystkie dzielą jeden nieznany limit darmowego użycia.
+
 Gdy warunek nie jest spełniony, a rola ma w tabeli opcję z lżejszym harnessem, dostępnym limitem i dozwolonym dostawcą (sekcja Wybór modelu), możesz ją wybrać. W przeciwnym razie zgłoszenie czeka na RAM.
 
 ### Oczekiwanie na RAM
