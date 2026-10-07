@@ -14,7 +14,11 @@ Wszystkie uruchomienia wykonuj przez `orx exp run`: na klastrach backendem Slurm
 ## Wybór hosta i zasobów
 
 1. Dobierz host do wymagań eksperymentu i aktualnej kolejki; uwzględnij dokumentację Cyfronetu (https://docs.hpc.cyfronet.pl/supercomputers/athena/, https://docs.hpc.cyfronet.pl/supercomputers/helios/, https://docs.hpc.cyfronet.pl/supercomputers/ares/, sekcja Job submission) oraz wzorce `.sh` i `.sbatch` z `<klaster>:~/scratch/`. Dla Heliosa uwzględnij ARM i jego właściwy profil.
-2. Ares wybierz, gdy wystarcza CPU; nie kieruj tam jobów wymagających GPU. Athenę wybierz dla GPU, gdy jej zasoby wystarczą. Heliosa wybierz dla pełnych datasetów lub cięższych jobów. Uwzględnij też inne joby użytkownika.
+2. Ares wybierz, gdy wystarcza CPU; nie kieruj tam jobów wymagających GPU. Joby GPU domyślnie zgłaszaj na Heliosa. Przed zgłoszeniem sprawdź, czy na Heliosie czeka w kolejce jakikolwiek job tego konta (także innych agentów):
+   ```bash
+   ssh helios "squeue --me -t PENDING -h | wc -l"
+   ```
+   Wynik `0` → zgłaszasz na Heliosa. Wynik większy od `0` → zgłaszasz na Athenę i wracasz na Heliosa przy następnym jobie, gdy nic tam już nie czeka. Athenę wybierasz od razu tylko wtedy, gdy job wymaga czegoś, czego Helios nie ma (np. środowiska x86).
 3. Partycje i smoke. Każdy job zgłaszasz z kontem o pasującym sufiksie (dokumentacja hosta, sekcja Job submission). Smoke ma być szybki: krótki `#SBATCH --time` (kilka–kilkanaście minut, z niewielkim zapasem nad przewidywanym czasem smoke'a) na każdej partycji, i idzie na ten sam klaster co pełny job, bo venv, dane i cache są osobne dla każdego klastra:
 
    | Pełny job | Smoke | Pełny job — partycja |
