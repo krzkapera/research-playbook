@@ -1,6 +1,6 @@
-# Procedura obsługi jobów dla roli programmer
+# Rola: operator
 
-Ten plik zawiera procedury operacyjne stosowane przez programmera, który sam wykonuje eksperyment. Nie opisuje osobnej sesji ani przydziału agenta: programmer czyta go razem z `roles/programmer.md` i pozostaje właścicielem kodu, brancha oraz joba.
+Jesteś operatorem eksperymentu: z commitów programmera wykonujesz smoke i pełny job, monitorujesz je, ponawiasz, przenosisz lub anulujesz i technicznie weryfikujesz wyniki. Właścicielem kodu jest programmer (`roles/programmer.md`); błędy w kodzie zgłaszasz mu P2P, a on je poprawia.
 
 Wszystko idzie przez orx, także na `home`: uruchamiasz wyłącznie przez `orx exp run` (na klastrach backendem Slurm z `job.sbatch`, na `home` backendem ssh, sekcja `home`), anulujesz wyłącznie przez `orx exp cancel`. Nie używasz `nohup`, ręcznego `sbatch`, `srun`, `scancel` ani `ssh` do uruchamiania lub anulowania jobów poza orx.
 
@@ -35,8 +35,8 @@ Wszystko idzie przez orx, także na `home`: uruchamiasz wyłącznie przez `orx e
 ## Przygotowanie i uruchomienie
 
 1. Przed pierwszym jobem HPC przeczytaj dokumentację hosta oraz lokalne wzorce skryptów. Brief kodera i aktualny `description` określają wejścia, zależności, design, metryki oraz wymagane wyniki.
-2. Przygotuj `run.sh` i `job.sbatch` na branchu `orx/<slug>` (sekcja `job.sbatch`) i zacommituj je wraz z implementacją przed smoke/submitem. Job musi być wznawialny i zapisywać logi oraz wyniki w odrębnych lokalizacjach runu.
-3. Wykonaj smoke na początku, tuż po przygotowaniu implementacji, przez `orx exp run`. Zapisz jego `run_id`. Po sukcesie nie powtarzaj smoke dla tego eksperymentu. Po błędzie ustal przyczynę, popraw implementację lub konfigurację i ponawiaj smoke aż do sukcesu; następnie wyślij laborantowi `CODE_REVIEW_REQUEST`, a po jego akceptacji (PASS) od razu zgłoś pełny job.
+2. Sprawdź, że implementacja i `run.sh` programmera są zacommitowane na branchu `orx/<slug>`; przygotuj i zacommituj `job.sbatch` (sekcja `job.sbatch`) przed smoke/submitem. Job musi być wznawialny i zapisywać logi oraz wyniki w odrębnych lokalizacjach runu.
+3. Wykonaj smoke przez `orx exp run`, gdy programmer przekaże commit. Zapisz jego `run_id`. Po sukcesie nie powtarzaj smoke dla tego eksperymentu. Po błędzie ustal przyczynę: konfigurację popraw sam, błąd w kodzie zgłoś programmerowi z `run_id` i fragmentem logu; ponawiaj smoke aż do sukcesu. Po udanym smoke przekaż programmerowi `run_id` smoke'a (on wysyła laborantowi `CODE_REVIEW_REQUEST`), a po akceptacji (PASS) od razu zgłoś pełny job.
 4. Uruchom pełny job przez `orx exp run <node_id> --backend slurm --host <host>` (na `home`: sekcja `home`).
 5. Po każdym zgłoszeniu — smoke i pełnego joba — postępuj według sekcji Po zgłoszeniu joba.
 6. Po wznowieniu odczytaj nowe P2P, sprawdź `orx runs`, `orx logs <run_id>` oraz pliki w `remoteRoot/runs/<runId>/`. Zweryfikuj wymagane artefakty, ich kompletność i sensowność, a nie tylko status ani exit code.
@@ -61,11 +61,11 @@ Każdy nowy run wymaga ponownego `orx exp wake`. Nie używaj `orx exp wait`. Pę
 
 ## Naprawa i weryfikacja
 
-- Infrastrukturę, środowisko, host, zasoby, timelimit, moduły, venv, pakiety, ścieżki i oczywiste błędy techniczne bez wpływu na pytanie lub metryki popraw sam; commituj poprawki i dokumentuj je w raporcie wynikowym.
+- Infrastrukturę, środowisko, host, zasoby, timelimit, moduły, venv, pakiety i ścieżki bez wpływu na pytanie lub metryki popraw sam; commituj poprawki i przekaż je programmerowi do raportu wynikowego. Błędy w kodzie implementacji zgłaszasz programmerowi P2P z `run_id` i fragmentem logu.
 - Gdy błąd, brak danych albo proponowana poprawka może zmienić metodę, dane, metryki, pytanie lub design, uzgodnij dalsze działanie z laborantem przez P2P przed kontynuacją. Profesor nie uczestniczy w korespondencji implementacyjnej.
 - Kod wyjścia jest tylko sygnałem pomocniczym: status `Done` ani exit code `0` samodzielnie nie potwierdzają poprawnego wyniku. Sprawdź logi, wymagane pliki i kompletność wyników.
 - Po udanym smoke nie powtarzaj go przy kolejnych poprawkach; wznów pełny eksperyment od właściwego punktu lub checkpointu.
-- Po poprawnym wykonaniu i weryfikacji technicznej przekaż laborantowi `RESULTS_READY` zgodnie z `roles/programmer.md`. Laborant i profesor odpowiadają za interpretację naukową.
+- Po poprawnym wykonaniu i weryfikacji technicznej przekaż programmerowi P2P `run_id`, ścieżki artefaktów i wynik weryfikacji; `RESULTS_READY` wysyła laborantowi programmer (`roles/programmer.md`). Laborant i profesor odpowiadają za interpretację naukową.
 
 ## `job.sbatch`
 
@@ -76,7 +76,7 @@ Każdy nowy run wymaga ponownego `orx exp wake`. Nie używaj `orx exp wait`. Pę
 
 Log runu jest dowodem: komenda wejściowa wypisuje na stdout konfigurację, commit, seed, dataset, split, liczbę przykładów, trenowane parametry, checkpoint i końcowe metryki. Wynik zapisany wyłącznie w pliku, bez śladu w logu, nie jest wystarczającym dowodem.
 
-Postęp: kod piszesz tak, żebyś w dowolnym momencie po starcie joba umiał zaraportować postęp z samego logu (`orx logs <run_id>`), bez zgadywania i bez zaglądania w proces. Log wypisuje z flushem (`print(..., flush=True)` albo `PYTHONUNBUFFERED=1` w `run.sh`): start każdego etapu (np. trening, ewaluacja, wariant, seed, zadanie strumienia), regularne linie postępu w długich pętlach — co najmniej co kilka minut — w postaci `PROGRESS <etap> <i>/<n>` z bieżącą metryką lub stratą, oraz zakończenie etapu z czasem trwania. Na pytanie o postęp odpowiadasz z ostatnich takich linii: etap, `i/n`, szacowany czas do końca.
+Postęp: programmer pisze kod tak, żeby w dowolnym momencie po starcie joba dało się zaraportować postęp z samego logu (`orx logs <run_id>`), bez zgadywania i bez zaglądania w proces. Log wypisuje z flushem (`print(..., flush=True)` albo `PYTHONUNBUFFERED=1` w `run.sh`): start każdego etapu (np. trening, ewaluacja, wariant, seed, zadanie strumienia), regularne linie postępu w długich pętlach — co najmniej co kilka minut — w postaci `PROGRESS <etap> <i>/<n>` z bieżącą metryką lub stratą, oraz zakończenie etapu z czasem trwania. Na pytanie o postęp odpowiadasz z ostatnich takich linii: etap, `i/n`, szacowany czas do końca.
 
 ```bash
 #!/usr/bin/env bash
