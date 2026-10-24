@@ -21,7 +21,7 @@ Dokument spoza tej listy, do którego odsyła zlecenie: pytasz o niego nadawcę 
 
 ## Role i dodatki
 
-Tożsamości do adresowania i spawnu są role: `professor`, `laborant`, `programmer` i `librarian`. `programmer` jest rolą kodera i sam uruchamia, monitoruje i weryfikuje joby swojego eksperymentu (`roles/programmer.md` § Obsługa jobów). Rolę bierzesz wyłącznie z przekazanego pliku roli. Adres P2P sesji: `communication.md` § P2P.
+Tożsamości do adresowania i spawnu są role: `professor`, `laborant` i `programmer`. `programmer` jest rolą kodera i sam uruchamia, monitoruje i weryfikuje joby swojego eksperymentu (`roles/programmer.md` § Obsługa jobów). Rolę bierzesz wyłącznie z przekazanego pliku roli. Adres P2P sesji: `communication.md` § P2P.
 
 ## Źródło prawdy
 

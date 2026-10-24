@@ -5,7 +5,7 @@
 - **Bus** — `ai-crew-sync`: kanały, wiadomości i P2P, obsługiwane narzędziami MCP własnej sesji (tożsamość: `agent-start.md`, krok 1).
 - **Kanał hipotezy** — kanał nazwany slugiem hipotezy; eksperymenty-dzieci nie mają osobnych kanałów. Służy do treści hipotezy i zweryfikowanych wniosków naukowych; komunikacja implementacyjna laborant–koder odbywa się prywatnie P2P.
 - **Dołączenie do kanału** — odczyt historii kanału (`read_messages`, `scope: "<slug>"`, `only_new: false`) i dalsza praca na nim. Zaproszenie = nazwa kanału w briefie spawnu albo we wpisie.
-- **Wpis** — wiadomość na kanale (`post_message`, `channel: "<slug>"`). Każdy wpis zaczyna się etykietą roli: `[professor]`, `[laborant]`, `[programmer]`, `[librarian]`.
+- **Wpis** — wiadomość na kanale (`post_message`, `channel: "<slug>"`). Każdy wpis zaczyna się etykietą roli: `[professor]`, `[laborant]`, `[programmer]`.
 - **P2P** — wiadomość bezpośrednia między sesjami, wysyłana przez `post_message` (sekcje P2P i Typy wiadomości).
 - **Adres P2P** — `<agent>/<session>` z wyniku `whoami` sesji (`agent-start.md`, krok 1).
 - **Oddanie** — wpis albo wiadomość P2P z materiałem, na który czeka inna rola. Zawartość oddania definiuje plik roli oddającej (sekcja Co oddajesz).
@@ -56,7 +56,7 @@ Wiadomości poniżej są typami treści istniejących wiadomości P2P (`post_mes
 | `RESULTS_READY` | programmer → laborant (P2P) | Wyniki techniczne i artefakty gotowe do merytorycznej weryfikacji; bez professora. |
 | `REWORK_REQUEST` | laborant → programmer (P2P) | Konkretna brakująca kontrola lub poprawka planu/kodu/wyników. |
 | `RESEARCH_REPORT` | laborant → professor (P2P i kanał hipotezy) | Zweryfikowany wniosek naukowy, istotne metryki, ograniczenia i pytanie dalsze; bez kodu, logów ani szczegółów implementacji. |
-| `LITERATURE_REPORT` | librarian → zleceniodawca (P2P i wskazany kanał) | Synteza literatury w zakresie briefu i wskazanie źródeł. |
+| `LITERATURE_REPORT` | professor → laborant (P2P i kanał hipotezy) | Synteza przeglądu literatury, o który laborant poprosił P2P z zakresem; wskazanie źródeł. |
 | `NEXT_TEST` | professor → laborant (P2P) | Kolejny test w hipotezie `GOTOWA DO IMPLEMENTACJI`; laborant tworzy eksperyment jako bezpośrednie dziecko hipotezy i zleca go przez P2P koderowi już przypisanemu do tej hipotezy. |
 | `FLOW_BLOCKED` | dowolna sesja → nadawca zlecenia | Blokada techniczna, środowiskowa, limitu, RAM lub wybudzenia. Nadawca kończy turę. |
 | `LOCK_RETRY_REQUEST` | autor opisu → aktualny właściciel locka | Prośba o krótkie powiadomienie po zwolnieniu locka; nie przyznaje prawa do zapisu. |

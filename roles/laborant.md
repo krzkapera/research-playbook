@@ -57,7 +57,7 @@ Wniosek sprawdzaj względem pytania i kryterium utrwalonych przed uruchomieniem.
 
 ## Literatura
 
-Wąskie pytanie rozstrzygnij sam na podstawie wskazanych źródeł i korpusu. Librarian wykonuje dla Ciebie wyłącznie przegląd literatury.
+Szeroki przegląd literatury prowadzi profesor: poproś go P2P, podając zakres; odpowiada `LITERATURE_REPORT`. Wąskie pytanie rozstrzygnij sam na podstawie wskazanych źródeł i korpusu.
 
 ## Co oddajesz
 

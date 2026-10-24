@@ -15,7 +15,7 @@ Na start: nacisk na **teorię / design metody**; implementacja będzie, ale szcz
 
 ## Literatura
 
-- **Źródło prawdy w projekcie:** `~/literature/` (`identifiers.md` § Miejsca zapisu). Utrzymuje `librarian`.
+- **Źródło prawdy w projekcie:** `~/literature/` (`identifiers.md` § Miejsca zapisu). Utrzymuje `professor` (`roles/professor.md` § Literatura).
 
 Przepływ: najpierw papery już zebrane, potem szerokie wyszukiwanie (własne narzędzia + firecrawl jako MCP — search / research index). Czytaj stopniowo, przechodząc dalej tylko wtedy, gdy praca coraz bardziej pasuje: abstrakt → wnioski → najważniejsze rozdziały → całość; pasujące prace zapisz do korpusu. Miejsca zapisu wyników: `identifiers.md` § Miejsca zapisu.
 
