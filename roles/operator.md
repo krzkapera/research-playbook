@@ -19,7 +19,7 @@ Wszystkie uruchomienia wykonuj przez `orx exp run`: na klastrach backendem Slurm
    ssh helios "squeue --me -t PENDING -h | wc -l"
    ```
    Wynik `0` → zgłaszasz na Heliosa. Wynik większy od `0` → zgłaszasz na Athenę i wracasz na Heliosa przy następnym jobie, gdy nic tam już nie czeka. Athenę wybierasz od razu tylko wtedy, gdy job wymaga czegoś, czego Helios nie ma (np. środowiska x86).
-3. Partycje i smoke. Każdy job zgłaszasz z kontem o pasującym sufiksie (dokumentacja hosta, sekcja Job submission). Smoke ma być szybki: krótki `#SBATCH --time` (kilka–kilkanaście minut, z niewielkim zapasem nad przewidywanym czasem smoke'a) na każdej partycji, i idzie na ten sam klaster co pełny job, bo venv, dane i cache są osobne dla każdego klastra:
+3. Konta, partycje i smoke. Każdy job zgłaszasz z kontem (`#SBATCH --account`) przypisanym do klastra: Ares (tylko CPU) — grant `plgadmgr2025`, alokacja `plgadmgr2025-cpu`; Athena — grant `plglscclass26`, alokacja `plglscclass26-gpu-a100`; Helios — alokacja `plgadmgr2025-gpu-gh200` albo `plgaiforsoc2025-gpu-gh200`. Grantów `plgar*` (np. `plgar2025`, `plgar2026`) nie używasz na żadnym klastrze. Smoke ma być szybki: krótki `#SBATCH --time` (kilka–kilkanaście minut, z niewielkim zapasem nad przewidywanym czasem smoke'a) na każdej partycji, i idzie na ten sam klaster co pełny job, bo venv, dane i cache są osobne dla każdego klastra:
 
    | Pełny job | Smoke | Pełny job — partycja |
    |---|---|---|
