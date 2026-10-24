@@ -58,7 +58,6 @@ Wiadomości poniżej są typami treści istniejących wiadomości P2P (`post_mes
 | `RESEARCH_REPORT` | laborant → professor (P2P i kanał hipotezy) | Zweryfikowany wniosek naukowy, istotne metryki, ograniczenia i pytanie dalsze; bez kodu, logów ani szczegółów implementacji. |
 | `LITERATURE_REPORT` | professor → laborant (P2P i kanał hipotezy) | Synteza przeglądu literatury, o który laborant poprosił P2P z zakresem; wskazanie źródeł. |
 | `NEXT_TEST` | professor → laborant (P2P) | Kolejny test w hipotezie `GOTOWA DO IMPLEMENTACJI`; laborant tworzy eksperyment jako bezpośrednie dziecko hipotezy i zleca go przez P2P koderowi już przypisanemu do tej hipotezy. |
-| `FLOW_BLOCKED` | dowolna sesja → nadawca zlecenia | Blokada techniczna, środowiskowa, limitu, RAM lub wybudzenia. Nadawca kończy turę. |
 | `LOCK_RETRY_REQUEST` | autor opisu → aktualny właściciel locka | Prośba o krótkie powiadomienie po zwolnieniu locka; nie przyznaje prawa do zapisu. |
 | `LOCK_RELEASED` | dotychczasowy właściciel → oczekujący autor | Informacja o zwolnieniu; odbiorca musi ponownie zdobyć lock i świeżo odczytać description. |
 
@@ -99,8 +98,8 @@ Problem z flow to:
 
 Działanie:
 
-1. Gdy bus działa i `whoami` jest poprawne, wyślij `FLOW_BLOCKED` P2P do nadawcy zlecenia. Nie publikuj problemów technicznych na kanale hipotezy; kanał może zawierać tylko istotny dla hipotezy skutek naukowy.
-2. To samo w odpowiedzi kończącej turę.
+1. Nie publikuj problemów technicznych na kanale hipotezy; kanał może zawierać tylko istotny dla hipotezy skutek naukowy.
+2. Opisz problem w odpowiedzi kończącej turę.
 3. Koniec tury.
 
 Konfiguracja środowiska i projektu jest tylko do odczytu: konfiguracje harnessu i MCP, tokeny, pliki env, usługi, bus, ustawienia `orx`, konfiguracja i hooki git repozytorium projektu. Błąd busa albo środowiska obsługujesz wyłącznie krokami Działania.
