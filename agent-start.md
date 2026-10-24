@@ -1,6 +1,6 @@
 # Start sesji agenta
 
-Pliki playbooka (`agent-start.md`, `access-matrix.md`, `communication.md`, `identifiers.md`, `hypotheses.md`, `experiments.md`, `research-brief.md`, `roles/…`) leżą w `~/playbook/`, poza repo projektu i worktree sesji. Ścieżki plików playbooka w tych dokumentach są względne wobec `~/playbook/`: `roles/operator.md` to `~/playbook/roles/operator.md` (procedura obsługi jobów używana przez programmera).
+Pliki playbooka (`agent-start.md`, `access-matrix.md`, `communication.md`, `identifiers.md`, `hypotheses.md`, `experiments.md`, `research-brief.md`, `roles/…`) leżą w `~/playbook/`, poza repo projektu i worktree sesji. Ścieżki plików playbooka w tych dokumentach są względne wobec `~/playbook/`: `roles/programmer.md` to `~/playbook/roles/programmer.md`.
 
 ## Ścieżki
 

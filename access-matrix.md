@@ -21,7 +21,7 @@ Dokument spoza tej listy, do którego odsyła zlecenie: pytasz o niego nadawcę 
 
 ## Role i dodatki
 
-Tożsamości do adresowania i spawnu są role: `orchestrator`, `professor`, `laborant`, `programmer` i `librarian`. `programmer` jest rolą kodera i sam wykonuje eksperyment. Przy spawnie kodera brief przekazuje też `roles/operator.md` jako procedurę operacyjną; ten plik nie oznacza osobnej roli ani sesji. Rolę bierzesz wyłącznie z przekazanego pliku roli. Adres P2P sesji: `communication.md` § P2P. Spawn i kill wykonuje wyłącznie orchestrator.
+Tożsamości do adresowania i spawnu są role: `orchestrator`, `professor`, `laborant`, `programmer` i `librarian`. `programmer` jest rolą kodera i sam uruchamia, monitoruje i weryfikuje joby swojego eksperymentu (`roles/programmer.md` § Obsługa jobów). Rolę bierzesz wyłącznie z przekazanego pliku roli. Adres P2P sesji: `communication.md` § P2P. Spawn i kill wykonuje wyłącznie orchestrator.
 
 ## Źródło prawdy
 

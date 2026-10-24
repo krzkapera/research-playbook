@@ -31,7 +31,7 @@ Jedynym edytorem rejestru operacyjnego jesteś Ty. Lokalizacja: `<Artifacts dire
 
 Celem użytkownika jest około 90% RAM przeznaczonego na pożyteczną pracę, nie bezczynne sesje. Host agentów ma 4 GB RAM bez swapu; gdy dostępna pamięć spadnie poniżej ok. 200 MB, system zabija największy proces — zwykle sesję agenta razem z jej bieżącą pracą. Zarządzasz budżetem RAM sesji agentów według zasad poniżej. Gdy sesja zakończy zadanie i zostanie posprzątana, uruchom następną oczekującą, jeśli pozwalają na to zasoby.
 
-Limit RAM sesji agentów jest odrębny od zasobów jobów HPC. Koder wybiera maszynę i zasoby joba, stosując `roles/operator.md` jako procedurę operacyjną; o zgodę na `home` pyta użytkownika bezpośrednio w swojej rozmowie.
+Limit RAM sesji agentów jest odrębny od zasobów jobów HPC. Koder wybiera maszynę i zasoby joba i sam go uruchamia (`roles/programmer.md` § Obsługa jobów); o zgodę na `home` pyta użytkownika bezpośrednio w swojej rozmowie.
 
 ### Pomiar RAM
 
@@ -107,7 +107,7 @@ Każdą sesję nazywasz flagą `--title` (nazwa w panelu bocznym orx):
 
 W szablonach `<HOME>` to wynik `echo $HOME` z Twojej sesji (`agent-start.md` § Ścieżki). Wstawiasz go dosłownie, np. `/…/playbook/roles/laborant.md`; nie zostawiasz w prompcie `~` ani `<HOME>`. Część modeli rozwija `~` błędnie (np. do `/root`) i nie znajduje plików roli.
 
-Szablon komendy dla programmera (koder + operator):
+Szablon komendy dla programmera (kodera):
 
 ```sh
 orx agent spawn --no-wake --harness <harness> --model '<model>' --permission-mode <mode> [--reasoning-level <level>] --title "Koder <tag> <model krótko>" --stdin < <Artifacts directory>/research/<slug>/briefs/programmer.md
@@ -183,7 +183,7 @@ Przy każdym zgłoszeniu:
 1. Rozróżnij polecenie użytkownika o spawn profesora od P2P `REQUEST_AGENT`. Zapisz `request_id`, projekt, rolę i nadawcę; dla zgłoszenia dotyczącego istniejącego węzła dopisz `node_id` oraz adresy P2P rozmówców.
 2. Sprawdź rejestr, warunki RAM (sekcja Decyzja o spawnie), `limits` i dobierz model według sekcji Wybór modelu.
 3. Gdy RAM, limit sesji w toku albo limit harnessu wstrzymuje spawn, postępuj według sekcji Oczekiwanie na RAM (`AGENT_PENDING` do nadawcy).
-4. Dla profesora użyj promptu bazowego z jego szablonu, a tryb „użytkownik jako krytyk” dopisz tylko po wyraźnej prośbie użytkownika. Dla laboranta użyj promptu z jego szablonu, wstawiając identyfikatory węzła i adresy P2P profesora oraz orchestratora. Dla librariana użyj promptu z jego szablonu, wypełniając temat, zlecającego, odbiorcę syntezy i kanał danymi ze zgłoszenia. Przy żądaniu kodera użyj ścieżki briefu `briefs/programmer.md` podanej przez laboranta w `REQUEST_AGENT`; brief zawiera plan implementacji oraz ścieżki instrukcji `roles/programmer.md` i `roles/operator.md`. Następnie wykonaj spawn. Przy błędzie spawnu postępuj według sekcji Przydział modeli i komenda spawn i zapisz każdą próbę w rejestrze.
+4. Dla profesora użyj promptu bazowego z jego szablonu, a tryb „użytkownik jako krytyk” dopisz tylko po wyraźnej prośbie użytkownika. Dla laboranta użyj promptu z jego szablonu, wstawiając identyfikatory węzła i adresy P2P profesora oraz orchestratora. Dla librariana użyj promptu z jego szablonu, wypełniając temat, zlecającego, odbiorcę syntezy i kanał danymi ze zgłoszenia. Przy żądaniu kodera użyj ścieżki briefu `briefs/programmer.md` podanej przez laboranta w `REQUEST_AGENT`; brief zawiera plan implementacji oraz ścieżkę instrukcji `roles/programmer.md`. Następnie wykonaj spawn. Przy błędzie spawnu postępuj według sekcji Przydział modeli i komenda spawn i zapisz każdą próbę w rejestrze.
 5. Po spawnie zapisz id sesji ORX z wyniku (`Spawned agent session <id>`) i adres P2P dziecka: `<agent>/<id>`, gdzie `<agent>` wynika z harnessu (`agent-start.md`, tabela harnessów). Od razu wyślij nadawcy zgłoszenia `AGENT_ASSIGNED` z rolą, adresem P2P i id sesji albo potwierdź użytkownikowi w rozmowie spawn profesora. Gdy spawn się nie powiedzie, także po ponownej próbie, przekaż użytkownikowi błąd i stan zgłoszenia.
 
 Nie dodawaj krytyka jako osobnej roli. Krytykę hipotezy prowadzi laborant z profesorem, a koder krytycznie przegląda plan laboranta.
@@ -192,7 +192,7 @@ Nie dodawaj krytyka jako osobnej roli. Krytykę hipotezy prowadzi laborant z pro
 
 Używaj `communication.md` § Orchestracja i P2P. P2P zleceniodawcy nie zastępuje trwałej aktualizacji rejestru. Profesor otrzymuje tylko przypisanie laboranta, informacje operacyjne konieczne do jego prośby oraz zweryfikowane raporty naukowe od laboranta; nie przesyłaj mu RAM, limitów, kolejek, logów, commitów ani implementacyjnych statusów.
 
-Gdy nie masz dalszej pracy do wykonania i czekasz na odpowiedź, oddanie lub zdarzenie, wyślij wymagane P2P i zakończ turę. Nie używaj blokującego `ask_agent`, `wait_for_updates`, `orx exp wait` ani pętli `sleep`; jedyny wyjątek to cykl z sekcji Oczekiwanie na RAM. Koder po zgłoszeniu joba czeka w turze najwyżej ok. 10 min na `START TIME`, potem używa `orx exp wake` i kończy turę (`roles/operator.md` § Po zgłoszeniu joba). Koniec tury zwalnia RAM z opóźnieniem zależnym od harnessu (sekcja Koszt sesji).
+Gdy nie masz dalszej pracy do wykonania i czekasz na odpowiedź, oddanie lub zdarzenie, wyślij wymagane P2P i zakończ turę. Nie używaj blokującego `ask_agent`, `wait_for_updates`, `orx exp wait` ani pętli `sleep`; jedyny wyjątek to cykl z sekcji Oczekiwanie na RAM. Koder po zgłoszeniu joba czeka w turze najwyżej ok. 10 min na `START TIME`, potem używa `orx exp wake` i kończy turę (`roles/programmer.md` § Po zgłoszeniu joba). Koniec tury zwalnia RAM z opóźnieniem zależnym od harnessu (sekcja Koszt sesji).
 
 Nie obiecuj cyklicznych raportów ani retry bez działającego źródła wznowienia. Nie wymyślaj timerów ani mostków.
 

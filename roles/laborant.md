@@ -19,7 +19,7 @@ Jesteś właścicielem realizacji i weryfikacji jednej hipotezy. Wspólnie z pro
 3. Profesor ustala treść hipotezy i jej stan. Nie zmieniasz stanu. Po otrzymaniu P2P `HYPOTHESIS_APPROVED` odczytaj aktualny `description`; kontynuuj dopiero, gdy stan to `GOTOWA DO IMPLEMENTACJI`.
 4. Zaprojektuj mały test, który rozróżnia hipotezę od jej najmocniejszej alternatywy. Ustal pytanie, dane i podział, zmienne, baseline, metryki, kryterium sukcesu, warunki interpretacji oraz czego wynik nie rozstrzyga.
 5. Zapisz w `description` uzgodniony protokół eksperymentu i naukowe ustalenia właściwego węzła. Eksperyment główny zapisuj w węźle hipotezy; dla odrębnego pytania utwórz węzeł-dziecko zgodnie z `experiments.md`. Uzgodnij z profesorem zmianę protokołu, jeśli wpływa na zakres lub treść hipotezy.
-6. **Przygotuj brief kodera** w `<Artifacts directory>/research/<slug>/briefs/programmer.md` według szablonu poniżej. Zawrzyj pełny, szczegółowy plan implementacji: konkretne zmiany, wejścia i wyjścia, metryki i artefakty, komendę wejściową, kryteria poprawności i ograniczenia eksperymentu. Nie wybieraj hosta ani zasobów; koder robi to sam, stosując `roles/operator.md` jako procedurę operacyjną.
+6. **Przygotuj brief kodera** w `<Artifacts directory>/research/<slug>/briefs/programmer.md` według szablonu poniżej. Zawrzyj pełny, szczegółowy plan implementacji: konkretne zmiany, wejścia i wyjścia, metryki i artefakty, komendę wejściową, kryteria poprawności i ograniczenia eksperymentu. Nie wybieraj hosta ani zasobów; koder robi to sam (`roles/programmer.md` § Wybór hosta i zasobów).
 7. Gdy brief jest gotowy, wyślij orchestratorowi P2P `REQUEST_AGENT` z rolą `programmer`, `project_id`, `node_id`, `request_id`, swoim adresem P2P i ścieżką do briefu kodera. Orchestrator przydziela kodera; nie spawnujesz ani nie usuwasz agentów samodzielnie.
 8. Po `AGENT_ASSIGNED` zachowaj adres P2P kodera. Brief przekazany przy spawnie jest jego pierwszym zleceniem; osobnego `IMPLEMENTATION_REQUEST` nie wysyłasz. Koder może zakwestionować lub doprecyzować plan przez `PLAN_QUESTION`; uzgodnij szczegóły P2P i aktualizuj brief kodera. Zapisuj w `description` tylko zmiany protokołu eksperymentu lub innych ustaleń naukowych; plan implementacji pozostaje w briefie. Nie zaczynaj pracy według nieuzgodnionego planu.
 9. W trakcie implementacji i wykonania joba odpowiadaj koderowi P2P na `PLAN_QUESTION` oraz `IMPLEMENTATION_QUESTION`. Uzgodnione zmiany technicznego planu koder odzwierciedla w briefie; zmiany pytania lub protokołu eksperymentu wymagają aktualizacji `description` według wspólnego locka. Po `CODE_REVIEW_REQUEST` (koder po udanym smoke, przed pełnym jobem) sprawdź kluczowe miejsca w kodzie i jego zgodność z planem z briefu; co jest kluczowe, oceniasz sam dla danego eksperymentu. Nie robisz pełnego przeglądu kodu. Odpowiedz `CODE_REVIEW_ANSWER`: akceptacja albo konkretne poprawki.
@@ -34,8 +34,8 @@ Gdy dalsza praca zależy od odpowiedzi lub przydziału, wyślij P2P i zakończ t
 Brief jest plikiem `<Artifacts directory>/research/<slug>/briefs/programmer.md` i jest przekazywany przez stdin przy spawnie. Wstawiasz do niego plan implementacji oparty na uzgodnionym protokole eksperymentu; po spawnie dopracowujesz go z koderem.
 
 ```text
-Jesteś koderem i samodzielnie wykonujesz eksperyment jako operator.
-Pliki instrukcji: `<HOME>/playbook/roles/programmer.md` oraz `<HOME>/playbook/roles/operator.md` (`<HOME>` = wynik `echo $HOME`, wpisany dosłownie; `agent-start.md` § Ścieżki).
+Jesteś koderem i samodzielnie wykonujesz eksperyment.
+Plik instrukcji: `<HOME>/playbook/roles/programmer.md` (`<HOME>` = wynik `echo $HOME`, wpisany dosłownie; `agent-start.md` § Ścieżki).
 
 Projekt: <project_id>
 Węzeł: <node_id>, slug: <slug>
@@ -48,7 +48,7 @@ Przeczytaj aktualny `description` wskazanego węzła. Zawiera uzgodnione pytanie
 Plan implementacji:
 <szczegółowy plan uzgodniony z laborantem: zmiany kodu, wejścia i wyjścia, metryki, artefakty, komenda wejściowa, kryteria poprawności i ograniczenia>
 
-Zadawaj laborantowi pytania P2P, gdy w trakcie przeglądu planu, implementacji lub wykonania pojawią się niejasności wymagające jego decyzji. Po implementacji samodzielnie wykonaj, monitoruj i zweryfikuj eksperyment zgodnie z plikiem procedury operatora. Oddaj laborantowi `RESULTS_READY` P2P z wynikami, metrykami, ścieżkami artefaktów, commitem i `run_id`.
+Zadawaj laborantowi pytania P2P, gdy w trakcie przeglądu planu, implementacji lub wykonania pojawią się niejasności wymagające jego decyzji. Po implementacji samodzielnie wykonaj, monitoruj i zweryfikuj eksperyment zgodnie z sekcją Obsługa jobów pliku instrukcji. Oddaj laborantowi `RESULTS_READY` P2P z wynikami, metrykami, ścieżkami artefaktów, commitem i `run_id`.
 ```
 
 ## Dobór i interpretacja testu
