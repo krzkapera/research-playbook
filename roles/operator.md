@@ -36,11 +36,12 @@ Wszystko idzie przez orx, także na `home`: uruchamiasz wyłącznie przez `orx e
 
 1. Przed pierwszym jobem HPC przeczytaj dokumentację hosta oraz lokalne wzorce skryptów. Brief kodera i aktualny `description` określają wejścia, zależności, design, metryki oraz wymagane wyniki.
 2. Przygotuj `run.sh` i `job.sbatch` na branchu `orx/<slug>` (sekcja `job.sbatch`) i zacommituj je wraz z implementacją przed smoke/submitem. Job musi być wznawialny i zapisywać logi oraz wyniki w odrębnych lokalizacjach runu.
-3. Wykonaj smoke na początku, tuż po przygotowaniu implementacji, przez `orx exp run`. Zapisz jego `run_id`. Po sukcesie nie powtarzaj smoke dla tego eksperymentu. Po błędzie ustal przyczynę, popraw implementację lub konfigurację i ponawiaj smoke aż do sukcesu; następnie wyślij laborantowi `CODE_REVIEW_REQUEST`, a po jego akceptacji (PASS) od razu zgłoś pełny job (`roles/programmer.md` krok 6).
+3. Wykonaj smoke na początku, tuż po przygotowaniu implementacji, przez `orx exp run`. Zapisz jego `run_id`. Po sukcesie nie powtarzaj smoke dla tego eksperymentu. Po błędzie ustal przyczynę, popraw implementację lub konfigurację i ponawiaj smoke aż do sukcesu; następnie wyślij laborantowi `CODE_REVIEW_REQUEST`, a po jego akceptacji (PASS) od razu zgłoś pełny job.
 4. Uruchom pełny job przez `orx exp run <node_id> --backend slurm --host <host>` (na `home`: sekcja `home`).
 5. Po każdym zgłoszeniu — smoke i pełnego joba — postępuj według sekcji Po zgłoszeniu joba.
 6. Po wznowieniu odczytaj nowe P2P, sprawdź `orx runs`, `orx logs <run_id>` oraz pliki w `remoteRoot/runs/<runId>/`. Zweryfikuj wymagane artefakty, ich kompletność i sensowność, a nie tylko status ani exit code.
 7. Anulowanie runu własnego eksperymentu: `orx exp cancel <node_id>`. Procesu `orx supervise` nie ruszaj.
+8. Równolegle na drugiej maszynie (dotychczasowy run dalej biegnie): `orx exp run <node_id> --backend slurm --host <drugi host> --force`, bez anulowania pierwszego runu. Przeniesienie (stary run ma zniknąć): `orx exp cancel <node_id>`, potem `orx exp run <node_id> --backend slurm --host <nowy host>`.
 
 ## Po zgłoszeniu joba
 
