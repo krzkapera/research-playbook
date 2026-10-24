@@ -51,7 +51,7 @@ Z busem łączysz się wyłącznie narzędziami MCP `ai-crew-sync` własnej sesj
 
 ## Przyjęcie zlecenia
 
-Zanim przyjmiesz zlecenie (prompt spawnu, brief, `IMPLEMENTATION_REQUEST`, `REQUEST_AGENT`, `NEXT_TEST` i inne), sprawdź je krytycznie względem briefu użytkownika, pliku roli, `description` węzła i dostępnych dowodów:
+Zanim przyjmiesz zlecenie (prompt spawnu, brief, `IMPLEMENTATION_REQUEST`, `NEXT_TEST` i inne), sprawdź je krytycznie względem briefu użytkownika, pliku roli, `description` węzła i dostępnych dowodów:
 
 1. Ustal oczekiwany rezultat, zakres, odbiorcę i sposób oddania. Sprawdź, czy zlecenie wskazuje właściwy projekt, węzeł i potrzebne materiały.
 2. Sprawdź, czy cel i proponowane działanie są spójne, wykonalne w Twojej roli i zgodne z nadrzędnymi instrukcjami. Wypisz brakujące szczegóły, sprzeczne wymagania, niepoparte założenia i błędne przesłanki, które mogą zmienić wynik.
