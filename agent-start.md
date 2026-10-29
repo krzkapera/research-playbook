@@ -34,10 +34,13 @@ Przed pierwszą merytoryczną wiadomością:
 | Harness | `agent` w wyniku `whoami` |
 |---|---|
 | codex | `codex` |
+| codex2 | `codex` |
 | claude-code | `claude` |
 | cursor | `cursor` |
 | antigravity | `agy` |
 | opencode | `opencode` |
+
+Harness `codex2` to ten sam Codex na drugim koncie (osobny limit użycia). Helpera na nim uruchamiasz przez `orx agent spawn --harness codex2 …`; w dashboardzie to „Codex (2nd account)”. Na busie przedstawia się jako `codex`.
 
 Z busem łączysz się wyłącznie narzędziami MCP `ai-crew-sync` własnej sesji. Tokenów nie szukasz, konfiguracji ani zmiennych środowiskowych innych agentów nie czytasz, `ai-crew-sync client` ani cudzego tokenu nie używasz.
 
