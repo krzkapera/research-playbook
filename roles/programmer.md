@@ -138,7 +138,7 @@ Dodaj pozostałe dyrektywy zasobów potrzebne wybranemu hostowi, np. `--gres` lu
 
 ### `home`
 
-`home` nie ma Slurma. Uruchamiasz na nim przez `orx exp run <node_id> --backend ssh --host home`; backend ssh nie czyta `job.sbatch`, tylko wykonuje komendę runu węzła `cd repo 2>/dev/null; bash run.sh` (`experiments.md`), a log i kod wyjścia zapisuje sam w `home:~/.orx/runs/<runId>/`. Sprawdź komendę runu w `orx exp status <node_id>`; jeśli jest inna, zakończ turę. Venv, dane i cache trzymaj w `home:~/research/<slug>/`.
+`home` nie ma Slurma. Uruchamiasz na nim przez `orx exp run <node_id> --backend ssh --host home`; backend ssh nie czyta `job.sbatch`, tylko wykonuje komendę runu węzła `cd repo 2>/dev/null || true; bash run.sh` (`experiments.md`), a log i kod wyjścia zapisuje sam w `home:~/.orx/runs/<runId>/`. Sprawdź komendę runu w `orx exp status <node_id>`; jeśli jest inna, zakończ turę. Venv, dane i cache trzymaj w `home:~/research/<slug>/`.
 
 ## Co oddajesz
 
